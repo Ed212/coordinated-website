@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,13 +14,13 @@
             --border: #E5E7EB;
             --surface: #F9FAFB;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
             color: var(--text);
@@ -27,21 +28,21 @@
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
         }
-        
+
         /* Hero Section */
         .hero {
             background: linear-gradient(135deg, var(--primary) 0%, #1a1f3a 100%);
             color: white;
             padding: 100px 20px 80px;
             text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
+
         .hero-content {
             max-width: 800px;
             margin: 0 auto;
         }
-        
+
         .hero h1 {
             font-size: 3.5em;
             font-weight: 700;
@@ -49,36 +50,36 @@
             margin-bottom: 0.3em;
             line-height: 1.1;
         }
-        
+
         .hero .tagline {
             font-size: 1.5em;
             font-weight: 400;
-            color: rgba(255,255,255,0.85);
+            color: rgba(255, 255, 255, 0.85);
             margin-bottom: 1.5em;
             letter-spacing: -0.01em;
         }
-        
+
         .hero .mission {
             font-size: 1.15em;
-            color: rgba(255,255,255,0.7);
+            color: rgba(255, 255, 255, 0.7);
             max-width: 600px;
             margin: 0 auto;
             line-height: 1.7;
         }
-        
+
         /* Vision Statement */
         .vision {
             background: var(--surface);
             padding: 80px 20px;
             border-bottom: 1px solid var(--border);
         }
-        
+
         .vision-content {
             max-width: 900px;
             margin: 0 auto;
             text-align: center;
         }
-        
+
         .vision h2 {
             font-size: 2.5em;
             font-weight: 600;
@@ -86,14 +87,14 @@
             color: var(--primary);
             letter-spacing: -0.02em;
         }
-        
+
         .vision-statements {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             margin-top: 50px;
         }
-        
+
         .vision-card {
             background: white;
             padding: 40px;
@@ -101,30 +102,30 @@
             border: 1px solid var(--border);
             text-align: left;
         }
-        
+
         .vision-card h3 {
             font-size: 1.3em;
             margin-bottom: 0.7em;
             color: var(--accent);
             font-weight: 600;
         }
-        
+
         .vision-card p {
             color: var(--text-light);
             line-height: 1.7;
         }
-        
+
         /* Principles Section */
         .principles {
             padding: 80px 20px;
             background: white;
         }
-        
+
         .principles-content {
             max-width: 1100px;
             margin: 0 auto;
         }
-        
+
         .principles h2 {
             font-size: 2.5em;
             font-weight: 600;
@@ -133,49 +134,49 @@
             color: var(--primary);
             letter-spacing: -0.02em;
         }
-        
+
         .principles-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 40px;
             margin-top: 50px;
         }
-        
+
         .principle {
             border-left: 3px solid var(--accent);
             padding-left: 25px;
         }
-        
+
         .principle h3 {
             font-size: 1.2em;
             margin-bottom: 0.5em;
             color: var(--primary);
             font-weight: 600;
         }
-        
+
         .principle p {
             color: var(--text-light);
             line-height: 1.7;
         }
-        
+
         /* Company Info Section */
         .company-info {
             background: var(--surface);
             padding: 80px 20px;
             border-top: 1px solid var(--border);
         }
-        
+
         .company-content {
             max-width: 900px;
             margin: 0 auto;
         }
-        
+
         .company-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 50px;
         }
-        
+
         .company-section h3 {
             font-size: 1.4em;
             margin-bottom: 1.2em;
@@ -184,73 +185,73 @@
             border-bottom: 2px solid var(--accent);
             padding-bottom: 0.5em;
         }
-        
+
         .info-row {
             display: flex;
             margin-bottom: 15px;
             line-height: 1.6;
         }
-        
+
         .info-label {
             font-weight: 600;
             color: var(--text);
             min-width: 120px;
             flex-shrink: 0;
         }
-        
+
         .info-value {
             color: var(--text-light);
         }
-        
+
         .info-value a {
             color: var(--accent);
             text-decoration: none;
             border-bottom: 1px solid transparent;
             transition: border-color 0.2s;
         }
-        
+
         .info-value a:hover {
             border-bottom-color: var(--accent);
         }
-        
+
         /* Footer */
         footer {
             background: var(--primary);
-            color: rgba(255,255,255,0.7);
+            color: rgba(255, 255, 255, 0.7);
             text-align: center;
             padding: 40px 20px;
             font-size: 0.95em;
         }
-        
+
         footer p {
             margin-bottom: 10px;
         }
-        
+
         footer a {
-            color: rgba(255,255,255,0.9);
+            color: rgba(255, 255, 255, 0.9);
             text-decoration: none;
         }
-        
+
         /* Responsive */
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2.5em;
             }
-            
+
             .hero .tagline {
                 font-size: 1.2em;
             }
-            
+
             .vision h2,
             .principles h2 {
                 font-size: 2em;
             }
-            
+
             .principles-grid,
             .vision-statements {
                 grid-template-columns: 1fr;
             }
-            
+
             .company-grid {
                 grid-template-columns: 1fr;
                 gap: 40px;
@@ -258,13 +259,15 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
             <h1>COORDINATED INC</h1>
             <p class="tagline">Authority Layer for Organizational Intent</p>
-            <p class="mission">We build infrastructure to make organizational commitments explicit, trackable, and legitimate. Not task management—authority infrastructure.</p>
+            <p class="mission">We build infrastructure to make organizational commitments explicit, trackable, and
+                legitimate. Not task management—authority infrastructure.</p>
         </div>
     </section>
 
@@ -275,15 +278,18 @@
             <div class="vision-statements">
                 <div class="vision-card">
                     <h3>Source of Truth</h3>
-                    <p>If it's not in Handled, it wasn't committed. We establish what was actually promised, by whom, and when—creating an authoritative record of organizational intent.</p>
+                    <p>If it's not in Handled, it wasn't committed. We establish what was actually promised, by whom,
+                        and when—creating an authoritative record of organizational intent.</p>
                 </div>
                 <div class="vision-card">
                     <h3>System-Level Intelligence</h3>
-                    <p>When commitments slip, we explain why the system broke—not who failed. We attribute outcomes to structural friction: dependencies, capacity constraints, and coordination latency.</p>
+                    <p>When commitments slip, we explain why the system broke—not who failed. We attribute outcomes to
+                        structural friction: dependencies, capacity constraints, and coordination latency.</p>
                 </div>
                 <div class="vision-card">
                     <h3>Tamper-Evident Ledger</h3>
-                    <p>Every commitment, attestation, and renegotiation is timestamped, hashed, and append-only. We provide chain-of-custody verification for organizational decisions.</p>
+                    <p>Every commitment, attestation, and renegotiation is timestamped, hashed, and append-only. We
+                        provide chain-of-custody verification for organizational decisions.</p>
                 </div>
             </div>
         </div>
@@ -296,27 +302,38 @@
             <div class="principles-grid">
                 <div class="principle">
                     <h3>Authority Is Observed, Not Declared</h3>
-                    <p>We infer de facto authority from patterns of commitment, confirmation, and endorsement—never from org charts. Real authority reveals itself through who initiates, who confirms, and whose commitments unlock downstream work.</p>
+                    <p>We infer de facto authority from patterns of commitment, confirmation, and endorsement—never from
+                        org charts. Real authority reveals itself through who initiates, who confirms, and whose
+                        commitments unlock downstream work.</p>
                 </div>
                 <div class="principle">
                     <h3>Predictive Integrity Over Blame</h3>
-                    <p>We detect divergence early by observing whether reality is converging toward commitments. Absence of progress signals are delivered privately to commitment owners—giving them a correction window before broader visibility.</p>
+                    <p>We detect divergence early by observing whether reality is converging toward commitments. Absence
+                        of progress signals are delivered privately to commitment owners—giving them a correction window
+                        before broader visibility.</p>
                 </div>
                 <div class="principle">
                     <h3>Graceful Renegotiation</h3>
-                    <p>When priorities shift, commitments can be deprioritized, superseded, or rescoped without penalty. We help organizations clean up "Authority Debt"—outdated commitments that would otherwise fossilize.</p>
+                    <p>When priorities shift, commitments can be deprioritized, superseded, or rescoped without penalty.
+                        We help organizations clean up "Authority Debt"—outdated commitments that would otherwise
+                        fossilize.</p>
                 </div>
                 <div class="principle">
                     <h3>IC-First Design</h3>
-                    <p>Individual contributors own their commitments. Our AI acts as a personal coach, not surveillance. Health signals go to the person who made the commitment first—with time to act before escalation.</p>
+                    <p>Individual contributors own their commitments. Our AI acts as a personal coach, not surveillance.
+                        Health signals go to the person who made the commitment first—with time to act before
+                        escalation.</p>
                 </div>
                 <div class="principle">
                     <h3>Chain of Custody</h3>
-                    <p>All attestations and linked evidence are cryptographically hashed in an append-only log. Disputes never delete attestations—they create new events. The full history is always preserved.</p>
+                    <p>All attestations and linked evidence are cryptographically hashed in an append-only log. Disputes
+                        never delete attestations—they create new events. The full history is always preserved.</p>
                 </div>
                 <div class="principle">
                     <h3>Legitimacy Infrastructure</h3>
-                    <p>We're not building task management software. We're building the coordination layer that establishes what happened, what was promised, and why outcomes occurred—with audit-grade integrity.</p>
+                    <p>We're not building task management software. We're building the coordination layer that
+                        establishes what happened, what was promised, and why outcomes occurred—with audit-grade
+                        integrity.</p>
                 </div>
             </div>
         </div>
@@ -333,10 +350,6 @@
                         <span class="info-value">COORDINATED INC</span>
                     </div>
                     <div class="info-row">
-                        <span class="info-label">EIN</span>
-                        <span class="info-value">41-4063395</span>
-                    </div>
-                    <div class="info-row">
                         <span class="info-label">Incorporated</span>
                         <span class="info-value">February 2026</span>
                     </div>
@@ -349,7 +362,7 @@
                         <span class="info-value">Active development with design partners</span>
                     </div>
                 </div>
-                
+
                 <div class="company-section">
                     <h3>Leadership</h3>
                     <div class="info-row">
@@ -358,10 +371,11 @@
                     </div>
                     <div class="info-row">
                         <span class="info-label">LinkedIn</span>
-                        <span class="info-value"><a href="https://www.linkedin.com/in/edhaddad/" target="_blank" rel="noopener">linkedin.com/in/edhaddad</a></span>
+                        <span class="info-value"><a href="https://www.linkedin.com/in/edhaddad/" target="_blank"
+                                rel="noopener">linkedin.com/in/edhaddad</a></span>
                     </div>
                 </div>
-                
+
                 <div class="company-section">
                     <h3>Contact</h3>
                     <div class="info-row">
@@ -383,4 +397,5 @@
         <p>Building the coordination layer for humanity.</p>
     </footer>
 </body>
+
 </html>
