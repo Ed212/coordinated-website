@@ -1,270 +1,366 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COORDINATED INC — Authority Layer for Organizational Intent</title>
+    <title>Coordinated — Authority Layer for Organizational Intent</title>
     <style>
         :root {
-            --primary: #0A0E27;
-            --accent: #2563EB;
-            --text: #1F2937;
-            --text-light: #6B7280;
-            --border: #E5E7EB;
-            --surface: #F9FAFB;
+            --navy: #1B2A4A;
+            --blue: #4A9FD9;
+            --orange: #F5A623;
+            --light-gray: #F0F4F8;
+            --white: #FFFFFF;
+            --text-dark: #2C3E50;
+            --text-light: #5A6C7D;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
-            color: var(--text);
-            background: #ffffff;
+            color: var(--text-dark);
+            background: var(--white);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
         }
-        
+
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, var(--primary) 0%, #1a1f3a 100%);
+            background: linear-gradient(135deg, var(--navy) 0%, #2d4263 100%);
             color: white;
-            padding: 100px 20px 80px;
+            padding: 80px 20px 100px;
             text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
         }
-        
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(74, 159, 217, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(245, 166, 35, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
         .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .hero h1 {
-            font-size: 3.5em;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.3em;
-            line-height: 1.1;
-        }
-        
-        .hero .tagline {
-            font-size: 1.5em;
-            font-weight: 400;
-            color: rgba(255,255,255,0.85);
-            margin-bottom: 1.5em;
-            letter-spacing: -0.01em;
-        }
-        
-        .hero .mission {
-            font-size: 1.15em;
-            color: rgba(255,255,255,0.7);
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.7;
-        }
-        
-        /* Vision Statement */
-        .vision {
-            background: var(--surface);
-            padding: 80px 20px;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .vision-content {
             max-width: 900px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-container {
+            margin-bottom: 40px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .logo-container img {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.2));
+        }
+
+        .hero .tagline {
+            font-size: 1.8em;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 1.2em;
+            letter-spacing: -0.01em;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .hero .mission {
+            font-size: 1.2em;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        /* Vision Section */
+        .vision {
+            background: var(--light-gray);
+            padding: 100px 20px;
+        }
+
+        .vision-content {
+            max-width: 1200px;
+            margin: 0 auto;
             text-align: center;
         }
-        
+
         .vision h2 {
-            font-size: 2.5em;
-            font-weight: 600;
+            font-size: 2.8em;
+            font-weight: 700;
             margin-bottom: 0.5em;
-            color: var(--primary);
+            color: var(--navy);
             letter-spacing: -0.02em;
         }
-        
+
         .vision-statements {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+            margin-top: 60px;
         }
-        
+
         .vision-card {
             background: white;
-            padding: 40px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
+            padding: 45px 35px;
+            border-radius: 16px;
+            border: 2px solid transparent;
             text-align: left;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            position: relative;
+            overflow: hidden;
         }
-        
+
+        .vision-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--blue) 0%, var(--orange) 100%);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .vision-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+            border-color: var(--blue);
+        }
+
+        .vision-card:hover::before {
+            transform: scaleY(1);
+        }
+
         .vision-card h3 {
-            font-size: 1.3em;
-            margin-bottom: 0.7em;
-            color: var(--accent);
-            font-weight: 600;
+            font-size: 1.5em;
+            margin-bottom: 0.8em;
+            color: var(--navy);
+            font-weight: 700;
         }
-        
+
         .vision-card p {
             color: var(--text-light);
-            line-height: 1.7;
+            line-height: 1.8;
+            font-size: 1.05em;
         }
-        
+
         /* Principles Section */
         .principles {
-            padding: 80px 20px;
+            padding: 100px 20px;
             background: white;
         }
-        
+
         .principles-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .principles h2 {
+            font-size: 2.8em;
+            font-weight: 700;
+            margin-bottom: 1.2em;
+            text-align: center;
+            color: var(--navy);
+            letter-spacing: -0.02em;
+        }
+
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 50px;
+            margin-top: 60px;
+        }
+
+        .principle {
+            border-left: 4px solid var(--orange);
+            padding-left: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .principle:hover {
+            border-left-color: var(--blue);
+            transform: translateX(5px);
+        }
+
+        .principle h3 {
+            font-size: 1.35em;
+            margin-bottom: 0.6em;
+            color: var(--navy);
+            font-weight: 700;
+        }
+
+        .principle p {
+            color: var(--text-light);
+            line-height: 1.8;
+            font-size: 1.05em;
+        }
+
+        /* Company Info Section */
+        .company-info {
+            background: linear-gradient(135deg, var(--navy) 0%, #2d4263 100%);
+            padding: 100px 20px;
+            color: white;
+        }
+
+        .company-content {
             max-width: 1100px;
             margin: 0 auto;
         }
-        
-        .principles h2 {
-            font-size: 2.5em;
-            font-weight: 600;
-            margin-bottom: 1em;
-            text-align: center;
-            color: var(--primary);
-            letter-spacing: -0.02em;
-        }
-        
-        .principles-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
-        }
-        
-        .principle {
-            border-left: 3px solid var(--accent);
-            padding-left: 25px;
-        }
-        
-        .principle h3 {
-            font-size: 1.2em;
-            margin-bottom: 0.5em;
-            color: var(--primary);
-            font-weight: 600;
-        }
-        
-        .principle p {
-            color: var(--text-light);
-            line-height: 1.7;
-        }
-        
-        /* Company Info Section */
-        .company-info {
-            background: var(--surface);
-            padding: 80px 20px;
-            border-top: 1px solid var(--border);
-        }
-        
-        .company-content {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        
+
         .company-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 60px;
         }
-        
+
         .company-section h3 {
-            font-size: 1.4em;
-            margin-bottom: 1.2em;
-            color: var(--primary);
-            font-weight: 600;
-            border-bottom: 2px solid var(--accent);
-            padding-bottom: 0.5em;
+            font-size: 1.6em;
+            margin-bottom: 1.5em;
+            color: white;
+            font-weight: 700;
+            border-bottom: 3px solid var(--orange);
+            padding-bottom: 0.6em;
+            display: inline-block;
         }
-        
+
         .info-row {
             display: flex;
-            margin-bottom: 15px;
-            line-height: 1.6;
+            margin-bottom: 18px;
+            line-height: 1.7;
         }
-        
+
         .info-label {
             font-weight: 600;
-            color: var(--text);
-            min-width: 120px;
+            color: rgba(255, 255, 255, 0.9);
+            min-width: 130px;
             flex-shrink: 0;
         }
-        
+
         .info-value {
-            color: var(--text-light);
+            color: rgba(255, 255, 255, 0.75);
         }
-        
+
         .info-value a {
-            color: var(--accent);
+            color: var(--blue);
             text-decoration: none;
             border-bottom: 1px solid transparent;
-            transition: border-color 0.2s;
+            transition: all 0.2s;
         }
-        
+
         .info-value a:hover {
-            border-bottom-color: var(--accent);
+            color: var(--orange);
+            border-bottom-color: var(--orange);
         }
-        
+
         /* Footer */
         footer {
-            background: var(--primary);
-            color: rgba(255,255,255,0.7);
+            background: #0f1a2e;
+            color: rgba(255, 255, 255, 0.6);
             text-align: center;
-            padding: 40px 20px;
+            padding: 50px 20px;
             font-size: 0.95em;
         }
-        
+
         footer p {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
-        
+
         footer a {
-            color: rgba(255,255,255,0.9);
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
         }
-        
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5em;
+            .hero {
+                padding: 60px 20px 80px;
             }
-            
+
+            .logo-container img {
+                max-width: 300px;
+            }
+
             .hero .tagline {
-                font-size: 1.2em;
+                font-size: 1.4em;
             }
-            
+
+            .hero .mission {
+                font-size: 1.05em;
+            }
+
             .vision h2,
             .principles h2 {
-                font-size: 2em;
+                font-size: 2.2em;
             }
-            
+
             .principles-grid,
             .vision-statements {
                 grid-template-columns: 1fr;
+                gap: 30px;
             }
-            
+
             .company-grid {
                 grid-template-columns: 1fr;
-                gap: 40px;
+                gap: 50px;
             }
         }
     </style>
 </head>
+
 <body>
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>COORDINATED INC</h1>
+            <div class="logo-container">
+                <img src="logo.png" alt="Coordinated Logo">
+            </div>
             <p class="tagline">Authority Layer for Organizational Intent</p>
-            <p class="mission">We build infrastructure to make organizational commitments explicit, trackable, and legitimate. Not task management—authority infrastructure.</p>
+            <p class="mission">We build infrastructure to make organizational commitments explicit, trackable, and
+                legitimate. Not task management—authority infrastructure.</p>
         </div>
     </section>
 
@@ -275,15 +371,18 @@
             <div class="vision-statements">
                 <div class="vision-card">
                     <h3>Source of Truth</h3>
-                    <p>If it's not in Handled, it wasn't committed. We establish what was actually promised, by whom, and when—creating an authoritative record of organizational intent.</p>
+                    <p>If it's not in Handled, it wasn't committed. We establish what was actually promised, by whom,
+                        and when—creating an authoritative record of organizational intent.</p>
                 </div>
                 <div class="vision-card">
                     <h3>System-Level Intelligence</h3>
-                    <p>When commitments slip, we explain why the system broke—not who failed. We attribute outcomes to structural friction: dependencies, capacity constraints, and coordination latency.</p>
+                    <p>When commitments slip, we explain why the system broke—not who failed. We attribute outcomes to
+                        structural friction: dependencies, capacity constraints, and coordination latency.</p>
                 </div>
                 <div class="vision-card">
                     <h3>Tamper-Evident Ledger</h3>
-                    <p>Every commitment, attestation, and renegotiation is timestamped, hashed, and append-only. We provide chain-of-custody verification for organizational decisions.</p>
+                    <p>Every commitment, attestation, and renegotiation is timestamped, hashed, and append-only. We
+                        provide chain-of-custody verification for organizational decisions.</p>
                 </div>
             </div>
         </div>
@@ -296,27 +395,38 @@
             <div class="principles-grid">
                 <div class="principle">
                     <h3>Authority Is Observed, Not Declared</h3>
-                    <p>We infer de facto authority from patterns of commitment, confirmation, and endorsement—never from org charts. Real authority reveals itself through who initiates, who confirms, and whose commitments unlock downstream work.</p>
+                    <p>We infer de facto authority from patterns of commitment, confirmation, and endorsement—never from
+                        org charts. Real authority reveals itself through who initiates, who confirms, and whose
+                        commitments unlock downstream work.</p>
                 </div>
                 <div class="principle">
                     <h3>Predictive Integrity Over Blame</h3>
-                    <p>We detect divergence early by observing whether reality is converging toward commitments. Absence of progress signals are delivered privately to commitment owners—giving them a correction window before broader visibility.</p>
+                    <p>We detect divergence early by observing whether reality is converging toward commitments. Absence
+                        of progress signals are delivered privately to commitment owners—giving them a correction window
+                        before broader visibility.</p>
                 </div>
                 <div class="principle">
                     <h3>Graceful Renegotiation</h3>
-                    <p>When priorities shift, commitments can be deprioritized, superseded, or rescoped without penalty. We help organizations clean up "Authority Debt"—outdated commitments that would otherwise fossilize.</p>
+                    <p>When priorities shift, commitments can be deprioritized, superseded, or rescoped without penalty.
+                        We help organizations clean up "Authority Debt"—outdated commitments that would otherwise
+                        fossilize.</p>
                 </div>
                 <div class="principle">
                     <h3>IC-First Design</h3>
-                    <p>Individual contributors own their commitments. Our AI acts as a personal coach, not surveillance. Health signals go to the person who made the commitment first—with time to act before escalation.</p>
+                    <p>Individual contributors own their commitments. Our AI acts as a personal coach, not surveillance.
+                        Health signals go to the person who made the commitment first—with time to act before
+                        escalation.</p>
                 </div>
                 <div class="principle">
                     <h3>Chain of Custody</h3>
-                    <p>All attestations and linked evidence are cryptographically hashed in an append-only log. Disputes never delete attestations—they create new events. The full history is always preserved.</p>
+                    <p>All attestations and linked evidence are cryptographically hashed in an append-only log. Disputes
+                        never delete attestations—they create new events. The full history is always preserved.</p>
                 </div>
                 <div class="principle">
                     <h3>Legitimacy Infrastructure</h3>
-                    <p>We're not building task management software. We're building the coordination layer that establishes what happened, what was promised, and why outcomes occurred—with audit-grade integrity.</p>
+                    <p>We're not building task management software. We're building the coordination layer that
+                        establishes what happened, what was promised, and why outcomes occurred—with audit-grade
+                        integrity.</p>
                 </div>
             </div>
         </div>
@@ -333,10 +443,6 @@
                         <span class="info-value">COORDINATED INC</span>
                     </div>
                     <div class="info-row">
-                        <span class="info-label">EIN</span>
-                        <span class="info-value">41-4063395</span>
-                    </div>
-                    <div class="info-row">
                         <span class="info-label">Incorporated</span>
                         <span class="info-value">February 2026</span>
                     </div>
@@ -349,7 +455,7 @@
                         <span class="info-value">Active development with design partners</span>
                     </div>
                 </div>
-                
+
                 <div class="company-section">
                     <h3>Leadership</h3>
                     <div class="info-row">
@@ -358,10 +464,11 @@
                     </div>
                     <div class="info-row">
                         <span class="info-label">LinkedIn</span>
-                        <span class="info-value"><a href="https://www.linkedin.com/in/edhaddad/" target="_blank" rel="noopener">linkedin.com/in/edhaddad</a></span>
+                        <span class="info-value"><a href="https://www.linkedin.com/in/edhaddad/" target="_blank"
+                                rel="noopener">linkedin.com/in/edhaddad</a></span>
                     </div>
                 </div>
-                
+
                 <div class="company-section">
                     <h3>Contact</h3>
                     <div class="info-row">
@@ -383,4 +490,5 @@
         <p>Building the coordination layer for humanity.</p>
     </footer>
 </body>
+
 </html>
