@@ -111,10 +111,13 @@
         .logo-container {
             margin-bottom: 50px;
             animation: fadeInDown 1s ease-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .logo-container img {
-            max-width: 420px;
+            max-width: 300px;
             width: 100%;
             height: auto;
             filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.4));
@@ -123,6 +126,27 @@
 
         .logo-container img:hover {
             transform: scale(1.03);
+        }
+
+        .brand-name {
+            font-size: 2.8em;
+            font-weight: 300;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.95);
+            margin-top: 24px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .brand-name::after {
+            content: '';
+            display: block;
+            width: 60%;
+            height: 2px;
+            margin: 12px auto 0;
+            background: linear-gradient(90deg, transparent, var(--orange), var(--blue), transparent);
+            border-radius: 1px;
         }
 
         .hero .tagline {
@@ -582,7 +606,8 @@
     <section class="hero">
         <div class="hero-content">
             <div class="logo-container">
-                <img src="logo.jpg" alt="Coordinated Logo">
+                <img src="logo.png" alt="Coordinated Logo">
+                <div class="brand-name">Coordinated</div>
             </div>
             <p class="tagline"><span class="accent">Authority Layer</span> for Organizational Intent</p>
             <p class="mission">We build infrastructure to make organizational commitments explicit, trackable, and
