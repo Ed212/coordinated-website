@@ -4,8 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coordinated | Handled: Trusted Follow-Through for Enterprise Teams in Slack</title>
-    <meta name="description" content="Coordinated builds Handled, AI-native commitment capture and human ratification for enterprise teams. In Slack, it turns alignment notes and asks into explicit commitments, captured acceptance, and a trusted record of what was delivered.">
+    <title>Coordinated | Command and Receipts Layer for Enterprise Execution</title>
+    <meta name="description" content="Coordinated turns messy initiative context across Slack, Jira, GitHub, docs, and meetings into accountable commitments, routed execution, delivery evidence, and human-attested receipts.">
+    <meta property="og:title" content="Coordinated | Command and Receipts Layer for Enterprise Execution">
+    <meta property="og:description" content="Coordinated turns messy initiative context across Slack, Jira, GitHub, docs, and meetings into accountable commitments, routed execution, delivery evidence, and human-attested receipts.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://coordinatedai.ai/">
+    <meta property="og:image" content="https://coordinatedai.ai/logo.png">
+    <meta property="og:image:alt" content="Coordinated logo">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
@@ -68,7 +74,7 @@
         }
 
         .hero-content {
-            max-width: 700px;
+            max-width: 760px;
             margin: 0 auto;
             position: relative;
             z-index: 1;
@@ -112,7 +118,7 @@
             font-size: 1.15em;
             font-weight: 300;
             color: rgba(255, 255, 255, 0.7);
-            max-width: 560px;
+            max-width: 640px;
             margin: 0 auto 40px;
             line-height: 1.7;
             animation: fadeIn 0.8s ease-out 0.4s both;
@@ -145,7 +151,7 @@
         }
 
         .what-we-do-content {
-            max-width: 800px;
+            max-width: 860px;
             margin: 0 auto;
         }
 
@@ -187,6 +193,82 @@
             margin-top: 10px;
         }
 
+        /* ===== HOW IT WORKS ===== */
+        .how-it-works {
+            padding: 100px 24px;
+            background: var(--white);
+            border-top: 1px solid rgba(0, 0, 0, 0.04);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .how-content {
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        .flow-line {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 40px;
+            color: var(--navy);
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .flow-arrow {
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+            margin-bottom: 36px;
+        }
+
+        .step-card {
+            background: var(--light-gray);
+            border: 1px solid rgba(27, 42, 74, 0.08);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .step-card:last-child {
+            grid-column: 1 / -1;
+            justify-self: center;
+            max-width: 480px;
+            width: 100%;
+        }
+
+        .step-card h3 {
+            color: var(--navy);
+            font-size: 1.05em;
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+
+        .step-card p {
+            color: var(--text-mid);
+            line-height: 1.7;
+        }
+
+        .evidence-line {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 22px 24px;
+            border-left: 4px solid var(--orange);
+            border-radius: 12px;
+            background: linear-gradient(160deg, rgba(27, 42, 74, 0.05) 0%, rgba(74, 159, 217, 0.1) 100%);
+            color: var(--navy-deep);
+            font-size: 1.05em;
+            font-weight: 600;
+            line-height: 1.7;
+        }
+
         /* ===== WHO IT'S FOR ===== */
         .who-its-for {
             padding: 100px 24px;
@@ -194,7 +276,7 @@
         }
 
         .who-content {
-            max-width: 640px;
+            max-width: 760px;
             margin: 0 auto;
             text-align: center;
         }
@@ -309,20 +391,32 @@
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .hero {
-                padding: 80px 20px 100px;
+                padding: 48px 20px 72px;
                 min-height: auto;
             }
 
+            .logo-container {
+                margin-bottom: 32px;
+            }
+
             .logo-container img {
-                max-width: 180px;
+                max-width: 140px;
             }
 
             .brand-name {
-                font-size: 1.8em;
+                font-size: 1.35em;
+                letter-spacing: 0.16em;
+                margin-top: 14px;
             }
 
             .hero .tagline {
-                font-size: 1.4em;
+                font-size: 1.3em;
+                margin-bottom: 0.85em;
+            }
+
+            .hero .subtitle {
+                font-size: 1em;
+                margin-bottom: 32px;
             }
 
             .section-heading {
@@ -330,8 +424,17 @@
             }
 
             .what-we-do,
+            .how-it-works,
             .who-its-for {
                 padding: 70px 20px;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-line {
+                font-size: 0.95em;
             }
 
             .company-info {
@@ -354,39 +457,84 @@
                 <img src="logo.png" alt="Coordinated">
                 <div class="brand-name">Coordinated</div>
             </div>
-            <p class="tagline">Turn team alignment into trusted follow-through.</p>
-            <p class="subtitle">Handled is AI-native commitment capture and human ratification for enterprise teams. Inside Slack, it turns alignment notes and asks into explicit commitments, captured acceptance, and a trusted record of what was actually delivered.</p>
+            <p class="tagline">Turn strategy into verified enterprise execution.</p>
+            <p class="subtitle">Coordinated is the command and receipts layer for enterprise teams. It turns messy initiative context across Slack, Jira, docs, and meetings into accountable commitments, routed execution, delivery evidence, and human-attested receipts.</p>
             <a href="mailto:ed@coordinatedai.ai" class="cta-button">Request Early Access</a>
         </div>
     </section>
 
     <!-- What We Do -->
-    <section class="what-we-do">
+    <section class="what-we-do" id="what-we-do">
         <div class="what-we-do-content">
             <h2 class="section-heading">What We Do</h2>
             <ul class="bullet-list">
                 <li>
                     <span class="bullet-icon"></span>
-                    <span>Capture commitments where work already happens</span>
+                    <span>Canonicalize messy initiative context into clear commitments</span>
                 </li>
                 <li>
                     <span class="bullet-icon"></span>
-                    <span>Make acceptance and ownership explicit</span>
+                    <span>Route accepted commitments to the right owners and execution systems</span>
                 </li>
                 <li>
                     <span class="bullet-icon"></span>
-                    <span>Give teams a trusted record of follow-through without another status ritual</span>
+                    <span>Pull delivery evidence back from Jira, GitHub, docs, and Slack</span>
+                </li>
+                <li>
+                    <span class="bullet-icon"></span>
+                    <span>Preserve the human-attested receipt of what became real</span>
                 </li>
             </ul>
         </div>
     </section>
 
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="how-content">
+            <h2 class="section-heading">How It Works</h2>
+            <div class="flow-line" aria-label="Canonicalize to Attest workflow">
+                <span>Canonicalize</span>
+                <span class="flow-arrow">&rarr;</span>
+                <span>Ratify</span>
+                <span class="flow-arrow">&rarr;</span>
+                <span>Route</span>
+                <span class="flow-arrow">&rarr;</span>
+                <span>Collect Evidence</span>
+                <span class="flow-arrow">&rarr;</span>
+                <span>Attest</span>
+            </div>
+            <div class="steps-grid">
+                <article class="step-card">
+                    <h3>Canonicalize</h3>
+                    <p>Turn messy initiative context into a clear execution packet.</p>
+                </article>
+                <article class="step-card">
+                    <h3>Ratify</h3>
+                    <p>Humans accept, correct, or reject accountable commitments.</p>
+                </article>
+                <article class="step-card">
+                    <h3>Route</h3>
+                    <p>Send accepted work to the right owners and systems.</p>
+                </article>
+                <article class="step-card">
+                    <h3>Collect Evidence</h3>
+                    <p>Pull status, PRs, links, and delivery signals back into Coordinated.</p>
+                </article>
+                <article class="step-card">
+                    <h3>Attest</h3>
+                    <p>The requester verifies what actually became real.</p>
+                </article>
+            </div>
+            <p class="evidence-line">Jira closure is evidence. A merged PR is evidence. Human attestation is the receipt.</p>
+        </div>
+    </section>
+
     <!-- Who It's For -->
-    <section class="who-its-for">
+    <section class="who-its-for" id="who-its-for">
         <div class="who-content">
             <h2 class="section-heading">Who It's For</h2>
-            <p>Handled is for Chiefs of Staff, operations leaders, and cross-functional teams at growing companies where important asks, approvals, and handoffs happen in Slack. If your team ships through reviews, dependencies, and constant follow-up, Handled gives you a reliable coordination layer without turning work into generic task tracking.</p>
-            <a href="mailto:ed@coordinatedai.ai" class="cta-button-outline">Apply for Early Access</a>
+            <p>Coordinated is for Chiefs of Staff, BizOps leaders, program owners, and cross-functional operators responsible for high-stakes initiatives. If your team ships through reviews, dependencies, approvals, Jira, GitHub, docs, and constant follow-up, Coordinated gives you one trusted receipt trail without becoming another task tool.</p>
+            <a href="mailto:ed@coordinatedai.ai" class="cta-button-outline">Request Early Access</a>
         </div>
     </section>
 
