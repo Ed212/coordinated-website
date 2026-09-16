@@ -1,48 +1,28 @@
 # Design QA
 
-**Comparison setup**
+## Comparison setup
 
-- Source visual truth: `/Users/edhaddad/Developer/Coordinated Website/herov2/hero_v2.png`
-- Source pixels: 2880 × 2240 at 2× density, normalized to 1440 × 1120 for comparison.
 - Implementation: `http://127.0.0.1:4173/`
-- Implementation screenshot: `/Users/edhaddad/Documents/Codex/2026-09-15/referenced-chatgpt-conversation-this-is-an/work/coordinated-v2/qa-implementation-desktop.png`
-- Implementation pixels and CSS viewport: 1440 × 1120 at 1× density.
-- State: desktop, page top, propagation complete.
-- Full-view comparison: `/Users/edhaddad/Documents/Codex/2026-09-15/referenced-chatgpt-conversation-this-is-an/work/coordinated-v2/qa-comparison-full.png`
-- Focused hero comparison: `/Users/edhaddad/Documents/Codex/2026-09-15/referenced-chatgpt-conversation-this-is-an/work/coordinated-v2/qa-comparison-hero.png`
-- Primary interactions tested: all four anchor destinations and the replay form's successful email-fallback state.
-- Browser console errors: none.
+- Desktop viewport: 1280 × 900.
+- Tablet viewport: 768 × 900.
+- Mobile viewport: 390 × 844.
+- Reviewed states: hero, all three feature rows, Evidence audience band, Replay sample and form, empty/format errors, successful email handoff, and all three artifact overlays.
+- Acceptance screenshots: `coordinated-1280-{hero,how,replay}.png` and `coordinated-390-{hero,how,replay}.png` in the task outputs directory.
 
-**Findings**
+## Final findings
 
-- No actionable P0, P1, or P2 visual mismatches remain.
-- Fonts and typography: Inter 400/500/600, the 54px headline, line breaks, weights, tracking, and tabular numerals match the source and brief.
-- Spacing and layout rhythm: the 96px change line, 128px content origin, 700px hero, 428 × 330 change card, section spacing, radii, and shadows match the measured reference.
-- Colors and visual tokens: graphite, white, off-white, border, muted tones, and changed red are mapped exactly. The fixed `#D2463E` token measures 4.48:1 against white in Lighthouse for small changed-value text; the token was preserved because the brief forbids changing it, and the resulting accessibility score is 95.
-- Image quality and asset fidelity: the supplied SVG artwork remains vector. Receipt, Slack, and brief crops have their ruled-paper and margin-line backgrounds removed. The light mark is exact geometry extracted from the supplied Hero V2 source.
-- Copy and content: the hero and reference copy match exactly. Below the hero, the implementation intentionally proceeds to Why while the abbreviated source board previews Evidence; this follows the requested page order.
-- Responsiveness: 390px mobile is single-column, has no horizontal overflow, hides the change line, and keeps the product card and form usable.
+- No actionable P0, P1, or P2 visual or interaction mismatches remain.
+- Typography: Inter 400/500/600, sentence case, tabular numerals, requested hierarchy, and mobile wrapping are preserved.
+- Layout and spacing: sections use 72px vertical padding on desktop and 48px on mobile. Labels have a 28px content gap. At 1280px, all feature artifacts measure 635px with a 64px gutter and alternate as specified.
+- Responsiveness: 390px and 768px show no horizontal overflow. The red margin rule is hidden below 900px. Feature copy precedes each artifact, and mobile controls use 44px or larger targets (the checkbox uses its 44px associated label).
+- Color and surfaces: off-white appears only on How it works; all other sections remain white or graphite. Changed values alone use the brand red. Cards retain the requested border, radius, and shadow.
+- Assets: receipt and brief remain SVG and use viewBox crops rather than redraws. The change card is HTML. The supplied logo marks are reused without modification.
+- Interactions: propagation replay stays in place, all artifact overlays close by button or Escape, the file control is keyboard labeled, and all requested inline validation states work.
+- Accessibility: the initial count is `aria-hidden`; the final count remains exposed. Reduced motion removes the animation and the initial visual state. Lighthouse mobile accessibility is 95. The sole failing audit is the fixed `#D2463E` brand red at 4.48:1 against white, which was not altered because the design system forbids deviation.
+- Performance: critical hero CSS is inlined while the full stylesheet loads asynchronously. Lighthouse mobile performance is 100, with 0.9s FCP and 1.3s LCP.
 
-**Open Questions**
+## Open item
 
-- None.
-
-**Comparison History**
-
-- Pass 1: the hero copy column was 40px too narrow, the product card sat 17px low, and the supplied supporting SVGs still showed ruled-paper backgrounds.
-- Fixes: widened the copy track to 700px, aligned the card at y=150, matched the specified desktop line breaks, and generated clean vector crops from the supplied SVGs.
-- Post-fix evidence: the final full and focused comparisons show aligned hero geometry, matching typography, clean supporting artwork, and no remaining P0/P1/P2 drift.
-
-**Implementation Checklist**
-
-- Exact desktop and mobile layouts verified.
-- Final propagation state verified.
-- Replay success state verified.
-- Source assets and crop quality verified.
-- Lighthouse mobile performance and accessibility thresholds met.
-
-**Follow-up Polish**
-
-- None required for this brief.
+- The privacy retention sentence was intentionally not added. The current mailto-only handoff cannot technically enforce deletion; product-owner confirmation of the manual retention process is required first.
 
 final result: passed

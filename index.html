@@ -10,34 +10,67 @@
   <meta property="og:description" content="When the plan changes, everyone who depends on it knows the same day.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://coordinatedai.ai/">
-  <meta property="og:image" content="herov2/hero_v2.png">
-  <link rel="icon" type="image/png" sizes="64x64" href="Brand%20assets/favicon_64.png">
-  <link rel="icon" type="image/svg+xml" href="Brand%20assets/mark_dark.svg">
+  <meta property="og:image" content="https://coordinatedai.ai/herov2/og-hero-1200x630.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <link rel="icon" type="image/png" sizes="64x64" href="brand/favicon_64.png">
+  <link rel="icon" type="image/svg+xml" href="brand/mark_dark.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="styles.css">
+  <style>
+    @property --propagation{syntax:"<number>";inherits:true;initial-value:0}
+    :root{--graphite:#0B0D12;--white:#FFF;--border:#E6E8EC;--ink:#0B0D12;--muted:#5F6673;--muted-dark:#A3A8B3;--changed:#D2463E;color:var(--ink);background:var(--white);font-family:Inter,Helvetica,Arial,sans-serif;font-feature-settings:"tnum" 1;font-variant-numeric:tabular-nums}
+    *{box-sizing:border-box;font-feature-settings:inherit;font-variant-numeric:inherit}
+    body{position:relative;min-width:320px;margin:0;color:var(--ink);background:var(--white);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+    body::before{position:absolute;z-index:5;inset:0 auto 0 96px;width:1px;content:"";background:var(--changed);pointer-events:none}
+    a{color:inherit;text-underline-offset:4px}img{display:block;max-width:100%;height:auto}button,input{font:inherit}h1,h2,h3,h4,p{margin-top:0}[hidden]{display:none}
+    .skip-link{position:fixed;z-index:60;top:12px;left:12px;padding:9px 13px;color:var(--white);background:var(--graphite);transform:translateY(-180%)}
+    .page-container{width:min(calc(100% - 256px),1184px);margin-inline:auto}
+    .hero-band{min-height:700px;color:var(--white);background-color:var(--graphite);background-image:linear-gradient(to right,rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.045) 1px,transparent 1px);background-size:48px 48px}
+    .site-header{min-height:104px;display:flex;align-items:center;justify-content:space-between;gap:32px}
+    .brand{display:inline-flex;align-items:center;gap:12px;color:inherit;font-size:20px;font-weight:500;text-decoration:none;white-space:nowrap}.brand img{border-radius:8px}
+    .site-header nav{display:flex;align-items:center;gap:28px}.site-header nav>a:not(.nav-cta){color:var(--muted-dark);font-size:15px;text-decoration:none}
+    .nav-cta{min-height:44px;display:inline-flex;align-items:center;color:var(--white);font-size:15px;font-weight:500;text-decoration:none}
+    .hero{min-height:456px;display:grid;grid-template-columns:minmax(0,1.08fr) 428px;align-items:center;gap:72px;padding:38px 0 44px}
+    .hero h1{max-width:16ch;margin-bottom:28px;font-size:52px;font-weight:500;line-height:1.08;letter-spacing:-1.8px}.hero-copy>p{max-width:62ch;margin-bottom:28px;color:var(--muted-dark);font-size:19px;line-height:1.38}
+    .hero-actions{display:flex;align-items:center;gap:22px}.button{min-height:52px;display:inline-flex;align-items:center;justify-content:center;padding:13px 28px;border:1px solid transparent;border-radius:8px;font-size:16px;font-weight:500;text-decoration:none}.button-light{color:var(--ink);background:var(--white)}.hero-actions .button{min-width:282px}
+    .text-link{min-height:44px;display:inline-flex;align-items:center;padding:0;border:0;color:var(--white);background:transparent;font-size:16px;font-weight:500;cursor:pointer}
+    .change-card{--propagation:1;width:428px;min-height:330px;padding:18px 20px 16px;border-radius:12px;color:var(--ink);background:var(--white)}.hero-change-card{box-shadow:0 18px 44px rgba(0,0,0,.45)}.hero-change-card.is-propagating{--propagation:0;animation:propagate 1.4s cubic-bezier(.22,.7,.2,1) 1 both}@keyframes propagate{from{--propagation:0}to{--propagation:1}}
+    .app-header{display:flex;align-items:center;gap:9px;margin-bottom:13px;font-size:15px}.app-header img{border-radius:6px}.app-header strong{font-weight:600}.app-badge{margin-left:-3px;padding:1px 5px 2px;border-radius:3px;color:var(--muted);background:var(--border);font-size:10px;font-weight:600}.app-header time{color:var(--muted);font-size:12px}
+    .change-card h2{margin-bottom:9px;font-size:18px;font-weight:600;line-height:1.2}.change-card>p:not(.propagation-label):not(.propagation-counts){margin-bottom:5px;font-size:15px;line-height:1.4}.changed-value{color:var(--changed)}.change-card .changed-value{opacity:clamp(0,calc(var(--propagation)*4 - .4),1)}.muted-inline,.card-muted{color:var(--muted)}
+    .propagation-label{margin:31px 0 7px;color:var(--muted);font-size:11px;font-weight:500}.propagation-strip{display:grid;grid-template-columns:84px 12px 84px 12px 84px 12px 84px;align-items:center}.propagation-node{min-height:28px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:6px;background:var(--white);font-size:11px;font-weight:500;white-space:nowrap}.propagation-node-active{border-color:var(--changed);color:var(--white);background:var(--changed)}.propagation-connector{position:relative;height:1.5px;overflow:hidden;background:var(--border)}.propagation-connector::after{position:absolute;inset:0;content:"";background:var(--changed);transform:scaleX(var(--propagation));transform-origin:left}
+    .propagation-counts{position:relative;min-height:16px;margin:8px 0 7px;color:var(--muted);font-size:11px}.counts-initial,.counts-final{position:absolute;inset:0 auto auto 0;white-space:nowrap}.counts-initial{opacity:clamp(0,calc(1 - var(--propagation)*4),1)}.counts-final{opacity:clamp(0,calc(var(--propagation)*5 - 4),1)}
+    .card-actions{display:flex;gap:10px}.card-actions button{min-height:44px;padding:7px 12px;border:1px solid var(--border);border-radius:6px;color:var(--ink);background:var(--white);font-size:14px;font-weight:500}
+    .trust-strip{min-height:140px;display:grid;grid-template-columns:1fr .82fr 1.2fr;align-content:start;gap:28px;padding-top:29px;border-top:1px solid rgba(255,255,255,.12)}.trust-strip p{display:flex;gap:10px;margin:0;color:var(--muted-dark);font-size:14px;line-height:1.45}
+    @media(max-width:1100px){.page-container{width:calc(100% - 160px)}.hero{grid-template-columns:minmax(0,1fr) 400px;gap:42px}.hero h1{font-size:46px}.hero-change-card{width:400px}.site-header nav>a:not(.nav-cta){display:none}}
+    @media(max-width:899px){body::before{display:none}.page-container{width:calc(100% - 40px)}.site-header{min-height:84px}.site-header .brand{min-height:44px;font-size:18px}.site-header .brand img{width:34px;height:34px}.hero{min-height:0;grid-template-columns:1fr;gap:48px;padding:52px 0 48px}.hero h1{max-width:17ch;margin-bottom:24px;font-size:36px;line-height:1.13}.hero-copy>p{font-size:17px;line-height:1.55}.desktop-break{display:none}.hero-change-card{width:100%;max-width:428px;justify-self:start}.trust-strip{min-height:0;grid-template-columns:1fr;gap:13px;padding:24px 0 42px}}
+    @media(max-width:520px){.site-header{gap:16px}.site-header .nav-cta{max-width:158px;text-align:right}.hero-actions{flex-direction:column;align-items:flex-start}.hero-change-card{min-height:352px;padding-inline:16px}.propagation-strip{grid-template-columns:minmax(0,1.2fr) 5px minmax(0,1fr) 5px minmax(0,.7fr) 5px minmax(0,.8fr)}.propagation-node{min-width:0;font-size:9px}.counts-final{white-space:normal}.card-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.card-actions button{padding-inline:6px;font-size:12px}}
+    @media(prefers-reduced-motion:reduce){.hero-change-card.is-propagating{--propagation:1;animation:none}.hero-change-card .counts-initial{display:none}}
+  </style>
+  <link rel="preload" as="style" href="styles.css" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="styles.css"></noscript>
   <script src="site.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <main id="main">
-  <div class="hero-band" id="top">
-    <header class="site-header page-container">
-      <a class="brand brand-on-dark" href="#top" aria-label="Coordinated home">
-        <img src="Brand%20assets/mark_light.svg" width="40" height="40" alt="">
-        <span>Coordinated</span>
-      </a>
-      <nav aria-label="Primary navigation">
-        <a href="#why">Why</a>
-        <a href="#how">How it works</a>
-        <a href="#evidence">Evidence</a>
-        <a class="button button-light button-small" href="#replay">Send us your last launch doc</a>
-      </nav>
-    </header>
+    <div class="hero-band" id="top">
+      <header class="site-header page-container">
+        <a class="brand brand-on-dark" href="#top" aria-label="Coordinated home">
+          <img src="brand/mark_light.svg" width="40" height="40" alt="">
+          <span>Coordinated</span>
+        </a>
+        <nav aria-label="Primary navigation">
+          <a href="#why">Why</a>
+          <a href="#how">How it works</a>
+          <a href="#evidence">Evidence</a>
+          <a class="nav-cta" href="#replay">Send us your last launch doc <span aria-hidden="true">→</span></a>
+        </nav>
+      </header>
 
       <section class="hero page-container" aria-labelledby="hero-title">
         <div class="hero-copy">
@@ -45,13 +78,13 @@
           <p>Version control for what your company has agreed:<br class="desktop-break"> scope, dates, owners, authority. Humans and agents read it<br class="desktop-break"> before they act. Your code has a repo. Your plan doesn't.</p>
           <div class="hero-actions">
             <a class="button button-light" href="#replay">Send us your last launch doc</a>
-            <a class="text-link" href="#how">See a change propagate <span aria-hidden="true">→</span></a>
+            <button class="text-link propagation-replay" id="propagation-replay" type="button">See it propagate <span aria-hidden="true">→</span></button>
           </div>
         </div>
 
-        <article class="hero-change-card" aria-label="Atlas launch change notification">
+        <article class="change-card hero-change-card is-propagating" id="hero-change-card" aria-label="Atlas launch change notification">
           <div class="app-header">
-            <img src="Brand%20assets/mark_dark.svg" width="30" height="30" alt="">
+            <img src="brand/mark_dark.svg" width="30" height="30" alt="">
             <strong>Coordinated</strong>
             <span class="app-badge">APP</span>
             <time datetime="09:12">9:12 AM</time>
@@ -72,7 +105,7 @@
             <span class="propagation-node">Support</span>
           </div>
           <p class="propagation-counts" aria-live="polite">
-            <span class="counts-initial">0 confirmed</span>
+            <span class="counts-initial" aria-hidden="true">0 confirmed</span>
             <span class="counts-final">3 confirmed · 1 confirmation pending · 1 decision with Priya</span>
           </p>
           <div class="card-actions" aria-label="Available responses">
@@ -88,50 +121,94 @@
         <p><span aria-hidden="true"></span>Nothing stored beyond the reply</p>
         <p><span aria-hidden="true"></span>Built for 50–300-person software companies</p>
       </div>
-  </div>
+    </div>
 
     <section class="page-section surface-white" id="why" aria-labelledby="why-title">
       <div class="page-container">
         <h2 class="section-label" id="why-title">Why</h2>
-        <div class="prose-copy">
-          <p>The launch moved on a Tuesday. By Thursday, sales was quoting the old date, marketing had a page queued for a feature that no longer existed, and nobody had lied or forgotten. The plan changed and nothing told the people executing the old version.</p>
-          <p>Tools are good at reminding. None of them do invalidation, because none of them recorded what each person actually agreed to.</p>
-          <p>Then the executors started to include agents, and an agent will execute a superseded plan perfectly. It can't overhear that the launch moved.</p>
+        <div class="why-layout">
+          <div class="prose-copy">
+            <p>The launch moved on a Tuesday. By Thursday, sales was quoting the old date, marketing had a page queued for a feature that no longer existed, and nobody had lied or forgotten. The plan changed and nothing told the people executing the old version.</p>
+            <p>Tools are good at reminding. None of them do invalidation, because none of them recorded what each person actually agreed to.</p>
+            <p>Then the executors started to include agents, and an agent will execute a superseded plan perfectly. It can't overhear that the launch moved.</p>
+          </div>
+          <aside class="why-evidence" aria-label="Coordination evidence">
+            <p class="why-evidence-value">87%</p>
+            <p>say there's no capacity to coordinate once everyone is executing.</p>
+            <a href="https://www.atlassian.com/blog/state-of-teams-2026" target="_blank" rel="noopener noreferrer">Atlassian State of Teams · 12,000 workers · 2026</a>
+          </aside>
         </div>
       </div>
     </section>
 
-    <section class="page-section surface-off-white" id="how" aria-labelledby="how-title">
+    <section class="page-section surface-off-white how-section" id="how" aria-labelledby="how-title">
       <div class="page-container">
         <h2 class="section-label" id="how-title">How it works</h2>
-        <div class="how-grid">
-          <article class="how-item">
-            <div class="how-copy">
+        <div class="feature-rows">
+          <article class="feature-row">
+            <div class="feature-copy">
               <h3>The plan is a record.</h3>
               <p>Every commitment has an owner, a date, a scope, and the people who depend on it.</p>
             </div>
-            <div class="asset-card asset-card-tall">
-              <img src="Brand%20assets/receipt_clean.svg" alt="A commitment receipt: two parties, one version" width="700" height="812" loading="lazy">
+            <div class="feature-artifact">
+              <div class="asset-card feature-receipt">
+                <img src="brand/receipt_feature.svg" alt="A commitment receipt: two parties, one version" width="700" height="630" loading="lazy">
+              </div>
+              <button class="open-full-size" type="button" data-overlay-src="brand/receipt_clean.svg" data-overlay-alt="A full commitment receipt: two parties, one version">Open full size</button>
             </div>
           </article>
 
-          <article class="how-item">
-            <div class="how-copy">
+          <article class="feature-row feature-row-reverse">
+            <div class="feature-copy">
               <h3>A change goes to the people it affects.</h3>
               <p>Not a broadcast. Each person gets their own delta and confirms, proposes a date, or says they're blocked.</p>
             </div>
-            <div class="asset-card asset-card-slack">
-              <img src="Brand%20assets/slack_change_card_clean.svg" alt="A Slack card: The Atlas launch moved" width="780" height="250" loading="lazy">
+            <div class="feature-artifact">
+              <article class="change-card feature-change-card" id="feature-change-card" aria-label="Atlas launch change notification example">
+                <div class="app-header">
+                  <img src="brand/mark_dark.svg" width="30" height="30" alt="">
+                  <strong>Coordinated</strong>
+                  <span class="app-badge">APP</span>
+                  <time datetime="09:12">9:12 AM</time>
+                </div>
+                <h4>The Atlas launch moved</h4>
+                <p>Oct 15 → <span class="changed-value">Oct 29</span><span class="muted-inline"> · approved by Priya, Oct 3</span></p>
+                <p>Your enablement deliverable: Oct 9 → <span class="changed-value">Oct 24</span></p>
+                <p class="card-muted">Acme's date is contractual and doesn't move.</p>
+                <p class="propagation-label">Who this change reached</p>
+                <div class="propagation-strip" aria-label="Engineering, Marketing, Sales, and Support reached by the change">
+                  <span class="propagation-node propagation-node-active">Engineering</span>
+                  <span class="propagation-connector" aria-hidden="true"></span>
+                  <span class="propagation-node">Marketing</span>
+                  <span class="propagation-connector" aria-hidden="true"></span>
+                  <span class="propagation-node">Sales</span>
+                  <span class="propagation-connector" aria-hidden="true"></span>
+                  <span class="propagation-node">Support</span>
+                </div>
+                <p class="propagation-counts">
+                  <span class="counts-initial" aria-hidden="true">0 confirmed</span>
+                  <span class="counts-final">3 confirmed · 1 confirmation pending · 1 decision with Priya</span>
+                </p>
+                <div class="card-actions" aria-label="Available responses">
+                  <button type="button">Works for me</button>
+                  <button type="button">Propose a date</button>
+                  <button type="button">Blocked</button>
+                </div>
+              </article>
+              <button class="open-full-size" type="button" data-overlay-card="#feature-change-card">Open full size</button>
             </div>
           </article>
 
-          <article class="how-item">
-            <div class="how-copy">
+          <article class="feature-row">
+            <div class="feature-copy">
               <h3>The review starts with what changed.</h3>
               <p>A brief generated from records: what was approved, who hasn't confirmed, which rules fail, what needs a decision.</p>
             </div>
-            <div class="asset-card asset-card-tall">
-              <img src="Brand%20assets/brief_clean.svg" alt="A pre-review brief" width="812" height="888" loading="lazy">
+            <div class="feature-artifact">
+              <div class="asset-card feature-brief">
+                <img src="brand/brief_feature.svg" alt="A pre-review brief" width="800" height="450" loading="lazy">
+              </div>
+              <button class="open-full-size" type="button" data-overlay-src="brand/brief_clean.svg" data-overlay-alt="A full pre-review brief">Open full size</button>
             </div>
           </article>
         </div>
@@ -144,7 +221,7 @@
         <h2 class="section-label" id="evidence-title">Evidence</h2>
         <div class="stats">
           <article class="stat">
-            <p class="stat-value">Half</p>
+            <p class="stat-value">Under half</p>
             <p>of committed sprint work ships when promised.</p>
             <a href="https://linearb.io/resources/quickstart-guide-planning-accuracy" target="_blank" rel="noopener noreferrer">LinearB · 2,000+ engineering teams</a>
           </article>
@@ -160,13 +237,9 @@
           </article>
         </div>
         <p class="section-note evidence-close">The slip isn't the problem we fix. What happens in the hours after it is.</p>
-      </div>
-    </section>
-
-    <section class="page-section surface-off-white" aria-labelledby="audience-title">
-      <div class="page-container">
-        <h2 class="section-label" id="audience-title">Who it's for</h2>
-        <p class="audience-copy">Software companies of 50 to 300 people that run on Slack and Linear, with separate owners for engineering, marketing, and sales, and a launch or planning reset coming up. If a Slack post reliably tells everyone what changed, you don't need this yet.</p>
+        <div class="audience-band">
+          <p>Software companies of 50 to 300 people that run on Slack and Linear, with separate owners for engineering, marketing, and sales, and a launch or planning reset coming up. If a Slack post reliably tells everyone what changed, you don't need this yet.</p>
+        </div>
       </div>
     </section>
 
@@ -175,44 +248,76 @@
         <div class="replay-copy">
           <h2 id="replay-title">Send us your last launch doc.</h2>
           <p>Send the planning doc from your last launch or comp cycle. Within a day you'll get back what would have been flagged and when: which teams depended on which dates, which buffers collapsed, which decisions were made late. Reviewed by a person, not an automated report. Nothing is stored beyond the reply.</p>
+
+          <div class="replay-sample" aria-label="Sample replay">
+            <h3>Replay: your last launch</h3>
+            <section>
+              <h4>Dates that moved</h4>
+              <p>Staging freeze: Oct 1 → <span class="changed-value">Oct 10</span>. Three teams depended on it.</p>
+            </section>
+            <section>
+              <h4>Buffers that collapsed</h4>
+              <p>Enablement asset lock: 10 days → <span class="changed-value">3 days</span>.</p>
+            </section>
+            <section>
+              <h4>Decisions made late</h4>
+              <p>Announcement scope decided Oct 12, six days after the slip.</p>
+            </section>
+            <section>
+              <h4>Who found out when</h4>
+              <p>Marketing: Oct 8, by asking. Sales: launch week.</p>
+            </section>
+          </div>
+          <p class="sample-note">Sample. Yours is built from your document and reviewed by a person.</p>
         </div>
 
         <form id="replay-form" class="replay-form" novalidate>
           <div class="field-row">
             <div class="field">
               <label for="name">Name</label>
-              <input id="name" name="name" autocomplete="name" required>
+              <input id="name" name="name" autocomplete="name" required aria-describedby="name-error">
+              <p class="field-error" id="name-error" hidden>Enter your name.</p>
             </div>
             <div class="field">
               <label for="email">Work email</label>
-              <input id="email" name="email" type="email" autocomplete="email" required>
+              <input id="email" name="email" type="email" autocomplete="email" required aria-describedby="email-error">
+              <p class="field-error" id="email-error" hidden>Enter a valid work email.</p>
             </div>
           </div>
 
           <div class="field">
             <label for="company">Company</label>
-            <input id="company" name="company" autocomplete="organization" required>
+            <input id="company" name="company" autocomplete="organization" required aria-describedby="company-error">
+            <p class="field-error" id="company-error" hidden>Enter your company.</p>
           </div>
 
           <fieldset>
             <legend>Share a file or link</legend>
             <div class="share-grid">
-              <div class="field">
-                <label for="document">File</label>
-                <input id="document" name="document" type="file" accept=".pdf,.docx,.md,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/markdown">
-                <p class="field-note">pdf/docx/md, ≤10MB</p>
+              <div class="field file-field">
+                <input class="file-input" id="document" name="document" type="file" accept=".pdf,.docx,.md,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/markdown" aria-describedby="document-caption document-error share-error">
+                <label class="drop-zone" id="drop-zone" for="document">
+                  <span id="drop-zone-text">Drop a file here or choose one</span>
+                </label>
+                <p class="field-note" id="document-caption">pdf/docx/md, ≤10MB</p>
+                <p class="field-error" id="document-error" hidden>Choose a file no larger than 10MB.</p>
               </div>
               <div class="field">
                 <label for="link">Link</label>
-                <input id="link" name="link" type="url" inputmode="url" autocomplete="url" placeholder="https://">
+                <input id="link" name="link" type="url" inputmode="url" autocomplete="url" placeholder="https://" aria-describedby="link-error share-error">
+                <p class="field-error" id="link-error" hidden>Enter a complete link.</p>
               </div>
             </div>
+            <p class="field-error share-error" id="share-error" hidden>Add a file or link.</p>
           </fieldset>
 
-          <label class="checkbox" for="authorized">
-            <input id="authorized" name="authorized" type="checkbox" required>
-            <span>I'm authorized to share this document.</span>
-          </label>
+          <div>
+            <label class="checkbox" for="authorized">
+              <input id="authorized" name="authorized" type="checkbox" required aria-describedby="authorized-error">
+              <span>I'm authorized to share this document.</span>
+            </label>
+            <p class="field-error" id="authorized-error" hidden>Confirm that you're authorized to share this document.</p>
+          </div>
 
           <button class="button button-dark" type="submit">Send it</button>
           <p class="form-status" id="form-status" role="status" aria-live="polite" hidden>Received. You'll hear back within one business day.</p>
@@ -224,7 +329,7 @@
   <footer class="site-footer">
     <div class="page-container footer-grid">
       <div class="brand brand-on-dark">
-        <img src="Brand%20assets/mark_light.svg" width="36" height="36" alt="">
+        <img src="brand/mark_light.svg" width="36" height="36" alt="">
         <span>Coordinated</span>
       </div>
       <nav aria-label="Footer navigation">
@@ -235,5 +340,16 @@
       <p>Built in the Bay Area.</p>
     </div>
   </footer>
+
+  <div class="artifact-overlay" id="artifact-overlay" role="dialog" aria-modal="true" aria-labelledby="overlay-title" hidden>
+    <div class="artifact-overlay-backdrop" data-overlay-close></div>
+    <div class="artifact-overlay-panel">
+      <div class="artifact-overlay-header">
+        <h2 id="overlay-title">Artifact preview</h2>
+        <button type="button" class="overlay-close" data-overlay-close>Close</button>
+      </div>
+      <div class="artifact-overlay-content" id="artifact-overlay-content"></div>
+    </div>
+  </div>
 </body>
 </html>

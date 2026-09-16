@@ -1,0 +1,60 @@
+<svg height='630' viewBox='100 24 700 630' width='700' xmlns='http://www.w3.org/2000/svg'>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<g transform='translate(126,40) scale(0.078125)'>
+  <rect fill='#0B0D12' height='512' rx='104' width='512'/>
+  <g fill='none' stroke='#FFFFFF' stroke-linecap='round' stroke-width='30'>
+    <path d='M 176 118 C 176 218, 256 218, 256 296'/><path d='M 336 118 C 336 218, 256 218, 256 296'/>
+    <line x1='256' x2='256' y1='296' y2='404'/></g>
+  <circle cx='256' cy='296' fill='#D2463E' r='34'/></g>
+<text fill='#0B0D12' font-family='Inter, Helvetica, Arial, sans-serif' font-size='20' font-weight='500' letter-spacing='-0.4' text-anchor='start' x='178' y='69'>Coordinated</text>
+<text fill='#0B0D12' font-family='Inter, Helvetica, Arial, sans-serif' font-size='32' font-weight='500' letter-spacing='-0.8' text-anchor='start' x='126' y='140'>Commitment receipt</text>
+<text fill='#5F6673' font-family='Inter, Helvetica, Arial, sans-serif' font-size='13' font-weight='400' text-anchor='start' x='126' y='212'>Deliverable</text>
+<text fill='#0B0D12' font-family='Inter, Helvetica, Arial, sans-serif' font-size='19' font-weight='400' text-anchor='start' x='300' y='212'>Staging API for Atlas, Okta and Entra ID</text>
+<text fill='#5F6673' font-family='Inter, Helvetica, Arial, sans-serif' font-size='13' font-weight='400' text-anchor='start' x='126' y='264'>Requested by</text>
+<text fill='#0B0D12' font-family='Inter, Helvetica, Arial, sans-serif' font-size='19' font-weight='400' text-anchor='start' x='300' y='264'>Maya Chen, Product</text>
+<text fill='#5F6673' font-family='Inter, Helvetica, Arial, sans-serif' font-size='13' font-weight='400' text-anchor='start' x='126' y='316'>Accepted by</text>
+<text fill='#0B0D12' font-family='Inter, Helvetica, Arial, sans-serif' font-size='19' font-weight='400' text-anchor='start' x='300' y='316'>Sarah Tran, Engineering</text>
+<text fill='#5F6673' font-family='Inter, Helvetica, Arial, sans-serif' font-size='13' font-weight='400' text-anchor='start' x='126' y='368'>Due</text>
+<text fill='#0B0D12' font-family='Inter, Helvetica, Arial, sans-serif' font-size='19' font-weight='400' text-anchor='start' x='300' y='368'>Wednesday, October 15, 2026</text>
+<text fill='#5F6673' font-family='Inter, Helvetica, Arial, sans-serif' font-size='13' font-weight='400' text-anchor='start' x='126' y='420'>Buffer</text>
+<text fill='#0B0D12' font-family='Inter, Helvetica, Arial, sans-serif' font-size='19' font-weight='400' text-anchor='start' x='300' y='420'>10 days before enablement (October 25)</text>
+<text fill='#5F6673' font-family='Inter, Helvetica, Arial, sans-serif' font-size='13' font-weight='400' text-anchor='start' x='126' y='472'>Condition</text>
+<text fill='#0B0D12' font-family='Inter, Helvetica, Arial, sans-serif' font-size='19' font-weight='400' text-anchor='start' x='300' y='472'>Security review scope unchanged</text>
+<text fill='#5F6673' font-family='Inter, Helvetica, Arial, sans-serif' font-size='13' font-weight='400' text-anchor='start' x='126' y='524'>Depends on</text>
+<text fill='#0B0D12' font-family='Inter, Helvetica, Arial, sans-serif' font-size='19' font-weight='400' text-anchor='start' x='300' y='524'>Schema lock, accepted October 1</text>
+<text fill='#5F6673' font-family='Inter, Helvetica, Arial, sans-serif' font-size='13' font-weight='400' text-anchor='start' x='126' y='576'>Effective</text>
+<text fill='#0B0D12' font-family='Inter, Helvetica, Arial, sans-serif' font-size='19' font-weight='400' text-anchor='start' x='300' y='576'>October 15, 2026</text>
+<text fill='#5F6673' font-family='Inter, Helvetica, Arial, sans-serif' font-size='13' font-weight='400' text-anchor='start' x='126' y='628'>Recorded</text>
+<text fill='#0B0D12' font-family='Inter, Helvetica, Arial, sans-serif' font-size='19' font-weight='400' text-anchor='start' x='300' y='628'>September 14, 2026 · 14:02 PT</text>
+<text fill='#5F6673' font-family='Inter, Helvetica, Arial, sans-serif' font-size='13' font-weight='400' text-anchor='start' x='126' y='680'>Version</text>
+<text fill='#0B0D12' font-family='DejaVu Sans Mono, Menlo, monospace' font-size='17' font-weight='400' text-anchor='start' x='300' y='680'>4f1a90e1</text>
+<circle cx='134' cy='744' fill='#D2463E' r='6'/>
+<text fill='#0B0D12' font-family='Inter, Helvetica, Arial, sans-serif' font-size='15' font-weight='500' text-anchor='start' x='150' y='750'>Accepted. Two parties, one version.</text>
+<text fill='#5F6673' font-family='Inter, Helvetica, Arial, sans-serif' font-size='13' font-weight='400' text-anchor='start' x='126' y='790'>This receipt records what was accepted, by whom, and when. It does not predict delivery.</text>
+<text fill='#5F6673' font-family='Inter, Helvetica, Arial, sans-serif' font-size='13' font-weight='400' text-anchor='start' x='126' y='812'>If any term above changes, both parties are asked again.</text></svg>
