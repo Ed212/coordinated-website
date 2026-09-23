@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <style>
+    *{box-sizing:border-box}html,body{margin:0;overflow:hidden;background:#FBFBF8}.frame,.clip{position:relative;overflow:hidden;background:#FBFBF8}.frame img{position:absolute;max-width:none;height:auto}
+  </style>
+</head>
+<body>
+  <div class="frame"><div class="clip"><img alt=""></div></div>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const type = params.get("type");
+    const index = Number(params.get("index"));
+    const frame = document.querySelector(".frame");
+    const clip = document.querySelector(".clip");
+    const image = document.querySelector("img");
+
+    if (type === "narrative") {
+      document.documentElement.style.width = "1600px";
+      document.documentElement.style.height = "1200px";
+      document.body.style.width = "1600px";
+      document.body.style.height = "1200px";
+      frame.style.width = "1600px";
+      frame.style.height = "1200px";
+      clip.style.width = "1200px";
+      clip.style.height = "1200px";
+      clip.style.marginLeft = "200px";
+      image.src = "source-narrative-triptych.png";
+      image.style.width = "3600px";
+      image.style.height = "1200px";
+      image.style.left = `${-(index * 1200)}px`;
+      image.style.top = "0";
+    } else {
+      document.documentElement.style.width = "800px";
+      document.documentElement.style.height = "800px";
+      document.body.style.width = "800px";
+      document.body.style.height = "800px";
+      frame.style.width = "800px";
+      frame.style.height = "800px";
+      clip.style.width = "800px";
+      clip.style.height = "800px";
+      image.src = "source-moments-sheet.png";
+      image.style.width = "2400px";
+      image.style.height = "1600px";
+      image.style.left = `${-(index % 3) * 800}px`;
+      image.style.top = `${-Math.floor(index / 3) * 800}px`;
+    }
+  </script>
+</body>
+</html>

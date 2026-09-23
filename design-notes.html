@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Design notes — Coordinated</title>
+  <meta name="description" content="Sitemap, concepts, motion, components, source facts and asset notes for the Coordinated marketing site.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#FBFBF8">
+  <link rel="icon" type="image/svg+xml" href="brand/mark_dark.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="notes">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header ledger-boundary">
+    <a class="brand" href="index.html" aria-label="Coordinated home"><img src="brand/mark_dark.svg" width="36" height="36" alt=""><span>Coordinated</span></a>
+    <nav class="primary-nav" aria-label="Primary navigation"><a href="index.html">Homepage</a><a href="use-cases.html">Use cases</a><a href="pilot-evidence.html">Evidence</a><a href="design-notes.html" aria-current="page">Design notes</a></nav>
+  </header>
+
+  <main id="main">
+    <section class="subpage-hero ledger-section">
+      <div class="ledger-boundary"><p class="section-number">Appendix / Design record</p><h1>The site is a record before it is a campaign.</h1><p>The visual system uses ledger structure, a single changed fact in red, and real HTML product cards. Claims stay bracketed until a pilot supplies evidence.</p><a class="page-nav-back" href="index.html">← Back to the homepage</a></div>
+    </section>
+
+    <div class="ledger-boundary notes-page">
+      <section class="notes-section" aria-labelledby="sitemap-title">
+        <h2 id="sitemap-title">Sitemap and rationale</h2>
+        <div class="notes-content"><p><strong>Homepage</strong> establishes the category, demonstrates one change, explains the record, and ends with the pilot and trust boundary. <strong>Use cases</strong> gives operators six complete moments with cards and provenance. <strong>Pilot evidence</strong> defines measurement before results exist. <strong>Design notes</strong> keeps the design choices, prompts and source ledger inspectable.</p><p>The separation keeps the homepage crisp while giving a diligence-minded buyer enough detail to verify how the product behaves and how a pilot will be judged.</p></div>
+      </section>
+
+      <section class="notes-section" aria-labelledby="concepts-title">
+        <h2 id="concepts-title">Three hero concepts</h2>
+        <div class="notes-content">
+          <h3>01 · Editorial and calm — built</h3><pre class="wireframe">┌ announcement proof ─────────────────────┐
+│ headline + promise │ real Slack card    │
+│ two actions        │ on ledger drawing │
+└ trust boundary ─────────────────────────┘</pre><p>Chosen because it makes the product object legible in the first viewport and matches the quiet authority of the voice. The generated field supports the card without pretending to be the product.</p>
+          <h3>02 · Kinetic instrument</h3><pre class="wireframe">red margin records scroll
+v1 ───── v2 ───── v3
+headline shifts only when terms change</pre><p>The red margin would become a live version timeline. Rejected for launch because the mechanism would compete with the card before visitors understand what is being recorded.</p>
+          <h3>03 · Monday-to-Tuesday narrative</h3><pre class="wireframe">Mon Oct 5, 9:14 AM · forecast
+↓ cards reach Sarah and Marco
+Tue Oct 6, 9:05 AM · decision receipt</pre><p>The full hero would advance from forecast to decision as the visitor scrolls. Rejected because it delays the one-line category explanation and depends on motion for comprehension.</p>
+        </div>
+      </section>
+
+      <section class="notes-section" aria-labelledby="headlines-title">
+        <h2 id="headlines-title">Headline alternatives</h2>
+        <div class="notes-content"><ol><li>Every affected owner answers before the date moves.</li><li>The current plan starts with what people accepted.</li><li>Changes reach the people whose work depends on them.</li><li>What changed, who answered, what became real.</li><li>The next review opens with the current terms.</li></ol><p>Each stays under twelve words and avoids software-development vocabulary.</p></div>
+      </section>
+
+      <section class="notes-section" aria-labelledby="interaction-title">
+        <h2 id="interaction-title">Signature interaction</h2>
+        <div class="notes-content"><h3>Reader receipt — built</h3><p>As major sections enter view, the receipt near the bottom records their labels and prints a weekday-stamped local time. The state stays in the browser and is never sent; it turns the site's own principle into an interaction without inventing product capability.</p><h3>Ideas not built</h3><ul><li><strong>Draggable date:</strong> useful, but recomputing affected owners from fictional dependencies risks making a deterministic demo look like a product claim.</li><li><strong>Scroll-scrubbed red margin:</strong> expressive, but it would make the change color decorative.</li><li><strong>Hover-only moment cards:</strong> compact on desktop, but it hides essential content from keyboard and touch users.</li></ul></div>
+      </section>
+
+      <section class="notes-section" aria-labelledby="motion-title">
+        <h2 id="motion-title">Motion specification</h2>
+        <div class="notes-content"><table class="asset-table"><thead><tr><th>Object</th><th>Trigger</th><th>Motion</th><th>Fallback</th></tr></thead><tbody><tr><td>Pinned narrative</td><td>Step enters center viewport</td><td>420 ms crossfade; 260 ms step emphasis</td><td>Final settled frame, no transition</td></tr><tr><td>Moment index</td><td>Row enters center viewport</td><td>Active rule and background update in 0 ms</td><td>Same static active state</td></tr><tr><td>Reader receipt</td><td>Section reaches 28% visibility</td><td>Text row added with no spatial animation</td><td>Same immediate update</td></tr><tr><td>Card answer</td><td>Button activation</td><td>Pressed border/background state</td><td>Same immediate state</td></tr></tbody></table></div>
+      </section>
+
+      <section class="notes-section" aria-labelledby="components-title">
+        <h2 id="components-title">Component and copy deck</h2>
+        <div class="notes-content"><ul><li>Announcement bar: <code>[PILOT PROOF POINT] →</code></li><li>Hero statement, verbatim promise, two actions and HTML change card</li><li>Three-item trust ribbon and three “why” cards with inline SVG tiles</li><li>Three-step pinned record narrative with crossfading generated frames</li><li>Dark category statement</li><li>Six-moment sticky index, question, answer, provenance and outcome rows</li><li>Three sourced statistics and interpretation line</li><li>Placeholder case study with bracketed proof fields</li><li>Three-step pilot start and three-part trust boundary</li><li>Reader receipt and shared footer</li><li>Use-case card, pilot measure and evidence readout components</li></ul></div>
+      </section>
+
+      <section class="notes-section" aria-labelledby="visuals-title">
+        <h2 id="visuals-title">Visual system and assets</h2>
+        <div class="notes-content"><p><strong>Style sentence:</strong> precise ink-line drawings on warm ledger paper with one red element for the changed fact, no gradients and no glow.</p><p>Every generated asset, alt text and exact prompt is recorded in <a href="ASSET-PROMPTS.md"><code>ASSET-PROMPTS.md</code></a>. Product cards are HTML, never images. The existing two-track mark is reused unchanged.</p><table class="asset-table"><thead><tr><th>Set</th><th>Files</th><th>Use</th></tr></thead><tbody><tr><td>Hero</td><td><code>hero-ledger.jpg</code></td><td>Atmospheric field behind the HTML card</td></tr><tr><td>Narrative</td><td><code>narrative-01.jpg</code> through <code>03</code></td><td>Three matching scroll states</td></tr><tr><td>Moments</td><td><code>moment-01.jpg</code> through <code>06</code></td><td>Use-case spot illustrations</td></tr><tr><td>Evidence</td><td><code>case-study-placeholder.jpg</code></td><td>Explicit placeholder, no invented proof</td></tr><tr><td>Social</td><td><code>og-coordinated.png</code></td><td>1200 × 630 Open Graph card</td></tr></tbody></table></div>
+      </section>
+
+      <section class="notes-section" aria-labelledby="facts-title">
+        <h2 id="facts-title">Fact ledger</h2>
+        <div class="notes-content"><ul><li>“Half of committed sprint work ships when promised” — LinearB, 2,000+ engineering teams.</li><li>“45% of product launches slip by a month or more” — Gartner product-manager survey.</li><li>“87% say there is no capacity to coordinate once everyone is executing” — Atlassian State of Teams 2026, 12,000 workers.</li><li>All Northgate, Atlas, Acme, people, dates and cards are fictional examples supplied or constructed for product demonstration; they are not customer evidence.</li><li>All pilot outcomes, quotes, names and measures remain bracketed placeholders.</li></ul></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="ledger-boundary footer-grid"><a class="brand brand-footer" href="index.html"><img src="brand/mark_light.svg" width="36" height="36" alt=""><span>Coordinated</span></a><nav aria-label="Footer navigation"><a href="index.html">Homepage</a><a href="use-cases.html">Use cases</a><a href="pilot-evidence.html">Evidence</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav><p>Design record · Wed Sep 23, 2026</p></div></footer>
+</body>
+</html>
