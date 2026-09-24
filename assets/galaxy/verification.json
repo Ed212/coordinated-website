@@ -1,0 +1,151 @@
+{
+  "landscape-native-master-1485x825.png": {
+    "dimensions": [
+      1485,
+      825
+    ],
+    "mode": "RGB",
+    "bytes": 1682166,
+    "decoded": true,
+    "red_point_centroid": [
+      920.556,
+      370.933
+    ]
+  },
+  "landscape-native-master-1485x825.webp": {
+    "dimensions": [
+      1485,
+      825
+    ],
+    "mode": "RGB",
+    "bytes": 99888,
+    "decoded": true,
+    "red_point_centroid": [
+      920.694,
+      371.163
+    ]
+  },
+  "landscape-native-source-1681x936.png": {
+    "dimensions": [
+      1681,
+      936
+    ],
+    "mode": "RGB",
+    "bytes": 2123840,
+    "decoded": true,
+    "red_point_centroid": [
+      1111.556,
+      444.933
+    ]
+  },
+  "landscape-upscaled-2880x1600.png": {
+    "dimensions": [
+      2880,
+      1600
+    ],
+    "mode": "RGB",
+    "bytes": 4915976,
+    "decoded": true,
+    "red_point_centroid": [
+      1785.926,
+      719.983
+    ]
+  },
+  "landscape-upscaled-2880x1600.webp": {
+    "dimensions": [
+      2880,
+      1600
+    ],
+    "mode": "RGB",
+    "bytes": 195220,
+    "decoded": true,
+    "red_point_centroid": [
+      1785.857,
+      720.027
+    ]
+  },
+  "og-1200x630.png": {
+    "dimensions": [
+      1200,
+      630
+    ],
+    "mode": "RGB",
+    "bytes": 1013011,
+    "decoded": true
+  },
+  "portrait-native-master-888x1332.png": {
+    "dimensions": [
+      888,
+      1332
+    ],
+    "mode": "RGB",
+    "bytes": 1074576,
+    "decoded": true,
+    "top_40_percent_min_white_contrast": 7.0047,
+    "red_point_centroid": [
+      550.918,
+      599.016
+    ]
+  },
+  "portrait-upscaled-1600x2400.png": {
+    "dimensions": [
+      1600,
+      2400
+    ],
+    "mode": "RGB",
+    "bytes": 2651496,
+    "decoded": true,
+    "top_40_percent_min_white_contrast": 6.3562,
+    "red_point_centroid": [
+      993.041,
+      1079.648
+    ]
+  },
+  "portrait-upscaled-1600x2400.webp": {
+    "dimensions": [
+      1600,
+      2400
+    ],
+    "mode": "RGB",
+    "bytes": 108010,
+    "decoded": true,
+    "top_40_percent_min_white_contrast": 5.8037,
+    "red_point_centroid": [
+      992.064,
+      1079.512
+    ]
+  },
+  "starfield-2880x1600.png": {
+    "dimensions": [
+      2880,
+      1600
+    ],
+    "mode": "RGBA",
+    "bytes": 551756,
+    "decoded": true,
+    "transparent_pixel_fraction": 0.94016,
+    "alpha_range": [
+      0,
+      252
+    ],
+    "alpha_components_threshold_2_min_area_4": 254
+  },
+  "starfield-2880x1600.webp": {
+    "dimensions": [
+      2880,
+      1600
+    ],
+    "mode": "RGBA",
+    "bytes": 143602,
+    "decoded": true,
+    "transparent_pixel_fraction": 0.94016,
+    "alpha_range": [
+      0,
+      252
+    ],
+    "alpha_components_threshold_2_min_area_4": 254
+  },
+  "alpha_encoding": {
+    "PNG_WebP_alpha_identical": true
+  }
+}

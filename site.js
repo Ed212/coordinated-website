@@ -1,4 +1,53 @@
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const desktopMotion = window.matchMedia("(min-width: 768px)");
+const clamp = (value, minimum = 0, maximum = 1) => Math.min(maximum, Math.max(minimum, value));
+
+const hero = document.querySelector("[data-hero]");
+const heroGalaxy = document.querySelector(".hero-galaxy");
+const heroStarfield = document.querySelector(".hero-starfield");
+const heroConnector = document.querySelector(".hero-connector");
+const heroConnectorPath = document.querySelector("[data-hero-connector]");
+const heroCardTitle = document.querySelector("[data-hero-card-title]");
+const landscapeHeroAlt = "Illustration: Two interacting spiral galaxies with pale tidal tails converging on a bright shared core marked by a tiny red point, against deep black space.";
+const portraitHeroAlt = "Illustration: Two merging galaxies with a tiny red shared core and pale tails sweeping from the left, beneath a dark, open upper field.";
+
+function updateHero() {
+  if (!hero || !heroGalaxy || !heroStarfield) return;
+  heroGalaxy.alt = desktopMotion.matches ? landscapeHeroAlt : portraitHeroAlt;
+
+  if (reduceMotion.matches || !desktopMotion.matches) {
+    heroGalaxy.style.transform = "none";
+    heroStarfield.style.transform = "none";
+  } else {
+    const heroRect = hero.getBoundingClientRect();
+    const progress = clamp(-heroRect.top / Math.max(window.innerHeight, 1));
+    heroGalaxy.style.transform = `scale(${1 + (progress * 0.05)}) rotate(${progress * 2.5}deg)`;
+    heroStarfield.style.transform = `scale(${1 + (progress * 0.08)}) rotate(${progress * 4}deg) translate3d(0, ${progress * -10}px, 0)`;
+  }
+
+  if (!heroConnector || !heroConnectorPath || !heroCardTitle || !desktopMotion.matches) return;
+  const heroRect = hero.getBoundingClientRect();
+  const titleRect = heroCardTitle.getBoundingClientRect();
+  const startX = heroRect.width * 0.62011;
+  const startY = heroRect.height * 0.45;
+  const endX = titleRect.left - heroRect.left;
+  const endY = titleRect.top - heroRect.top + Math.min(titleRect.height / 2, 14);
+  const bend = Math.max(36, (endX - startX) * 0.45);
+
+  heroConnector.setAttribute("viewBox", `0 0 ${heroRect.width} ${heroRect.height}`);
+  heroConnectorPath.setAttribute("d", `M ${startX} ${startY} C ${startX + bend} ${startY}, ${endX - 34} ${endY}, ${endX} ${endY}`);
+}
+
+let pageTicking = false;
+function queuePageMotion() {
+  if (pageTicking) return;
+  pageTicking = true;
+  requestAnimationFrame(() => {
+    updateHero();
+    updateNarrativeFlow();
+    pageTicking = false;
+  });
+}
 
 document.querySelectorAll("[data-card-answer]").forEach((button) => {
   button.setAttribute("aria-pressed", "false");
@@ -11,9 +60,12 @@ document.querySelectorAll("[data-card-answer]").forEach((button) => {
 });
 
 const narrativeSteps = [...document.querySelectorAll("[data-narrative-step]")];
-const narrativeFrames = [...document.querySelectorAll("[data-narrative-frame]")];
 const narrativeProgress = document.querySelector("[data-narrative-progress]");
 const narrativeVisual = document.querySelector(".narrative-visual");
+const narrativeGalaxy = document.querySelector("[data-narrative-galaxy]");
+const narrativeFlows = [...document.querySelectorAll(".tail-flow")];
+const narrativeCardTitle = document.querySelector("[data-narrative-card-title]");
+const narrativeVersion = document.querySelector("[data-narrative-version]");
 const narrativeCaptions = [
   "Source sentences remain attached to every proposed term.",
   "Two named owners receive one card each; the changed date is the only red fact.",
@@ -22,7 +74,9 @@ const narrativeCaptions = [
 
 function setNarrativeStep(index) {
   narrativeSteps.forEach((step, stepIndex) => step.classList.toggle("is-active", stepIndex === index));
-  narrativeFrames.forEach((frame, frameIndex) => frame.classList.toggle("is-active", frameIndex === index));
+  if (narrativeGalaxy) narrativeGalaxy.dataset.narrativeState = String(index);
+  if (narrativeCardTitle) narrativeCardTitle.textContent = index === 2 ? "Decided Tue Oct 6, 9:05 AM" : "Staging may slip";
+  if (narrativeVersion) narrativeVersion.textContent = index === 2 ? "v2" : "v1";
 
   if (narrativeProgress) {
     narrativeProgress.textContent = `0${index + 1} / 03`;
@@ -35,7 +89,16 @@ function setNarrativeStep(index) {
   }
 }
 
-if (narrativeSteps.length && !reduceMotion.matches) {
+function updateNarrativeFlow() {
+  if (!narrativeSteps.length || !narrativeFlows.length || reduceMotion.matches || !desktopMotion.matches) return;
+  const firstStepRect = narrativeSteps[0].getBoundingClientRect();
+  const flow = clamp(((window.innerHeight * 0.82) - firstStepRect.top) / (window.innerHeight * 0.6));
+  narrativeFlows.forEach((path) => {
+    path.style.strokeDashoffset = String(1 - flow);
+  });
+}
+
+if (narrativeSteps.length) {
   let narrativeTicking = false;
   let narrativeSettleTimer;
   const updateNarrativeFromScroll = () => {
@@ -48,6 +111,7 @@ if (narrativeSteps.length && !reduceMotion.matches) {
       .sort((a, b) => a.distance - b.distance)[0];
 
     setNarrativeStep(Number(closest.step.dataset.narrativeStep));
+    updateNarrativeFlow();
     narrativeTicking = false;
   };
 
@@ -64,6 +128,20 @@ if (narrativeSteps.length && !reduceMotion.matches) {
 
   updateNarrativeFromScroll();
 }
+
+if (narrativeGalaxy && !reduceMotion.matches && desktopMotion.matches && "IntersectionObserver" in window) {
+  const galaxyObserver = new IntersectionObserver((entries) => {
+    if (!entries.some((entry) => entry.isIntersecting)) return;
+    narrativeGalaxy.classList.add("has-entered");
+    galaxyObserver.disconnect();
+  }, { threshold: 0.3 });
+  galaxyObserver.observe(narrativeGalaxy);
+}
+
+window.addEventListener("scroll", queuePageMotion, { passive: true });
+window.addEventListener("resize", queuePageMotion, { passive: true });
+updateHero();
+updateNarrativeFlow();
 
 const momentRows = [...document.querySelectorAll("[data-moment-row]")];
 const momentLinks = [...document.querySelectorAll("[data-moment-link]")];
@@ -126,5 +204,3 @@ if (receiptItems) {
     receiptSections.forEach((section) => receiptObserver.observe(section));
   }
 }
-
-if (reduceMotion.matches) setNarrativeStep(2);

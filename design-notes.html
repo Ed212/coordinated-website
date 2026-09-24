@@ -22,7 +22,7 @@
 
   <main id="main">
     <section class="subpage-hero ledger-section">
-      <div class="ledger-boundary"><p class="section-number">Appendix / Design record</p><h1>The site is a record before it is a campaign.</h1><p>The visual system uses ledger structure, a single changed fact in red, and real HTML product cards. Claims stay bracketed until a pilot supplies evidence.</p><a class="page-nav-back" href="index.html">← Back to the homepage</a></div>
+      <div class="ledger-boundary"><p class="section-number">Appendix / Design record</p><h1>The site is a record before it is a campaign.</h1><p>The visual system uses documentary galaxy imagery, one red point of change, and real HTML product cards. Claims stay bracketed until a pilot supplies evidence.</p><a class="page-nav-back" href="index.html">← Back to the homepage</a></div>
     </section>
 
     <div class="ledger-boundary notes-page">
@@ -34,10 +34,10 @@
       <section class="notes-section" aria-labelledby="concepts-title">
         <h2 id="concepts-title">Three hero concepts</h2>
         <div class="notes-content">
-          <h3>01 · Editorial and calm — built</h3><pre class="wireframe">┌ announcement proof ─────────────────────┐
-│ headline + promise │ real Slack card    │
-│ two actions        │ on ledger drawing │
-└ trust boundary ─────────────────────────┘</pre><p>Chosen because it makes the product object legible in the first viewport and matches the quiet authority of the voice. The generated field supports the card without pretending to be the product.</p>
+          <h3>01 · Documentary galaxy — built</h3><pre class="wireframe">┌ announcement proof ─────────────────────┐
+│ headline + promise │ shared red core    │
+│ two actions        │ real Slack card    │
+└ trust boundary ─────────────────────────┘</pre><p>Chosen because one visible point of change can connect the category statement to the product card without turning red into decoration. The dark exposure leaves the copy quiet and makes the card remain the concrete product object.</p>
           <h3>02 · Kinetic instrument</h3><pre class="wireframe">red margin records scroll
 v1 ───── v2 ───── v3
 headline shifts only when terms change</pre><p>The red margin would become a live version timeline. Rejected for launch because the mechanism would compete with the card before visitors understand what is being recorded.</p>
@@ -59,17 +59,17 @@ Tue Oct 6, 9:05 AM · decision receipt</pre><p>The full hero would advance from 
 
       <section class="notes-section" aria-labelledby="motion-title">
         <h2 id="motion-title">Motion specification</h2>
-        <div class="notes-content"><table class="asset-table"><thead><tr><th>Object</th><th>Trigger</th><th>Motion</th><th>Fallback</th></tr></thead><tbody><tr><td>Pinned narrative</td><td>Step enters center viewport</td><td>420 ms crossfade; 260 ms step emphasis</td><td>Final settled frame, no transition</td></tr><tr><td>Moment index</td><td>Row enters center viewport</td><td>Active rule and background update in 0 ms</td><td>Same static active state</td></tr><tr><td>Reader receipt</td><td>Section reaches 28% visibility</td><td>Text row added with no spatial animation</td><td>Same immediate update</td></tr><tr><td>Card answer</td><td>Button activation</td><td>Pressed border/background state</td><td>Same immediate state</td></tr></tbody></table></div>
+        <div class="notes-content"><table class="asset-table"><thead><tr><th>Object</th><th>Trigger</th><th>Motion</th><th>Fallback</th></tr></thead><tbody><tr><td>Hero galaxy</td><td>First viewport scroll</td><td>2.5° rotation and 5% push; starfield responds at 1.6×</td><td>Still image; phone removes the starfield</td></tr><tr><td>Pinned narrative</td><td>Step enters center viewport</td><td>Tail streams, two owner labels, title and v1 → v2 receipt state</td><td>Three static states; no streams or pulse</td></tr><tr><td>Moment index</td><td>Row enters center viewport</td><td>Active rule and background update in 0 ms</td><td>Same static active state</td></tr><tr><td>Reader receipt</td><td>Section reaches 28% visibility</td><td>Text row added with no spatial animation</td><td>Same immediate update</td></tr><tr><td>Card answer</td><td>Button activation</td><td>Pressed border/background state</td><td>Same immediate state</td></tr></tbody></table></div>
       </section>
 
       <section class="notes-section" aria-labelledby="components-title">
         <h2 id="components-title">Component and copy deck</h2>
-        <div class="notes-content"><ul><li>Announcement bar: <code>[PILOT PROOF POINT] →</code></li><li>Hero statement, verbatim promise, two actions and HTML change card</li><li>Three-item trust ribbon and three “why” cards with inline SVG tiles</li><li>Three-step pinned record narrative with crossfading generated frames</li><li>Dark category statement</li><li>Six-moment sticky index, question, answer, provenance and outcome rows</li><li>Three sourced statistics and interpretation line</li><li>Placeholder case study with bracketed proof fields</li><li>Three-step pilot start and three-part trust boundary</li><li>Reader receipt and shared footer</li><li>Use-case card, pilot measure and evidence readout components</li></ul></div>
+        <div class="notes-content"><ul><li>Announcement bar: <code>[PILOT PROOF POINT] →</code></li><li>Galaxy hero, verbatim promise, two actions and HTML change card</li><li>Three-item trust ribbon and three “why” cards with inline SVG tiles</li><li>Three-step pinned galaxy narrative with exact tail paths and a live receipt card</li><li>Dark category statement</li><li>Six-moment sticky index, question, answer, provenance and outcome rows</li><li>Three sourced statistics and interpretation line</li><li>Placeholder case study with bracketed proof fields</li><li>Three-step pilot start and three-part trust boundary</li><li>Reader receipt and shared footer</li><li>Use-case card, pilot measure and evidence readout components</li></ul></div>
       </section>
 
       <section class="notes-section" aria-labelledby="visuals-title">
         <h2 id="visuals-title">Visual system and assets</h2>
-        <div class="notes-content"><p><strong>Style sentence:</strong> precise ink-line drawings on warm ledger paper with one red element for the changed fact, no gradients and no glow.</p><p>Every generated asset, alt text and exact prompt is recorded in <a href="ASSET-PROMPTS.md"><code>ASSET-PROMPTS.md</code></a>. Product cards are HTML, never images. The existing two-track mark is reused unchanged.</p><table class="asset-table"><thead><tr><th>Set</th><th>Files</th><th>Use</th></tr></thead><tbody><tr><td>Hero</td><td><code>hero-ledger.jpg</code></td><td>Atmospheric field behind the HTML card</td></tr><tr><td>Narrative</td><td><code>narrative-01.jpg</code> through <code>03</code></td><td>Three matching scroll states</td></tr><tr><td>Moments</td><td><code>moment-01.jpg</code> through <code>06</code></td><td>Use-case spot illustrations</td></tr><tr><td>Evidence</td><td><code>case-study-placeholder.jpg</code></td><td>Explicit placeholder, no invented proof</td></tr><tr><td>Social</td><td><code>og-coordinated.png</code></td><td>1200 × 630 Open Graph card</td></tr></tbody></table></div>
+        <div class="notes-content"><p><strong>Style sentence:</strong> documentary deep-exposure galaxies in warm monochrome against ink-black space, with one tiny red point at the shared core.</p><p>The active asset set, alt text, exact prompts, geometry and verification results are recorded in <code>assets/galaxy/</code>. Product cards remain HTML, never screenshots. The existing two-track mark is reused unchanged.</p><table class="asset-table"><thead><tr><th>Set</th><th>Files</th><th>Use</th></tr></thead><tbody><tr><td>Hero</td><td><code>landscape-*.webp</code>, <code>portrait-*.webp</code></td><td>Responsive dark hero; PNG masters excluded from runtime</td></tr><tr><td>Parallax</td><td><code>starfield-2880x1600.webp</code></td><td>Desktop foreground stars, hidden on phone</td></tr><tr><td>Geometry</td><td><code>*-paths.svg</code>, <code>*-anchors.json</code></td><td>Core connector and three narrative beats</td></tr><tr><td>Evidence</td><td>HTML placeholder</td><td>Explicit placeholder, no invented proof</td></tr><tr><td>Social</td><td><code>og-1200x630.png</code></td><td>1200 × 630 Open Graph card</td></tr></tbody></table></div>
       </section>
 
       <section class="notes-section" aria-labelledby="facts-title">

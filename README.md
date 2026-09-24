@@ -41,8 +41,8 @@ Keep every published date in weekday-month-day format, for example `Tue Oct 6`. 
 
 ## Assets
 
-Generated assets live in `assets/generated/`. Alt text and exact regeneration prompts are in `ASSET-PROMPTS.md`. The supplied mark files in `brand/mark_dark.svg` and `brand/mark_light.svg` are reused unchanged.
+The active hero system lives in `assets/galaxy/`. Runtime delivery uses the quality-94 WebPs; the landscape and phone PNG masters remain in the source archive and are intentionally excluded from the site build. The Open Graph PNG, path SVGs, anchors, alt text, prompts and verification results are kept with the runtime assets. Earlier generated supporting assets remain in `assets/generated/`, with provenance in `ASSET-PROMPTS.md`.
 
 ## Interaction and accessibility
 
-`site.js` controls the pinned narrative, active moment index, card answer states and reader receipt. It has no external dependency and stays below the 60 KB interaction budget. Reduced-motion users receive immediate state changes and a static settled narrative frame.
+`site.js` controls the scroll-driven hero layers, pinned narrative states, active moment index, card answer states and reader receipt. It has no external dependency and stays below the 40 KB interaction budget. Reduced-motion users receive static narrative states with no rotation, push, parallax, stream or pulse animation. Below 768px, the galaxy remains still and the foreground starfield is removed from the protected headline area.

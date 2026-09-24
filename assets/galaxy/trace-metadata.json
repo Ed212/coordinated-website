@@ -1,0 +1,34 @@
+{
+  "landscape": {
+    "dimensions": [
+      2880,
+      1600
+    ],
+    "segments_per_tail": 8,
+    "coordinate_convention": "top-left origin; x right, y down; SVG user units; anchors at visible pixel centers",
+    "source_crop": [
+      191,
+      74,
+      1485,
+      825
+    ],
+    "star_a_arc_fraction": 0.403,
+    "star_b_arc_fraction": 0.3843
+  },
+  "portrait": {
+    "dimensions": [
+      1600,
+      2400
+    ],
+    "segments_per_tail": 8,
+    "coordinate_convention": "top-left origin; x right, y down; SVG user units; anchors at visible pixel centers",
+    "source_crop": [
+      32,
+      200,
+      888,
+      1332
+    ],
+    "star_a_arc_fraction": 0.3985,
+    "star_b_arc_fraction": 0.3425
+  }
+}

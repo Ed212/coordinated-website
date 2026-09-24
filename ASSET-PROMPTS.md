@@ -1,6 +1,23 @@
 # Generated asset record
 
-Style sentence: precise ink-line drawings on warm ledger paper with one red element for the changed fact, no gradients and no glow.
+Current style sentence: documentary deep-exposure galaxies in warm monochrome against ink-black space, with one tiny red point at the shared core.
+
+## Current galaxy system
+
+The active runtime files live in `assets/galaxy/`. Exact prompts are in `assets/galaxy/generation-prompts.json`; per-file alt text is in `assets/galaxy/alt-text.json`; measured anchors and tail paths are in the landscape and portrait JSON/SVG files; export checks are in `assets/galaxy/verification.json`.
+
+- Desktop hero: `landscape-native-master-1485x825.webp` and `landscape-upscaled-2880x1600.webp`
+- Phone hero: `portrait-upscaled-1600x2400.webp`
+- Parallax layer: `starfield-2880x1600.webp`
+- Social image: `og-1200x630.png`
+
+The generator returned a 1681 × 936 landscape. The exact 9:5 native crop is 1485 × 825; the 2880 × 1600 version is explicitly an upscale. Hero and phone PNG masters remain in the source archive and are not shipped by the site.
+
+## Legacy supporting assets
+
+The following generated illustrations are retained for provenance. They are no longer used in the active hero, narrative, use-case rows, case-study placeholder, or Open Graph metadata.
+
+Legacy style sentence: precise ink-line drawings on warm ledger paper with one red element for the changed fact, no gradients and no glow.
 
 The source generations are preserved by Codex. Web-ready derivatives live in `assets/generated/`. Product cards are HTML and do not use generated screenshots.
 
