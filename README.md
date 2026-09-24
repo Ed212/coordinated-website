@@ -22,7 +22,7 @@ Open the local server. Vercel uses clean URLs; links also work on a simple stati
 
 ## Design and assets
 
-`styles.css` retains the existing base and walkthrough styles. `experience.css` applies the new responsive visual system. The existing galaxy pair and native mobile artwork are preserved. The hero reveals the shared red core; the closing and inner-page compositions reuse the same art. No generated customer portraits, logos, testimonials, or product screenshots were added.
+`styles.css` retains the existing base and walkthrough styles. `experience.css` applies the responsive visual system: deep ink black, warm paper-white and ivory, charcoal, and neutral gray. Red is reserved for meaningful change/error states and the galaxy core; ordinary navigation and availability indicators stay neutral. The existing galaxy pair and native mobile artwork are preserved. The hero reveals the shared red core; the closing and inner-page compositions reuse the same art. No generated customer portraits, logos, testimonials, or product screenshots were added.
 
 `assets/product/og-template.html` is the source for the new 1200×630 social PNG. Review screenshots are in `docs/previews/` and excluded from the Vercel deployment. Galaxy asset provenance remains in `assets/galaxy/README.md`.
 

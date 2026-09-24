@@ -32,3 +32,7 @@ Existing galaxy artwork is reused without altering its source pixels. A new 1200
 - No performance benchmark, accessibility certification, or measured conversion lift is claimed.
 
 The draft PR preview is the review surface. Production is not merged or published by this revision.
+
+## Neutral palette revision
+
+Removed sage and forest-green colors from the site and social image. Replaced surfaces with warm ivory or charcoal and used neutral gray for borders, labels, navigation, and focus indicators. Red remains on meaningful change/error states and the galaxy core. Representative small-text pairs were checked numerically for at least 4.5:1 contrast; this is a scoped contrast check, not a complete accessibility certification.

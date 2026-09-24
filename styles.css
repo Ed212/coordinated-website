@@ -70,7 +70,7 @@ button:focus-visible,
 summary:focus-visible,
 input:focus-visible,
 textarea:focus-visible {
-  outline: 3px solid #a9433a;
+  outline: 3px solid #858585;
   outline-offset: 4px;
 }
 h3:focus {
@@ -498,7 +498,7 @@ button[hidden],
 .demo-dot {
   width: 7px;
   height: 7px;
-  background: var(--changed);
+  background: var(--muted);
   border-radius: 50%;
 }
 .demo-badge {
@@ -546,7 +546,7 @@ button[hidden],
   color: var(--muted);
 }
 .demo-steps button[aria-current="step"] {
-  border-left-color: var(--changed);
+  border-left-color: var(--ink);
   background: var(--paper);
   font-weight: 600;
 }
