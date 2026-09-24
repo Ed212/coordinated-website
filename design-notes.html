@@ -1,84 +1,129 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Design notes — Coordinated</title>
-  <meta name="description" content="Sitemap, concepts, motion, components, source facts and asset notes for the Coordinated marketing site.">
-  <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#FBFBF8">
-  <link rel="icon" type="image/svg+xml" href="brand/mark_dark.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body data-page="notes">
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header ledger-boundary">
-    <a class="brand" href="index.html" aria-label="Coordinated home"><img src="brand/mark_dark.svg" width="36" height="36" alt=""><span>Coordinated</span></a>
-    <nav class="primary-nav" aria-label="Primary navigation"><a href="index.html">Homepage</a><a href="use-cases.html">Use cases</a><a href="pilot-evidence.html">Evidence</a><a href="design-notes.html" aria-current="page">Design notes</a></nav>
-  </header>
-
-  <main id="main">
-    <section class="subpage-hero ledger-section">
-      <div class="ledger-boundary"><p class="section-number">Appendix / Design record</p><h1>The site is a record before it is a campaign.</h1><p>The visual system uses documentary galaxy imagery, one red point of change, and real HTML product cards. Claims stay bracketed until a pilot supplies evidence.</p><a class="page-nav-back" href="index.html">← Back to the homepage</a></div>
-    </section>
-
-    <div class="ledger-boundary notes-page">
-      <section class="notes-section" aria-labelledby="sitemap-title">
-        <h2 id="sitemap-title">Sitemap and rationale</h2>
-        <div class="notes-content"><p><strong>Homepage</strong> establishes the category, demonstrates one change, explains the record, and ends with the pilot and trust boundary. <strong>Use cases</strong> gives operators six complete moments with cards and provenance. <strong>Pilot evidence</strong> defines measurement before results exist. <strong>Design notes</strong> keeps the design choices, prompts and source ledger inspectable.</p><p>The separation keeps the homepage crisp while giving a diligence-minded buyer enough detail to verify how the product behaves and how a pilot will be judged.</p></div>
-      </section>
-
-      <section class="notes-section" aria-labelledby="concepts-title">
-        <h2 id="concepts-title">Three hero concepts</h2>
-        <div class="notes-content">
-          <h3>01 · Documentary galaxy — built</h3><pre class="wireframe">┌ announcement proof ─────────────────────┐
-│ headline + promise │ shared red core    │
-│ two actions        │ real Slack card    │
-└ trust boundary ─────────────────────────┘</pre><p>Chosen because one visible point of change can connect the category statement to the product card without turning red into decoration. The dark exposure leaves the copy quiet and makes the card remain the concrete product object.</p>
-          <h3>02 · Kinetic instrument</h3><pre class="wireframe">red margin records scroll
-v1 ───── v2 ───── v3
-headline shifts only when terms change</pre><p>The red margin would become a live version timeline. Rejected for launch because the mechanism would compete with the card before visitors understand what is being recorded.</p>
-          <h3>03 · Monday-to-Tuesday narrative</h3><pre class="wireframe">Mon Oct 5, 9:14 AM · forecast
-↓ cards reach Sarah and Marco
-Tue Oct 6, 9:05 AM · decision receipt</pre><p>The full hero would advance from forecast to decision as the visitor scrolls. Rejected because it delays the one-line category explanation and depends on motion for comprehension.</p>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Design notes — Coordinated</title>
+    <meta
+      name="description"
+      content="Implementation notes for the Coordinated marketing website."
+    />
+    <meta name="theme-color" content="#16181d" />
+    <link rel="canonical" href="https://coordinatedai.ai/design-notes" />
+    <meta property="og:title" content="Design notes — Coordinated" />
+    <meta
+      property="og:description"
+      content="Implementation notes for the Coordinated marketing website."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://coordinatedai.ai/design-notes" />
+    <meta
+      property="og:image"
+      content="https://coordinatedai.ai/assets/product/og-living-plan.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Illustration: A merging galaxy beside a connected company goal, contribution and changed plan, with the words Keep the direction clear as the plan changes."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="brand/mark_dark.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="site.js" defer></script>
+    <meta name="robots" content="noindex" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="announcement">
+      <a href="pilot.html"
+        >Start with one initiative <span aria-hidden="true">↗</span></a
+      >
+    </div>
+    <header class="site-header ledger-boundary">
+      <a class="brand" href="index.html" aria-label="Coordinated home"
+        ><img src="brand/mark_dark.svg" width="36" height="36" alt="" /><span
+          >Coordinated</span
+        ></a
+      >
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a href="index.html#why">Why</a><a href="index.html#how">How it works</a
+        ><a href="use-cases.html">Use cases</a
+        ><a href="principles.html">Principles</a
+        ><a class="nav-contact" href="pilot.html"
+          >Discuss a pilot <span aria-hidden="true">↗</span></a
+        >
+      </nav>
+    </header>
+    <main id="main">
+      <section class="subpage-hero">
+        <div class="ledger-boundary">
+          <p class="section-number">Implementation notes</p>
+          <h1>Direction, contribution,<br />and the decision between them.</h1>
+          <p>
+            The homepage introduces the living-plan value through one fictional
+            launch. The example lets a visitor trace an explicit dependency,
+            contribute a concern, and distinguish an answer from an authorized
+            amendment.
+          </p>
         </div>
       </section>
-
-      <section class="notes-section" aria-labelledby="headlines-title">
-        <h2 id="headlines-title">Headline alternatives</h2>
-        <div class="notes-content"><ol><li>Every affected owner answers before the date moves.</li><li>The current plan starts with what people accepted.</li><li>Changes reach the people whose work depends on them.</li><li>What changed, who answered, what became real.</li><li>The next review opens with the current terms.</li></ol><p>Each stays under twelve words and avoids software-development vocabulary.</p></div>
+      <section class="section">
+        <div class="ledger-boundary">
+          <h2>Visual system</h2>
+          <p>
+            The existing monochrome galaxy anchors the hero. Subsequent visuals
+            show the work itself: a connected goal and contribution, changed
+            dates, a recorded response, and an unresolved review question.
+            Product illustrations are readable HTML, not generated screenshots.
+          </p>
+          <h2>State and boundaries</h2>
+          <p>
+            The walkthrough runs locally without persistence. The email form
+            only prepares a draft. Static use-case cards are labeled
+            illustrations. Customer evidence, fixed commercial terms, and
+            security claims have not been fabricated.
+          </p>
+          <h2>Human participation</h2>
+          <p>
+            Sarah can propose a date, ask to talk, or remain unanswered. Only an
+            explicit example decision by Nadia amends the plan. Every route
+            keeps missing legal approval visible. A changed response invalidates
+            the old decision.
+          </p>
+          <h2>Motion and access</h2>
+          <p>
+            The page has no automatic narrative progression or galaxy motion.
+            Navigation, disclosure elements, and controls are keyboard
+            accessible. Reduced-motion preferences disable smooth scrolling. The
+            example has a readable no-JavaScript fallback.
+          </p>
+          <a class="text-link" href="index.html#how">Explore the example →</a>
+        </div>
       </section>
-
-      <section class="notes-section" aria-labelledby="interaction-title">
-        <h2 id="interaction-title">Signature interaction</h2>
-        <div class="notes-content"><h3>Reader receipt — built</h3><p>As major sections enter view, the receipt near the bottom records their labels and prints a weekday-stamped local time. The state stays in the browser and is never sent; it turns the site's own principle into an interaction without inventing product capability.</p><h3>Ideas not built</h3><ul><li><strong>Draggable date:</strong> useful, but recomputing affected owners from fictional dependencies risks making a deterministic demo look like a product claim.</li><li><strong>Scroll-scrubbed red margin:</strong> expressive, but it would make the change color decorative.</li><li><strong>Hover-only moment cards:</strong> compact on desktop, but it hides essential content from keyboard and touch users.</li></ul></div>
-      </section>
-
-      <section class="notes-section" aria-labelledby="motion-title">
-        <h2 id="motion-title">Motion specification</h2>
-        <div class="notes-content"><table class="asset-table"><thead><tr><th>Object</th><th>Trigger</th><th>Motion</th><th>Fallback</th></tr></thead><tbody><tr><td>Hero galaxy</td><td>First viewport scroll</td><td>2.5° rotation and 5% push; starfield responds at 1.6×</td><td>Still image; phone removes the starfield</td></tr><tr><td>Pinned narrative</td><td>Step enters center viewport</td><td>Tail streams, two owner labels, title and v1 → v2 receipt state</td><td>Three static states; no streams or pulse</td></tr><tr><td>Moment index</td><td>Row enters center viewport</td><td>Active rule and background update in 0 ms</td><td>Same static active state</td></tr><tr><td>Reader receipt</td><td>Section reaches 28% visibility</td><td>Text row added with no spatial animation</td><td>Same immediate update</td></tr><tr><td>Card answer</td><td>Button activation</td><td>Pressed border/background state</td><td>Same immediate state</td></tr></tbody></table></div>
-      </section>
-
-      <section class="notes-section" aria-labelledby="components-title">
-        <h2 id="components-title">Component and copy deck</h2>
-        <div class="notes-content"><ul><li>Announcement bar: <code>[PILOT PROOF POINT] →</code></li><li>Galaxy hero, verbatim promise, two actions and HTML change card</li><li>Three-item trust ribbon and three “why” cards with inline SVG tiles</li><li>Three-step pinned galaxy narrative with exact tail paths and a live receipt card</li><li>Dark category statement</li><li>Six-moment sticky index, question, answer, provenance and outcome rows</li><li>Three sourced statistics and interpretation line</li><li>Placeholder case study with bracketed proof fields</li><li>Three-step pilot start and three-part trust boundary</li><li>Reader receipt and shared footer</li><li>Use-case card, pilot measure and evidence readout components</li></ul></div>
-      </section>
-
-      <section class="notes-section" aria-labelledby="visuals-title">
-        <h2 id="visuals-title">Visual system and assets</h2>
-        <div class="notes-content"><p><strong>Style sentence:</strong> documentary deep-exposure galaxies in warm monochrome against ink-black space, with one tiny red point at the shared core.</p><p>The active asset set, alt text, exact prompts, geometry and verification results are recorded in <code>assets/galaxy/</code>. Product cards remain HTML, never screenshots. The existing two-track mark is reused unchanged.</p><table class="asset-table"><thead><tr><th>Set</th><th>Files</th><th>Use</th></tr></thead><tbody><tr><td>Hero</td><td><code>landscape-*.webp</code>, <code>portrait-*.webp</code></td><td>Responsive dark hero; PNG masters excluded from runtime</td></tr><tr><td>Parallax</td><td><code>starfield-2880x1600.webp</code></td><td>Desktop foreground stars, hidden on phone</td></tr><tr><td>Geometry</td><td><code>*-paths.svg</code>, <code>*-anchors.json</code></td><td>Core connector and three narrative beats</td></tr><tr><td>Evidence</td><td>HTML placeholder</td><td>Explicit placeholder, no invented proof</td></tr><tr><td>Social</td><td><code>og-1200x630.png</code></td><td>1200 × 630 Open Graph card</td></tr></tbody></table></div>
-      </section>
-
-      <section class="notes-section" aria-labelledby="facts-title">
-        <h2 id="facts-title">Fact ledger</h2>
-        <div class="notes-content"><ul><li>“Half of committed sprint work ships when promised” — LinearB, 2,000+ engineering teams.</li><li>“45% of product launches slip by a month or more” — Gartner product-manager survey.</li><li>“87% say there is no capacity to coordinate once everyone is executing” — Atlassian State of Teams 2026, 12,000 workers.</li><li>All Northgate, Atlas, Acme, people, dates and cards are fictional examples supplied or constructed for product demonstration; they are not customer evidence.</li><li>All pilot outcomes, quotes, names and measures remain bracketed placeholders.</li></ul></div>
-      </section>
-    </div>
-  </main>
-
-  <footer class="site-footer"><div class="ledger-boundary footer-grid"><a class="brand brand-footer" href="index.html"><img src="brand/mark_light.svg" width="36" height="36" alt=""><span>Coordinated</span></a><nav aria-label="Footer navigation"><a href="index.html">Homepage</a><a href="use-cases.html">Use cases</a><a href="pilot-evidence.html">Evidence</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav><p>Design record · Wed Sep 23, 2026</p></div></footer>
-</body>
+    </main>
+    <footer class="site-footer">
+      <div class="ledger-boundary footer-grid">
+        <a class="brand brand-footer" href="index.html"
+          ><img src="brand/mark_light.svg" width="36" height="36" alt="" /><span
+            >Coordinated</span
+          ></a
+        >
+        <nav aria-label="Footer navigation">
+          <a href="principles.html">Our principles</a
+          ><a href="pilot-evidence.html">Pilot measures</a
+          ><a href="pilot.html">Discuss a pilot</a
+          ><a href="mailto:ed@coordinatedai.ai">Email Ed</a
+          ><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a>
+        </nav>
+        <p>Built in the Bay Area.</p>
+      </div>
+    </footer>
+  </body>
 </html>

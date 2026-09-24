@@ -1,48 +1,45 @@
 # Coordinated marketing site
 
-Static multi-page marketing site for Coordinated.
+Static, dependency-free website for Coordinated. Production uses Vercel clean URLs.
 
 ## Pages
 
-- `index.html` — homepage and category narrative
-- `use-cases.html` — six complete change moments with HTML product cards
-- `pilot-evidence.html` — five pilot measures and first-readout placeholders
-- `design-notes.html` — sitemap, concepts, motion, components and fact ledger
-- `privacy.html` and `terms.html` — existing legal pages
+- `index.html`: living-plan positioning, galaxy hero, six-stage interactive example, audience benefits, research and pilot invitation.
+- `principles.html`: context, participation, response to concerns, honest forecasts, audience boundaries, human authority.
+- `pilot.html`: pilot scope, practical questions, optional email-draft preparation. No file upload or lead-submission service.
+- `pilot-evidence.html`: measurement methodology, explicitly separated from unpublished customer results.
+- `use-cases.html`: six independent fictional scenarios; static response illustrations point to the interactive homepage example.
+- `privacy.html` and `terms.html`: existing policies, unchanged. Their operational claims still require owner verification.
+- `design-notes.html`: implementation notes (noindex).
 
 ## Local preview
 
-Run any static server from the repo root. For example:
-
 ```sh
-python3 -m http.server 4173
+python3 -m http.server 4188
 ```
 
-Then open `http://127.0.0.1:4173/`.
+Open `http://127.0.0.1:4188/`. The `.html` navigation works on a basic static server and Vercel.
 
-The production host uses `vercel.json` with clean URLs enabled.
+## Walkthrough behavior
 
-## Replacing placeholders
+The example has six stages: agreed plan, forecast, Sarah's response, Nadia's decision, current terms, next-review brief. A proposed date becomes the agreement only when the example decision is explicitly recorded. Asking to talk or leaving a request unanswered preserves v1 and its unresolved status. Legal approval remains open in every path. Revising a response invalidates later decisions; restart clears the simulation.
 
-Search for `[` to find all pending proof fields. Replace them only with approved pilot evidence:
+The source plan declares the customer pilot's separate staging prerequisite and independence from the public announcement. All people, company names, and Oct 2026 dates are illustrative. User-entered example text is escaped, stays in memory, and is never transmitted or persisted. Without JavaScript a readable example remains available.
 
-- `[PILOT PROOF POINT]`
-- `[Company]`
-- `[Operator quote]`
-- `[Operator name, role]`
-- `[Chases per week: before → after]`
-- `[Median hours to decide]`
-- `[Changes decided before the deadline: n of m]`
-- `[People pending at deadline]`
-- `[Review prep: before → after]`
-- `[initiative]` and `[pilot window]`
+## Pilot contact
 
-Keep every published date in weekday-month-day format, for example `Tue Oct 6`. Do not replace bracketed fields with estimates.
+The form previews an email. It does not send a lead, claim success, upload documents, or install Slack. The visitor must send the prepared message in their email app. Editing the form hides the previous draft; clipboard failure provides a manual-copy fallback. Without JavaScript the submit button stays disabled and direct email remains available. No analytics or external intake endpoint was added.
+
+Pilot scope, duration, pricing, participant effort and data arrangements must be agreed with the founder before starting. These are deliberately not invented in the copy. The current policies were not rewritten to claim unverified security or AI-provider practices.
 
 ## Assets
 
-The active hero system lives in `assets/galaxy/`. Runtime delivery uses the quality-94 WebPs; the landscape and phone PNG masters remain in the source archive and are intentionally excluded from the site build. The Open Graph PNG, path SVGs, anchors, alt text, prompts and verification results are kept with the runtime assets. Earlier generated supporting assets remain in `assets/generated/`, with provenance in `ASSET-PROMPTS.md`.
+The existing galaxy hero and phone crop remain. The redundant narrative galaxy and placeholder proof art are removed from active pages. The product visualization is accessible HTML/CSS with deterministic local state rather than a raster mockup. `assets/product/og-template.html` is the source for the new 1200×630 social PNG. Legacy artwork remains for provenance and is not referenced by active pages.
 
-## Interaction and accessibility
+## Verification
 
-`site.js` controls the scroll-driven hero layers, pinned narrative states, active moment index, card answer states and reader receipt. It has no external dependency and stays below the 40 KB interaction budget. Reduced-motion users receive static narrative states with no rotation, push, parallax, stream or pulse animation. Below 768px, the galaxy remains still and the foreground starfield is removed from the protected headline area.
+See `design-qa.md` for the checks actually performed on this revision. `tests/website-smoke.cjs` covers the meaningful state and contact risks. It uses Playwright; run with `node tests/website-smoke.cjs` while the preview server is running. Set `SITE_BASE_URL` and `SITE_QA_DIR` to override its local URL and screenshot location. This task used the environment's installed Playwright dependency; no package installation is required for the website itself.
+
+## Review images
+
+Current desktop, phone, and interactive review screenshots are in `docs/previews/`. These review artifacts and the QA scripts are excluded from the Vercel deployment.

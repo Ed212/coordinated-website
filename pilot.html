@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Discuss a launch pilot — Coordinated</title>
+    <meta
+      name="description"
+      content="Start with a conversation about one initiative, the people involved, and your next review. No internal document required."
+    />
+    <meta name="theme-color" content="#16181d" />
+    <link rel="canonical" href="https://coordinatedai.ai/pilot" />
+    <meta property="og:title" content="Discuss a launch pilot — Coordinated" />
+    <meta
+      property="og:description"
+      content="Start with a conversation about one initiative, the people involved, and your next review. No internal document required."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://coordinatedai.ai/pilot" />
+    <meta
+      property="og:image"
+      content="https://coordinatedai.ai/assets/product/og-living-plan.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Illustration: A merging galaxy beside a connected company goal, contribution and changed plan, with the words Keep the direction clear as the plan changes."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="brand/mark_dark.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="site.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="announcement">
+      <a href="pilot.html"
+        >Start with one initiative <span aria-hidden="true">↗</span></a
+      >
+    </div>
+    <header class="site-header ledger-boundary">
+      <a class="brand" href="index.html" aria-label="Coordinated home"
+        ><img src="brand/mark_dark.svg" width="36" height="36" alt="" /><span
+          >Coordinated</span
+        ></a
+      >
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a href="index.html#why">Why</a><a href="index.html#how">How it works</a
+        ><a href="use-cases.html">Use cases</a
+        ><a href="principles.html">Principles</a
+        ><a class="nav-contact" href="pilot.html"
+          >Discuss a pilot <span aria-hidden="true">↗</span></a
+        >
+      </nav>
+    </header>
+    <main id="main">
+      <section class="subpage-hero">
+        <div class="ledger-boundary">
+          <p class="section-number">A focused design-partner pilot</p>
+          <h1>Bring one initiative.<br />Start with a conversation.</h1>
+          <p>
+            Work directly with Ed, Coordinated’s founder, to see whether a
+            living agreement can reduce the chasing around your next launch or
+            cross-functional commitment.
+          </p>
+        </div>
+      </section>
+      <section class="section">
+        <div class="ledger-boundary pilot-layout">
+          <div>
+            <p class="section-number">What we’ll work through</p>
+            <h2>A clearer plan before<br />your next review.</h2>
+            <ol class="pilot-deliverables">
+              <li>
+                <strong>The starting agreement</strong
+                ><span
+                  >A draft connecting the goal, reasoning, owners, commitments,
+                  and dependencies. You correct it before involving the
+                  team.</span
+                >
+              </li>
+              <li>
+                <strong>One real change</strong
+                ><span
+                  >The affected owners’ responses and conditions, with the
+                  decision and remaining questions on record.</span
+                >
+              </li>
+              <li>
+                <strong>The next-review brief</strong
+                ><span
+                  >What changed, why, and which decisions still need attention.
+                  Together, we compare coordination effort with your
+                  baseline.</span
+                >
+              </li>
+            </ol>
+            <p class="section-note">
+              The operator reviews the draft. Other participants respond where
+              their commitments are affected. We agree the effort, duration, and
+              commercial terms before the pilot begins.
+            </p>
+            <a href="pilot-evidence.html">See the pilot measures →</a>
+          </div>
+          <div class="pilot-intake" id="contact">
+            <p class="section-number">Introduce the initiative</p>
+            <h2>What are you coordinating?</h2>
+            <p>
+              A short description is enough. Please leave out confidential
+              details.
+            </p>
+            <form data-pilot-form>
+              <label for="pilot-name">Your name <span>(optional)</span></label
+              ><input
+                id="pilot-name"
+                name="name"
+                autocomplete="name"
+                maxlength="100"
+              /><label for="pilot-company"
+                >Company <span>(optional)</span></label
+              ><input
+                id="pilot-company"
+                name="company"
+                autocomplete="organization"
+                maxlength="150"
+              /><label for="pilot-initiative"
+                >The initiative and what’s hard to coordinate</label
+              ><textarea
+                id="pilot-initiative"
+                name="initiative"
+                rows="4"
+                maxlength="1500"
+                required
+                placeholder="For example: our launch needs engineering, sales, and marketing to agree on a revised date."
+              ></textarea
+              ><label for="pilot-review"
+                >Next review or deadline <span>(optional)</span></label
+              ><input
+                id="pilot-review"
+                name="review"
+                maxlength="100"
+                placeholder="For example: our launch review next Thursday"
+              /><button class="button button-dark" type="submit" disabled>
+                Preview your email →
+              </button>
+              <p class="form-help">
+                This prepares a draft for your email app. Nothing is submitted
+                by this form.
+              </p>
+            </form>
+            <noscript
+              ><p>
+                The email preview needs JavaScript. You can
+                <a href="mailto:ed@coordinatedai.ai?subject=Coordinated%20pilot"
+                  >email Ed directly</a
+                >; no document is required.
+              </p></noscript
+            >
+            <section
+              class="email-preview"
+              data-email-preview
+              hidden
+              aria-labelledby="email-preview-title"
+            >
+              <h3 id="email-preview-title" tabindex="-1">
+                Your introduction is ready.
+              </h3>
+              <p>
+                No message has been sent. Open your email app and send the draft
+                to <a href="mailto:ed@coordinatedai.ai">ed@coordinatedai.ai</a>.
+              </p>
+              <label for="email-draft">Your draft</label
+              ><textarea id="email-draft" rows="10" readonly></textarea>
+              <div class="section-actions">
+                <a
+                  class="button button-dark"
+                  data-email-open
+                  href="mailto:ed@coordinatedai.ai"
+                  >Open email app ↗</a
+                ><button class="plain-button" type="button" data-email-copy>
+                  Copy draft
+                </button>
+              </div>
+              <p role="status" data-email-status></p>
+            </section>
+            <p class="direct-contact">
+              Prefer to talk it through?
+              <a href="mailto:ed@coordinatedai.ai?subject=Coordinated%20pilot"
+                >Email Ed directly ↗</a
+              >
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="section pilot-questions" id="questions">
+        <div class="ledger-boundary">
+          <div class="section-intro">
+            <p class="section-number">Before you begin</p>
+            <h2>A few practical answers.</h2>
+          </div>
+          <details>
+            <summary>
+              Do I need to send a document or install anything now?
+            </summary>
+            <p>
+              No. Start with a short description. If the pilot is a fit, we
+              agree the source material and Slack setup together before
+              connecting anything.
+            </p>
+          </details>
+          <details>
+            <summary>
+              How long does a pilot take, and what does it cost?
+            </summary>
+            <p>
+              We scope the pilot around one initiative and an upcoming review.
+              Duration, participant effort, pricing, and what happens afterward
+              are agreed with you before starting.
+            </p>
+          </details>
+          <details>
+            <summary>What happens to documents shared during a pilot?</summary>
+            <p>
+              Before sharing, ask us to confirm who can access them, how long
+              they are retained, how deletion works, which AI providers process
+              them, and whether any provider may use them for model training. We
+              will agree the applicable arrangements before connecting your
+              sources.
+            </p>
+            <a href="privacy.html">Read the current privacy policy →</a>
+          </details>
+          <details>
+            <summary>
+              Does everyone have to move their work into Coordinated?
+            </summary>
+            <p>
+              No company-wide rollout is needed to start. We focus on a selected
+              initiative and its important agreements. Tasks stay in your
+              existing tools; the pilot uses Slack for the coordination around
+              them.
+            </p>
+          </details>
+          <details>
+            <summary>Are the Atlas examples customer results?</summary>
+            <p>
+              No. Atlas and Northgate are fictional examples. We do not yet
+              publish customer outcomes. A pilot measures the actual
+              coordination work, including missing answers and unresolved
+              decisions.
+            </p>
+          </details>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="ledger-boundary footer-grid">
+        <a class="brand brand-footer" href="index.html"
+          ><img src="brand/mark_light.svg" width="36" height="36" alt="" /><span
+            >Coordinated</span
+          ></a
+        >
+        <nav aria-label="Footer navigation">
+          <a href="principles.html">Our principles</a
+          ><a href="pilot-evidence.html">Pilot measures</a
+          ><a href="pilot.html">Discuss a pilot</a
+          ><a href="mailto:ed@coordinatedai.ai">Email Ed</a
+          ><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a>
+        </nav>
+        <p>Built in the Bay Area.</p>
+      </div>
+    </footer>
+  </body>
+</html>

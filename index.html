@@ -1,366 +1,564 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Coordinated — version control for what your company has agreed</title>
-  <meta name="description" content="When a launch date or an assumption changes, the affected teams reach a decision before the deadline, with their conditions on record, and the next review starts current.">
-  <meta name="theme-color" content="#16181D">
-  <meta property="og:title" content="Coordinated — version control for what your company has agreed">
-  <meta property="og:description" content="When the plan changes, everyone who depends on it knows the same day.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://coordinatedai.ai/">
-  <meta property="og:image" content="https://coordinatedai.ai/assets/galaxy/og-1200x630.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Illustration: Two merging galaxies with a tiny red core beside the headline, “When the plan changes, everyone who depends on it knows the same day.”">
-  <link rel="icon" type="image/png" sizes="64x64" href="brand/favicon_64.png">
-  <link rel="icon" type="image/svg+xml" href="brand/mark_dark.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <script src="site.js" defer></script>
-</head>
-<body data-page="home">
-  <a class="skip-link" href="#main">Skip to content</a>
-
-  <div class="announcement">
-    <a href="pilot-evidence.html"><span>[PILOT PROOF POINT]</span> <span aria-hidden="true">→</span></a>
-  </div>
-
-  <header class="site-header ledger-boundary">
-    <a class="brand" href="index.html" aria-label="Coordinated home">
-      <img src="brand/mark_dark.svg" width="36" height="36" alt="">
-      <span>Coordinated</span>
-    </a>
-    <nav class="primary-nav" aria-label="Primary navigation">
-      <a href="#why">Why</a>
-      <a href="#how">How it works</a>
-      <a href="use-cases.html">Use cases</a>
-      <a href="pilot-evidence.html">Evidence</a>
-      <a class="nav-contact" href="mailto:ed@coordinatedai.ai?subject=Coordinated%20pilot">Contact</a>
-    </nav>
-  </header>
-
-  <main id="main">
-    <section class="hero" aria-labelledby="hero-title" data-hero>
-      <div class="hero-media">
-        <picture>
-          <source media="(max-width: 767px)" type="image/webp" srcset="assets/galaxy/portrait-upscaled-1600x2400.webp">
-          <source type="image/webp" srcset="assets/galaxy/landscape-native-master-1485x825.webp 1485w, assets/galaxy/landscape-upscaled-2880x1600.webp 2880w" sizes="100vw">
-          <img class="hero-galaxy" src="assets/galaxy/landscape-upscaled-2880x1600.webp" width="2880" height="1600" fetchpriority="high" alt="Illustration: Two interacting spiral galaxies with pale tidal tails converging on a bright shared core marked by a tiny red point, against deep black space.">
-        </picture>
-        <picture class="hero-starfield-picture" aria-hidden="true">
-          <source media="(min-width: 768px)" type="image/webp" srcset="assets/galaxy/starfield-2880x1600.webp">
-          <img class="hero-starfield" src="assets/galaxy/transparent.svg" width="2880" height="1600" alt="">
-        </picture>
-      </div>
-      <div class="hero-scrim" aria-hidden="true"></div>
-      <svg class="hero-connector" aria-hidden="true"><path data-hero-connector></path></svg>
-      <div class="ledger-boundary hero-layout">
-        <div class="hero-copy">
-          <p class="eyebrow">Version control for what your company has agreed.</p>
-          <h1 id="hero-title">When the plan changes, everyone who depends on it knows the same day.</h1>
-          <p class="hero-promise">When a launch date or an assumption changes, the affected teams reach a decision before the deadline, with their conditions on record, and the next review starts current.</p>
-          <div class="hero-actions">
-            <a class="button button-paper" href="mailto:ed@coordinatedai.ai?subject=My%20last%20launch%20document">Send us your last launch doc</a>
-            <a class="text-link" href="#how">See a change propagate <span aria-hidden="true">→</span></a>
-          </div>
-        </div>
-
-        <div class="hero-product" aria-label="A change moving through the Atlas launch record">
-          <article class="slack-card hero-card" data-hero-card>
-            <header class="slack-card-header">
-              <img src="brand/mark_dark.svg" width="32" height="32" alt="">
-              <div><strong>Coordinated</strong><span>APP</span></div>
-              <time datetime="2020-10-05T09:14">Mon Oct 5, 9:14 AM</time>
-            </header>
-            <h2 data-hero-card-title>Staging may slip: Thu Oct 1 → <span class="changed">Sat Oct 10</span></h2>
-            <p>Maya's forecast, not yet a change. Nadia decides.</p>
-            <p>Your announcement (Thu Oct 15) needs ten calendar days after staging; Sat Oct 10 leaves five.</p>
-            <p>Your campaign spend locks Tue Oct 6, 5:00 PM.</p>
-            <dl class="reached-list">
-              <div><dt>You</dt><dd>asked</dd></div>
-              <div><dt>Marco</dt><dd>informed · his Acme condition still holds</dd></div>
-              <div><dt>Nadia</dt><dd>decides</dd></div>
-            </dl>
-            <div class="card-actions" aria-label="Example responses">
-              <button type="button" data-card-answer>Thu Oct 15 still works</button>
-              <button type="button" data-card-answer>Propose a date</button>
-              <button type="button" data-card-answer>Need to talk</button>
-            </div>
-            <p class="card-reason">Why you got this: the launch plan links your announcement to staging. This card updates in place; when Nadia decides, it reads “Decided Tue Oct 6, 9:05 AM”.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="trust-ribbon" aria-label="Product boundaries">
-      <div class="ledger-boundary trust-ribbon-grid">
-        <p>Reads only what you hand it, post as artifacts, or tag it in</p>
-        <p>One card per commitment per person, updated in place</p>
-        <p>Built for 50–300-person software companies</p>
-      </div>
-    </section>
-
-    <section class="section ledger-section" id="why" aria-labelledby="why-title" data-receipt-label="Why coordination fails">
-      <div class="ledger-boundary">
-        <div class="section-intro">
-          <p class="section-number">01 / Why</p>
-          <h2 id="why-title">The plan changes where the record stops.</h2>
-        </div>
-        <div class="why-grid">
-          <article class="why-card">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H8l-4 3V5Z"/><path class="changed-stroke" d="M8 9h8M8 12h5"/></svg>
-            <h3>A meeting is where the plan changes and where the record stops.</h3>
-            <p>Review notes preserve the discussion. They rarely bind the owner, the date, the condition and the people downstream.</p>
-          </article>
-          <article class="why-card">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="19" cy="18" r="2"/><path d="M7 12h4M13 11l4-4M13 13l4 4"/><path class="changed-stroke" d="M11 9v6"/></svg>
-            <h3>Everyone who depends on the date finds out on their own schedule.</h3>
-            <p>Broadcasts make information available. They do not show who was asked, who answered, or whose condition still holds.</p>
-          </article>
-          <article class="why-card">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/><circle class="changed-fill" cx="17" cy="16" r="2"/></svg>
-            <h3>The next review starts by reconstructing what happened.</h3>
-            <p>The operator spends the first half of the meeting rebuilding the current plan instead of deciding what comes next.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section narrative-section" id="how" aria-labelledby="how-title" data-receipt-label="How the record changes">
-      <div class="ledger-boundary narrative-layout">
-        <div class="narrative-copy">
-          <div class="section-intro">
-            <p class="section-number">02 / How it works</p>
-            <h2 id="how-title">One change propagates through one record.</h2>
-          </div>
-          <div class="narrative-steps">
-            <article class="narrative-step is-active" data-narrative-step="0">
-              <p class="step-count">01 / 03</p>
-              <h3>Hand it what you already wrote.</h3>
-              <p>Coordinated proposes the initiative, people, commitments and dependencies, each with the sentence it came from. The operator reviews one draft.</p>
-            </article>
-            <article class="narrative-step" data-narrative-step="1">
-              <p class="step-count">02 / 03</p>
-              <h3>Owners accept, condition, or decline.</h3>
-              <p>Nothing is a commitment until a person answers. Conditions and proposed dates stay attached to the terms they qualify.</p>
-            </article>
-            <article class="narrative-step" data-narrative-step="2">
-              <p class="step-count">03 / 03</p>
-              <h3>The review opens settled.</h3>
-              <p>When a date moves, the people it reaches are named before it moves. Cards update in place, answers return, and the terms move to v2.</p>
-            </article>
-          </div>
-        </div>
-        <div class="narrative-visual" aria-live="polite">
-          <div class="narrative-progress"><span data-narrative-progress>01 / 03</span><i></i></div>
-          <div class="narrative-galaxy" data-narrative-galaxy data-narrative-state="0">
-            <img class="narrative-galaxy-image" src="assets/galaxy/landscape-upscaled-2880x1600.webp" width="2880" height="1600" loading="lazy" alt="Illustration: Two interacting spiral galaxies with pale tidal tails converging on a bright shared core marked by a tiny red point, against deep black space.">
-            <img class="narrative-starfield" src="assets/galaxy/starfield-2880x1600.webp" width="2880" height="1600" loading="lazy" alt="" aria-hidden="true">
-            <svg class="narrative-overlay" viewBox="0 0 2880 1600" aria-hidden="true">
-              <path class="tail-guide" d="M 0.0 0.0 C 42.1 0.1 160.4 -1.5 252.6 0.5 C 344.8 2.5 459.5 0.5 553.2 12.1 C 646.9 23.7 729.4 44.8 815.0 70.3 C 900.7 95.8 991.2 123.9 1067.1 165.3 C 1143.1 206.7 1211.0 270.0 1270.8 318.5 C 1330.6 367.0 1376.8 409.7 1425.9 456.2 C 1475.1 502.8 1505.6 553.8 1565.6 597.8 C 1625.6 641.8 1749.2 699.6 1785.9 720.0"/>
-              <path class="tail-guide" d="M 0.0 1387.1 C 37.2 1383.6 142.6 1375.5 223.5 1365.8 C 304.4 1356.1 394.8 1343.2 485.3 1329.0 C 575.8 1314.7 671.2 1297.6 766.5 1280.5 C 861.9 1263.3 970.2 1253.6 1057.4 1226.2 C 1144.7 1198.7 1217.4 1161.5 1290.2 1115.6 C 1362.9 1069.7 1434.3 997.0 1493.8 950.8 C 1553.3 904.6 1598.3 876.8 1647.0 838.3 C 1695.7 799.8 1762.8 739.7 1785.9 720.0"/>
-              <path class="tail-flow" pathLength="1" d="M 0.0 0.0 C 42.1 0.1 160.4 -1.5 252.6 0.5 C 344.8 2.5 459.5 0.5 553.2 12.1 C 646.9 23.7 729.4 44.8 815.0 70.3 C 900.7 95.8 991.2 123.9 1067.1 165.3 C 1143.1 206.7 1211.0 270.0 1270.8 318.5 C 1330.6 367.0 1376.8 409.7 1425.9 456.2 C 1475.1 502.8 1505.6 553.8 1565.6 597.8 C 1625.6 641.8 1749.2 699.6 1785.9 720.0"/>
-              <path class="tail-flow" pathLength="1" d="M 0.0 1387.1 C 37.2 1383.6 142.6 1375.5 223.5 1365.8 C 304.4 1356.1 394.8 1343.2 485.3 1329.0 C 575.8 1314.7 671.2 1297.6 766.5 1280.5 C 861.9 1263.3 970.2 1253.6 1057.4 1226.2 C 1144.7 1198.7 1217.4 1161.5 1290.2 1115.6 C 1362.9 1069.7 1434.3 997.0 1493.8 950.8 C 1553.3 904.6 1598.3 876.8 1647.0 838.3 C 1695.7 799.8 1762.8 739.7 1785.9 720.0"/>
-              <circle class="narrative-core" cx="1785.9" cy="720" r="11"/>
-              <g class="owner-beat owner-beat-a">
-                <circle cx="793.7" cy="87.7" r="11"/>
-                <path d="M 793.7 87.7 C 1180 210 1560 650 2016 1035"/>
-                <text x="842" y="118">Sarah · asked</text>
-              </g>
-              <g class="owner-beat owner-beat-b">
-                <circle cx="745.2" cy="1280.5" r="11"/>
-                <path d="M 745.2 1280.5 C 1180 1375 1600 1260 2016 1165"/>
-                <text x="802" y="1320">Marco · informed · condition holds</text>
-              </g>
-            </svg>
-            <article class="narrative-receipt" aria-label="The record updates in place">
-              <header><span>Atlas launch</span><span data-narrative-version>v1</span></header>
-              <strong data-narrative-card-title>Staging may slip</strong>
-              <p>Sarah · asked</p>
-              <p>Marco · informed · condition holds</p>
-            </article>
-          </div>
-          <p class="visual-caption" data-narrative-caption>Source sentences remain attached to every proposed term.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="dark-statement" data-receipt-label="Memory and the record">
-      <div class="ledger-boundary">
-        <img src="brand/mark_light.svg" width="56" height="56" alt="">
-        <p>Memory tells you what was said. The record tells you what was agreed.</p>
-      </div>
-    </section>
-
-    <section class="section moments-section ledger-section" id="moments" aria-labelledby="moments-title" data-receipt-label="Six moments of change">
-      <div class="ledger-boundary">
-        <div class="section-intro section-intro-wide">
-          <p class="section-number">03 / Moments</p>
-          <h2 id="moments-title">The record matters at the moment something changes.</h2>
-          <a class="text-link text-link-dark" href="use-cases.html">See all six product cards <span aria-hidden="true">→</span></a>
-        </div>
-        <div class="moments-layout">
-          <nav class="moment-index" aria-label="Moments on record">
-            <a class="is-active" href="#moment-01" data-moment-link="moment-01"><span>01</span> A date slips</a>
-            <a href="#moment-02" data-moment-link="moment-02"><span>02</span> A scope changes</a>
-            <a href="#moment-03" data-moment-link="moment-03"><span>03</span> An owner leaves</a>
-            <a href="#moment-04" data-moment-link="moment-04"><span>04</span> A promise is made</a>
-            <a href="#moment-05" data-moment-link="moment-05"><span>05</span> An assumption comes due</a>
-            <a href="#moment-06" data-moment-link="moment-06"><span>06</span> A review starts</a>
-          </nav>
-          <div class="moment-rows">
-            <article class="moment-row" id="moment-01" data-moment-row>
-              <p class="moment-kicker">01 · A date slips</p>
-              <h3>“Staging slipped to Saturday. Who needs to know before Sarah's spend locks Tuesday at 5?”</h3>
-              <p>Sarah is asked: her announcement needs ten calendar days after staging and Sat Oct 10 leaves five. Marco is informed: his Acme condition still holds by one business day. Nadia decides; the forecast is on record either way.</p>
-              <ul class="provenance"><li>Launch plan ¶7 · ten days after staging</li><li>Delivery notes, line 11 · Acme rollout Thu Oct 15</li><li>Spend lock · Tue Oct 6, 5:00 PM</li></ul>
-              <p class="outcome">Decided Tue Oct 6, 9:05 AM · 1 asked, answered · 1 informed · 0 pending · terms v2</p>
-            </article>
-            <article class="moment-row" id="moment-02" data-moment-row>
-              <p class="moment-kicker">02 · A scope changes</p>
-              <h3>“Nadia removed self-serve import on Wed Oct 7. Which promises now need an answer?”</h3>
-              <p>Sarah is asked because the launch announcement names the import. Marco is asked because the Acme rollout includes it. Dana is informed because the support guide no longer needs the import path.</p>
-              <ul class="provenance"><li>Launch plan ¶4 · self-serve import in scope</li><li>Acme notes, line 8 · import workflow Thu Oct 15</li><li>Support brief ¶3 · guide due Mon Oct 12</li></ul>
-              <p class="outcome">Decided Thu Oct 8, 11:20 AM · 2 asked, answered · 1 informed · 0 pending · scope v2</p>
-            </article>
-            <article class="moment-row" id="moment-03" data-moment-row>
-              <p class="moment-kicker">03 · An owner leaves</p>
-              <h3>“Maya is out through Fri Oct 16. Who owns the staging decision due Thu Oct 8?”</h3>
-              <p>Nadia is asked to name temporary authority. Josh is informed because the launch cannot move without that decision. No replacement is inferred; ownership stays unseen until a person accepts it.</p>
-              <ul class="provenance"><li>Review notes ¶6 · Maya owns staging readiness</li><li>Atlas terms v2 · decision due Thu Oct 8, 2:00 PM</li><li>Team update · Maya unavailable through Fri Oct 16</li></ul>
-              <p class="outcome">Recorded Wed Oct 7, 4:40 PM · Josh accepted interim authority · 0 pending · ownership v2</p>
-            </article>
-            <article class="moment-row" id="moment-04" data-moment-row>
-              <p class="moment-kicker">04 · A promise is made to a customer</p>
-              <h3>“Marco promised Acme a Thu Oct 15 rollout. Does the current plan support it?”</h3>
-              <p>Marco is asked to confirm the condition. Nadia decides whether it becomes part of the Atlas terms. Sarah is informed because her announcement uses the same rollout date.</p>
-              <ul class="provenance"><li>Acme thread · rollout Thu Oct 15</li><li>Launch plan ¶7 · staging Sat Oct 10</li><li>Announcement brief · publication Thu Oct 15, 8:00 AM</li></ul>
-              <p class="outcome">Accepted Mon Oct 5, 2:10 PM · customer term recorded · Marco owns the update · terms v2</p>
-            </article>
-            <article class="moment-row" id="moment-05" data-moment-row>
-              <p class="moment-kicker">05 · An assumption comes due</p>
-              <h3>“The rollout assumes legal approval by Mon Oct 12. What happens if it is not in?”</h3>
-              <p>Nadia is asked to decide before the approval window closes. Sarah and Marco are informed because their Thu Oct 15 work depends on the answer. The record labels legal approval unseen until someone posts it.</p>
-              <ul class="provenance"><li>Atlas assumptions ¶2 · legal approval Mon Oct 12</li><li>Campaign brief · spend starts Tue Oct 13, 9:00 AM</li><li>Acme notes · rollout Thu Oct 15</li></ul>
-              <p class="outcome">Answered Fri Oct 9, 3:30 PM · condition added · review Mon Oct 12, 9:00 AM · 0 pending</p>
-            </article>
-            <article class="moment-row" id="moment-06" data-moment-row>
-              <p class="moment-kicker">06 · A review starts</p>
-              <h3>“What is already settled before the Tue Oct 13 review?”</h3>
-              <p>The staging forecast is decided, the import is out of scope, Marco's customer condition is recorded, and every affected owner has answered. The brief opens with the remaining decision, not a reconstruction.</p>
-              <ul class="provenance"><li>Atlas terms v2 · accepted Thu Oct 8, 11:20 AM</li><li>Owner responses · through Mon Oct 12, 4:15 PM</li><li>Review brief · generated Tue Oct 13, 8:00 AM</li></ul>
-              <p class="outcome">Review opened Tue Oct 13, 9:00 AM · 3 changes settled · 0 decisions reconstructed</p>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="stats-section" id="evidence" aria-labelledby="evidence-title" data-receipt-label="External evidence">
-      <div class="ledger-boundary">
-        <div class="section-intro section-intro-wide">
-          <p class="section-number">04 / Evidence</p>
-          <h2 id="evidence-title">Execution breaks after the plan is already in motion.</h2>
-        </div>
-        <div class="stats-grid">
-          <article><strong>Half</strong><p>of committed sprint work ships when promised.</p><cite>LinearB · 2,000+ engineering teams</cite></article>
-          <article><strong>45%</strong><p>of product launches slip by a month or more.</p><cite>Gartner product-manager survey</cite></article>
-          <article><strong>87%</strong><p>say there is no capacity to coordinate once everyone is executing.</p><cite>Atlassian State of Teams 2026 · 12,000 workers</cite></article>
-        </div>
-        <p class="stats-close">The slip isn't the problem we fix. What happens in the hours after it is.</p>
-      </div>
-    </section>
-
-    <section class="section case-section ledger-section" aria-labelledby="case-title" data-receipt-label="Pilot proof">
-      <div class="ledger-boundary case-grid">
-        <figure class="evidence-placeholder" role="img" aria-label="A reserved evidence panel with four redacted pilot measures and one pending proof point.">
-          <span>Evidence reserved</span><i></i><i></i><i></i><i></i>
-        </figure>
-        <div>
-          <p class="section-number">05 / Pilot proof</p>
-          <h2 id="case-title">[Company] worked one real change before the next review.</h2>
-          <blockquote>“[Operator quote]”</blockquote>
-          <p class="case-person">[Operator name, role]</p>
-          <dl class="case-metrics">
-            <div><dt>Chases per week</dt><dd>[Before → after]</dd></div>
-            <div><dt>Median hours to decide</dt><dd>[Hours]</dd></div>
-            <div><dt>Before the deadline</dt><dd>[n of m]</dd></div>
-            <div><dt>Review prep</dt><dd>[Before → after]</dd></div>
-          </dl>
-          <a class="button button-outline" href="pilot-evidence.html">See how we measure</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section starts-section" id="pilot" aria-labelledby="starts-title" data-receipt-label="How a pilot starts">
-      <div class="ledger-boundary">
-        <div class="section-intro">
-          <p class="section-number">06 / How it starts</p>
-          <h2 id="starts-title">One document. One change. One review.</h2>
-        </div>
-        <ol class="starts-grid">
-          <li><span>01</span><p>Send one document with a real date in the next six weeks.</p></li>
-          <li><span>02</span><p>Review one draft; send one card per person.</p></li>
-          <li><span>03</span><p>Work through one change before the next review.</p></li>
-        </ol>
-        <a class="button button-dark" href="mailto:ed@coordinatedai.ai?subject=My%20last%20launch%20document">Send us your last launch doc</a>
-      </div>
-    </section>
-
-    <section class="section trust-section ledger-section" id="trust" aria-labelledby="trust-title" data-receipt-label="Trust boundaries">
-      <div class="ledger-boundary">
-        <div class="section-intro">
-          <p class="section-number">07 / Trust</p>
-          <h2 id="trust-title">The boundary is visible.</h2>
-        </div>
-        <div class="trust-grid">
-          <article>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h10l4 4v14H5zM15 3v5h4M8 12h8M8 16h6"/></svg>
-            <h3>What it reads</h3>
-            <p>Documents you hand it, artifacts posted in claimed channels, and threads where it is tagged.</p>
-          </article>
-          <article>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4l16 16M6 15V7h12v10H8M9 11h6"/></svg>
-            <h3>What it never reads</h3>
-            <p>Channels on its own, direct messages, or meetings. It labels what it cannot see.</p>
-          </article>
-          <article>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM8 9h8M8 13h5"/><circle class="changed-fill" cx="17" cy="16" r="2"/></svg>
-            <h3>What a channel sees</h3>
-            <p>Counts and state, never restricted terms. Each person receives only the card that belongs to them.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="reader-receipt" id="reader-receipt" aria-labelledby="receipt-title">
-      <div class="ledger-boundary receipt-layout">
-        <div>
-          <p class="section-number">Your reading receipt</p>
-          <h2 id="receipt-title">What this page put on record.</h2>
-          <p>This receipt updates as sections enter view. It stays in this browser and is not sent anywhere.</p>
-        </div>
-        <article class="receipt-card" aria-live="polite">
-          <header><span>Coordinated</span><span>Reader receipt</span></header>
-          <ul id="receipt-items"><li>Homepage opened</li></ul>
-          <footer><span id="receipt-count">1 section recorded</span><time id="receipt-time"></time></footer>
-        </article>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="ledger-boundary footer-grid">
-      <a class="brand brand-footer" href="index.html"><img src="brand/mark_light.svg" width="36" height="36" alt=""><span>Coordinated</span></a>
-      <nav aria-label="Footer navigation">
-        <a href="#why">Why</a><a href="#how">How it works</a><a href="pilot-evidence.html">Evidence</a><a href="#pilot">Pilot</a><a href="mailto:ed@coordinatedai.ai">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a>
-      </nav>
-      <p>Built in the Bay Area.</p>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Coordinated — a living plan for the work you agree</title>
+    <meta
+      name="description"
+      content="Keep company priorities, the reasoning behind them, and each team’s commitments connected as plans change."
+    />
+    <meta name="theme-color" content="#16181d" />
+    <link rel="canonical" href="https://coordinatedai.ai/" />
+    <meta
+      property="og:title"
+      content="Coordinated — a living plan for the work you agree"
+    />
+    <meta
+      property="og:description"
+      content="Keep company priorities, the reasoning behind them, and each team’s commitments connected as plans change."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://coordinatedai.ai/" />
+    <meta
+      property="og:image"
+      content="https://coordinatedai.ai/assets/product/og-living-plan.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Illustration: A merging galaxy beside a connected company goal, contribution and changed plan, with the words Keep the direction clear as the plan changes."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="brand/mark_dark.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="site.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="announcement">
+      <a href="pilot.html"
+        >Start with one initiative <span aria-hidden="true">↗</span></a
+      >
     </div>
-  </footer>
-</body>
+    <header class="site-header ledger-boundary">
+      <a class="brand" href="index.html" aria-label="Coordinated home"
+        ><img src="brand/mark_dark.svg" width="36" height="36" alt="" /><span
+          >Coordinated</span
+        ></a
+      >
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a href="index.html#why">Why</a><a href="index.html#how">How it works</a
+        ><a href="use-cases.html">Use cases</a
+        ><a href="principles.html">Principles</a
+        ><a class="nav-contact" href="pilot.html"
+          >Discuss a pilot <span aria-hidden="true">↗</span></a
+        >
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-media">
+          <picture
+            ><source
+              media="(max-width: 767px)"
+              srcset="assets/galaxy/portrait-upscaled-1600x2400.webp"
+              type="image/webp" />
+            <img
+              class="hero-galaxy"
+              src="assets/galaxy/landscape-upscaled-2880x1600.webp"
+              srcset="
+                assets/galaxy/landscape-native-master-1485x825.webp 1485w,
+                assets/galaxy/landscape-upscaled-2880x1600.webp     2880w
+              "
+              sizes="100vw"
+              width="2880"
+              height="1600"
+              fetchpriority="high"
+              alt="Illustration: Two interacting spiral galaxies with pale tails converging on a shared core marked by a tiny red point, against deep black space."
+          /></picture>
+        </div>
+        <div class="hero-scrim" aria-hidden="true"></div>
+        <div class="ledger-boundary hero-layout">
+          <div class="hero-copy">
+            <p class="eyebrow">
+              Version control for what your company has agreed.
+            </p>
+            <h1 id="hero-title">
+              When the plan changes, <br />keep the company <br />moving
+              together.
+            </h1>
+            <p class="hero-promise">
+              Keep company priorities, the reasoning behind them, and each
+              team’s commitments connected. See what your work contributes to,
+              what changed, and which decisions need your input.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-paper" href="pilot.html"
+                >Discuss a launch pilot <span aria-hidden="true">↗</span></a
+              ><a class="text-link" href="#how"
+                >Try a change <span aria-hidden="true">→</span></a
+              >
+            </div>
+            <p class="hero-footnote">
+              For operators at 50–300-person software companies.<br />Start with
+              one initiative. Bring the conversation into Slack.
+            </p>
+          </div>
+          <div class="hero-product">
+            <p class="example-label">Illustrative example · Atlas launch</p>
+            <article class="slack-card hero-card">
+              <header class="slack-card-header">
+                <img src="brand/mark_dark.svg" width="32" height="32" alt="" />
+                <div><strong>Coordinated</strong><span>APP</span></div>
+              </header>
+              <p class="card-context">
+                Your contribution → Help customers adopt Atlas
+              </p>
+              <h2>
+                Staging is forecast to slip.<br /><span class="changed"
+                  >Your launch needs a decision.</span
+                >
+              </h2>
+              <p>
+                Your announcement needs ten days after staging. The new forecast
+                leaves five.
+              </p>
+              <p class="card-emphasis">
+                This is a forecast. Your agreed announcement date has not
+                changed.
+              </p>
+              <dl class="reached-list">
+                <div>
+                  <dt>Sarah</dt>
+                  <dd>Asked · marketing preparation is affected</dd>
+                </div>
+                <div>
+                  <dt>Marco</dt>
+                  <dd>Informed · customer condition still holds</dd>
+                </div>
+                <div>
+                  <dt>Nadia</dt>
+                  <dd>Decides · your input stays with the decision</dd>
+                </div>
+              </dl>
+              <a class="text-link text-link-dark" href="#how"
+                >See how Sarah’s concern changes the plan
+                <span aria-hidden="true">→</span></a
+              >
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="trust-ribbon" aria-label="How to start">
+        <div class="ledger-boundary trust-ribbon-grid">
+          <p>One initiative and an existing review</p>
+          <p>Selected sources and explicitly shared changes</p>
+          <p>Your task systems stay where they are</p>
+        </div>
+      </section>
+      <section class="section" id="why" aria-labelledby="why-title">
+        <div class="ledger-boundary intro-split">
+          <div>
+            <p class="section-number">01 / A living company plan</p>
+            <h2 id="why-title">
+              The direction stays clear.<br />The plan keeps moving.
+            </h2>
+          </div>
+          <div class="intro-prose">
+            <p>
+              Plans change in Slack threads, meetings, and hallway
+              conversations. Someone then has to connect the discussion to the
+              original goal, find the people affected, and establish what
+              everyone is now working toward.
+            </p>
+            <p>
+              Bring an important change back to Coordinated. The reasoning,
+              responses, and decision stay connected to the plan, ready for the
+              next review.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section
+        class="section demo-section"
+        id="how"
+        aria-labelledby="how-title"
+      >
+        <div class="ledger-boundary">
+          <div class="section-intro">
+            <p class="section-number">02 / Try one change</p>
+            <h2 id="how-title">A concern becomes<br />part of the decision.</h2>
+            <p>
+              Follow a launch from the original goal to Sarah’s response and
+              Nadia’s decision. See what changes, and what stays open.
+            </p>
+          </div>
+          <div class="demo-shell" data-demo>
+            <header class="demo-header">
+              <div>
+                <span class="demo-dot" aria-hidden="true"></span
+                ><strong>Atlas launch</strong
+                ><span class="demo-badge">Interactive example</span>
+              </div>
+              <button class="plain-button" type="button" data-demo-reset hidden>
+                Restart ↺
+              </button>
+            </header>
+            <p class="demo-disclosure">
+              Fictional company, people, and dates in Oct 2026. Nothing is sent
+              or saved.
+            </p>
+            <div class="demo-layout">
+              <ol class="demo-steps" aria-label="Example stages">
+                <li>
+                  <button type="button" data-demo-step="0" aria-current="step">
+                    <span>01</span>The plan
+                  </button>
+                </li>
+                <li>
+                  <button type="button" data-demo-step="1" disabled>
+                    <span>02</span>New information
+                  </button>
+                </li>
+                <li>
+                  <button type="button" data-demo-step="2" disabled>
+                    <span>03</span>Sarah’s input
+                  </button>
+                </li>
+                <li>
+                  <button type="button" data-demo-step="3" disabled>
+                    <span>04</span>Nadia’s decision
+                  </button>
+                </li>
+                <li>
+                  <button type="button" data-demo-step="4" disabled>
+                    <span>05</span>The current plan
+                  </button>
+                </li>
+                <li>
+                  <button type="button" data-demo-step="5" disabled>
+                    <span>06</span>The next review
+                  </button>
+                </li>
+              </ol>
+              <div class="demo-stage">
+                <p class="sr-only" role="status" data-demo-announcer></p>
+                <div data-demo-panel>
+                  <p class="section-number">The agreed plan · v1</p>
+                  <h3>Help enterprise customers adopt Atlas.</h3>
+                  <p>
+                    Hypothesis: a guided rollout and clear launch materials will
+                    help customers activate. Shipping alone will not prove that
+                    hypothesis.
+                  </p>
+                  <div class="plan-map">
+                    <div>
+                      <span>Company outcome</span
+                      ><strong>Customer adoption</strong>
+                    </div>
+                    <div>
+                      <span>Initiative</span><strong>Atlas launch</strong>
+                    </div>
+                    <div>
+                      <span>Sarah’s contribution</span
+                      ><strong>Explain Atlas clearly</strong>
+                    </div>
+                  </div>
+                  <p>
+                    The announcement is agreed for Thu Oct 15, with ten days of
+                    preparation after staging.
+                  </p>
+                  <p>
+                    Next: Maya forecasts a staging slip from Thu Oct 1 to Sat
+                    Oct 10. Sarah proposes Tue Oct 20 to protect preparation
+                    time. Nadia decides, and legal approval stays visibly open
+                    in the review brief.
+                  </p>
+                  <p class="demo-note">
+                    Enable JavaScript to try the decisions yourself.
+                  </p>
+                </div>
+                <div class="demo-controls" data-demo-controls hidden>
+                  <button
+                    class="plain-button"
+                    type="button"
+                    data-demo-back
+                    disabled
+                  >
+                    ← Back</button
+                  ><span data-demo-count>01 / 06</span
+                  ><button
+                    class="button button-dark"
+                    type="button"
+                    data-demo-next
+                  >
+                    See the changed forecast →
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="section-note">
+            Works from the people and dependencies on record. Missing
+            information stays visible; silence is not agreement.
+          </p>
+        </div>
+      </section>
+      <section class="section" id="people" aria-labelledby="people-title">
+        <div class="ledger-boundary">
+          <div class="section-intro">
+            <p class="section-number">
+              03 / Clear direction. Meaningful participation.
+            </p>
+            <h2 id="people-title">
+              Know why it matters.<br />Know where you stand.
+            </h2>
+          </div>
+          <div class="benefits-grid">
+            <article>
+              <p class="section-number">For operators</p>
+              <h3>Less to chase.<br />More room to decide.</h3>
+              <p>
+                See what changed, who needs to answer, and what remains
+                unresolved before the next review. Spend less time
+                reconstructing the plan and carrying updates between teams.
+              </p>
+            </article>
+            <article>
+              <p class="section-number">For contributors</p>
+              <h3>Your work has context.<br />Your input stays attached.</h3>
+              <p>
+                Understand what your work contributes to and who depends on it.
+                Raise a concern or propose a condition, then see how it was
+                addressed in the decision.
+              </p>
+            </article>
+            <article>
+              <p class="section-number">For leaders</p>
+              <h3>See the trade-off.<br />Keep the reasoning.</h3>
+              <p>
+                See the commitments and constraints behind the plan, alongside
+                the choices that need your judgment. Carry the reason for a
+                change to the people doing the work.
+              </p>
+            </article>
+          </div>
+          <a
+            class="text-link text-link-dark principles-link"
+            href="principles.html"
+            >The principles behind the product
+            <span aria-hidden="true">→</span></a
+          >
+        </div>
+      </section>
+      <section class="section moments-section" aria-labelledby="moments-title">
+        <div class="ledger-boundary">
+          <div class="section-intro">
+            <p class="section-number">04 / Beyond a date change</p>
+            <h2 id="moments-title">
+              Keep the important<br />agreements connected.
+            </h2>
+          </div>
+          <div class="moments-grid">
+            <a href="use-cases.html#scope-changes"
+              ><span>01 / Scope</span>
+              <h3>What happens to the promises when a feature moves out?</h3>
+              <p>
+                Connect the change to the customer terms, announcement, and
+                support work it affects.
+              </p>
+              <b aria-hidden="true">↗</b></a
+            ><a href="use-cases.html#assumption-due"
+              ><span>02 / Assumptions</span>
+              <h3>Is the plan still grounded in what we know?</h3>
+              <p>
+                Bring assumptions back at the right review, with the evidence
+                available and the gaps named.
+              </p>
+              <b aria-hidden="true">↗</b></a
+            ><a href="use-cases.html#review-starts"
+              ><span>03 / Operating cadence</span>
+              <h3>What needs a decision before the next review?</h3>
+              <p>
+                Start from the current agreement, recent changes, and unresolved
+                questions.
+              </p>
+              <b aria-hidden="true">↗</b></a
+            >
+          </div>
+          <a class="text-link text-link-dark" href="use-cases.html"
+            >Explore all six examples →</a
+          >
+        </div>
+      </section>
+      <section
+        class="section research-section"
+        aria-labelledby="research-title"
+      >
+        <div class="ledger-boundary">
+          <div class="section-intro">
+            <p class="section-number">05 / Why this matters</p>
+            <h2 id="research-title">
+              Execution moves.<br />Coordination needs to keep up.
+            </h2>
+            <p>
+              Research describes the problem. A pilot tests whether Coordinated
+              helps your team.
+            </p>
+          </div>
+          <div class="stats-grid">
+            <article>
+              <strong>&lt;50%</strong>
+              <p>
+                Average sprint planning accuracy in LinearB’s benchmark
+                research.
+              </p>
+              <a href="https://linearb.io/blog/engineering-kpis"
+                >LinearB · 2,000+ teams ↗</a
+              >
+            </article>
+            <article>
+              <strong>45%</strong>
+              <p>
+                Of product launches delayed by at least a month in Gartner’s
+                2019 survey.
+              </p>
+              <a
+                href="https://www.nasdaq.com/press-release/gartner-survey-finds-that-45-of-product-launches-are-delayed-by-at-least-one-month"
+                >Gartner · 205 product managers · 2019 ↗</a
+              >
+            </article>
+            <article>
+              <strong>87%</strong>
+              <p>
+                Of knowledge workers say they lack time or capacity to
+                coordinate when everyone is executing.
+              </p>
+              <a href="https://www.atlassian.com/blog/state-of-teams-2026"
+                >Atlassian · State of Teams 2026 ↗</a
+              >
+            </article>
+          </div>
+        </div>
+      </section>
+      <section
+        class="section starts-section"
+        id="pilot"
+        aria-labelledby="starts-title"
+      >
+        <div class="ledger-boundary">
+          <div class="section-intro">
+            <p class="section-number">06 / Design partners</p>
+            <h2 id="starts-title">
+              Start with one initiative.<br />Make the next review clearer.
+            </h2>
+            <p>
+              For Chiefs of Staff, BizOps leaders, and cross-functional
+              operators with a launch or commitment coming up in the next six
+              weeks.
+            </p>
+          </div>
+          <ol class="starts-grid">
+            <li>
+              <span>01 / Talk it through</span>
+              <p>
+                Discuss the initiative and the coordination work around it. No
+                document required.
+              </p>
+            </li>
+            <li>
+              <span>02 / Agree the pilot</span>
+              <p>
+                Choose the participants, sources, review date, and scope
+                together.
+              </p>
+            </li>
+            <li>
+              <span>03 / Work one change</span>
+              <p>
+                Review a draft plan, gather the affected owners’ input, and
+                bring the current agreement to the next review.
+              </p>
+            </li>
+          </ol>
+          <div class="section-actions">
+            <a class="button button-dark" href="pilot.html"
+              >Discuss a launch pilot ↗</a
+            ><a class="text-link text-link-dark" href="pilot-evidence.html"
+              >How we evaluate a pilot →</a
+            >
+          </div>
+          <p class="section-note">
+            Pilot scope, timing, and pricing are agreed before starting. No
+            published customer results yet.
+          </p>
+        </div>
+      </section>
+      <section
+        class="section trust-section"
+        id="trust"
+        aria-labelledby="trust-title"
+      >
+        <div class="ledger-boundary intro-split">
+          <div>
+            <p class="section-number">07 / Deliberate boundaries</p>
+            <h2 id="trust-title">
+              Choose the work.<br />Keep people in control.
+            </h2>
+          </div>
+          <div class="trust-list">
+            <article>
+              <h3>A focused plan in Slack</h3>
+              <p>
+                The pilot centers on selected initiative documents and shared
+                changes, with cards and reviews in Slack. Your existing task
+                systems remain in place.
+              </p>
+            </article>
+            <article>
+              <h3>A visible audience</h3>
+              <p>
+                Agree who can see the plan, responses, and source material
+                before connecting the initiative. A private concern should never
+                become a surprise public record.
+              </p>
+            </article>
+            <article>
+              <h3>Clear terms before sharing</h3>
+              <p>
+                Confirm source access, retention, deletion, and AI processing
+                with us before sending internal documents.
+              </p>
+              <a href="pilot.html#questions">Questions before a pilot →</a>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="ledger-boundary footer-grid">
+        <a class="brand brand-footer" href="index.html"
+          ><img src="brand/mark_light.svg" width="36" height="36" alt="" /><span
+            >Coordinated</span
+          ></a
+        >
+        <nav aria-label="Footer navigation">
+          <a href="principles.html">Our principles</a
+          ><a href="pilot-evidence.html">Pilot measures</a
+          ><a href="pilot.html">Discuss a pilot</a
+          ><a href="mailto:ed@coordinatedai.ai">Email Ed</a
+          ><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a>
+        </nav>
+        <p>Built in the Bay Area.</p>
+      </div>
+    </footer>
+  </body>
 </html>
