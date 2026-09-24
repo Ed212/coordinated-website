@@ -3,17 +3,17 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>How we evaluate a pilot — Coordinated</title>
+    <title>Pilot success measures — Coordinated</title>
     <meta
       name="description"
-      content="Five measures of coordination effort, decisions, deadlines, and review preparation. Definitions before results."
+      content="Agree the baseline, targets, and decision rules before starting. Measure operator effort, participant burden, and the timeliness and quality of decisions."
     />
-    <meta name="theme-color" content="#16181d" />
+    <meta name="theme-color" content="#090b0d" />
     <link rel="canonical" href="https://coordinatedai.ai/pilot-evidence" />
-    <meta property="og:title" content="How we evaluate a pilot — Coordinated" />
+    <meta property="og:title" content="Pilot success measures — Coordinated" />
     <meta
       property="og:description"
-      content="Five measures of coordination effort, decisions, deadlines, and review preparation. Definitions before results."
+      content="Agree the baseline, targets, and decision rules before starting. Measure operator effort, participant burden, and the timeliness and quality of decisions."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://coordinatedai.ai/pilot-evidence" />
@@ -25,179 +25,264 @@
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="Illustration: A merging galaxy beside a connected company goal, contribution and changed plan, with the words Keep the direction clear as the plan changes."
+      content="Illustration: Two pale spiral galaxies converge around a tiny red core beside the words One living plan. A company in sync."
     />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" type="image/svg+xml" href="brand/mark_dark.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;550;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="experience.css" />
     <script src="site.js" defer></script>
+    <script src="experience.js" defer></script>
   </head>
-  <body>
+  <body class="orbit-site evidence-page">
     <a class="skip-link" href="#main">Skip to content</a>
-    <div class="announcement">
-      <a href="pilot.html"
-        >Start with one initiative <span aria-hidden="true">↗</span></a
-      >
-    </div>
     <header class="site-header ledger-boundary">
       <a class="brand" href="index.html" aria-label="Coordinated home"
-        ><img src="brand/mark_dark.svg" width="36" height="36" alt="" /><span
+        ><img src="brand/mark_light.svg" width="32" height="32" alt="" /><span
           >Coordinated</span
         ></a
       >
       <nav class="primary-nav" aria-label="Primary navigation">
-        <a href="index.html#why">Why</a><a href="index.html#how">How it works</a
-        ><a href="use-cases.html">Use cases</a
-        ><a href="principles.html">Principles</a
+        <a href="index.html#plan">The living plan</a
+        ><a href="index.html#people">Who it’s for</a
+        ><a href="principles.html">Our principles</a
         ><a class="nav-contact" href="pilot.html"
-          >Discuss a pilot <span aria-hidden="true">↗</span></a
+          >Plan your pilot <span aria-hidden="true">↗</span></a
         >
       </nav>
     </header>
     <main id="main">
       <section class="subpage-hero">
         <div class="ledger-boundary">
-          <p class="section-number">Pilot measures · Methodology</p>
-          <h1>Does the plan get clearer<br />as coordination gets lighter?</h1>
+          <p class="section-number">The pilot scorecard</p>
+          <h1>A clearer plan.<br />Less work to keep it clear.</h1>
           <p>
-            That is what a pilot should establish. We define the initiative,
-            baseline, and review window together before measuring a change.
-            Customer results are not yet published.
+            That’s the test. Agree the definitions and thresholds before
+            starting, then make a decision using what actually happened.
           </p>
-        </div>
-      </section>
-      <section>
-        <div class="ledger-boundary measure-list">
-          <article class="measure">
-            <p class="measure-number">01</p>
-            <div>
-              <h2>Chase load per week</h2>
-              <p>
-                Count direct follow-ups needed to obtain an owner, response,
-                condition, or decision for the selected initiative. Record
-                operator and participant effort, including correction and setup
-                work, so the burden cannot simply move out of view.
-              </p>
-            </div>
-            <p class="measure-definition">Compare baseline and pilot windows</p>
-          </article>
-          <article class="measure">
-            <p class="measure-number">02</p>
-            <div>
-              <h2>Time from reported change to decision</h2>
-              <p>
-                Measure from the first shared report to the authorized decision.
-                Report unresolved cases and their elapsed time separately
-                alongside the median for completed decisions.
-              </p>
-            </div>
-            <p class="measure-definition">Include open cases and sample size</p>
-          </article>
-          <article class="measure">
-            <p class="measure-number">03</p>
-            <div>
-              <h2>Decisions before the affected deadline</h2>
-              <p>
-                Count decisions recorded before the earliest downstream lock or
-                deadline, out of every decision due in the agreed window. Missed
-                deadlines and still-open decisions stay in the denominator.
-              </p>
-            </div>
-            <p class="measure-definition">
-              Report decided on time / all decisions due
-            </p>
-          </article>
-          <article class="measure">
-            <p class="measure-number">04</p>
-            <div>
-              <h2>Responses still pending at the deadline</h2>
-              <p>
-                Count requested answers still missing when the affected deadline
-                arrives. People only informed are excluded. An unanswered
-                request never counts as agreement.
-              </p>
-            </div>
-            <p class="measure-definition">
-              Report pending requests and affected decisions
-            </p>
-          </article>
-          <article class="measure">
-            <p class="measure-number">05</p>
-            <div>
-              <h2>Review preparation time</h2>
-              <p>
-                Record operator time spent reconstructing the initiative state
-                before the review. Track draft corrections and participant
-                interruptions as well as preparation, so apparent savings do not
-                hide extra work.
-              </p>
-            </div>
-            <p class="measure-definition">
-              Compare time and quality of the review brief
-            </p>
-          </article>
-        </div>
-      </section>
-      <section class="evidence-method">
-        <div class="ledger-boundary evidence-method-grid">
-          <div>
-            <p class="section-number">The readout</p>
-            <h2>Publish what happened.<br />Keep the limits visible.</h2>
-          </div>
-          <div>
-            <p>
-              Record the baseline, pilot duration, number of changes, people
-              involved, and any missing observations. Separate observed outcomes
-              from estimates and explain differences in workload between the
-              comparison windows.
-            </p>
-            <p>
-              Ask participants whether their work was represented accurately and
-              whether they could see how a concern was addressed. Faster answers
-              alone are not proof of better coordination.
-            </p>
-            <p>
-              Customer names, quotes, and results appear only after observation
-              and permission. A pilot is evidence about a particular team and
-              workflow, not a guaranteed result for every company.
-            </p>
-          </div>
+          <span class="evidence-label"
+            >Proposed measures · No published customer results yet</span
+          >
         </div>
       </section>
       <section class="section">
         <div class="ledger-boundary">
-          <h2>Test it on one initiative.</h2>
-          <p>
-            Start with your upcoming review and the coordination work you want
-            to reduce.
+          <div class="section-intro">
+            <p class="section-number">Start with an honest comparison</p>
+            <h2>The same initiative.<br />A comparable review cycle.</h2>
+            <p>
+              Use the last comparable review as a baseline, or observe one
+              before the pilot. Record the people, changes, and deadlines in
+              each window. A quieter week is not proof the product worked.
+            </p>
+          </div>
+          <div class="success-grid">
+            <article>
+              <span class="metric-index">01 / Time back</span>
+              <h3>30% less<br />operator effort.</h3>
+              <p>
+                Suggested target for recurring chasing and review preparation.
+                Count corrections and manual founder support; report setup
+                separately.
+              </p>
+            </article>
+            <article>
+              <span class="metric-index">02 / Earlier clarity</span>
+              <h3>Critical changes.<br />Acted on in time.</h3>
+              <p>
+                A decision or explicit escalation before the affected deadline.
+                Unresolved and late cases remain visible.
+              </p>
+            </article>
+            <article>
+              <span class="metric-index">03 / A lighter team load</span>
+              <h3>Fewer interruptions.<br />No hidden burden.</h3>
+              <p>
+                Participant effort should not increase. Check that the plan and
+                the response to each concern are represented accurately.
+              </p>
+            </article>
+          </div>
+          <div class="scorecard-table-wrap">
+            <table class="scorecard-table">
+              <caption>
+                Working definitions to finalize at kickoff
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Measure</th>
+                  <th scope="col">What we record</th>
+                  <th scope="col">Proposed success test</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Recurring operator effort</th>
+                  <td>
+                    Minutes spent chasing, reconstructing state, preparing the
+                    brief, and correcting product output. Record founder
+                    assistance separately.
+                  </td>
+                  <td>
+                    At least 30% lower than a comparable baseline. Report setup
+                    time alongside recurring savings.
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Critical changes</th>
+                  <td>
+                    All changes with an affected deadline, their first shared
+                    report, authority, disposition, and timestamps.
+                  </td>
+                  <td>
+                    Every critical change decided or explicitly escalated before
+                    the deadline. Escalation is not counted as resolution.
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Participant burden</th>
+                  <td>
+                    Total response and correction minutes, requests sent,
+                    unnecessary interruptions, and a short participant check.
+                  </td>
+                  <td>
+                    No increase in participant effort; any missing or disputed
+                    representation is corrected and kept visible.
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Integrity of the record</th>
+                  <td>
+                    Pending responses, disagreements, missing evidence, and the
+                    link between input and the authorized decision.
+                  </td>
+                  <td>
+                    No unanswered request presented as consent; no forecast
+                    presented as an approved amendment.
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Agent experiment, if scoped</th>
+                  <td>
+                    Which version was available, fetched, attached to an
+                    artifact, and checked before an action.
+                  </td>
+                  <td>
+                    Report those stages separately. Claim enforcement only for
+                    the covered action path with a verified gate.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="section-note">
+            The 30% threshold is a starting proposal, not a promise. Keep counts
+            and elapsed time alongside percentages. Small samples support a
+            decision about this workflow, not a universal performance claim.
           </p>
-          <a class="button button-dark" href="pilot.html"
-            >Discuss a launch pilot ↗</a
-          >
+        </div>
+      </section>
+      <section class="section evidence-method">
+        <div class="ledger-boundary">
+          <div class="section-intro">
+            <p class="section-number">At the third review</p>
+            <h2>Continue. Adjust. Or stop.</h2>
+            <p>Decide together. A good pilot should make that choice easier.</p>
+          </div>
+          <div class="decision-readout">
+            <article>
+              <span>01 / Continue</span>
+              <h3>The value survives the accounting.</h3>
+              <p>
+                Recurring coordination is lighter, participant burden has not
+                risen, the record is trustworthy, and the operator wants to use
+                it for the next cycle.
+              </p>
+            </article>
+            <article>
+              <span>02 / Adjust</span>
+              <h3>There is one specific thing to fix.</h3>
+              <p>
+                A concrete workflow or accuracy issue prevents value. Agree the
+                change and a short retest; don’t extend indefinitely on
+                enthusiasm.
+              </p>
+            </article>
+            <article>
+              <span>03 / Stop</span>
+              <h3>The burden outweighs the benefit.</h3>
+              <p>
+                Too much correction, displaced work, insufficient need, or no
+                evidence of improvement. Record why and close the pilot on the
+                agreed terms.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <div class="ledger-boundary intro-split">
+          <div>
+            <p class="section-number">What the readout must disclose</p>
+            <h2>Count what happened.<br />Name what didn’t.</h2>
+          </div>
+          <div class="intro-prose">
+            <p>
+              Include baseline dates, actual workload, setup and founder
+              support, participant effort, open decisions, and missing
+              observations. Show decisions and escalations separately.
+            </p>
+            <p>
+              A rehearsal is labeled a rehearsal. A fetched plan is not an
+              enforced action. Finishing a release is not proof that its
+              business hypothesis held.
+            </p>
+            <p>
+              Customer names, quotes, and results appear only with permission.
+              Until then, the website examples remain clearly illustrative.
+            </p>
+            <a class="button button-dark" href="pilot.html"
+              >Agree your pilot’s success criteria ↗</a
+            >
+          </div>
         </div>
       </section>
     </main>
     <footer class="site-footer">
-      <div class="ledger-boundary footer-grid">
-        <a class="brand brand-footer" href="index.html"
-          ><img src="brand/mark_light.svg" width="36" height="36" alt="" /><span
-            >Coordinated</span
-          ></a
-        >
-        <nav aria-label="Footer navigation">
-          <a href="principles.html">Our principles</a
-          ><a href="pilot-evidence.html">Pilot measures</a
-          ><a href="pilot.html">Discuss a pilot</a
-          ><a href="mailto:ed@coordinatedai.ai">Email Ed</a
-          ><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a>
-        </nav>
-        <p>Built in the Bay Area.</p>
+      <div class="ledger-boundary">
+        <div class="footer-top">
+          <a class="brand" href="index.html"
+            ><img
+              src="brand/mark_light.svg"
+              width="36"
+              height="36"
+              alt=""
+            /><span>Coordinated</span></a
+          >
+          <p>Many moving parts.<br />One shared direction.</p>
+        </div>
+        <div class="footer-grid">
+          <nav aria-label="Footer navigation">
+            <a href="index.html#plan">The living plan</a
+            ><a href="use-cases.html">Use cases</a
+            ><a href="principles.html">Our principles</a
+            ><a href="pilot-evidence.html">Pilot measures</a
+            ><a href="pilot.html">Plan your pilot</a
+            ><a href="mailto:ed@coordinatedai.ai">Email Ed</a>
+          </nav>
+          <div class="footer-bottom">
+            <p>Independent. Founder-led. Built in the Bay Area.</p>
+            <div>
+              <a href="privacy.html">Privacy</a><a href="terms.html">Terms</a>
+            </div>
+          </div>
+        </div>
       </div>
     </footer>
   </body>

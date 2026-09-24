@@ -94,3 +94,7 @@ The existing landscape and phone galaxy images remain in the hero. The secondary
 - Current social image: `assets/product/og-living-plan.png`, 1200×630, rendered from `assets/product/og-template.html`. Reuses the existing galaxy and brand mark; the copy and small goal/contribution/change card are deterministic HTML.
 - Social alt text: “Illustration: A merging galaxy beside a connected company goal, contribution and changed plan, with the words Keep the direction clear as the plan changes.”
 - Legacy assets and generation records above are retained for provenance. Active pages reference only the current hero assets and the new social image.
+
+## Convergence edition
+
+The existing landscape and phone galaxies remain the visual source. The shared core is left unobstructed in the desktop hero; mobile uses its own framed source. No new galaxy was generated or represented as a real astronomical photograph. Product illustrations are accessible HTML with local state. The current social image is rendered from `assets/product/og-template.html` using the existing galaxy asset; its copy is “One living plan. A company in sync.”

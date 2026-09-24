@@ -25,7 +25,7 @@
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="Illustration: A merging galaxy beside a connected company goal, contribution and changed plan, with the words Keep the direction clear as the plan changes."
+      content="Illustration: Two pale spiral galaxies converge around a tiny red core beside the words One living plan. A company in sync."
     />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" type="image/svg+xml" href="brand/mark_dark.svg" />
@@ -38,26 +38,23 @@
     <link rel="stylesheet" href="styles.css" />
     <script src="site.js" defer></script>
     <meta name="robots" content="noindex" />
+    <link rel="stylesheet" href="experience.css" />
+    <script src="experience.js" defer></script>
   </head>
-  <body>
+  <body class="orbit-site inner-page">
     <a class="skip-link" href="#main">Skip to content</a>
-    <div class="announcement">
-      <a href="pilot.html"
-        >Start with one initiative <span aria-hidden="true">↗</span></a
-      >
-    </div>
     <header class="site-header ledger-boundary">
       <a class="brand" href="index.html" aria-label="Coordinated home"
-        ><img src="brand/mark_dark.svg" width="36" height="36" alt="" /><span
+        ><img src="brand/mark_light.svg" width="32" height="32" alt="" /><span
           >Coordinated</span
         ></a
       >
       <nav class="primary-nav" aria-label="Primary navigation">
-        <a href="index.html#why">Why</a><a href="index.html#how">How it works</a
-        ><a href="use-cases.html">Use cases</a
-        ><a href="principles.html">Principles</a
+        <a href="index.html#plan">The living plan</a
+        ><a href="index.html#people">Who it’s for</a
+        ><a href="principles.html">Our principles</a
         ><a class="nav-contact" href="pilot.html"
-          >Discuss a pilot <span aria-hidden="true">↗</span></a
+          >Plan your pilot <span aria-hidden="true">↗</span></a
         >
       </nav>
     </header>
@@ -67,10 +64,10 @@
           <p class="section-number">Implementation notes</p>
           <h1>Direction, contribution,<br />and the decision between them.</h1>
           <p>
-            The homepage introduces the living-plan value through one fictional
-            launch. The example lets a visitor trace an explicit dependency,
-            contribute a concern, and distinguish an answer from an authorized
-            amendment.
+            The homepage introduces the living-plan value through three
+            fictional cross-functional initiatives. The example lets a visitor
+            trace an explicit dependency, contribute a concern, and distinguish
+            an answer from an authorized amendment.
           </p>
         </div>
       </section>
@@ -78,17 +75,20 @@
         <div class="ledger-boundary">
           <h2>Visual system</h2>
           <p>
-            The existing monochrome galaxy anchors the hero. Subsequent visuals
-            show the work itself: a connected goal and contribution, changed
-            dates, a recorded response, and an unresolved review question.
-            Product illustrations are readable HTML, not generated screenshots.
+            The existing merging galaxies anchor a spacious hero with the shared
+            red core unobstructed. Subsequent visuals show the work itself: a
+            connected goal and contribution, changed dates, a recorded response,
+            and an unresolved review question. Product illustrations are
+            readable HTML, not generated screenshots.
           </p>
           <h2>State and boundaries</h2>
           <p>
             The walkthrough runs locally without persistence. The email form
             only prepares a draft. Static use-case cards are labeled
-            illustrations. Customer evidence, fixed commercial terms, and
-            security claims have not been fabricated.
+            illustrations. Pilot scope and effort are proposed starting points.
+            The 30% success threshold is a suggested target, not a customer
+            result. Agent integrations require separate scoping. Customer
+            evidence and security claims have not been fabricated.
           </p>
           <h2>Human participation</h2>
           <p>
@@ -109,20 +109,34 @@
       </section>
     </main>
     <footer class="site-footer">
-      <div class="ledger-boundary footer-grid">
-        <a class="brand brand-footer" href="index.html"
-          ><img src="brand/mark_light.svg" width="36" height="36" alt="" /><span
-            >Coordinated</span
-          ></a
-        >
-        <nav aria-label="Footer navigation">
-          <a href="principles.html">Our principles</a
-          ><a href="pilot-evidence.html">Pilot measures</a
-          ><a href="pilot.html">Discuss a pilot</a
-          ><a href="mailto:ed@coordinatedai.ai">Email Ed</a
-          ><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a>
-        </nav>
-        <p>Built in the Bay Area.</p>
+      <div class="ledger-boundary">
+        <div class="footer-top">
+          <a class="brand" href="index.html"
+            ><img
+              src="brand/mark_light.svg"
+              width="36"
+              height="36"
+              alt=""
+            /><span>Coordinated</span></a
+          >
+          <p>Many moving parts.<br />One shared direction.</p>
+        </div>
+        <div class="footer-grid">
+          <nav aria-label="Footer navigation">
+            <a href="index.html#plan">The living plan</a
+            ><a href="use-cases.html">Use cases</a
+            ><a href="principles.html">Our principles</a
+            ><a href="pilot-evidence.html">Pilot measures</a
+            ><a href="pilot.html">Plan your pilot</a
+            ><a href="mailto:ed@coordinatedai.ai">Email Ed</a>
+          </nav>
+          <div class="footer-bottom">
+            <p>Independent. Founder-led. Built in the Bay Area.</p>
+            <div>
+              <a href="privacy.html">Privacy</a><a href="terms.html">Terms</a>
+            </div>
+          </div>
+        </div>
       </div>
     </footer>
   </body>

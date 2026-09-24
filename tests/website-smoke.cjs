@@ -30,6 +30,52 @@ const output =
     page.on("pageerror", (error) => errors.push(error.message));
     await page.goto(base);
     await page.screenshot({ path: path.join(output, "desktop-hero.png") });
+    // The company preview models cross-functional dependencies, not inferred authority.
+    await page.locator('[data-initiative="capacity"]').click();
+    assert.ok(
+      (await page.locator("[data-initiative-panel]").innerText()).includes(
+        "accepted offer",
+      ),
+    );
+    await page.locator('[data-initiative="onboarding"]').click();
+    assert.ok(
+      (await page.locator("[data-initiative-panel]").innerText()).includes(
+        "baseline is not on record",
+      ),
+    );
+    await page.locator('[data-initiative="atlas"]').click();
+    await page.locator("[data-plan-change]").click();
+    assert.ok(
+      (await page.locator("[data-initiative-panel]").innerText()).includes(
+        "Your agreed announcement date has not changed",
+      ),
+    );
+    await page
+      .locator(".company-plan")
+      .screenshot({ path: path.join(output, "desktop-company-plan.png") });
+    await page.locator("[data-plan-change]").click();
+    assert.equal(await page.locator(".plan-alert").count(), 0);
+    await page.getByRole("tab", { name: "For agents", exact: true }).click();
+    assert.ok(
+      (await page.locator("#role-panel").innerText())
+        .toLowerCase()
+        .includes("optional integration experiment"),
+    );
+    assert.ok(
+      (await page.locator("#role-panel").innerText()).includes(
+        "Enforcement needs a verified gate",
+      ),
+    );
+    await page
+      .getByRole("tab", { name: "For agents", exact: true })
+      .press("Home");
+    assert.equal(
+      await page
+        .getByRole("tab", { name: "For operators", exact: true })
+        .getAttribute("aria-selected"),
+      "true",
+    );
+    await page.locator("#how > summary").click();
     const next = page.locator("[data-demo-next]");
     const panel = page.locator("[data-demo-panel]");
     await next.click();
@@ -104,6 +150,21 @@ const output =
     assert.ok((await panel.innerText()).includes("Input unresolved"));
     // Contact preview neither navigates nor makes a lead submission.
     await page.goto(`${base}/pilot.html`);
+    await page
+      .getByRole("button", { name: "A customer promise", exact: true })
+      .click();
+    assert.ok(
+      (await page.locator("#pilot-initiative").inputValue()).includes(
+        "customer commitment",
+      ),
+    );
+    await page.locator("#pilot-initiative").fill("My own initiative.");
+    await page.getByRole("button", { name: "A launch", exact: true }).click();
+    assert.equal(
+      await page.locator("#pilot-initiative").inputValue(),
+      "My own initiative.",
+      "starter never overwrites a visitor draft",
+    );
     const contactRequests = [];
     page.on("request", (req) => {
       if (req.method() !== "GET") contactRequests.push(req.url());
@@ -142,6 +203,8 @@ const output =
       "pilot.html",
       "pilot-evidence.html",
       "use-cases.html",
+      "privacy.html",
+      "terms.html",
     ];
     const viewports = [
       { width: 1440, height: 1000 },
@@ -192,6 +255,7 @@ const output =
     }
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(base);
+    await page.locator("#how > summary").click();
     await next.click();
     await next.click();
     await page.locator('[data-demo-response="proposal"]').click();
@@ -205,6 +269,18 @@ const output =
       false,
     );
     assert.deepEqual(errors, [], "no browser exceptions");
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    await page.goto(base);
+    await page.screenshot({
+      path: path.join(output, "homepage-full.png"),
+      fullPage: true,
+    });
+    await page
+      .locator("#people")
+      .screenshot({ path: path.join(output, "desktop-roles.png") });
+    await page
+      .locator("#pilot")
+      .screenshot({ path: path.join(output, "desktop-pilot-scorecard.png") });
     await page.setViewportSize({ width: 1200, height: 630 });
     await page.goto(`${base}/assets/product/og-template.html`);
     await page.locator(".galaxy").evaluate((img) => img.decode());
@@ -217,6 +293,7 @@ const output =
     });
     const fallback = await nojs.newPage();
     await fallback.goto(base);
+    await fallback.locator("#how > summary").click();
     assert.ok(
       (await fallback.locator("[data-demo-panel]").innerText()).includes(
         "Shipping alone will not prove",
@@ -241,6 +318,9 @@ const output =
           viewports: viewports.map((v) => v.width),
           pages,
           checks: [
+            "cross-functional company preview and change/reset",
+            "agent capability boundary and keyboard role navigation",
+            "intake starters preserve visitor drafts",
             "proposal and authorized amendment",
             "missing response stays open",
             "discussion is not acceptance",

@@ -1,34 +1,34 @@
-# Website revision QA — September 24, 2026
+# Convergence edition — verification
 
-## Scope
+## Functional checks
 
-Local static build of the website on `feat/gtm-living-plan-experience`. This is website behavior verification, not validation of the underlying Coordinated service. No production deployment or contact message was sent.
+Seven pages checked at 1440, 768, 390, and 320 pixels: home, principles, pilot, pilot measures, use cases, privacy, and terms.
 
-## Automated checks performed
+- One main heading per page, successful page loads, no horizontal viewport overflow or broken loaded images.
+- Three initiative views preserve declared relationships, missing evidence, and conditional hiring capacity.
+- A staging delay updates the forecast and impact; reset restores the starting illustration without implying an amendment.
+- Four role views include the optional scope and enforcement limits of the agent experiment. Keyboard Home/arrow navigation follows the selected tab.
+- Six-stage walkthrough preserves proposal vs. authorized amendment, no response vs. consent, discussion vs. acceptance, exact escaped contributor text, and legal approval still open.
+- Revised responses invalidate later decisions; restart clears the example.
+- Email preview rejects whitespace, encodes content, hides stale drafts, and makes no submission. Starter prompts never overwrite visitor text.
+- No-JavaScript fallback remains readable and the form cannot leak its values through a GET submission.
+- All local HTML links and fragment targets resolved.
+- Privacy and terms policy text compared with the previous commit and is unchanged; only the shell and layout changed.
+- No JavaScript browser exceptions.
 
-Run `tests/website-smoke.cjs` with a local static server. Browser: packaged headless Chromium in the task environment.
+## Visual checks
 
-- Five public pages load with one H1 and no horizontal overflow at 1440, 768, 390, and 320 pixels.
-- A forecast does not change the agreed announcement date.
-- Sarah's proposed date becomes v2 only after the explicit example decision by Nadia.
-- The exact contributor note reaches the decision as escaped text, not executable HTML.
-- Missing responses and requests for discussion cannot take the amendment path.
-- Editing a response invalidates previously reached decisions; restart clears the example.
-- Every branch preserves outstanding legal approval in the next-review brief.
-- The unresolved path calls out the passed spend lock instead of claiming spend was paused.
-- The email form rejects whitespace-only descriptions, produces an encoded draft, hides stale previews after edits, and makes no submission request.
-- Without JavaScript, the example is readable and email remains available; the form's disabled preview button cannot submit personal information as URL parameters.
-- No browser JavaScript exceptions in the exercised paths.
-- No bracketed pilot-proof placeholders or broken images on the five tested pages.
+Inspected the desktop hero, company-plan change state, roles, pilot scorecard, social image, mobile homepage, and mobile pilot. Fixed a mobile line-break spacing issue, reframed the mobile galaxy to expose the core, and adjusted secondary text hierarchy.
 
-## Visual inspection
+Existing galaxy artwork is reused without altering its source pixels. A new 1200×630 social image is composed from the same artwork and current headline. Review screenshots are committed under `docs/previews/`.
 
-Reviewed desktop hero, example review brief, mobile hero, mobile response card, and 1200×630 social image. The mobile headline spacing and header layout were corrected during review. The desktop now presents the whole example card alongside the main proposition. The second galaxy illustration is replaced by readable product state. The fictional-data label remains visible on the walkthrough.
+## Claim boundaries
 
-## Limits and launch dependencies
+- Company data and product previews are illustrative, with no live backend connection.
+- Suggested pilot scope, effort, and the 30% target are labeled proposals or estimates.
+- No customer proof or security certification was fabricated.
+- Agent integration is an optional scoped experiment. Availability, fetching, artifact version, and action enforcement are not treated as equivalent.
+- The contact flow only prepares email. No lead delivery or sales booking backend was introduced.
+- No performance benchmark, accessibility certification, or measured conversion lift is claimed.
 
-- No quantified accessibility-compliance or performance score is claimed.
-- The form prepares email only. Actual mailbox delivery and qualification are outside this static website.
-- The existing privacy/terms pages are unchanged. The founder must confirm actual pilot scope, commercial terms, source permissions, retention/deletion and AI-provider arrangements with prospects.
-- Customer outcomes are unpublished; the evidence page describes a methodology, not results.
-- Social metadata references the new PNG; third-party crawler refresh/caching was not tested.
+The draft PR preview is the review surface. Production is not merged or published by this revision.

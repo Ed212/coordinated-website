@@ -1,16 +1,16 @@
 # Coordinated marketing site
 
-Static, dependency-free website for Coordinated. Production uses Vercel clean URLs.
+A static, dependency-free marketing site. The convergence edition connects the merging-galaxy identity to a living company plan across functions, a local interactive product illustration, and a concrete design-partner pilot.
 
 ## Pages
 
-- `index.html`: living-plan positioning, galaxy hero, six-stage interactive example, audience benefits, research and pilot invitation.
-- `principles.html`: context, participation, response to concerns, honest forecasts, audience boundaries, human authority.
-- `pilot.html`: pilot scope, practical questions, optional email-draft preparation. No file upload or lead-submission service.
-- `pilot-evidence.html`: measurement methodology, explicitly separated from unpublished customer results.
-- `use-cases.html`: six independent fictional scenarios; static response illustrations point to the interactive homepage example.
-- `privacy.html` and `terms.html`: existing policies, unchanged. Their operational claims still require owner verification.
-- `design-notes.html`: implementation notes (noindex).
+- `index.html`: galaxy-led positioning; interactive company plan; change and decision loop; operator, contributor, leader, and agent views; operating cadence; fit, boundaries, pilot scorecard, and FAQ.
+- `pilot.html`: recommended starting scope, effort estimates, three-review sequence, deliverables, success proposals, and founder contact.
+- `pilot-evidence.html`: baseline, definitions, suggested thresholds, integrity checks, and continue/adjust/stop criteria.
+- `principles.html`: context, participation, dissent, honest forecasts, audience boundaries, and human authority.
+- `use-cases.html`: six explicitly fictional coordination scenarios.
+- `privacy.html` and `terms.html`: existing policy text in the shared visual shell. Policy text is unchanged; implementation does not establish its operational accuracy.
+- `design-notes.html`: implementation notes, excluded from indexing.
 
 ## Local preview
 
@@ -18,28 +18,32 @@ Static, dependency-free website for Coordinated. Production uses Vercel clean UR
 python3 -m http.server 4188
 ```
 
-Open `http://127.0.0.1:4188/`. The `.html` navigation works on a basic static server and Vercel.
+Open the local server. Vercel uses clean URLs; links also work on a simple static server.
 
-## Walkthrough behavior
+## Design and assets
 
-The example has six stages: agreed plan, forecast, Sarah's response, Nadia's decision, current terms, next-review brief. A proposed date becomes the agreement only when the example decision is explicitly recorded. Asking to talk or leaving a request unanswered preserves v1 and its unresolved status. Legal approval remains open in every path. Revising a response invalidates later decisions; restart clears the simulation.
+`styles.css` retains the existing base and walkthrough styles. `experience.css` applies the new responsive visual system. The existing galaxy pair and native mobile artwork are preserved. The hero reveals the shared red core; the closing and inner-page compositions reuse the same art. No generated customer portraits, logos, testimonials, or product screenshots were added.
 
-The source plan declares the customer pilot's separate staging prerequisite and independence from the public announcement. All people, company names, and Oct 2026 dates are illustrative. User-entered example text is escaped, stays in memory, and is never transmitted or persisted. Without JavaScript a readable example remains available.
+`assets/product/og-template.html` is the source for the new 1200×630 social PNG. Review screenshots are in `docs/previews/` and excluded from the Vercel deployment. Galaxy asset provenance remains in `assets/galaxy/README.md`.
 
-## Pilot contact
+## Local interactions
 
-The form previews an email. It does not send a lead, claim success, upload documents, or install Slack. The visitor must send the prepared message in their email app. Editing the form hides the previous draft; clipboard failure provides a manual-copy fallback. Without JavaScript the submit button stays disabled and direct email remains available. No analytics or external intake endpoint was added.
+`experience.js` powers three initiative views: Atlas launch, customer onboarding, and delivery capacity. The Atlas delay changes a forecast only. Its impact follows explicitly declared relationships. Other views preserve missing baseline evidence and conditional hiring capacity. The example is labeled fictional throughout.
 
-Pilot scope, duration, pricing, participant effort and data arrangements must be agreed with the founder before starting. These are deliberately not invented in the copy. The current policies were not rewritten to claim unverified security or AI-provider practices.
+Four accessible role tabs explain operator, human, leader, and optional agent value. Arrow keys, Home, and End navigate tabs. Links into the detailed simulation open its disclosure. `site.js` retains the six-stage simulation with explicit authority, stale-decision invalidation, unresolved responses, and an open legal prerequisite.
 
-## Assets
+These are frontend illustrations. They do not query a company, execute an agent, authorize a real decision, send data, or persist state. The examples reset on reload. No analytics or trackers were added. No auto-playing animation is used; reduced motion disables smooth scrolling and decorative transforms.
 
-The existing galaxy hero and phone crop remain. The redundant narrative galaxy and placeholder proof art are removed from active pages. The product visualization is accessible HTML/CSS with deterministic local state rather than a raster mockup. `assets/product/og-template.html` is the source for the new 1200×630 social PNG. Legacy artwork remains for provenance and is not referenced by active pages.
+## Pilot offer and contact
+
+The suggested starting scope is one initiative, two or three functions, and three existing reviews, usually two to four weeks. Setup and check-in durations are planning estimates. A 30% reduction in recurring operator effort is a proposed target to agree at kickoff, not an observed result or guarantee. Participant effort, setup, corrections, founder support, missed deadlines, open decisions, and integrity checks remain part of the evaluation.
+
+Pricing, data arrangements, continuation, and any live connectors or agent experiment must be explicitly scoped with the founder. The site does not claim those integrations are generally available.
+
+The contact form previews an encoded email draft. The user sends it in their own mail app. It does not submit a lead or claim a message was sent. Starter prompts never replace visitor-written content. Edits invalidate the previous draft; clipboard failure has a manual-copy fallback. With JavaScript off, starter controls are hidden and the preview submit button is disabled; direct email remains available.
 
 ## Verification
 
-See `design-qa.md` for the checks actually performed on this revision. `tests/website-smoke.cjs` covers the meaningful state and contact risks. It uses Playwright; run with `node tests/website-smoke.cjs` while the preview server is running. Set `SITE_BASE_URL` and `SITE_QA_DIR` to override its local URL and screenshot location. This task used the environment's installed Playwright dependency; no package installation is required for the website itself.
+`tests/website-smoke.cjs` uses Playwright for meaningful state, contact, and responsive checks. Set `SITE_BASE_URL`, `SITE_QA_DIR`, and optionally `CHROMIUM_EXECUTABLE_PATH`. The website itself has no package dependencies.
 
-## Review images
-
-Current desktop, phone, and interactive review screenshots are in `docs/previews/`. These review artifacts and the QA scripts are excluded from the Vercel deployment.
+See `design-qa.md` for verified checks and remaining limitations. Production publication is separate from the draft PR preview.
