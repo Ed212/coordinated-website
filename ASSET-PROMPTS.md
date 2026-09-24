@@ -85,3 +85,16 @@ Construction prompt:
 > Compose a 1200×630 Open Graph card on warm ledger paper (#FBFBF8) with faint blue-gray horizontal rules and one thin red vertical margin. Place the existing Coordinated two-track mark unchanged at upper left. Set “Coordinated” in Inter, then the headline “When the plan changes, everyone who depends on it knows the same day.” in ink black. Add a small JetBrains Mono line: “Version control for what your company has agreed.” No decorative red text; red appears only in the margin and the mark's convergence point. No gradient, glow, third-party mark or invented metric.
 
 The Open Graph card is rendered from local HTML/CSS so the existing mark and exact typography remain deterministic.
+
+## September 24 GTM revision
+
+The existing landscape and phone galaxy images remain in the hero. The secondary galaxy narrative, starfield parallax, reader receipt and placeholder proof illustration have been removed from active pages.
+
+- Product explanation: interactive HTML/CSS in `index.html` and `site.js`, with six explicit example states. No image generation is used for exact dates, source relationships or decisions.
+- Current social image: `assets/product/og-living-plan.png`, 1200×630, rendered from `assets/product/og-template.html`. Reuses the existing galaxy and brand mark; the copy and small goal/contribution/change card are deterministic HTML.
+- Social alt text: “Illustration: A merging galaxy beside a connected company goal, contribution and changed plan, with the words Keep the direction clear as the plan changes.”
+- Legacy assets and generation records above are retained for provenance. Active pages reference only the current hero assets and the new social image.
+
+## Convergence edition
+
+The existing landscape and phone galaxies remain the visual source. The shared core is left unobstructed in the desktop hero; mobile uses its own framed source. No new galaxy was generated or represented as a real astronomical photograph. Product illustrations are accessible HTML with local state. The current social image is rendered from `assets/product/og-template.html` using the existing galaxy asset; its copy is “One living plan. A company in sync.”

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <title>Coordinated social image source</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+        background: #090b0d;
+        color: #f4f1e8;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .galaxy {
+        position: absolute;
+        left: 110px;
+        top: -35px;
+        width: 1280px;
+        height: 710px;
+        object-fit: cover;
+        object-position: 62% 45%;
+      }
+      .scrim {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(
+            90deg,
+            #090b0dfc,
+            #090b0ddd 26%,
+            #090b0d4a 53%,
+            transparent 80%
+          ),
+          linear-gradient(0deg, #090b0dbb, transparent 35%);
+      }
+      main {
+        position: relative;
+        padding: 42px 55px;
+        height: 630px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        font-size: 20px;
+        font-weight: 500;
+        letter-spacing: -0.6px;
+      }
+      .brand img {
+        width: 31px;
+        height: 31px;
+      }
+      .eyebrow {
+        margin-top: 75px;
+        font: 10px monospace;
+        text-transform: uppercase;
+        letter-spacing: 1.6px;
+        color: #c7c3bd;
+      }
+      h1 {
+        font-size: 69px;
+        font-weight: 400;
+        letter-spacing: -4px;
+        line-height: 1.04;
+        margin: 22px 0 26px;
+        width: 600px;
+      }
+      h1 span {
+        color: #cecbc5;
+      }
+      p {
+        font-size: 17px;
+        line-height: 1.65;
+        color: #d7d3cd;
+        width: 440px;
+      }
+      .foot {
+        position: absolute;
+        bottom: 38px;
+        font: 10px monospace;
+        letter-spacing: 0.3px;
+        color: #bcb9b4;
+      }
+      .url {
+        position: absolute;
+        right: 55px;
+        bottom: 38px;
+        font: 10px monospace;
+        color: #e5e1da;
+      }
+    </style>
+  </head>
+  <body>
+    <img
+      class="galaxy"
+      src="../galaxy/landscape-upscaled-2880x1600.webp"
+      alt=""
+    />
+    <div class="scrim"></div>
+    <main>
+      <div class="brand">
+        <img src="../../brand/mark_light.svg" alt="" />Coordinated
+      </div>
+      <div class="eyebrow">The living company plan</div>
+      <h1>
+        One living plan.<br /><span>A company<br />in sync.</span>
+      </h1>
+      <p>Connect strategy, people, and agents<br />across every function.</p>
+      <div class="foot">Many moving parts. One shared direction.</div>
+      <div class="url">coordinatedai.ai</div>
+    </main>
+  </body>
+</html>
