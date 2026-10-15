@@ -1,6 +1,6 @@
 # Coordinated site v5 changes
 
-Review candidate on `codex/site-v5`, continuing the first-pass commit `6e41e13`. The newly supplied reference files and COPY-FIXES.md have been applied. Production deployment remains manual; no merge, deployment command, DNS or hosting settings change was performed. The updated request allows automatic branch previews. The brand marks, Inter/JetBrains Mono families and existing color variables are preserved. Pre-existing untracked artwork and `.DS_Store` changes are excluded.
+Review candidate on `codex/site-v5`, continuing the first-pass commit `6e41e13`. The newly supplied reference files and COPY-FIXES.md have been applied. Production deployment remains manual; no merge, deployment command or DNS change was performed. The follow-up Vercel output-directory correction is recorded below. The updated request allows automatic branch previews. The brand marks, Inter/JetBrains Mono families and existing color variables are preserved. Pre-existing untracked artwork and `.DS_Store` changes are excluded.
 
 ## Section sources and disposition
 
@@ -62,7 +62,7 @@ The Atlas owner-leave case is Maya unavailable through Fri Oct 16 with a staging
 2. CONTACT_ADDRESS defaults to ed@coordinatedai.ai; confirm recipient. SMTP credentials and verified sender must be Vercel environment variables, never repository files. Live delivery remains unverified until configured; the visible email route works independently.
 3. PILOT_PRICE unset; “Ask us for the number” shown as requested.
 4. Production release is manual. Attempted read-only inspection of Vercel Git settings redirected to sign-in, so automatic promotion settings were not independently verified or changed. Only the requested branch/PR is published; no production deployment or merge is initiated.
-5. Resolve the existing preview-host mismatch before production: Vercel preview failed and authenticated logs are unavailable; Netlify serves the source root, including raw templates, and returns 404 for the Vercel API route. The production publish target must be the allowlisted dist/ build with a functioning same-origin mail backend. No host settings were changed. See logs/host-previews.log.
+5. The supplied Vercel error identifies the preview failure: the project expected public/ while the build produces dist/. vercel.json now sets outputDirectory to dist, preserving cleanUrls. This selects the allowlisted build and leaves account settings and DNS untouched. The separate Netlify integration still serves the source root and lacks the Vercel API route; its configuration was not changed. See logs/vercel-output.log and logs/host-previews.log.
 6. Run the founder five-second test before production release using the provided protocol. Variant screenshots are available; B remains unlinked.
 
 No source-file blocker remains. Removed statistics are not needed and are not retained without exact source links.
@@ -878,4 +878,12 @@ Reason: Replace obsolete v4 placeholder instructions with v5 build, verification
 
 ```text
 48: `site.js` controls the scroll-driven hero layers, pinned narrative states, active moment index, card answer states and reader receipt. It has no external dependency and stays below the 40 KB interaction budget. Reduced-motion users receive static narrative states with no rotation, push, parallax, stream or pulse animation. Below 768px, the galaxy remains still and the foreground starfield is removed from the protected headline area.
+```
+
+### vercel.json, original line 2
+
+Reason: add the comma required by the explicit outputDirectory declaration, correcting Vercel's public/ versus dist/ mismatch. cleanUrls remains true.
+
+```text
+2:     "cleanUrls": true
 ```

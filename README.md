@@ -32,7 +32,7 @@ Server variables:
 
 The form sends email and pasted document text to `/api/contact` on this site's host. There is no third-party form service or document storage. Success is returned only after SMTP accepts the message. Delivery failure keeps the document in the form. No JavaScript fallback: email `ed@coordinatedai.ai`.
 
-The existing Vercel configuration is unchanged. The function uses the host's standard `api/` convention; no native static form service is configured. No hosting, DNS, or environment settings were changed in this revision. Configure the mail transport before accepting live submissions. Production deployment remains manual.
+The Vercel configuration preserves clean URLs and explicitly sets the build output to dist/. The function uses the host's standard `api/` convention; no native static form service is configured. No dashboard, DNS, or environment settings were changed; the repository outputDirectory declaration corrects the reported preview-build mismatch. Configure the mail transport before accepting live submissions. Production deployment remains manual.
 
 ## Copy and comparison sources
 
