@@ -15,7 +15,7 @@ All placeholders in the built site, the reserved-evidence graphic, three why car
 - Default totals: 52, 58, 36, 29 hours. Pessimistic: 41 and 35. Sliders and weekday person ledger verified.
 - Copy grep passes across the built pages and collapsed/expanded rendered text.
 - Four contact-server tests pass; local mail sink used for browser checks. No live email sent.
-- Mobile Lighthouse A **98**, B **96**, CLS zero. Share image rendered from dedicated og.html at 1200x630.
+- Mobile Lighthouse A **98**, B **98**, CLS zero. Share image rendered from dedicated og.html at 1200x630.
 
 [Section sources and removed-line ledger](../../CHANGES.md) · [Logs](logs/) · [Original references](.)
 
@@ -33,3 +33,9 @@ Dark-mode screenshots are also committed beside these. Human founder research ha
 - **PILOT_PRICE:** unset; “Ask us for the number” shown.
 - Branch previews are allowed by the updated request. Production deploys remain manual. Vercel Git settings redirected to sign-in, so promotion settings were not independently verified. No merge, Vercel deploy/promotion command, DNS or hosting setting change was made.
 - Half/45%/87% figures were removed; no statistic is retained without its exact source.
+
+## Preview-host findings
+
+The first GitHub push workflow passed. The first PR workflow also passed its browser checks and Lighthouse scores (97/98), then failed deleting Chrome's temporary directory. Cleanup now retries the delete to handle child-process teardown. Final local browser checks pass, including an HTML 404 response from a missing form endpoint; that case now keeps the document and displays the email fallback rather than a technical parse error.
+
+The automatic Vercel preview failed; its detail logs require owner sign-in, so the underlying cause is unverified. The repository also has an existing Netlify integration. Its preview renders both headlines, but serves repository sources including raw templates and has no `/api/contact` function (404). Those are hosting/output/backend configuration issues to resolve before production. The intended `dist/` output excludes raw templates and passes placeholder checks. Hosting settings remain unchanged under the brief's constraint. See [preview checks](logs/host-previews.log). No merge or production deploy was initiated; main remained at 74aa156.

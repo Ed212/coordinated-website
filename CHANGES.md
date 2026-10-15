@@ -47,12 +47,12 @@ The Atlas owner-leave case is Maya unavailable through Fri Oct 16 with a staging
 
 ## Verification
 
-- All eight browser cases pass: A/B at 400/1100 pixels in light/dark. No horizontal page overflow or unexpected console errors; loaded images and alt attributes, visible keyboard focus, links/anchors, form success/failure without navigation, copy-address controls, evidence labels and optional form placement checked.
+- All eight browser cases pass: A/B at 400/1100 pixels in light/dark. No horizontal page overflow or unexpected console errors; loaded images and alt attributes, visible keyboard focus, links/anchors, form success/failure and missing-endpoint email fallback without navigation, copy-address controls, evidence labels and optional form placement checked.
 - Default model and rendered totals: 52, 58, 36, 29 hours. Pessimistic: 41 and 35. Sliders recalculate; resetting restores defaults. Person ledger has 33 cards and weekday dates. Collapsed and expanded rendered copy checked.
 - B exists at b.html and no navigation directly links to it. Its own section anchors are allowed.
 - check:references passes with original calculator hash pinned. Copy grep passes for all built pages and both rendered variants, including new unsupported-absolute checks.
 - Four server contact tests pass. Form integration uses the real local endpoint with an explicit local mail sink; no live email was sent. No-JavaScript fallback verified.
-- Final mobile Lighthouse: A 98, B 96, CLS zero. Same families and palette; locally served fonts removed external font latency.
+- Final mobile Lighthouse: A 98, B 98, CLS zero. Same families and palette; locally served fonts removed external font latency.
 - OG rendered from dedicated og.html at 1200x630 and visually reviewed. Before screenshots remain before-400.png and before-1100.png. Final A/B screenshots at both widths and schemes are in docs/site-v5/screenshots. Raw logs and Lighthouse reports are in docs/site-v5/logs.
 - Founder five-second research has not been run. No participant answers, customer outcomes or testimonials invented.
 
@@ -62,7 +62,8 @@ The Atlas owner-leave case is Maya unavailable through Fri Oct 16 with a staging
 2. CONTACT_ADDRESS defaults to ed@coordinatedai.ai; confirm recipient. SMTP credentials and verified sender must be Vercel environment variables, never repository files. Live delivery remains unverified until configured; the visible email route works independently.
 3. PILOT_PRICE unset; “Ask us for the number” shown as requested.
 4. Production release is manual. Attempted read-only inspection of Vercel Git settings redirected to sign-in, so automatic promotion settings were not independently verified or changed. Only the requested branch/PR is published; no production deployment or merge is initiated.
-5. Run the founder five-second test before production release using the provided protocol. Variant screenshots are available; B remains unlinked.
+5. Resolve the existing preview-host mismatch before production: Vercel preview failed and authenticated logs are unavailable; Netlify serves the source root, including raw templates, and returns 404 for the Vercel API route. The production publish target must be the allowlisted dist/ build with a functioning same-origin mail backend. No host settings were changed. See logs/host-previews.log.
+6. Run the founder five-second test before production release using the provided protocol. Variant screenshots are available; B remains unlinked.
 
 No source-file blocker remains. Removed statistics are not needed and are not retained without exact source links.
 

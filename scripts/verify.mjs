@@ -13,7 +13,7 @@ await mkdir('docs/site-v5/screenshots',{recursive:true});
 try {
  for(const file of ['index.html','b.html']) for(const width of [400,1100]) for(const colorScheme of ['light','dark']) {
   const page=await browser.newPage({viewport:{width,height:900},colorScheme,reducedMotion:'reduce'});
-  let expectedFailure=false;const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error' && !(expectedFailure && m.text().includes('502')))errors.push(m.text())});
+  let expectedFailure=false;const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error' && !(expectedFailure && /502|404/.test(m.text())))errors.push(m.text())});
   await page.goto(`${base}/${file}`);await page.evaluate(()=>document.fonts.ready);
   assert.equal(await page.locator('h1').textContent(),file==='index.html'?'Give your team its focus back.':'Stop repeating decisions and chasing updates.');
   assert(await page.evaluate(()=>document.scrollingElement.scrollWidth<=innerWidth),'Horizontal overflow');
@@ -60,6 +60,10 @@ try {
   expectedFailure=true;
   await page.route('**/api/contact',route=>route.fulfill({status:502,contentType:'application/json',body:JSON.stringify({error:'Your document could not be sent. Please try again or email ed@coordinatedai.ai.'})}));
   await page.locator('#email').fill('operator@example.com');await page.locator('#document').fill('Retain this text after a failed send.');await page.locator('#launch-form button').click();await page.waitForFunction(()=>document.querySelector('#form-status').textContent.includes('could not be sent'));assert.equal(await page.locator('#document').inputValue(),'Retain this text after a failed send.');
+  await page.unroute('**/api/contact');
+  await page.route('**/api/contact',route=>route.fulfill({status:404,contentType:'text/html',body:'<html>Page not found</html>'}));
+  await page.locator('#launch-form button').click();await page.waitForFunction(()=>document.querySelector('#form-status').textContent.includes('Please email your document'));assert.equal(page.url(),start,'Missing endpoint navigated');
+  assert.equal(await page.locator('#document').inputValue(),'Retain this text after a failed send.');
   await page.unroute('**/api/contact');await page.locator('#launch-form').evaluate(form=>form.reset());await page.locator('#form-status').evaluate(el=>el.textContent='');
   await page.locator('h1').click();await page.evaluate(()=>scrollTo(0,0));
   await page.screenshot({path:`docs/site-v5/screenshots/${file==='index.html'?'a':'b'}-${width}-${colorScheme}.png`,fullPage:true});

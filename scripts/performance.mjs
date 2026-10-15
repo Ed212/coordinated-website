@@ -19,4 +19,4 @@ try {
  }
  await writeFile('docs/site-v5/logs/lighthouse.log',logs.join('\n')+'\n');console.log(logs.join('\n'));
  if(logs.some(l=>l.startsWith('FAIL')))process.exitCode=1;
-} finally {child.kill();await new Promise(r=>child.once('exit',r));await rm(profile,{recursive:true,force:true})}
+} finally {child.kill();await new Promise(r=>child.once('exit',r));await rm(profile,{recursive:true,force:true,maxRetries:5,retryDelay:200})}

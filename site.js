@@ -182,7 +182,7 @@ if (launchForm) {
         body: JSON.stringify(Object.fromEntries(new FormData(launchForm))),
         signal: AbortSignal.timeout(20000)
       });
-      const result = await response.json();
+      const result = await response.json().catch(() => ({ error: 'The form is unavailable. Please email your document to ed@coordinatedai.ai.' }));
       if (!response.ok) throw new Error(result.error || 'Your document could not be sent. Please try again.');
       status.textContent = result.message;
       launchForm.reset();
