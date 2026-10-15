@@ -1,0 +1,11 @@
+PASS index.html 400px light: headline, overflow, rendered copy, images, focus, links/anchors, form success/failure without navigation.
+PASS index.html 400px dark: headline, overflow, rendered copy, images, focus, links/anchors, form success/failure without navigation.
+PASS index.html 1100px light: headline, overflow, rendered copy, images, focus, links/anchors, form success/failure without navigation.
+PASS index.html 1100px dark: headline, overflow, rendered copy, images, focus, links/anchors, form success/failure without navigation.
+PASS b.html 400px light: headline, overflow, rendered copy, images, focus, links/anchors, form success/failure without navigation.
+PASS b.html 400px dark: headline, overflow, rendered copy, images, focus, links/anchors, form success/failure without navigation.
+PASS b.html 1100px light: headline, overflow, rendered copy, images, focus, links/anchors, form success/failure without navigation.
+PASS b.html 1100px dark: headline, overflow, rendered copy, images, focus, links/anchors, form success/failure without navigation.
+PASS no-JavaScript email fallback.
+PASS OG rendered from dedicated og.html at 1200x630.
+BLOCKED comparison totals and unchanged calculator hash: original calc.js and landing-v4.tpl.html absent.

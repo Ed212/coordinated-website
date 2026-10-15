@@ -1,0 +1,37 @@
+# Supplied v5 revision brief
+
+You are revising the Coordinated marketing site (coordinatedai.ai) to version 5. Work on a new branch; do not deploy, do not touch DNS or hosting settings, do not change the brand mark or the color system. Open a PR at the end.
+
+CONTEXT
+Coordinated is "an AI program manager in Slack" backed by "the record of what your company agreed, that people and agents read the same, and that only people can change." The live site (index.html, site.js, use-cases.html, pilot-evidence.html, brand/, assets/galaxy/) has the right visual system (near-black and cream sections, Inter plus JetBrains Mono, one red accent, numbered chapters, the Slack card in the hero, the six moments with provenance lines and decision rails, the trust section, the reading receipt). It has the wrong message hierarchy, eight live placeholders, a mailto as the only conversion path, and nothing from the last two weeks of positioning. Keep the system; change the words, the order and the conversion path.
+
+Read first, in this order: docs/site-v5/RULES.md (copy rules; they are hard constraints), docs/site-v5/landing-v4.tpl.html (the hero copy and the attention comparison section to port), docs/site-v5/calc.js (the comparison model; inline it unchanged and hash it in the PR), docs/site-v5/FIVE-SECOND-TEST.md (why there are two headlines).
+
+CHANGES, IN ORDER
+
+1. Remove every placeholder. The top announcement bar "[PILOT PROOF POINT] →", all of section 05 ("[Company] worked one real change…", "[Operator quote]", "[Operator name, role]", "[Hours]", "[n of m]", "[Before → after]") and the "EVIDENCE RESERVED" redaction graphic. Grep the built site for "[" + "]" bracket placeholders and fail the build if any remain.
+
+2. Hero, in this exact hierarchy, keeping the Slack card as the image:
+   - Label (mono eyebrow): AN AI PROGRAM MANAGER IN SLACK
+   - Headline: variant A "Give your team its focus back." Variant B "Stop repeating decisions and chasing updates." Build both from one template: index.html carries A; b.html carries B, not linked from navigation (it exists for the five-second test).
+   - Mechanism sentence, verbatim: "Coordinated is a shared record of your decisions, guardrails and plan, so people and agents work from what has been agreed, without you having to repeat every decision or chase every update."
+   - Agent line: "Your people read it on Monday. Your agents read it before they act."
+   - Proof line: "Every message says why it was sent and what it cost you. Most weeks, nothing."
+   - Remove the eyebrow "version control for what your company has agreed" and the headline "When the plan changes, everyone who depends on it knows the same day." ("same day" is a response-time promise). "Version control" may appear only in the architecture section below the fold and in the <title> as a secondary phrase.
+   - Background: use assets/galaxy/starfield-2880x1600.webp (subtle) instead of the galaxy photo; keep one galaxy frame inside "How it works" where the converging lines illustrate propagation. Lazy-load both and serve a 1600 px variant for viewports under 1200 px.
+
+3. Three CTAs: primary "Send us your last launch doc" as a real form (one email field, one file or textarea, a submit button); secondary "See a sample record" anchored to the moments section; tertiary "Book 20 minutes" linking to BOOKING_URL (a build variable; leave a visible TODO in the PR if unset). Form handling: use the host's native form handling if the site is static on a host that offers it (detect from the repo config); otherwise a minimal serverless endpoint in this repo that emails CONTACT_ADDRESS; never post to a third-party form service. Keep mailto:ed@coordinatedai.ai as the no-JavaScript fallback. Promise nothing on submit beyond "We read it and reply."
+
+4. Section order after the hero: (a) the strip, fixing the copy slip to "Reads only what you hand it, what is posted as artifacts, or threads where it is tagged" plus "One card per commitment per person, updated in place" plus "Built for 50 to 300-person software companies"; (b) the band "Memory tells you what was said. The record tells you what was agreed." (keep); (c) How it works, the three steps (keep); (d) the six moments, retitled as the sample record (keep every provenance line and decision rail); (e) NEW: the attention comparison ported from landing-v4.tpl.html, inlining calc.js unchanged, with its labels intact (counts measured on a seven-week fixture of nine people, 33 cards and 9 notes; minutes are estimates) and the replacement question beneath it: "Which recurring meeting does this launch retire, and from when?"; (f) the pilot: six weeks, one launch, two named responsibilities taken off the operator's plate, what the readout measures (effort to keep one decision ready, decisions before their deadline, responsibilities stopped, meetings retired); price reads "Ask us for the number" unless PILOT_PRICE is set; (g) the trust section (keep); (h) "One document. One change. One review." as the closing steps; (i) the reading receipt (keep) with one added line: "The product sends each person a receipt like this every quarter: what it asked, why, and what it cost."; (j) footer with the address as text.
+   Remove section 01 (the three "why" cards) and section 04 (the statistics strip), unless for each statistic you can link the exact source page that states the number; a figure without such a link is removed, not reworded.
+
+5. Metadata: <title> "Coordinated: the AI program manager in Slack"; meta description = the mechanism sentence; generate a new OG image (1200x630) by rendering a dedicated og.html (headline A over the Slack card, dark background) with Playwright and committing the PNG.
+
+COPY RULES (from RULES.md; enforce with a grep script run in CI and in the PR)
+No em dashes anywhere. Never "genuinely", "honestly", "straightforward". Never "system of record". No Git vocabulary in person-facing text (commit, merge, branch, diff, repo, pull request). No risk labels (at risk, on track, likely to slip, health, score). No response-time promise ("within the hour", "same day", "two business days" as a service level). No "40x", no "Nobody pinged", no competitor names, no SOC 2 or certification claim, no customer or traction claim that is not in the repo's approved copy. Every date carries its weekday (Mon Oct 19). Do not invent testimonials, logos, statistics or quotes.
+
+VERIFY
+Playwright against the built site at 400 and 1100 px, light and dark: no horizontal overflow (document.scrollingElement.scrollWidth <= innerWidth), no console errors, all internal links and anchors resolve, the form submits in page without a full navigation and shows a confirmation, the headline matches the variant per file, the comparison totals render as calc.js computes them (52, 58, 36 and 29 hours; pessimistic 41 and 35). Run the copy grep on the rendered text of both variants. Lighthouse performance 90 or above on mobile (the 2880 px images are the likely blocker). Check alt text on every image and visible focus states on every control. Save screenshots of both variants at both widths in docs/site-v5/screenshots/.
+
+DELIVER
+One PR with: the diff; before and after screenshots; CHANGES.md listing every section's source and every line removed with the reason; the grep and Playwright logs; and a short list of the items only Ed can resolve (BOOKING_URL, CONTACT_ADDRESS, PILOT_PRICE, form backend choice, any statistic you could not source). Do not merge, deploy, or add analytics or tracking of any kind.

@@ -1,0 +1,4 @@
+TODO Ed: BOOKING_URL is unset; booking action omitted.
+BLOCKED: original comparison template and calc.js missing. Comparison omitted; do not publish.
+PASS copy grep: all built HTML pages; placeholders, vocabulary, dates and promises.
+Built both headlines from templates/home.html.

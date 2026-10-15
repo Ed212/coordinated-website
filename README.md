@@ -1,48 +1,43 @@
-# Coordinated marketing site
+# Coordinated marketing site v5
 
-Static multi-page marketing site for Coordinated.
+Static HTML marketing site with a Vercel email function. No tracking is included.
 
-## Pages
+## Develop and verify
 
-- `index.html` — homepage and category narrative
-- `use-cases.html` — six complete change moments with HTML product cards
-- `pilot-evidence.html` — five pilot measures and first-readout placeholders
-- `design-notes.html` — sitemap, concepts, motion, components and fact ledger
-- `privacy.html` and `terms.html` — existing legal pages
+Use Node 22 or newer. Run `npm ci`, then `npm run build`. The generated homepage files are checked in for review; edit `templates/home.html` and rebuild to keep A and B synchronized. `b.html` is intentionally absent from navigation.
 
-## Local preview
+Run `TEST_MAIL_SINK=1 npm run preview` for a local preview at http://127.0.0.1:4174. This explicit local test mode accepts mail without sending it. The production handler has no test sink. Without the flag, local preview uses the real SMTP configuration and fails visibly when it is missing.
 
-Run any static server from the repo root. For example:
+- `npm run check:copy`: checks all built HTML for placeholders, prohibited language, promises and dates without weekdays.
+- `npm test`: validates contact delivery and failure behavior with an injected transport.
+- `npm run test:browser`: captures both variants at 400 and 1100 pixels, light and dark; tests copy, overflow, links, anchors, alt attributes, image delivery, focus, form success/failure, and no-JavaScript fallback. Start the preview with the test sink first.
+- `npm run test:performance`: mobile Lighthouse for both variants, requiring at least 90.
+- `npm run check:references`: blocks release while the original required reference files or comparison port are absent.
 
-```sh
-python3 -m http.server 4173
-```
+Install Chromium with `npx playwright install chromium`, or set `CHROME_PATH` to an existing Chrome executable. The GitHub workflow runs these checks and retains screenshots and logs. It does not deploy.
 
-Then open `http://127.0.0.1:4173/`.
+## Configuration
 
-The production host uses `vercel.json` with clean URLs enabled.
+Copy `.env.example` into your local environment as needed; scripts read environment variables, not the file itself.
 
-## Replacing placeholders
+Build variables:
 
-Search for `[` to find all pending proof fields. Replace them only with approved pilot evidence:
+- `BOOKING_URL`: HTTPS booking destination. If unset, the action is omitted and a TODO is logged. A fake destination is never shown.
+- `PILOT_PRICE`: approved display price; defaults to “Ask us for the number”.
 
-- `[PILOT PROOF POINT]`
-- `[Company]`
-- `[Operator quote]`
-- `[Operator name, role]`
-- `[Chases per week: before → after]`
-- `[Median hours to decide]`
-- `[Changes decided before the deadline: n of m]`
-- `[People pending at deadline]`
-- `[Review prep: before → after]`
-- `[initiative]` and `[pilot window]`
+Server variables:
 
-Keep every published date in weekday-month-day format, for example `Tue Oct 6`. Do not replace bracketed fields with estimates.
+- `CONTACT_ADDRESS`: document recipient, default `ed@coordinatedai.ai`; confirm with Ed.
+- `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM`: authenticated mail transport and verified sender. Port 465 uses TLS; other ports require STARTTLS.
 
-## Assets
+The form sends email and pasted document text to `/api/contact` on this site's host. There is no third-party form service or document storage. Success is returned only after SMTP accepts the message. Delivery failure keeps the document in the form. No JavaScript fallback: email `ed@coordinatedai.ai`.
 
-The active hero system lives in `assets/galaxy/`. Runtime delivery uses the quality-94 WebPs; the landscape and phone PNG masters remain in the source archive and are intentionally excluded from the site build. The Open Graph PNG, path SVGs, anchors, alt text, prompts and verification results are kept with the runtime assets. Earlier generated supporting assets remain in `assets/generated/`, with provenance in `ASSET-PROMPTS.md`.
+The existing Vercel configuration is unchanged. The function uses the host's standard `api/` convention; no native static form service is configured. No hosting, DNS, or environment settings were changed in this revision. Do not publish until the source blockers and mail configuration are resolved.
 
-## Interaction and accessibility
+## Required source files
 
-`site.js` controls the scroll-driven hero layers, pinned narrative states, active moment index, card answer states and reader receipt. It has no external dependency and stays below the 40 KB interaction budget. Reduced-motion users receive static narrative states with no rotation, push, parallax, stream or pulse animation. Below 768px, the galaxy remains still and the foreground starfield is removed from the protected headline area.
+The supplied brief names `docs/site-v5/RULES.md`, `landing-v4.tpl.html`, `calc.js`, and `FIVE-SECOND-TEST.md`. None existed locally or at the checked GitHub default-branch path. Copy checks currently implement the rules stated directly in the brief.
+
+The attention comparison is intentionally incomplete until the original sources arrive. Do not reconstruct a model from the requested totals. Once supplied, port the exact comparison markup to `docs/site-v5/attention-section.html`, retain labels, add the replacement question, and keep `calc.js` byte-for-byte unchanged. The build inlines that file and prints its SHA-256. Verify totals 52, 58, 36, 29 hours and pessimistic 41, 35 before clearing the release gate.
+
+See `CHANGES.md` for section sources, removals and the remaining decisions. Review artifacts live in `docs/site-v5/`.

@@ -1,0 +1,16 @@
+
+> coordinated-marketing@5.0.0 test
+> node --test tests/contact.test.mjs
+
+✔ success follows delivery, uses fixed recipient and reply-to (0.437834ms)
+✔ delivery failure never confirms receipt (0.11275ms)
+✔ missing transport configuration is unavailable (0.06475ms)
+✔ rejects bad input, oversized text, header injection, traps and foreign origins (0.134875ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 45.023083
