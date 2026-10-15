@@ -46,6 +46,18 @@ This follow-up reverses only the hero-background choice. The earlier Hero image 
 - New screenshots use galaxy-a/b-width-theme.png beside the previous screenshots. VERIFY_PREFIX=galaxy- preserves the previous artifacts; SKIP_OG_RENDER=1 preserves the OG image byte-for-byte.
 - Copy grep passes. No push, deployment, DNS/hosting change or PR action was performed for this founder restoration. The commit remains local on codex/site-v5.
 
+## Hero framing refinement, Thu Oct 15
+
+Follow-up to the founder's report that the galaxy arms were unclear. The previous restoration and its reasoning remain recorded above.
+
+- Removed cover cropping. The full 9:5 landscape now retains both tidal arms at the responsive source's native aspect ratio.
+- Moved the Slack card below the shared core instead of covering the meeting point and red mark. On phones the full decorative galaxy sits between the copy and card, so its arms remain visible instead of being zoomed out of frame.
+- Replaced the full-width dark scrim with a translucent backing confined to the copy block. A subtle top/bottom edge fade blends the artwork into the existing near-black surface without obscuring the central galaxy.
+- Kept the 1200/1600/2880 sources and responsive image preloads. Preloading the existing local font binaries keeps the new framing stable during font loading; font families and weights are unchanged.
+- All eight browser cases and copy grep pass. Minimum contrast is 7.57:1 at 400px and 5.15:1 at 1100px for both variants in both themes. The boundary sweep from 320 to 1920px has a minimum of 5.13:1. New regression checks require contain framing and an uncovered shared core.
+- Mobile Lighthouse: A 95, B 95, CLS 0 for both. Artifacts use the framing- prefix beside the earlier screenshots and logs.
+- All visible copy, headline variants, form, section order, How it works frame, OG image bytes, brand files and hosting configuration remain unchanged. This update is local only; no push, deployment or PR action.
+
 ## Calculator provenance
 
 `docs/site-v5/calc.js` SHA-256:
