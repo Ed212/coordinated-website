@@ -12,7 +12,7 @@ Run `TEST_MAIL_SINK=1 npm run preview` for a local preview at http://127.0.0.1:4
 - `npm test`: validates contact delivery and failure behavior with an injected transport.
 - `npm run test:browser`: captures both variants at 400 and 1100 pixels, light and dark; tests copy, overflow, links, anchors, alt attributes, image delivery, focus, form success/failure, and no-JavaScript fallback. Start the preview with the test sink first.
 - `npm run test:performance`: mobile Lighthouse for both variants, requiring at least 90.
-- `npm run check:references`: blocks release while the original required reference files or comparison port are absent.
+- `npm run check:references`: verifies the required references, the comparison port and the original calculator SHA-256.
 
 Install Chromium with `npx playwright install chromium`, or set `CHROME_PATH` to an existing Chrome executable. The GitHub workflow runs these checks and retains screenshots and logs. It does not deploy.
 
@@ -22,7 +22,7 @@ Copy `.env.example` into your local environment as needed; scripts read environm
 
 Build variables:
 
-- `BOOKING_URL`: HTTPS booking destination. If unset, the action is omitted and a TODO is logged. A fake destination is never shown.
+- `BOOKING_URL`: HTTPS pilot-discussion booking destination. If unset, the primary action uses the verified email route and a TODO is logged; no fake booking destination is shown.
 - `PILOT_PRICE`: approved display price; defaults to “Ask us for the number”.
 
 Server variables:
@@ -32,12 +32,16 @@ Server variables:
 
 The form sends email and pasted document text to `/api/contact` on this site's host. There is no third-party form service or document storage. Success is returned only after SMTP accepts the message. Delivery failure keeps the document in the form. No JavaScript fallback: email `ed@coordinatedai.ai`.
 
-The existing Vercel configuration is unchanged. The function uses the host's standard `api/` convention; no native static form service is configured. No hosting, DNS, or environment settings were changed in this revision. Do not publish until the source blockers and mail configuration are resolved.
+The existing Vercel configuration is unchanged. The function uses the host's standard `api/` convention; no native static form service is configured. No hosting, DNS, or environment settings were changed in this revision. Configure the mail transport before accepting live submissions. Production deployment remains manual.
 
-## Required source files
+## Copy and comparison sources
 
-The supplied brief names `docs/site-v5/RULES.md`, `landing-v4.tpl.html`, `calc.js`, and `FIVE-SECOND-TEST.md`. None existed locally or at the checked GitHub default-branch path. Copy checks currently implement the rules stated directly in the brief.
+The original references now live in `docs/site-v5/`: RULES.md, landing-v4.tpl.html, calc.js, FIVE-SECOND-TEST.md and COPY-FIXES.md. The latest copy fixes supersede the earlier cold-document ask and unsupported absolutes. The pitch sentence remains verbatim.
 
-The attention comparison is intentionally incomplete until the original sources arrive. Do not reconstruct a model from the requested totals. Once supplied, port the exact comparison markup to `docs/site-v5/attention-section.html`, retain labels, add the replacement question, and keep `calc.js` byte-for-byte unchanged. The build inlines that file and prints its SHA-256. Verify totals 52, 58, 36, 29 hours and pessimistic 41, 35 before clearing the release gate.
+The comparison markup is ported in `docs/site-v5/attention-section.html`; the weekday ledger adapter is in `templates/attention-runtime.js`. The build inlines `calc.js` byte-for-byte unchanged, after all formatting. Its SHA-256 is `a289412212e78d7b1bdf20d1063077ed0ca991be56fd5f300d6da42c3a45adde`. Browser checks verify both that hash and totals 52, 58, 36, 29 hours; pessimistic 41 and 35; slider recalculation; and the person ledger's weekday labels.
 
-See `CHANGES.md` for section sources, removals and the remaining decisions. Review artifacts live in `docs/site-v5/`.
+The three evidence labels separate simulator measurements, manually delivered pilots and planned architecture. Atlas moments remain fictional examples, explicitly separate from the measured Lantern fixture.
+
+Both headline pages are generated from the same template; `b.html` is not linked from navigation. The five-second founder test remains a human research step before production release; no participant results have been invented.
+
+See `CHANGES.md` for every section's source, removals, verification and the remaining owner configuration. Review artifacts live in `docs/site-v5/`. Branch previews are allowed under the updated request; production deployment remains manual. No deployment or hosting-settings command is part of this workflow.

@@ -1,23 +1,35 @@
-# Site v5: focus-led messaging and launch-document conversion
+# Revise site v5 messaging, pilot conversion and attention comparison
 
-DRAFT: original comparison sources are missing. PR publication is also waiting for confirmation that pushing this branch cannot trigger Vercel previews, as the brief prohibits deployment.
+The site now leads with Coordinated as an AI program manager in Slack and offers a six-week pilot discussion before requesting a launch document. A single template generates the two headline variants; `b.html` exists for the five-second test and is not linked from navigation. The pitch sentence remains verbatim.
 
-The homepage now explains Coordinated as an AI program manager in Slack, leads with team focus, and gives visitors a real document form. Both headline variants come from one template. The existing visual system, Slack card, six sample moments with provenance and decision rails, trust boundary and reading receipt are preserved.
+The original attention comparison is ported with its chart, table, assumptions, pessimistic case, person ledger and replacement question. `calc.js` is inlined byte-for-byte unchanged. SHA-256: `a289412212e78d7b1bdf20d1063077ed0ca991be56fd5f300d6da42c3a45adde`.
 
-Removed every placeholder from the public build, the three why cards, the unsourced statistics and the reserved-evidence graphic. Reordered the retained sections, added the six-week pilot and four measurement definitions, and rendered a new 1200x630 share image from og.html. Mail is handled by an in-repo Vercel function using SMTP; no third-party form service or tracking was added.
+Copy distinguishes “Measured on the simulator fixture”, “In the pilot today” with manual delivery, and “What we are building”. Unsupported absolutes were removed; acceptance is distinguished from current evidence and unknowns. Atlas examples are individually labeled fictional and separate from the Lantern simulator; all original provenance and decision rails remain verbatim. The alleged nothing-due/Marco contradiction does not appear in these Atlas lines, so no unsupported timeline edit was made.
 
-Validation: all eight Playwright cases passed (A/B, 400/1100px, light/dark), copy checks passed for built and rendered text, four contact-server tests passed, and mobile Lighthouse scored A 90 / B 99. Screenshots and raw logs are committed under docs/site-v5. CHANGES.md records section sources and all removed lines.
+All placeholders in the built site, the reserved-evidence graphic, three why cards and unsourced statistics strip are removed. The existing mark, palette, Slack card, galaxy propagation frame, trust cards and browser-local receipt remain. The optional form sits below the agreed-scope line inside the pilot section; its same-origin SMTP function confirms only after delivery succeeds. No tracking is added. Fonts retain the same families and weights and are served locally with their licenses.
 
-Before: [400px](screenshots/before-400.png), [1100px](screenshots/before-1100.png).
-After A: [400px](screenshots/a-400-light.png), [1100px](screenshots/a-1100-light.png).
-After B: [400px](screenshots/b-400-light.png), [1100px](screenshots/b-1100-light.png).
+## Validation
 
-Release blockers and Ed's decisions:
+- `check:references` passes; original calculator hash pinned.
+- Eight Playwright cases pass: A/B, 400/1100px, light/dark. Tests include rendered copy, overflow, console errors, links/anchors, images/alt, keyboard focus, evidence labels, optional-form placement, copy buttons, form success/failure without navigation, B navigation isolation and exact inline hash.
+- Default totals: 52, 58, 36, 29 hours. Pessimistic: 41 and 35. Sliders and weekday person ledger verified.
+- Copy grep passes across the built pages and collapsed/expanded rendered text.
+- Four contact-server tests pass; local mail sink used for browser checks. No live email sent.
+- Mobile Lighthouse A **98**, B **96**, CLS zero. Share image rendered from dedicated og.html at 1200x630.
 
-- Original RULES.md, landing-v4.tpl.html, calc.js and FIVE-SECOND-TEST.md were absent. The attention comparison is not fabricated; its port, original SHA-256 and requested totals remain blocked. CI has an explicit failing release gate until the originals and port are present.
-- TODO BOOKING_URL unset; booking action omitted.
-- CONTACT_ADDRESS defaults to ed@coordinatedai.ai; confirm recipient.
-- PILOT_PRICE unset; “Ask us for the number” shown.
-- Vercel has no native static form handling configured here. The SMTP endpoint is ready for review but requires mail credentials and a verified sender before live delivery can be validated.
-- Confirm automatic previews are disabled before publication, or explicitly authorize the preview. No deployment, DNS, hosting or environment settings were changed.
-- Half/45%/87% statistics were removed rather than retained without exact source links.
+[Section sources and removed-line ledger](../../CHANGES.md) · [Logs](logs/) · [Original references](.)
+
+| View | Before | After A | After B |
+| --- | --- | --- | --- |
+| 400px | [Before](screenshots/before-400.png) | [A](screenshots/a-400-light.png) | [B](screenshots/b-400-light.png) |
+| 1100px | [Before](screenshots/before-1100.png) | [A](screenshots/a-1100-light.png) | [B](screenshots/b-1100-light.png) |
+
+Dark-mode screenshots are also committed beside these. Human founder research has not been run; the provided five-second protocol remains a production-release step.
+
+## Ed's remaining configuration
+
+- **TODO BOOKING_URL:** unset; “Discuss a six-week pilot” uses the verified email route until a real HTTPS scheduling URL is supplied.
+- **CONTACT_ADDRESS:** defaults to `ed@coordinatedai.ai`; confirm recipient and add SMTP values plus a verified sender as Vercel environment variables. Never put them in the repository. Live delivery awaits that configuration; the email route remains visible.
+- **PILOT_PRICE:** unset; “Ask us for the number” shown.
+- Branch previews are allowed by the updated request. Production deploys remain manual. Vercel Git settings redirected to sign-in, so promotion settings were not independently verified. No merge, Vercel deploy/promotion command, DNS or hosting setting change was made.
+- Half/45%/87% figures were removed; no statistic is retained without its exact source.

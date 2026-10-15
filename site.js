@@ -191,3 +191,19 @@ if (launchForm) {
     } finally { button.disabled = false; }
   });
 }
+
+for (const button of document.querySelectorAll('[data-copy-address]')) {
+  button.addEventListener('click', async () => {
+    const address = document.getElementById(button.dataset.copyAddress);
+    const status = button.parentElement.querySelector('.copy-status') || button.parentElement.nextElementSibling;
+    try {
+      await navigator.clipboard.writeText(address.textContent.trim());
+      status.textContent = 'Address copied.';
+    } catch {
+      const selection = window.getSelection();
+      const range = document.createRange(); range.selectNodeContents(address);
+      selection.removeAllRanges(); selection.addRange(range);
+      status.textContent = 'Address selected. Copy it to your email.';
+    }
+  });
+}

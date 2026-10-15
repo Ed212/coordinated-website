@@ -1,5 +1,5 @@
-No push or PR creation attempted.
-Existing GitHub commit 74aa1565cb69cff78e79a2093c6d4129e04a1e03 has context Vercel, state success, description Deployment has completed.
-Vercel documentation states Git commits and pull requests can trigger automatic deployments: https://vercel.com/docs/deployments/overview
-Automatic-preview behavior for codex/site-v5 is unknown. Asked Ed to confirm previews are disabled or explicitly authorize the preview.
-No hosting or DNS settings changed. No deployment invoked.
+Updated request permits branch previews; production deploys remain manual.
+Attempted read-only Vercel Git-settings inspection at https://vercel.com/ed-s-projects-7daef98f/coordinated-website-np6n/settings/git . It redirected to the Vercel login page, so the project's production-promotion settings could not be independently verified.
+No settings, credentials, DNS, production branch or hosting configuration changed.
+No Vercel deployment, merge or promotion command is used. The requested branch push and PR may trigger an automatic branch preview under the user's updated authorization.
+SMTP secrets belong in the Vercel environment, never in this repository. No secret file was read or printed.

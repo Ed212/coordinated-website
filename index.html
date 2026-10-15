@@ -16,9 +16,7 @@
   <meta property="og:image:alt" content="Give your team its focus back. A Coordinated decision card in Slack.">
   <link rel="icon" type="image/png" sizes="64x64" href="brand/favicon_64.png">
   <link rel="icon" type="image/svg+xml" href="brand/mark_dark.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="fonts.css">
   <link rel="stylesheet" href="styles.css">
   <script src="site.js" defer></script>
 </head>
@@ -35,7 +33,7 @@
       <a href="#how">How it works</a>
       <a href="use-cases.html">Use cases</a>
       <a href="pilot-evidence.html">Evidence</a>
-      <a class="nav-contact" href="#send-doc">Send a document</a>
+      <a class="nav-contact" href="#pilot">Discuss a pilot</a>
     </nav>
   </header>
   <main id="main">
@@ -50,10 +48,10 @@
           <p class="eyebrow">AN AI PROGRAM MANAGER IN SLACK</p>
           <h1 id="hero-title">Give your team its focus back.</h1>
           <p class="hero-promise">Coordinated is a shared record of your decisions, guardrails and plan, so people and agents work from what has been agreed, without you having to repeat every decision or chase every update.</p>
-          <p class="agent-line">Your people read it on Monday. Your agents read it before they act.</p>
-          <p class="proof-line">Every message says why it was sent and what it cost you. Most weeks, nothing.</p>
+          <p class="agent-line">Your people read it on Monday. We are building the read contract your agents will use before they act.</p>
+          <p class="proof-line">Every message says why it was sent and what it cost you.</p>
           <div class="hero-actions">
-            <a class="button button-paper" href="#send-doc">Send us your last launch doc</a>
+            <a class="button button-paper" href="mailto:ed@coordinatedai.ai?subject=Discuss%20a%20six-week%20pilot" data-pilot-action>Discuss a six-week pilot</a>
             <a class="text-link" href="#moments">See a sample record <span aria-hidden="true">→</span></a>
 
           </div>
@@ -158,11 +156,11 @@
     <section class="section moments-section ledger-section" id="moments" aria-labelledby="moments-title" data-receipt-label="Sample record">
       <div class="ledger-boundary">
         <div class="section-intro section-intro-wide">
-          <p class="section-number">02 / Sample record</p>
+          <p class="section-number">02 / Sample record</p><p class="evidence-label">In the pilot today</p>
           <h2 id="moments-title">A sample record. Six moments when it matters.</h2>
           <a class="text-link text-link-dark" href="use-cases.html">See all six product cards <span aria-hidden="true">→</span></a>
         </div>
-        <p class="sample-note">Atlas, Acme and the people below are fictional examples, not customer results.</p>
+        <p class="sample-note">Atlas, Acme and the people below are fictional examples, separate from the Lantern simulator fixture used in the comparison. In the first pilots our team delivers the cards and briefs by hand inside your Slack, under the same rules.</p>
         <div class="moments-layout">
           <nav class="moment-index" aria-label="Moments on record">
             <a class="is-active" href="#moment-01" data-moment-link="moment-01"><span>01</span> A date slips</a>
@@ -175,6 +173,7 @@
           <div class="moment-rows">
             <article class="moment-row" id="moment-01" data-moment-row>
               <p class="moment-kicker">01 · A date slips</p>
+              <p class="example-label">Fictional example · Atlas</p>
               <h3>“Staging slipped to Saturday. Who needs to know before Sarah's spend locks Tuesday at 5?”</h3>
               <p>Sarah is asked: her announcement needs ten calendar days after staging and Sat Oct 10 leaves five. Marco is informed: his Acme condition still holds by one business day. Nadia decides; the forecast is on record either way.</p>
               <ul class="provenance"><li>Launch plan ¶7 · ten days after staging</li><li>Delivery notes, line 11 · Acme rollout Thu Oct 15</li><li>Spend lock · Tue Oct 6, 5:00 PM</li></ul>
@@ -182,6 +181,7 @@
             </article>
             <article class="moment-row" id="moment-02" data-moment-row>
               <p class="moment-kicker">02 · A scope changes</p>
+              <p class="example-label">Fictional example · Atlas</p>
               <h3>“Nadia removed self-serve import on Wed Oct 7. Which promises now need an answer?”</h3>
               <p>Sarah is asked because the launch announcement names the import. Marco is asked because the Acme rollout includes it. Dana is informed because the support guide no longer needs the import path.</p>
               <ul class="provenance"><li>Launch plan ¶4 · self-serve import in scope</li><li>Acme notes, line 8 · import workflow Thu Oct 15</li><li>Support brief ¶3 · guide due Mon Oct 12</li></ul>
@@ -189,6 +189,7 @@
             </article>
             <article class="moment-row" id="moment-03" data-moment-row>
               <p class="moment-kicker">03 · An owner leaves</p>
+              <p class="example-label">Fictional example · Atlas</p>
               <h3>“Maya is out through Fri Oct 16. Who owns the staging decision due Thu Oct 8?”</h3>
               <p>Nadia is asked to name temporary authority. Josh is informed because the launch cannot move without that decision. No replacement is inferred; ownership stays unseen until a person accepts it.</p>
               <ul class="provenance"><li>Review notes ¶6 · Maya owns staging readiness</li><li>Atlas terms v2 · decision due Thu Oct 8, 2:00 PM</li><li>Team update · Maya unavailable through Fri Oct 16</li></ul>
@@ -196,6 +197,7 @@
             </article>
             <article class="moment-row" id="moment-04" data-moment-row>
               <p class="moment-kicker">04 · A promise is made to a customer</p>
+              <p class="example-label">Fictional example · Atlas</p>
               <h3>“Marco promised Acme a Thu Oct 15 rollout. Does the current plan support it?”</h3>
               <p>Marco is asked to confirm the condition. Nadia decides whether it becomes part of the Atlas terms. Sarah is informed because her announcement uses the same rollout date.</p>
               <ul class="provenance"><li>Acme thread · rollout Thu Oct 15</li><li>Launch plan ¶7 · staging Sat Oct 10</li><li>Announcement brief · publication Thu Oct 15, 8:00 AM</li></ul>
@@ -203,6 +205,7 @@
             </article>
             <article class="moment-row" id="moment-05" data-moment-row>
               <p class="moment-kicker">05 · An assumption comes due</p>
+              <p class="example-label">Fictional example · Atlas</p>
               <h3>“The rollout assumes legal approval by Mon Oct 12. What happens if it is not in?”</h3>
               <p>Nadia is asked to decide before the approval window closes. Sarah and Marco are informed because their Thu Oct 15 work depends on the answer. The record labels legal approval unseen until someone posts it.</p>
               <ul class="provenance"><li>Atlas assumptions ¶2 · legal approval Mon Oct 12</li><li>Campaign brief · spend starts Tue Oct 13, 9:00 AM</li><li>Acme notes · rollout Thu Oct 15</li></ul>
@@ -210,6 +213,7 @@
             </article>
             <article class="moment-row" id="moment-06" data-moment-row>
               <p class="moment-kicker">06 · A review starts</p>
+              <p class="example-label">Fictional example · Atlas</p>
               <h3>“What is already settled before the Tue Oct 13 review?”</h3>
               <p>The staging forecast is decided, the import is out of scope, Marco's customer condition is recorded, and every affected owner has answered. The brief opens with the remaining decision, not a reconstruction.</p>
               <ul class="provenance"><li>Atlas terms v2 · accepted Thu Oct 8, 11:20 AM</li><li>Owner responses · through Mon Oct 12, 4:15 PM</li><li>Review brief · generated Tue Oct 13, 8:00 AM</li></ul>
@@ -219,10 +223,51 @@
         </div>
       </div>
     </section>
+  <section class="section attention-section ledger-section" id="numbers" aria-labelledby="numbers-title" data-receipt-label="Attention comparison"><div class="ledger-boundary">
+    <p class="section-number">03 / Attention</p><p class="evidence-label">Measured on the simulator fixture</p>
+    <h2 id="numbers-title">What coordination costs a team, with and without us</h2>
+    <p class="sub">One launch: nine people, seven weeks, two material changes, one review. The cards, notes and posts in Coordinated's column are counted from our simulator's event log. The minutes, the meetings and everything in the "today" column are assumptions you can change, including the possibility that Coordinated adds work. Savings can be negative, and the table says when.</p>
+    <div id="hero"></div>
+    <div class="chartbox">
+      <div class="label">Team hours on coordination over the launch</div>
+      <div class="legend"><span><i class="sw" style="background:var(--s1)"></i>In meetings</span><span><i class="sw" style="background:var(--s2)"></i>Messages and threads</span><span><i class="sw" style="background:var(--s3)"></i>Coordinated's own work</span></div>
+      <div id="chart"></div>
+      <div class="tip" id="tip"></div>
+    </div>
+    <div class="tablewrap" tabindex="0" role="region" aria-label="Scrollable comparison data"><table id="cmp"></table></div>
+    <p class="note" id="own"></p>
+    <p class="note">"Meetings smaller and shorter" keeps the first two status meetings, then a 15-minute sync with four people each week, a 30-minute review with four people, and a 15-minute discussion with three people per change. Nothing here is a customer result.</p>
+    <label class="check"><input type="checkbox" id="pess"> Pessimistic case: setup takes twice as long and each card takes five minutes</label>
+    <details>
+      <summary>Change the assumptions</summary>
+      <div class="glabel">The launch</div><div class="ctrls" id="c-launch"></div>
+      <div class="glabel">Today's workflow</div><div class="ctrls" id="c-today"></div>
+      <div class="glabel">Coordinated's own work</div><div class="ctrls" id="c-co"></div>
+      <div class="glabel">Rates</div><div class="ctrls" id="c-speed"></div>
+    </details>
+    <details>
+      <summary>Person by person: what Coordinated sent in seven weeks</summary>
+      <div class="inner">
+        <p class="note" style="margin-top:0">Every card is logged against the person who received it, with the reason it was sent. Counts are measured on the fixture (33 cards, 9 notes, seven weeks, nine people); reading minutes are estimates at the reading speed set above. The pilot readout uses this ledger format; its figures come from that pilot.</p>
+        <div class="tablewrap" tabindex="0" role="region" aria-label="Scrollable comparison data"><table id="ledgerV4"></table></div>
+        <p class="note">Thirty-three cards needed an answer, nine settlement notes needed reading, and every person read twelve channel posts, seven of them Monday pictures. The sponsor and the people who own nothing on the launch answered nothing. The week a person moves their own date is the week they hear from us: Maya moved hers, and five of her ten cards came that week. The Thursday brief derived "No meeting needed: nothing is waiting on a person in the room."</p>
+      </div>
+    </details>
+    <div class="replace">
+      <div class="label">The question we ask at formation</div>
+      <p class="q">Which recurring meeting does this launch retire, and from when?</p>
+      <p>The hours above come from that answer, and from nothing else. If every meeting stays, Coordinated adds work. The sponsor answers it on day one, the default being that the Monday picture replaces the status meeting from week three once it has been right for two, and the readout says whether the meeting stayed retired.</p>
+    </div>
+</div>
+  </section>
 
     <section class="section ledger-section" id="pilot" aria-labelledby="pilot-title" data-receipt-label="Six-week pilot">
       <div class="ledger-boundary">
-        <div class="section-intro"><p class="section-number">04 / Pilot</p><h2 id="pilot-title">Six weeks. One launch. Two responsibilities off your plate.</h2></div>
+        <div class="section-intro"><p class="section-number">04 / Pilot</p><p class="evidence-label">In the pilot today</p><h2 id="pilot-title">Six weeks. One launch. Two responsibilities off your plate.</h2></div>
+        <p class="pilot-disclosure">We form the record by interview: one card per commitment per person, the Monday picture, the Thursday brief and settlement notes. In the first pilots our team runs the desk by hand inside your Slack, under the same rules. Every hour of ours is logged in its own column.</p>
+        <a class="button button-dark" href="mailto:ed@coordinatedai.ai?subject=Discuss%20a%20six-week%20pilot" data-pilot-action>Discuss a six-week pilot</a>
+        <div class="contact-route"><span id="pilot-address">ed@coordinatedai.ai</span><button type="button" data-copy-address="pilot-address">Copy address</button></div>
+        <p class="copy-status" role="status" aria-live="polite"></p>
         <div class="trust-grid">
           <article><h3>Chasing answers</h3><p>Agree who needs to answer each change. Coordinated keeps their cards current and brings their answers back to the record.</p></article>
           <article><h3>Preparing the review</h3><p>Start from the accepted decisions, conditions and open questions instead of reconstructing the launch from messages.</p></article>
@@ -230,6 +275,22 @@
         </div>
         <p class="pilot-price">Ask us for the number</p>
         <a class="text-link" href="pilot-evidence.html">See what the readout measures →</a>
+        <p class="scope-line">Once we agree the scope, send one document with a real date; the first card goes out from it.</p>
+    <div class="document-section" id="send-doc" aria-labelledby="document-title" data-receipt-label="Send a launch document">
+      <div class="document-layout">
+        <div><p class="section-number">Optional, after scope is agreed</p><h3 id="document-title">Share the agreed launch document.</h3><p>We read it and reply.</p></div>
+        <form id="launch-form" action="/api/contact" method="post">
+          <label for="email">Your email</label>
+          <input id="email" name="email" type="email" autocomplete="email" maxlength="254" required>
+          <label for="document">Paste your launch document</label>
+          <textarea id="document" name="document" rows="7" maxlength="30000" required></textarea>
+          <div class="form-trap" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+          <button class="button button-dark" type="submit">Send document</button>
+          <p id="form-status" role="status" aria-live="polite"></p>
+          <noscript><p>Email your document to <a href="mailto:ed@coordinatedai.ai">ed@coordinatedai.ai</a>.</p></noscript>
+        </form>
+      </div>
+    </div>
       </div>
     </section>
     <section class="section trust-section ledger-section" id="trust" aria-labelledby="trust-title" data-receipt-label="Trust boundaries">
@@ -255,7 +316,18 @@
             <p>Counts and state, never restricted terms. Each person receives only the card that belongs to them.</p>
           </article>
         </div>
-        <div class="architecture"><p class="section-number">Architecture</p><h3>A record people and agents read the same.</h3><p>Only people can change what has been agreed. Agents read the accepted decisions, guardrails and plan before they act.</p></div>
+        <div class="architecture" id="architecture">
+          <p class="evidence-label">What we are building</p>
+          <h3>Three agents, one record.</h3>
+          <p>The design gives the driver the work of preparing decisions, the verifier the work of checking claims, and the aligner the work of comparing accepted terms with the sponsor's intended outcome. These agents are planned architecture, not available pilot automation.</p>
+          <h4>Accepted, supported, or unknown.</h4>
+          <p>We are building a verifier that will mark every claim as one of three things: accepted by a named person, supported by current evidence with the period it covers, or unknown. Nothing on the page or in a message is presented as true because someone accepted it.</p>
+          <h4>Guardrails as code.</h4>
+          <p>We plan deterministic checks over each proposed message and change. The checks will return a refusal when a rule is not met, with a person resolving what the record cannot settle.</p>
+          <h4>A read contract for agents.</h4>
+          <p>We are building a read contract so agents will be able to ask who decides, what was agreed and what changed. Only people will be able to change the accepted terms.</p>
+          <p>The record holds pointers to your documents, with the version and the person who decides each, and keeps the evidence you hand it under your retention policy.</p>
+        </div>
       </div>
     </section>
     <section class="section starts-section" id="start" aria-labelledby="starts-title" data-receipt-label="How a pilot starts">
@@ -265,34 +337,20 @@
           <h2 id="starts-title">One document. One change. One review.</h2>
         </div>
         <ol class="starts-grid">
-          <li><span>01</span><p>Send one document with a real date in the next six weeks.</p></li>
+          <li><span>01</span><p>Agree the scope of one six-week pilot, then send one document with a real date.</p></li>
           <li><span>02</span><p>Review one draft; send one card per person.</p></li>
           <li><span>03</span><p>Work through one change before the next review.</p></li>
         </ol>
-        <a class="button button-dark" href="#send-doc">Send us your last launch doc</a>
+        <a class="button button-dark" href="mailto:ed@coordinatedai.ai?subject=Discuss%20a%20six-week%20pilot" data-pilot-action>Discuss a six-week pilot</a>
       </div>
     </section>
-    <section class="section document-section" id="send-doc" aria-labelledby="document-title" data-receipt-label="Send a launch document">
-      <div class="ledger-boundary document-layout">
-        <div><p class="section-number">Your next launch</p><h2 id="document-title">Send us your last launch doc.</h2><p>We read it and reply.</p></div>
-        <form id="launch-form" action="/api/contact" method="post">
-          <label for="email">Your email</label>
-          <input id="email" name="email" type="email" autocomplete="email" maxlength="254" required>
-          <label for="document">Paste your launch document</label>
-          <textarea id="document" name="document" rows="7" maxlength="30000" required></textarea>
-          <div class="form-trap" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
-          <button class="button button-dark" type="submit">Send us your last launch doc</button>
-          <p id="form-status" role="status" aria-live="polite"></p>
-          <noscript><p>Email your document to <a href="mailto:ed@coordinatedai.ai">ed@coordinatedai.ai</a>.</p></noscript>
-        </form>
-      </div>
-    </section>
+
     <section class="reader-receipt" id="reader-receipt" aria-labelledby="receipt-title">
       <div class="ledger-boundary receipt-layout">
         <div>
           <p class="section-number">Your reading receipt</p>
           <h2 id="receipt-title">What this page put on record.</h2>
-          <p>The product sends each person a receipt like this every quarter: what it asked, why, and what it cost.</p>
+          <p>We plan to send each person a receipt like this every quarter: what it asked, why, and what it cost.</p>
           <p>This receipt updates as sections enter view. It stays in this browser and is not sent anywhere.</p>
         </div>
         <article class="receipt-card" aria-live="polite">
@@ -309,8 +367,136 @@
       <nav aria-label="Footer navigation">
         <a href="#moments">Sample record</a><a href="#how">How it works</a><a href="pilot-evidence.html">Evidence</a><a href="#pilot">Pilot</a><a href="mailto:ed@coordinatedai.ai">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a>
       </nav>
-      <p>ed@coordinatedai.ai</p>
+      <div class="contact-route"><span id="footer-address">ed@coordinatedai.ai</span><button type="button" data-copy-address="footer-address">Copy address</button><span class="copy-status" role="status" aria-live="polite"></span></div>
     </div>
   </footer>
+<script id="attention-model">// ---- Coordinated attention calculator: shared model (inlined into both pages by build-calc.py) ----
+// Measured from the simulator fixture (headless replay of all 67 steps, Mon Sep 28 to Mon Nov 16, 2026):
+const LEDGER = {
+  haley:{persona:'operator',cards:1,notes:2,posts:12,words:1081,peak:'Oct 19',approvals:33},
+  priya:{persona:'sponsor',cards:0,notes:0,posts:12,words:746,peak:'none'},
+  nadia:{persona:'decision-holder',cards:1,notes:2,posts:12,words:1106,peak:'Sep 28'},
+  maya:{persona:'owner (moved her date)',cards:10,notes:2,posts:12,words:1736,peak:'Oct 19: 5 cards, 2 notes'},
+  leo:{persona:'owner',cards:3,notes:0,posts:12,words:966,peak:'Sep 28'},
+  sarah:{persona:'owner (countered)',cards:8,notes:2,posts:12,words:1686,peak:'Oct 19: 5 cards, 2 notes'},
+  ivy:{persona:'owner',cards:5,notes:1,posts:12,words:1301,peak:'Oct 19'},
+  marco:{persona:'owner',cards:5,notes:0,posts:12,words:1091,peak:'Sep 28'},
+  omar:{persona:'everyone else',cards:0,notes:0,posts:12,words:746,peak:'none'}
+};
+const FIX = { people:9, owners:5, weeks:7, changes:2, cards:33, notes:9, postsPerPerson:12, approvals:33,
+  wordsTotal:Object.values(LEDGER).reduce((a,p)=>a+p.words,0) };
+
+const P = {
+  people:{v:9,min:4,max:40,step:1,l:'People on the launch'},
+  weeks:{v:7,min:2,max:13,step:1,l:'Weeks'},
+  changes:{v:2,min:0,max:8,step:1,l:'Material changes'},
+  statusMin:{v:30,min:0,max:60,step:5,l:'Weekly status meeting today, minutes, everyone'},
+  reviewMin:{v:60,min:0,max:120,step:15,l:'Launch review meeting today, minutes, everyone'},
+  adhocMin:{v:30,min:0,max:60,step:5,l:'Meeting per change today, minutes'},
+  adhocPeople:{v:4,min:1,max:12,step:1,l:'People in that meeting'},
+  chatter:{v:8,min:0,max:40,step:1,l:'Launch-channel messages a day, read by all'},
+  threadMsgs:{v:25,min:0,max:80,step:5,l:'Slack thread messages per change, read by all'},
+  dmPerChange:{v:6,min:0,max:20,step:1,l:'DMs to answer per change'},
+  chase:{v:1,min:0,max:5,step:1,l:'"Is this still on?" DMs per owner per week'},
+  setupH:{v:4,min:0,max:12,step:0.5,l:'Setup and formation interviews, team hours'},
+  cardMin:{v:2,min:0.5,max:8,step:0.5,l:'Minutes to think through and answer a card'},
+  noteMin:{v:0.5,min:0,max:3,step:0.5,l:'Minutes to read a settlement note'},
+  approvalSec:{v:30,min:0,max:90,step:5,l:'Seconds per operator send approval (0 with a mandate)'},
+  adminMin:{v:15,min:0,max:60,step:5,l:'Operator administration, minutes a week'},
+  evidenceH:{v:2,min:0,max:8,step:0.5,l:'Evidence handling and corrections, team hours'},
+  msgRemainB:{v:50,min:0,max:100,step:5,l:'% of today\'s message work that remains'},
+  rate:{v:70,min:30,max:200,step:5,l:'Loaded cost of an hour, $'},
+  readSec:{v:8,min:3,max:30,step:1,l:'Seconds to read a Slack message'},
+  dmSec:{v:45,min:15,max:180,step:15,l:'Seconds to answer a DM'},
+  wpm:{v:200,min:120,max:300,step:10,l:'Reading speed, words a minute'}
+};
+const GROUPS = {
+  'c-launch':['people','weeks','changes'],
+  'c-today':['statusMin','reviewMin','adhocMin','adhocPeople','chatter','threadMsgs','dmPerChange','chase'],
+  'c-co':['setupH','cardMin','noteMin','approvalSec','adminMin','evidenceH','msgRemainB'],
+  'c-speed':['rate','readSec','dmSec','wpm']
+};
+function fmtv(k){ const p=P[k]; return (p.step<1? p.v.toFixed(1): String(p.v)); }
+function buildControls(){
+  for (const g of Object.keys(GROUPS)){ const host=document.getElementById(g); if (!host) continue;
+    for (const k of GROUPS[g]){ const p=P[k]; const d=document.createElement('div'); d.className='ctrl';
+      d.innerHTML='<label><span>'+p.l+'</span><b id="v-'+k+'">'+fmtv(k)+'</b></label><input type="range" id="r-'+k+'" min="'+p.min+'" max="'+p.max+'" step="'+p.step+'" value="'+p.v+'" aria-label="'+p.l+'">';
+      host.appendChild(d); d.querySelector('input').addEventListener('input',e=>{ P[k].v=parseFloat(e.target.value); document.getElementById('v-'+k).textContent=fmtv(k); render(); }); } }
+  const pess=document.getElementById('pess'); if (pess) pess.addEventListener('change',render);
+}
+function model(){
+  const v=k=>P[k].v; const N=v('people'), W=v('weeks'), C=v('changes'); const owners=Math.max(1,Math.round(N*FIX.owners/FIX.people));
+  const pess=!!(document.getElementById('pess')&&document.getElementById('pess').checked);
+  const rs=v('readSec')/3600, ds=v('dmSec')/3600;
+  // today's workflow
+  const statusH=W*v('statusMin')*N/60, reviewH=v('reviewMin')*N/60, changeH=C*v('adhocMin')*Math.min(N,v('adhocPeople'))/60;
+  const reads=W*5*v('chatter')+C*v('threadMsgs'); const answers=W*v('chase')*owners+C*v('dmPerChange');
+  const msgH=N*reads*rs + answers*ds;
+  const today={ name:'Today: meetings and threads', short:'Today', meet:statusH+reviewH+changeH, msg:msgH, own:0 };
+  // Coordinated's own work, from the measured ledger scaled to the scenario
+  const scale=(owners/FIX.owners)*(0.5+0.5*C/FIX.changes); const cards=Math.round(FIX.cards*scale), notes=Math.round(FIX.notes*(C/FIX.changes));
+  const wordsPP=(FIX.wordsTotal/FIX.people)*(W/FIX.weeks)*(0.6+0.4*(C/FIX.changes));
+  const setup=v('setupH')*(pess?2:1), cardMin=pess? Math.max(5,v('cardMin')) : v('cardMin');
+  const own = setup + N*wordsPP/v('wpm')/60 + cards*cardMin/60 + notes*v('noteMin')/60 + cards*v('approvalSec')/3600 + W*v('adminMin')/60 + v('evidenceH');
+  const ownParts={ setup, reading:N*wordsPP/v('wpm')/60, cards:cards*cardMin/60+notes*v('noteMin')/60, approvals:cards*v('approvalSec')/3600, admin:W*v('adminMin')/60, evidence:v('evidenceH') };
+  const rem=v('msgRemainB')/100;
+  // three meeting policies with Coordinated
+  const A={ name:'With Coordinated, all meetings stay', short:'Coordinated, meetings stay', meet:today.meet, msg:msgH*rem, own };
+  const B={ name:'With Coordinated, status meeting stops after week two', short:'Coordinated, status meeting stops', meet:Math.min(W,2)*v('statusMin')*N/60 + reviewH + changeH, msg:msgH*rem, own };
+  const syncs=Math.max(0,W-2); const small=Math.min(N,4), tiny=Math.min(N,3);
+  const Cc={ name:'With Coordinated, meetings smaller and shorter', short:'Coordinated, meetings smaller', meet:Math.min(W,2)*v('statusMin')*N/60 + syncs*15*small/60 + 30*small/60 + C*15*tiny/60, msg:msgH*Math.min(rem,0.25), own };
+  const R=[today,A,B,Cc];
+  for (const r of R){ r.total=r.meet+r.msg+r.own; r.net=today.total-r.total; r.pct=today.total>0? r.net/today.total:0; r.value=r.net*v('rate'); }
+  return { R, today, A, B, Cc, N, W, C, cards, notes, ownParts, pess };
+}
+function h1(x){ const a=Math.abs(x); const r=(a>=10? Math.round(a) : Math.round(a*10)/10).toLocaleString(); return (x<0?'−':'')+r; }
+function pct(x){ return Math.round(x*100); }
+function money(x){ const s=Math.round(Math.abs(x)).toLocaleString(); return (x<0?'−$':'$')+s; }
+function niceStep(max){ const raw=max/5; const p=Math.pow(10,Math.floor(Math.log10(raw))); const m=raw/p; return (m<1.5?1:m<3.5?2:m<7.5?5:10)*p; }
+function drawBars(host, rows, legendSegs){
+  const max=Math.max(...rows.map(r=>r.total))*1.12 || 1; const Wd=900, left=250, right=70, rowH=46, top=10; const H=top+rows.length*rowH+30; const plotW=Wd-left-right; const x=v=>left+v/max*plotW;
+  const ticks=[]; const step=niceStep(max); for (let t=0;t<=max;t+=step) ticks.push(t);
+  let s='<svg viewBox="0 0 '+Wd+' '+H+'" role="img" aria-label="Team coordination hours by scenario">';
+  for (const t of ticks){ s+='<line x1="'+x(t)+'" y1="'+top+'" x2="'+x(t)+'" y2="'+(top+rows.length*rowH)+'" stroke="var(--grid)" stroke-width="1"/><text x="'+x(t)+'" y="'+(top+rows.length*rowH+18)+'" font-size="12" text-anchor="middle" fill="var(--muted)">'+t.toLocaleString()+(t===ticks[ticks.length-1]?' h':'')+'</text>'; }
+  rows.forEach((r,i)=>{ const y=top+i*rowH+11; const bh=24; let cx=left;
+    s+='<text x="'+(left-12)+'" y="'+(y+16)+'" font-size="13" text-anchor="end" fill="var(--fg)">'+r.short+'</text>';
+    legendSegs.forEach((sg,j)=>{ const w=Math.max(0,r[sg[0]]/max*plotW); if (w<=0) return; const gap=j>0?2:0; const last=legendSegs.slice(j+1).every(q=>r[q[0]]<=0);
+      s+='<rect class="seg" data-name="'+r.short+'" data-seg="'+sg[2]+'" data-v="'+h1(r[sg[0]])+'" x="'+(cx+gap)+'" y="'+y+'" width="'+Math.max(0.5,w-gap)+'" height="'+bh+'" fill="'+sg[1]+'"'+(last?' rx="4"':'')+'/>'; cx+=w; });
+    s+='<text x="'+(x(r.total)+8)+'" y="'+(y+16)+'" font-size="13" fill="var(--fg2)">'+h1(r.total)+' h</text>'; });
+  s+='<line x1="'+left+'" y1="'+top+'" x2="'+left+'" y2="'+(top+rows.length*rowH)+'" stroke="var(--axis)" stroke-width="1"/></svg>';
+  host.innerHTML=s; const tip=document.getElementById('tip'); const box=host.parentElement;
+  host.querySelectorAll('.seg').forEach(el=>{ el.addEventListener('mousemove',e=>{ tip.style.display='block'; tip.textContent=el.dataset.name+' · '+el.dataset.seg+': '+el.dataset.v+' h'; const b=box.getBoundingClientRect(); tip.style.left=Math.min(e.clientX-b.left+12,b.width-200)+'px'; tip.style.top=(e.clientY-b.top-36)+'px'; }); el.addEventListener('mouseleave',()=>tip.style.display='none'); });
+}
+function renderCore(){
+  const M=model(); const [today,A,B,Cc]=M.R;
+    const hero=document.getElementById('hero');
+  if (hero){ const lo=Math.min(B.pct,Cc.pct), hi=Math.max(B.pct,Cc.pct);
+    hero.innerHTML='<div class="label">Illustrative '+M.W+'-week launch, '+M.N+' people'+(M.pess?' · pessimistic case':'')+'</div><div class="big">'+pct(lo)+' to '+pct(hi)+'% less</div><p class="sub">coordination time when the status meeting goes. If every meeting stays, the same launch takes '+(A.net<0? pct(-A.pct)+'% more':pct(A.pct)+'% less')+' time, because Coordinated adds work of its own: about '+h1(A.own)+' hours of setup, reading, answering, approvals and evidence.</p>'; }
+  const T=document.getElementById('cmp');
+  if (T) T.innerHTML='<tr><th>Scenario</th><th class="num">Meetings, h</th><th class="num">Messages and threads, h</th><th class="num">Coordinated\'s own work, h</th><th class="num">Total, h</th><th class="num">Net recovered, h</th><th class="num">Change</th><th class="num">At $'+P.rate.v+'/h</th></tr>'+
+    M.R.map((r,i)=>'<tr'+(i>0?' class="co"':'')+'><td style="min-width:150px">'+r.short+'</td><td class="num">'+h1(r.meet)+'</td><td class="num">'+h1(r.msg)+'</td><td class="num">'+(r.own?h1(r.own):'0')+'</td><td class="num">'+h1(r.total)+'</td><td class="num">'+(i?h1(r.net):'')+'</td><td class="num">'+(i?(r.net<0? pct(-r.pct)+'% more':pct(r.pct)+'% less'):'')+'</td><td class="num">'+(i?money(r.value):'')+'</td></tr>').join('');
+  const ch=document.getElementById('chart'); if (ch) drawBars(ch, M.R, [['meet','var(--s1)','In meetings'],['msg','var(--s2)','Messages and threads'],['own','var(--s3)','Coordinated\'s own work']]);
+  const L=document.getElementById('ledgerT');
+  if (L) L.innerHTML='<tr><th>Person</th><th>Role</th><th class="num">Cards to answer</th><th class="num">Settlement notes to read</th><th class="num">Channel posts to read</th><th class="num">Reading minutes</th><th>Busiest week</th></tr>'+
+    Object.keys(LEDGER).map(k=>{ const p=LEDGER[k]; return '<tr><td>'+k[0].toUpperCase()+k.slice(1)+'</td><td>'+p.persona+(p.approvals?' (also approved '+p.approvals+' sends)':'')+'</td><td class="num">'+p.cards+'</td><td class="num">'+p.notes+'</td><td class="num">'+p.posts+'</td><td class="num">'+h1(p.words/P.wpm.v)+'</td><td>'+p.peak+'</td></tr>'; }).join('')+
+    '<tr class="co"><td>Total</td><td>nine people, seven weeks</td><td class="num">'+FIX.cards+'</td><td class="num">'+FIX.notes+'</td><td class="num">'+FIX.postsPerPerson+' each</td><td class="num">'+h1(FIX.wordsTotal/P.wpm.v)+'</td><td></td></tr>';
+  const own=document.getElementById('own');
+  if (own){ const o=M.ownParts; own.textContent='Coordinated\'s own work in this scenario: setup '+h1(o.setup)+' h, reading '+h1(o.reading)+' h, '+M.cards+' cards and '+M.notes+' notes '+h1(o.cards)+' h, operator approvals '+h1(o.approvals)+' h, administration '+h1(o.admin)+' h, evidence and corrections '+h1(o.evidence)+' h.'; }
+  return M;
+}
+</script>
+<script>function render(){ renderCore(); renderLedgerV4(); }
+// Person-by-person ledger, rendered from the measured LEDGER with the weekday on every date (the fixture's busiest weeks start Mon Sep 28 and Mon Oct 19, 2026).
+var WEEKDAY = { 'Sep 28':'Mon Sep 28', 'Oct 19':'Mon Oct 19' };
+function withWeekday(s){ return String(s).replace(/\b(Sep 28|Oct 19)\b/g, function(m){ return WEEKDAY[m] || m; }); }
+function renderLedgerV4(){
+  var L = document.getElementById('ledgerV4'); if (!L) return;
+  L.innerHTML = '<tr><th>Person</th><th>Role</th><th class="num">Cards to answer</th><th class="num">Settlement notes to read</th><th class="num">Channel posts to read</th><th class="num">Reading minutes (estimate)</th><th>Busiest week</th></tr>' +
+    Object.keys(LEDGER).map(function(k){ var p = LEDGER[k]; return '<tr><td>' + k[0].toUpperCase() + k.slice(1) + '</td><td>' + p.persona + (p.approvals ? ' (also approved ' + p.approvals + ' sends)' : '') + '</td><td class="num">' + p.cards + '</td><td class="num">' + p.notes + '</td><td class="num">' + p.posts + '</td><td class="num">' + h1(p.words / P.wpm.v) + '</td><td>' + (p.peak === 'none' ? 'none' : 'week of ' + withWeekday(p.peak)) + '</td></tr>'; }).join('') +
+    '<tr class="co"><td>Total</td><td>nine people, seven weeks</td><td class="num">' + FIX.cards + '</td><td class="num">' + FIX.notes + '</td><td class="num">' + FIX.postsPerPerson + ' each</td><td class="num">' + h1(FIX.wordsTotal / P.wpm.v) + '</td><td></td></tr>';
+}
+
+buildControls(); render();
+</script>
 </body>
 </html>

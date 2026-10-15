@@ -4,6 +4,7 @@ export const rules = [
  ['prohibited wording', /\b(genuinely|honestly|straightforward|system of record|40x|Nobody pinged)\b/gi],
  ['Git vocabulary', /\b(commit|commits|merge|merges|branch|branches|diff|diffs|repo|repos|pull request)\b/gi],
  ['risk label', /\b(at risk|on track|likely to slip|health|score)\b/gi],
+ ['unsupported absolutes or truth claim', /\b(Most weeks, nothing|no reminder of any kind|no reminders|never stores? content|never holds? content|holds pointers, never content|acceptance that made it true)\b/gi],
  ['response promise', /\b(within the hour|same day|two business days)\b/gi],
  ['competitor or certification', /\b(LinearB|Gartner|Atlassian|Asana|Monday\.com|SOC\s*2|certified|certification)\b/gi],
  ['date missing weekday', /(?<!\b(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun) )\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{1,2}\b/g]

@@ -1,61 +1,78 @@
 # Coordinated site v5 changes
 
-Status: local review candidate on `codex/site-v5`. Incomplete pending original comparison sources and deployment-safe PR publication. No deployment, DNS or hosting configuration change was performed. Brand marks and color variables are unchanged. Pre-existing untracked artwork and `.DS_Store` changes are excluded.
+Review candidate on `codex/site-v5`, continuing the first-pass commit `6e41e13`. The newly supplied reference files and COPY-FIXES.md have been applied. Production deployment remains manual; no merge, deployment command, DNS or hosting settings change was performed. The updated request allows automatic branch previews. The brand marks, Inter/JetBrains Mono families and existing color variables are preserved. Pre-existing untracked artwork and `.DS_Store` changes are excluded.
 
 ## Section sources and disposition
 
 | Section | Source | Result |
 | --- | --- | --- |
-| Announcement | Original index/use-cases/evidence | Removed unverified pilot proof placeholders. |
-| Hero A and B | Supplied BRIEF.md, change 2 | Exact label, headline variants, mechanism, agent line and proof line. One `templates/home.html` generates both files. B is absent from navigation. |
-| Hero image | Existing Slack HTML card and galaxy assets | Slack card retained; subtle starfield replaces hero galaxy; smaller 1600px sources below 1200px; images lazy-loaded. |
-| Actions | BRIEF.md, change 3 | Primary anchors to a real email-and-textarea form; secondary anchors to sample record; booking is generated only with BOOKING_URL. |
-| Product strip | BRIEF.md, change 4a | Exact corrected reading boundary, one-card rule and company-size wording. |
-| Memory band | Original dark-statement | Copy retained and moved before How it works; redundant galaxy background removed. |
-| How it works | Original narrative-section | Three steps, path overlay and state changes preserved; one galaxy frame with responsive source. |
-| Sample record | Original moments-section plus BRIEF.md, change 4d | Retitled; all six questions, provenance lists and decision rails retained. Fictional-example label added from existing design-notes fact ledger. |
-| Attention comparison | Required landing-v4.tpl.html and calc.js, both missing | Blocked. No invented model, totals, measured labels or substitute calculator. Release gate fails. Exact replacement question remains pending with the comparison port. |
-| Pilot | BRIEF.md, change 4f | Six weeks, one launch, chasing answers and preparing the review; four readout dimensions; configurable price with requested default. |
-| Trust and architecture | Original trust-section and supplied context | Trust cards retained. People alone change the record; people and agents read accepted decisions. |
-| Closing steps | Original starts-section | “One document. One change. One review.” retained; moved after trust; action leads to form. |
-| Document form | BRIEF.md, change 3 | Email plus document textarea; same-origin Vercel function uses SMTP, no third-party form service. Success after transport accepts email; failure retains text; mailto no-JavaScript fallback. |
-| Reading receipt | Original reader-receipt and BRIEF.md, change 4i | Browser-local receipt retained with requested quarterly product-receipt line. |
-| Footer | Existing footer and BRIEF.md, change 4j | Address displayed as text; internal navigation repaired. |
-| Use cases | Original use-cases.html | All product cards preserved; removed announcement, updated metadata, navigation and footer. |
-| Pilot evidence | Original pilot-evidence.html and new brief | Placeholder readout removed; four measurement definitions, no claimed results. |
-| Legal | Existing privacy and terms | Title punctuation only; legal copy and effective dates retained. |
-| Metadata/OG | BRIEF.md, change 5 and existing Slack card | Exact title and description; dedicated og.html rendered to committed 1200x630 PNG with Playwright. |
-| Internal design notes and unused generated imagery | Original internal materials | Excluded from the allowlisted built site, so historical placeholders and unsourced statistics are not public build output. Original files retained as internal history. |
-| Statistics and why cards | Original sections 01 and 04 | Removed in full as requested; no exact approved source URLs for Half/45%/87%, so none retained. |
+| Announcement | Original index/use-cases/evidence; BRIEF.md change 1 | Removed unverified pilot proof placeholders. |
+| Hero A/B | BRIEF.md change 2; landing-v4.tpl.html; FIVE-SECOND-TEST.md; COPY-FIXES.md | One template, exact headlines and pitch sentence with agreed. Unsupported “Most weeks, nothing” removed. Agent read contract explicitly described as being built. Only the headline differs between index.html and b.html. |
+| Hero image | Existing Slack HTML card and galaxy assets | Slack card retained; subtle lazy-loaded starfield replaces galaxy; 1600px sources below 1200px. |
+| Primary/secondary actions | COPY-FIXES.md §5 | “Discuss a six-week pilot” first, sample record second. BOOKING_URL is used when configured; otherwise the verified email route is used. No fake booking destination. |
+| Product strip | BRIEF.md change 4a | Exact corrected reading boundary, one-card rule and company-size wording. |
+| Memory band | Original dark-statement | Copy retained, moved before How it works; redundant galaxy background removed. |
+| How it works | Original narrative-section | Three steps, path overlay and state changes preserved; one responsive galaxy frame. |
+| Sample record | Original moments-section; COPY-FIXES.md §1 and §4 | All six Atlas examples retained, individually labeled Fictional example · Atlas. “In the pilot today” plus manual-delivery disclosure. Atlas is explicitly separate from the Lantern fixture. Every original provenance line and decision rail retained verbatim. |
+| Attention comparison | Original landing-v4.tpl.html #numbers; unchanged calc.js; v4-CHANGES.md; COPY-FIXES.md | Full chart, labels, table, own-work line, pessimistic case, assumption sliders, person ledger and replacement question ported. Scope label is “Measured on the simulator fixture”; counts are measured, durations estimated. The unsourced 18-hours benchmark sentence is removed. Existing palette is used for the three chart series; no v4 blue/orange/green tokens imported. |
+| Calculator integration | calc.js and v4 builder | Original source inlined after formatting, byte-for-byte unchanged. Weekday ledger adapter ported separately from the v4 template. SHA-256 below. |
+| Pilot | BRIEF.md change 4f; landing-v4.tpl.html #pilot; COPY-FIXES.md §1 and §5 | Six weeks, one launch, chasing answers and preparing the review; four readout dimensions. Label “In the pilot today”; formation by interview, Monday picture, Thursday brief, settlement notes and manual delivery explicitly stated. Founder/team hours logged separately. |
+| Optional document form | BRIEF.md change 3; COPY-FIXES.md §5 | Moved inside pilot, after exact scope-agreement line. Email plus document textarea; same-origin SMTP function, no third-party form service. Success only after mail transport accepts; errors retain text; no-JavaScript mailto fallback. |
+| Trust | Original trust-section; COPY-FIXES.md §2 | Three original boundary cards retained. No unsupported blanket no-reminder or never-store-content claim introduced. |
+| Architecture | Supplied positioning context; landing-v4.tpl.html #architecture; COPY-FIXES.md §1–3 | “What we are building”; driver, verifier, aligner, deterministic guardrails and agent read contract expressed as planned design. Claims distinguished as accepted, supported by current evidence, or unknown. Exact evidence-retention replacement used. |
+| Closing steps | Original starts-section; COPY-FIXES.md §5 | “One document. One change. One review.” retained after trust, with scope agreed before document request. Pilot discussion remains the action. |
+| Reading receipt | Original reader-receipt; BRIEF.md change 4i; updated capability-label discipline | Browser-local receipt retained. Quarterly product receipt framed as planned rather than available pilot automation. |
+| Footer/contact | Existing footer; COPY-FIXES.md §5 | Verified address shown as text with working copy controls. Booking link when configured. |
+| Use cases | Original use-cases.html; COPY-FIXES.md §1 and §4 | Product cards retained, individually labeled fictional; manually delivered pilot context supplied. Placeholder announcement removed, metadata/navigation repaired. |
+| Pilot evidence | Original pilot-evidence.html; BRIEF.md; COPY-FIXES.md | All placeholder readouts and redaction graphic removed; four definitions and manual-delivery disclosure; no claimed customer results. |
+| Legal | Existing privacy/terms | Title punctuation only; legal copy and effective dates retained. |
+| Metadata/OG | BRIEF.md change 5; original Slack card | Exact title and pitch-sentence description. Dedicated og.html rendered to committed 1200x630 PNG with Playwright. |
+| Fonts | Existing Google Fonts families and weights | Same Latin font binaries served locally, with OFL licenses and source record, removing external stylesheet delay. Identical font binaries are reused across weight declarations. |
+| Internal design history | Original design-notes.html and unused generated imagery | Excluded from allowlisted public build. Original internal files retained. |
+| Why/statistics/proof blocks | Original sections 01, 04 and 05 | Removed all three why cards, unsourced Half/45%/87% strip, placeholder proof and reserved-evidence graphic. |
+
+## Calculator provenance
+
+`docs/site-v5/calc.js` SHA-256:
+
+```text
+a289412212e78d7b1bdf20d1063077ed0ca991be56fd5f300d6da42c3a45adde
+```
+
+Every browser case hashes the inlined script and compares it with the original file. The model source, labels, inputs, arithmetic and rounding were not changed. The separate v4 weekday adapter provides weekday-prefixed person-ledger dates and marks reading minutes as estimates.
+
+## Atlas example review
+
+The Atlas owner-leave case is Maya unavailable through Fri Oct 16 with a staging decision due Thu Oct 8. The out-of-window Ivy leave story from v4 was not imported. The Atlas review is Tue Oct 13; its text says the brief opens with the remaining decision and does not say “Decisions due: none” or “Evidence due: none.” The other Atlas moments name Marco's rollout Thu Oct 15, with no stated response deadline on Tue Oct 13. No unsupported timeline change was made. See logs/example-review.log.
 
 ## Verification
 
-- Copy grep passes for all seven built HTML documents and the rendered body of both variants.
-- Eight Playwright cases pass: A/B at 400/1100 pixels, light/dark. No overflow or unexpected console errors; internal links/anchors, alt attributes, loaded responsive images, focus indicators, in-page submit success and failure checked. Expected simulated HTTP 502 is excluded from unexpected console errors.
-- Form success is an integration test against the real local endpoint with an explicitly injected mail sink. No real customer document or live email was sent. Four server tests also exercise delivery failure, invalid input, foreign origins and absent configuration.
-- No-JavaScript fallback checked.
-- Lighthouse mobile: A 90, B 99; CLS zero for both. Raw reports and summary logs are in docs/site-v5/logs.
-- Before screenshots: before-400.png and before-1100.png. After screenshots: a/b at both widths and both schemes in docs/site-v5/screenshots.
-- OG rendered from og.html at 1200x630 and visually reviewed.
-- calc.js unchanged-byte comparison, hash and totals (52, 58, 36, 29; pessimistic 41, 35) are BLOCKED because the source file is absent. The original RULES.md and FIVE-SECOND-TEST.md could not be reviewed either. Reference-check failure is saved, and CI deliberately fails the release gate until sources and comparison port are supplied.
+- All eight browser cases pass: A/B at 400/1100 pixels in light/dark. No horizontal page overflow or unexpected console errors; loaded images and alt attributes, visible keyboard focus, links/anchors, form success/failure without navigation, copy-address controls, evidence labels and optional form placement checked.
+- Default model and rendered totals: 52, 58, 36, 29 hours. Pessimistic: 41 and 35. Sliders recalculate; resetting restores defaults. Person ledger has 33 cards and weekday dates. Collapsed and expanded rendered copy checked.
+- B exists at b.html and no navigation directly links to it. Its own section anchors are allowed.
+- check:references passes with original calculator hash pinned. Copy grep passes for all built pages and both rendered variants, including new unsupported-absolute checks.
+- Four server contact tests pass. Form integration uses the real local endpoint with an explicit local mail sink; no live email was sent. No-JavaScript fallback verified.
+- Final mobile Lighthouse: A 98, B 96, CLS zero. Same families and palette; locally served fonts removed external font latency.
+- OG rendered from dedicated og.html at 1200x630 and visually reviewed. Before screenshots remain before-400.png and before-1100.png. Final A/B screenshots at both widths and schemes are in docs/site-v5/screenshots. Raw logs and Lighthouse reports are in docs/site-v5/logs.
+- Founder five-second research has not been run. No participant answers, customer outcomes or testimonials invented.
 
-## Items Ed must resolve
+## Remaining owner configuration
 
-1. Supply the original four reference files named in the brief. They were absent locally; checking RULES.md on GitHub's default branch also returned 404. The comparison must then be ported and its original SHA-256 recorded here and in the PR.
-2. TODO BOOKING_URL: unset. Booking action omitted until the real HTTPS destination is supplied.
-3. CONTACT_ADDRESS: implementation defaults to the supplied ed@coordinatedai.ai; confirm the recipient.
-4. PILOT_PRICE: unset; requested “Ask us for the number” is shown.
-5. Form backend: repository indicates Vercel, so an API function using authenticated SMTP is implemented. Confirm SMTP host, port, credentials and verified sender before live delivery testing. No environment/hosting settings were changed.
-6. PR publication: latest existing GitHub commit has a successful Vercel deployment status. Automatic preview behavior for this branch is unconfirmed. The no-deploy instruction prevents pushing/opening a PR until previews are confirmed disabled or Ed authorizes a preview. Prepared PR description is in docs/site-v5/PR.md.
-7. Removed statistics: Half (LinearB), 45% (Gartner), 87% (Atlassian). No source lookup is needed to retain them because the brief authorizes full removal; none is used in v5.
+1. TODO BOOKING_URL remains unset. Supply the real HTTPS booking destination; pilot discussion currently uses the verified ed@coordinatedai.ai route.
+2. CONTACT_ADDRESS defaults to ed@coordinatedai.ai; confirm recipient. SMTP credentials and verified sender must be Vercel environment variables, never repository files. Live delivery remains unverified until configured; the visible email route works independently.
+3. PILOT_PRICE unset; “Ask us for the number” shown as requested.
+4. Production release is manual. Attempted read-only inspection of Vercel Git settings redirected to sign-in, so automatic promotion settings were not independently verified or changed. Only the requested branch/PR is published; no production deployment or merge is initiated.
+5. Run the founder five-second test before production release using the provided protocol. Variant screenshots are available; B remains unlinked.
+
+No source-file blocker remains. Removed statistics are not needed and are not retained without exact source links.
 
 ## Removed-line ledger
 
-Every removed text line from the original tracked files changed by this revision is listed below with its original line number and the reason applying to that removal block. Blank lines are included. Moves may appear as removal and addition in Git; their reason is the new section order. The previous OG raster was replaced by the requested browser-rendered share image. No brand raster/vector was altered.
+Every removed text line relative to original main (74aa156) is listed with its original line number and reason. Blank lines are included. Moves appear as removals/additions. The previous OG raster is replaced by the requested browser-rendered share image; no brand raster/vector is altered.
 
 ### index.html, original lines 6 to 7
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 6:   <title>Coordinated — version control for what your company has agreed</title>
@@ -64,7 +81,7 @@ Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholder
 
 ### index.html, original lines 9 to 10
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 9:   <meta property="og:title" content="Coordinated — version control for what your company has agreed">
@@ -73,15 +90,25 @@ Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholder
 
 ### index.html, original lines 16 to 16
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 16:   <meta property="og:image:alt" content="Illustration: Two merging galaxies with a tiny red core beside the headline, “When the plan changes, everyone who depends on it knows the same day.”">
 ```
 
+### index.html, original lines 19 to 21
+
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
+
+```text
+19:   <link rel="preconnect" href="https://fonts.googleapis.com">
+20:   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+21:   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+```
+
 ### index.html, original lines 27 to 31
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 27:
@@ -93,7 +120,7 @@ Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholder
 
 ### index.html, original lines 38 to 38
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 38:       <a href="#why">Why</a>
@@ -101,7 +128,7 @@ Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholder
 
 ### index.html, original lines 42 to 42
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 42:       <a class="nav-contact" href="mailto:ed@coordinatedai.ai?subject=Coordinated%20pilot">Contact</a>
@@ -109,7 +136,7 @@ Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholder
 
 ### index.html, original lines 45 to 45
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 45:
@@ -117,7 +144,7 @@ Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholder
 
 ### index.html, original lines 48 to 58
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 48:       <div class="hero-media">
@@ -135,7 +162,7 @@ Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholder
 
 ### index.html, original lines 60 to 60
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 60:       <svg class="hero-connector" aria-hidden="true"><path data-hero-connector></path></svg>
@@ -143,7 +170,7 @@ Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholder
 
 ### index.html, original lines 63 to 65
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 63:           <p class="eyebrow">Version control for what your company has agreed.</p>
@@ -153,7 +180,7 @@ Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholder
 
 ### index.html, original lines 67 to 68
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 67:             <a class="button button-paper" href="mailto:ed@coordinatedai.ai?subject=My%20last%20launch%20document">Send us your last launch doc</a>
@@ -162,7 +189,7 @@ Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholder
 
 ### index.html, original lines 98 to 98
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 98:
@@ -170,7 +197,7 @@ Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholder
 
 ### index.html, original lines 101 to 101
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 101:         <p>Reads only what you hand it, post as artifacts, or tag it in</p>
@@ -178,7 +205,7 @@ Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholder
 
 ### index.html, original lines 103 to 103
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 103:         <p>Built for 50–300-person software companies</p>
@@ -186,7 +213,7 @@ Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholder
 
 ### index.html, original lines 106 to 107
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 106:
@@ -195,7 +222,7 @@ Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholder
 
 ### index.html, original lines 109 to 129
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 109:         <div class="section-intro">
@@ -223,7 +250,7 @@ Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholder
 
 ### index.html, original lines 132 to 132
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 132:
@@ -231,7 +258,7 @@ Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholder
 
 ### index.html, original lines 137 to 137
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 137:             <p class="section-number">02 / How it works</p>
@@ -239,7 +266,7 @@ Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholder
 
 ### index.html, original lines 161 to 162
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 161:             <img class="narrative-galaxy-image" src="assets/galaxy/landscape-upscaled-2880x1600.webp" width="2880" height="1600" loading="lazy" alt="Illustration: Two interacting spiral galaxies with pale tidal tails converging on a bright shared core marked by a tiny red point, against deep black space.">
@@ -248,7 +275,7 @@ Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholder
 
 ### index.html, original lines 191 to 199
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 191:
@@ -264,7 +291,7 @@ Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholder
 
 ### index.html, original lines 202 to 203
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 202:           <p class="section-number">03 / Moments</p>
@@ -273,7 +300,7 @@ Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholder
 
 ### index.html, original lines 263 to 263
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 263:     <section class="stats-section" id="evidence" aria-labelledby="evidence-title" data-receipt-label="External evidence">
@@ -281,7 +308,7 @@ Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholder
 
 ### index.html, original lines 265 to 267
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 265:         <div class="section-intro section-intro-wide">
@@ -291,7 +318,7 @@ Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholder
 
 ### index.html, original lines 269 to 274
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 269:         <div class="stats-grid">
@@ -304,7 +331,7 @@ Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholder
 
 ### index.html, original lines 277 to 313
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 277:
@@ -348,23 +375,15 @@ Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholder
 
 ### index.html, original lines 317 to 317
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 317:           <p class="section-number">07 / Trust</p>
 ```
 
-### index.html, original lines 339 to 339
-
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
-
-```text
-339:
-```
-
 ### index.html, original lines 355 to 355
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 355:
@@ -372,7 +391,7 @@ Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholder
 
 ### index.html, original lines 360 to 360
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 360:         <a href="#why">Why</a><a href="#how">How it works</a><a href="pilot-evidence.html">Evidence</a><a href="#pilot">Pilot</a><a href="mailto:ed@coordinatedai.ai">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a>
@@ -380,7 +399,7 @@ Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholder
 
 ### index.html, original lines 362 to 362
 
-Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholders, unsourced statistics and why cards; reorder retained sections, repair navigation, and replace email-only conversion with the document form.
+Reason: Apply the latest v5 hierarchy, pilot-first conversion, evidence labels and metadata; remove unsupported wording, placeholders, why cards and unsourced statistics; reorder retained sections and integrate the comparison.
 
 ```text
 362:       <p>Built in the Bay Area.</p>
@@ -388,7 +407,7 @@ Reason: Apply the exact v5 hierarchy and metadata; remove unapproved placeholder
 
 ### pilot-evidence.html, original lines 6 to 6
 
-Reason: Remove unverified announcement, redaction graphic and bracketed readout; align measurement definitions with the four requested pilot outcomes; repair navigation and metadata.
+Reason: Remove unsupported placeholder proof/redaction blocks; align four measurement definitions, disclose manual delivery and repair navigation/metadata.
 
 ```text
 6:   <title>Pilot evidence — Coordinated</title>
@@ -396,7 +415,7 @@ Reason: Remove unverified announcement, redaction graphic and bracketed readout;
 
 ### pilot-evidence.html, original lines 9 to 9
 
-Reason: Remove unverified announcement, redaction graphic and bracketed readout; align measurement definitions with the four requested pilot outcomes; repair navigation and metadata.
+Reason: Remove unsupported placeholder proof/redaction blocks; align four measurement definitions, disclose manual delivery and repair navigation/metadata.
 
 ```text
 9:   <meta property="og:title" content="Pilot evidence — Coordinated">
@@ -404,15 +423,25 @@ Reason: Remove unverified announcement, redaction graphic and bracketed readout;
 
 ### pilot-evidence.html, original lines 14 to 14
 
-Reason: Remove unverified announcement, redaction graphic and bracketed readout; align measurement definitions with the four requested pilot outcomes; repair navigation and metadata.
+Reason: Remove unsupported placeholder proof/redaction blocks; align four measurement definitions, disclose manual delivery and repair navigation/metadata.
 
 ```text
 14:   <meta property="og:image:alt" content="Illustration: Two merging galaxies with a tiny red core beside the headline, “When the plan changes, everyone who depends on it knows the same day.”">
 ```
 
+### pilot-evidence.html, original lines 16 to 18
+
+Reason: Remove unsupported placeholder proof/redaction blocks; align four measurement definitions, disclose manual delivery and repair navigation/metadata.
+
+```text
+16:   <link rel="preconnect" href="https://fonts.googleapis.com">
+17:   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+18:   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+```
+
 ### pilot-evidence.html, original lines 23 to 23
 
-Reason: Remove unverified announcement, redaction graphic and bracketed readout; align measurement definitions with the four requested pilot outcomes; repair navigation and metadata.
+Reason: Remove unsupported placeholder proof/redaction blocks; align four measurement definitions, disclose manual delivery and repair navigation/metadata.
 
 ```text
 23:   <div class="announcement"><a href="#first-readout"><span>[PILOT PROOF POINT]</span> <span aria-hidden="true">→</span></a></div>
@@ -420,23 +449,25 @@ Reason: Remove unverified announcement, redaction graphic and bracketed readout;
 
 ### pilot-evidence.html, original lines 26 to 26
 
-Reason: Remove unverified announcement, redaction graphic and bracketed readout; align measurement definitions with the four requested pilot outcomes; repair navigation and metadata.
+Reason: Remove unsupported placeholder proof/redaction blocks; align four measurement definitions, disclose manual delivery and repair navigation/metadata.
 
 ```text
 26:     <nav class="primary-nav" aria-label="Primary navigation"><a href="index.html#why">Why</a><a href="index.html#how">How it works</a><a href="use-cases.html">Use cases</a><a href="pilot-evidence.html" aria-current="page">Evidence</a><a class="nav-contact" href="mailto:ed@coordinatedai.ai?subject=Coordinated%20pilot">Contact</a></nav>
 ```
 
-### pilot-evidence.html, original lines 34 to 34
+### pilot-evidence.html, original lines 32 to 34
 
-Reason: Remove unverified announcement, redaction graphic and bracketed readout; align measurement definitions with the four requested pilot outcomes; repair navigation and metadata.
+Reason: Remove unsupported placeholder proof/redaction blocks; align four measurement definitions, disclose manual delivery and repair navigation/metadata.
 
 ```text
+32:         <p class="section-number">Pilot evidence / Definitions before results</p>
+33:         <h1>Measure the hours after a plan changes.</h1>
 34:         <p>A pilot starts with one live initiative and defines the measures before the first change. The readout shows where coordination load moved, how quickly a recorded decision arrived, and whether the next review opened current.</p>
 ```
 
 ### pilot-evidence.html, original lines 41 to 67
 
-Reason: Remove unverified announcement, redaction graphic and bracketed readout; align measurement definitions with the four requested pilot outcomes; repair navigation and metadata.
+Reason: Remove unsupported placeholder proof/redaction blocks; align four measurement definitions, disclose manual delivery and repair navigation/metadata.
 
 ```text
 41:         <h2 id="measures-title" class="section-number">Five pilot measures</h2>
@@ -470,7 +501,7 @@ Reason: Remove unverified announcement, redaction graphic and bracketed readout;
 
 ### pilot-evidence.html, original lines 73 to 73
 
-Reason: Remove unverified announcement, redaction graphic and bracketed readout; align measurement definitions with the four requested pilot outcomes; repair navigation and metadata.
+Reason: Remove unsupported placeholder proof/redaction blocks; align four measurement definitions, disclose manual delivery and repair navigation/metadata.
 
 ```text
 73:         <div><p>The operator confirms the initiative, the earliest affected deadlines and the baseline window before the pilot begins. Coordinated records timestamps from accepted cards and review briefs. The final readout keeps bracketed fields until there is enough observed data to replace them.</p><p>No invented benchmark, extrapolated saving or unnamed customer quote appears in the readout.</p></div>
@@ -478,7 +509,7 @@ Reason: Remove unverified announcement, redaction graphic and bracketed readout;
 
 ### pilot-evidence.html, original lines 77 to 92
 
-Reason: Remove unverified announcement, redaction graphic and bracketed readout; align measurement definitions with the four requested pilot outcomes; repair navigation and metadata.
+Reason: Remove unsupported placeholder proof/redaction blocks; align four measurement definitions, disclose manual delivery and repair navigation/metadata.
 
 ```text
 77:     <section class="section ledger-section" id="first-readout" aria-labelledby="readout-title">
@@ -501,7 +532,7 @@ Reason: Remove unverified announcement, redaction graphic and bracketed readout;
 
 ### pilot-evidence.html, original lines 95 to 95
 
-Reason: Remove unverified announcement, redaction graphic and bracketed readout; align measurement definitions with the four requested pilot outcomes; repair navigation and metadata.
+Reason: Remove unsupported placeholder proof/redaction blocks; align four measurement definitions, disclose manual delivery and repair navigation/metadata.
 
 ```text
 95:   <footer class="site-footer"><div class="ledger-boundary footer-grid"><a class="brand brand-footer" href="index.html"><img src="brand/mark_light.svg" width="36" height="36" alt=""><span>Coordinated</span></a><nav aria-label="Footer navigation"><a href="index.html#why">Why</a><a href="index.html#how">How it works</a><a href="use-cases.html">Use cases</a><a href="index.html#pilot">Pilot</a><a href="mailto:ed@coordinatedai.ai">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav><p>Built in the Bay Area.</p></div></footer>
@@ -509,7 +540,7 @@ Reason: Remove unverified announcement, redaction graphic and bracketed readout;
 
 ### use-cases.html, original lines 6 to 6
 
-Reason: Remove placeholder announcement; remove old response-time OG copy and em dash; repair removed-anchor navigation and show the contact address.
+Reason: Remove placeholder announcement and old timing-promise metadata; label Atlas illustrations fictional, disclose manual delivery, repair navigation/footer and serve the same fonts locally.
 
 ```text
 6:   <title>Six moments on record — Coordinated</title>
@@ -517,7 +548,7 @@ Reason: Remove placeholder announcement; remove old response-time OG copy and em
 
 ### use-cases.html, original lines 9 to 9
 
-Reason: Remove placeholder announcement; remove old response-time OG copy and em dash; repair removed-anchor navigation and show the contact address.
+Reason: Remove placeholder announcement and old timing-promise metadata; label Atlas illustrations fictional, disclose manual delivery, repair navigation/footer and serve the same fonts locally.
 
 ```text
 9:   <meta property="og:title" content="Six moments on record — Coordinated">
@@ -525,15 +556,25 @@ Reason: Remove placeholder announcement; remove old response-time OG copy and em
 
 ### use-cases.html, original lines 14 to 14
 
-Reason: Remove placeholder announcement; remove old response-time OG copy and em dash; repair removed-anchor navigation and show the contact address.
+Reason: Remove placeholder announcement and old timing-promise metadata; label Atlas illustrations fictional, disclose manual delivery, repair navigation/footer and serve the same fonts locally.
 
 ```text
 14:   <meta property="og:image:alt" content="Illustration: Two merging galaxies with a tiny red core beside the headline, “When the plan changes, everyone who depends on it knows the same day.”">
 ```
 
+### use-cases.html, original lines 16 to 18
+
+Reason: Remove placeholder announcement and old timing-promise metadata; label Atlas illustrations fictional, disclose manual delivery, repair navigation/footer and serve the same fonts locally.
+
+```text
+16:   <link rel="preconnect" href="https://fonts.googleapis.com">
+17:   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+18:   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+```
+
 ### use-cases.html, original lines 24 to 24
 
-Reason: Remove placeholder announcement; remove old response-time OG copy and em dash; repair removed-anchor navigation and show the contact address.
+Reason: Remove placeholder announcement and old timing-promise metadata; label Atlas illustrations fictional, disclose manual delivery, repair navigation/footer and serve the same fonts locally.
 
 ```text
 24:   <div class="announcement"><a href="pilot-evidence.html"><span>[PILOT PROOF POINT]</span> <span aria-hidden="true">→</span></a></div>
@@ -541,15 +582,72 @@ Reason: Remove placeholder announcement; remove old response-time OG copy and em
 
 ### use-cases.html, original lines 28 to 28
 
-Reason: Remove placeholder announcement; remove old response-time OG copy and em dash; repair removed-anchor navigation and show the contact address.
+Reason: Remove placeholder announcement and old timing-promise metadata; label Atlas illustrations fictional, disclose manual delivery, repair navigation/footer and serve the same fonts locally.
 
 ```text
 28:       <a href="index.html#why">Why</a><a href="index.html#how">How it works</a><a href="use-cases.html" aria-current="page">Use cases</a><a href="pilot-evidence.html">Evidence</a><a class="nav-contact" href="mailto:ed@coordinatedai.ai?subject=Coordinated%20pilot">Contact</a>
 ```
 
+### use-cases.html, original lines 32 to 33
+
+Reason: Remove placeholder announcement and old timing-promise metadata; label Atlas illustrations fictional, disclose manual delivery, repair navigation/footer and serve the same fonts locally.
+
+```text
+32:   <main id="main">
+33:     <section class="subpage-hero ledger-section">
+```
+
+### use-cases.html, original lines 44 to 44
+
+Reason: Remove placeholder announcement and old timing-promise metadata; label Atlas illustrations fictional, disclose manual delivery, repair navigation/footer and serve the same fonts locally.
+
+```text
+44:         <article class="use-case" id="date-slips">
+```
+
+### use-cases.html, original lines 61 to 61
+
+Reason: Remove placeholder announcement and old timing-promise metadata; label Atlas illustrations fictional, disclose manual delivery, repair navigation/footer and serve the same fonts locally.
+
+```text
+61:         <article class="use-case" id="scope-changes">
+```
+
+### use-cases.html, original lines 78 to 78
+
+Reason: Remove placeholder announcement and old timing-promise metadata; label Atlas illustrations fictional, disclose manual delivery, repair navigation/footer and serve the same fonts locally.
+
+```text
+78:         <article class="use-case" id="owner-leaves">
+```
+
+### use-cases.html, original lines 95 to 95
+
+Reason: Remove placeholder announcement and old timing-promise metadata; label Atlas illustrations fictional, disclose manual delivery, repair navigation/footer and serve the same fonts locally.
+
+```text
+95:         <article class="use-case" id="customer-promise">
+```
+
+### use-cases.html, original lines 112 to 112
+
+Reason: Remove placeholder announcement and old timing-promise metadata; label Atlas illustrations fictional, disclose manual delivery, repair navigation/footer and serve the same fonts locally.
+
+```text
+112:         <article class="use-case" id="assumption-due">
+```
+
+### use-cases.html, original lines 129 to 129
+
+Reason: Remove placeholder announcement and old timing-promise metadata; label Atlas illustrations fictional, disclose manual delivery, repair navigation/footer and serve the same fonts locally.
+
+```text
+129:         <article class="use-case" id="review-starts">
+```
+
 ### use-cases.html, original lines 149 to 149
 
-Reason: Remove placeholder announcement; remove old response-time OG copy and em dash; repair removed-anchor navigation and show the contact address.
+Reason: Remove placeholder announcement and old timing-promise metadata; label Atlas illustrations fictional, disclose manual delivery, repair navigation/footer and serve the same fonts locally.
 
 ```text
 149:   <footer class="site-footer"><div class="ledger-boundary footer-grid"><a class="brand brand-footer" href="index.html"><img src="brand/mark_light.svg" width="36" height="36" alt=""><span>Coordinated</span></a><nav aria-label="Footer navigation"><a href="index.html#why">Why</a><a href="index.html#how">How it works</a><a href="pilot-evidence.html">Evidence</a><a href="index.html#pilot">Pilot</a><a href="mailto:ed@coordinatedai.ai">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav><p>Built in the Bay Area.</p></div></footer>
@@ -557,7 +655,7 @@ Reason: Remove placeholder announcement; remove old response-time OG copy and em
 
 ### site.js, original lines 4 to 39
 
-Reason: Remove obsolete galaxy-hero parallax/connector logic after replacing the hero image; retain all narrative, card and reading-receipt behavior.
+Reason: Remove obsolete galaxy-hero motion/connector logic; preserve narrative and receipt behavior while adding in-page document delivery and copy-address controls.
 
 ```text
 4:
@@ -600,7 +698,7 @@ Reason: Remove obsolete galaxy-hero parallax/connector logic after replacing the
 
 ### site.js, original lines 46 to 46
 
-Reason: Remove obsolete galaxy-hero parallax/connector logic after replacing the hero image; retain all narrative, card and reading-receipt behavior.
+Reason: Remove obsolete galaxy-hero motion/connector logic; preserve narrative and receipt behavior while adding in-page document delivery and copy-address controls.
 
 ```text
 46:     updateHero();
@@ -608,7 +706,7 @@ Reason: Remove obsolete galaxy-hero parallax/connector logic after replacing the
 
 ### site.js, original lines 143 to 143
 
-Reason: Remove obsolete galaxy-hero parallax/connector logic after replacing the hero image; retain all narrative, card and reading-receipt behavior.
+Reason: Remove obsolete galaxy-hero motion/connector logic; preserve narrative and receipt behavior while adding in-page document delivery and copy-address controls.
 
 ```text
 143: updateHero();
@@ -616,7 +714,7 @@ Reason: Remove obsolete galaxy-hero parallax/connector logic after replacing the
 
 ### privacy.html, original lines 7 to 7
 
-Reason: Replace the em dash in title metadata to satisfy the copy rule; legal text is unchanged.
+Reason: Replace the title em dash under the copy rule; legal copy unchanged.
 
 ```text
 7:     <title>Privacy Policy — Coordinated</title>
@@ -624,7 +722,7 @@ Reason: Replace the em dash in title metadata to satisfy the copy rule; legal te
 
 ### terms.html, original lines 7 to 7
 
-Reason: Replace the em dash in title metadata to satisfy the copy rule; legal text is unchanged.
+Reason: Replace the title em dash under the copy rule; legal copy unchanged.
 
 ```text
 7:     <title>Terms of Service — Coordinated</title>
@@ -632,7 +730,7 @@ Reason: Replace the em dash in title metadata to satisfy the copy rule; legal te
 
 ### README.md, original lines 1 to 1
 
-Reason: Replace obsolete v4 and placeholder instructions with v5 development, form configuration, verification and source-blocker documentation.
+Reason: Replace obsolete v4 placeholder instructions with v5 build, verification, comparison provenance and owner-configuration documentation.
 
 ```text
 1: # Coordinated marketing site
@@ -640,7 +738,7 @@ Reason: Replace obsolete v4 and placeholder instructions with v5 development, fo
 
 ### README.md, original lines 3 to 3
 
-Reason: Replace obsolete v4 and placeholder instructions with v5 development, form configuration, verification and source-blocker documentation.
+Reason: Replace obsolete v4 placeholder instructions with v5 build, verification, comparison provenance and owner-configuration documentation.
 
 ```text
 3: Static multi-page marketing site for Coordinated.
@@ -648,7 +746,7 @@ Reason: Replace obsolete v4 and placeholder instructions with v5 development, fo
 
 ### README.md, original lines 5 to 5
 
-Reason: Replace obsolete v4 and placeholder instructions with v5 development, form configuration, verification and source-blocker documentation.
+Reason: Replace obsolete v4 placeholder instructions with v5 build, verification, comparison provenance and owner-configuration documentation.
 
 ```text
 5: ## Pages
@@ -656,7 +754,7 @@ Reason: Replace obsolete v4 and placeholder instructions with v5 development, fo
 
 ### README.md, original lines 7 to 11
 
-Reason: Replace obsolete v4 and placeholder instructions with v5 development, form configuration, verification and source-blocker documentation.
+Reason: Replace obsolete v4 placeholder instructions with v5 build, verification, comparison provenance and owner-configuration documentation.
 
 ```text
 7: - `index.html` — homepage and category narrative
@@ -668,7 +766,7 @@ Reason: Replace obsolete v4 and placeholder instructions with v5 development, fo
 
 ### README.md, original lines 13 to 13
 
-Reason: Replace obsolete v4 and placeholder instructions with v5 development, form configuration, verification and source-blocker documentation.
+Reason: Replace obsolete v4 placeholder instructions with v5 build, verification, comparison provenance and owner-configuration documentation.
 
 ```text
 13: ## Local preview
@@ -676,7 +774,7 @@ Reason: Replace obsolete v4 and placeholder instructions with v5 development, fo
 
 ### README.md, original lines 15 to 15
 
-Reason: Replace obsolete v4 and placeholder instructions with v5 development, form configuration, verification and source-blocker documentation.
+Reason: Replace obsolete v4 placeholder instructions with v5 build, verification, comparison provenance and owner-configuration documentation.
 
 ```text
 15: Run any static server from the repo root. For example:
@@ -684,7 +782,7 @@ Reason: Replace obsolete v4 and placeholder instructions with v5 development, fo
 
 ### README.md, original lines 17 to 19
 
-Reason: Replace obsolete v4 and placeholder instructions with v5 development, form configuration, verification and source-blocker documentation.
+Reason: Replace obsolete v4 placeholder instructions with v5 build, verification, comparison provenance and owner-configuration documentation.
 
 ```text
 17: ```sh
@@ -694,7 +792,7 @@ Reason: Replace obsolete v4 and placeholder instructions with v5 development, fo
 
 ### README.md, original lines 21 to 21
 
-Reason: Replace obsolete v4 and placeholder instructions with v5 development, form configuration, verification and source-blocker documentation.
+Reason: Replace obsolete v4 placeholder instructions with v5 build, verification, comparison provenance and owner-configuration documentation.
 
 ```text
 21: Then open `http://127.0.0.1:4173/`.
@@ -702,7 +800,7 @@ Reason: Replace obsolete v4 and placeholder instructions with v5 development, fo
 
 ### README.md, original lines 23 to 23
 
-Reason: Replace obsolete v4 and placeholder instructions with v5 development, form configuration, verification and source-blocker documentation.
+Reason: Replace obsolete v4 placeholder instructions with v5 build, verification, comparison provenance and owner-configuration documentation.
 
 ```text
 23: The production host uses `vercel.json` with clean URLs enabled.
@@ -710,7 +808,7 @@ Reason: Replace obsolete v4 and placeholder instructions with v5 development, fo
 
 ### README.md, original lines 25 to 25
 
-Reason: Replace obsolete v4 and placeholder instructions with v5 development, form configuration, verification and source-blocker documentation.
+Reason: Replace obsolete v4 placeholder instructions with v5 build, verification, comparison provenance and owner-configuration documentation.
 
 ```text
 25: ## Replacing placeholders
@@ -718,7 +816,7 @@ Reason: Replace obsolete v4 and placeholder instructions with v5 development, fo
 
 ### README.md, original lines 27 to 27
 
-Reason: Replace obsolete v4 and placeholder instructions with v5 development, form configuration, verification and source-blocker documentation.
+Reason: Replace obsolete v4 placeholder instructions with v5 build, verification, comparison provenance and owner-configuration documentation.
 
 ```text
 27: Search for `[` to find all pending proof fields. Replace them only with approved pilot evidence:
@@ -726,7 +824,7 @@ Reason: Replace obsolete v4 and placeholder instructions with v5 development, fo
 
 ### README.md, original lines 29 to 38
 
-Reason: Replace obsolete v4 and placeholder instructions with v5 development, form configuration, verification and source-blocker documentation.
+Reason: Replace obsolete v4 placeholder instructions with v5 build, verification, comparison provenance and owner-configuration documentation.
 
 ```text
 29: - `[PILOT PROOF POINT]`
@@ -743,7 +841,7 @@ Reason: Replace obsolete v4 and placeholder instructions with v5 development, fo
 
 ### README.md, original lines 40 to 40
 
-Reason: Replace obsolete v4 and placeholder instructions with v5 development, form configuration, verification and source-blocker documentation.
+Reason: Replace obsolete v4 placeholder instructions with v5 build, verification, comparison provenance and owner-configuration documentation.
 
 ```text
 40: Keep every published date in weekday-month-day format, for example `Tue Oct 6`. Do not replace bracketed fields with estimates.
@@ -751,7 +849,7 @@ Reason: Replace obsolete v4 and placeholder instructions with v5 development, fo
 
 ### README.md, original lines 42 to 42
 
-Reason: Replace obsolete v4 and placeholder instructions with v5 development, form configuration, verification and source-blocker documentation.
+Reason: Replace obsolete v4 placeholder instructions with v5 build, verification, comparison provenance and owner-configuration documentation.
 
 ```text
 42: ## Assets
@@ -759,7 +857,7 @@ Reason: Replace obsolete v4 and placeholder instructions with v5 development, fo
 
 ### README.md, original lines 44 to 44
 
-Reason: Replace obsolete v4 and placeholder instructions with v5 development, form configuration, verification and source-blocker documentation.
+Reason: Replace obsolete v4 placeholder instructions with v5 build, verification, comparison provenance and owner-configuration documentation.
 
 ```text
 44: The active hero system lives in `assets/galaxy/`. Runtime delivery uses the quality-94 WebPs; the landscape and phone PNG masters remain in the source archive and are intentionally excluded from the site build. The Open Graph PNG, path SVGs, anchors, alt text, prompts and verification results are kept with the runtime assets. Earlier generated supporting assets remain in `assets/generated/`, with provenance in `ASSET-PROMPTS.md`.
@@ -767,7 +865,7 @@ Reason: Replace obsolete v4 and placeholder instructions with v5 development, fo
 
 ### README.md, original lines 46 to 46
 
-Reason: Replace obsolete v4 and placeholder instructions with v5 development, form configuration, verification and source-blocker documentation.
+Reason: Replace obsolete v4 placeholder instructions with v5 build, verification, comparison provenance and owner-configuration documentation.
 
 ```text
 46: ## Interaction and accessibility
@@ -775,7 +873,7 @@ Reason: Replace obsolete v4 and placeholder instructions with v5 development, fo
 
 ### README.md, original lines 48 to 48
 
-Reason: Replace obsolete v4 and placeholder instructions with v5 development, form configuration, verification and source-blocker documentation.
+Reason: Replace obsolete v4 placeholder instructions with v5 build, verification, comparison provenance and owner-configuration documentation.
 
 ```text
 48: `site.js` controls the scroll-driven hero layers, pinned narrative states, active moment index, card answer states and reader receipt. It has no external dependency and stays below the 40 KB interaction budget. Reduced-motion users receive static narrative states with no rotation, push, parallax, stream or pulse animation. Below 768px, the galaxy remains still and the foreground starfield is removed from the protected headline area.

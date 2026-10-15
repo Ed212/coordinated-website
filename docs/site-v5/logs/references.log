@@ -1,11 +1,5 @@
-file:///Users/edhaddad/Developer/Coordinated%20Website/scripts/check-references.mjs:3
-if(missing.length) throw Error(`Release blocked: original required references missing: ${missing.join(', ')}`);
-                         ^
 
-Error: Release blocked: original required references missing: RULES.md, landing-v4.tpl.html, calc.js, FIVE-SECOND-TEST.md
-    at file:///Users/edhaddad/Developer/Coordinated%20Website/scripts/check-references.mjs:3:26
-    at ModuleJob.run (node:internal/modules/esm/module_job:413:25)
-    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:660:26)
-    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+> coordinated-marketing@5.0.0 check:references
+> node scripts/check-references.mjs
 
-Node.js v24.12.0
+PASS original v5 references and comparison port present; calc.js SHA-256 a289412212e78d7b1bdf20d1063077ed0ca991be56fd5f300d6da42c3a45adde

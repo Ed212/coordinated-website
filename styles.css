@@ -385,3 +385,58 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .og-layout h1 { font-size: 76px; line-height: 1; font-weight: 500; letter-spacing: -.055em; }
 .og-layout .hero-card { color: var(--ink); }
 .og-layout .eyebrow { color: #b8bcc4; }
+
+/* The port uses the existing brand palette, with labels and a table for each series. */
+.evidence-label, .example-label { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; }
+.evidence-label { margin-bottom: 20px; }
+.example-label { color: var(--muted); }
+.pilot-disclosure, .scope-line { max-width: 72ch; }
+.scope-line { margin-top: 48px; }
+.contact-route { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin: 20px 0; font-family: var(--mono); font-size: 12px; }
+.contact-route button { min-height: 36px; padding: 6px 10px; border: 1px solid currentColor; background: transparent; color: inherit; cursor: pointer; }
+.copy-status { font-size: 12px; }
+#pilot .document-section { margin-top: 28px; padding: 32px; border: 1px solid var(--rule); }
+#pilot .document-layout { gap: 48px; }
+.document-layout h3 { font-size: 32px; line-height: 1.15; font-weight: 500; letter-spacing: -.03em; }
+.site-footer .contact-route { max-width: 230px; }
+.architecture h4 { margin: 30px 0 10px; font-size: 20px; font-weight: 500; }
+.attention-section { --bg:var(--paper); --surface:var(--white); --fg:var(--ink); --fg2:var(--muted); --grid:var(--rule); --axis:var(--muted); --ring:var(--rule); --s1:var(--ink); --s2:var(--muted); --s3:var(--changed); --co:var(--paper-deep); --chip:var(--paper-deep); }
+.attention-section h2 { max-width: 900px; font-size: clamp(34px,4.3vw,62px); line-height: 1.08; font-weight: 500; letter-spacing: -.045em; }
+.attention-section .label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+.attention-section .sub { max-width: 78ch; color: var(--muted); }
+.attention-section .big { margin: 10px 0; font-size: clamp(46px,6vw,76px); line-height: 1; letter-spacing: -.04em; }
+.attention-section .chartbox { position: relative; padding: 24px; border: 1px solid var(--rule); background: var(--white); }
+.attention-section .legend { display: flex; flex-wrap: wrap; gap: 16px; margin: 15px 0; font-size: 12px; }
+.attention-section .legend span { display: inline-flex; align-items: center; gap: 6px; }
+.attention-section .sw { width: 12px; height: 12px; display: inline-block; }
+.attention-section #chart svg { width: 100%; height: auto; }
+.attention-section .tip { display: none; position: absolute; pointer-events: none; max-width: 260px; padding: 6px 10px; background: var(--paper); border: 1px solid var(--ink); font-size: 13px; }
+.attention-section .tablewrap { max-width: 100%; overflow-x: auto; margin: 20px 0; overscroll-behavior-inline: contain; }
+.attention-section table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.attention-section th, .attention-section td { padding: 12px 10px; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+.attention-section th { font-family: var(--mono); font-size: 10px; font-weight: 500; }
+.attention-section .num { text-align: right; font-variant-numeric: tabular-nums; }
+.attention-section td.num { white-space: nowrap; }
+.attention-section .co { background: var(--paper-deep); }
+.attention-section .note { max-width: 90ch; font-size: 13px; color: var(--muted); }
+.attention-section .check { display: flex; align-items: flex-start; gap: 10px; margin: 24px 0; font-size: 14px; }
+.attention-section input[type=checkbox] { margin-top: 6px; accent-color: var(--ink); }
+.attention-section details { margin: 16px 0; border: 1px solid var(--rule); }
+.attention-section summary { padding: 16px; cursor: pointer; }
+.attention-section .inner { padding: 0 16px 16px; }
+.attention-section .glabel { padding: 16px 16px 8px; font-family: var(--mono); font-size: 11px; }
+.attention-section .ctrls { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px; padding: 0 16px 16px; }
+.attention-section .ctrl label { display: flex; justify-content: space-between; gap: 12px; font-size: 12px; }
+.attention-section input[type=range] { width: 100%; accent-color: var(--ink); }
+.attention-section .replace { margin-top: 36px; padding-left: 24px; border-left: 2px solid var(--changed); max-width: 78ch; }
+.attention-section .q { margin: 12px 0; font-size: 28px; line-height: 1.25; letter-spacing: -.025em; }
+@media(max-width:760px) {
+ #pilot .document-section { padding: 20px; }
+ .attention-section .ctrls { grid-template-columns: 1fr; }
+ .attention-section .chartbox { padding: 16px 10px; }
+ .attention-section #chart { overflow-x: auto; }
+ .attention-section #chart svg { min-width: 660px; }
+ .attention-section .tablewrap table { min-width: 740px; }
+ .attention-section .replace { padding-left: 16px; }
+}
+summary:focus-visible, [tabindex="0"]:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }

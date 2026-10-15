@@ -1,2 +1,3 @@
 PASS all six provenance blocks retained verbatim
 PASS all six outcome blocks retained verbatim
+PASS variants differ only in the headline
