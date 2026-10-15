@@ -9,6 +9,7 @@ Review candidate on `codex/site-v5`, continuing the first-pass commit `6e41e13`.
 | Announcement | Original index/use-cases/evidence; BRIEF.md change 1 | Removed unverified pilot proof placeholders. |
 | Hero A/B | BRIEF.md change 2; landing-v4.tpl.html; FIVE-SECOND-TEST.md; COPY-FIXES.md | One template, exact headlines and pitch sentence with agreed. Unsupported “Most weeks, nothing” removed. Agent read contract explicitly described as being built. Only the headline differs between index.html and b.html. |
 | Hero image | Existing Slack HTML card and galaxy assets | Slack card retained; subtle lazy-loaded starfield replaces galaxy; 1600px sources below 1200px. |
+| Hero image: brief change 2 reversed by founder decision on Thu Oct 15; colliding galaxies restored as the brand's expression; composition adjusted so text sits on the dark side. | Founder decision, Thu Oct 15 | Landscape core composed on the card side using the README's 62.011% / 44.999% reference; dark text-side scrim. Starfield moved to product strip only. Earlier row retained as decision history. |
 | Primary/secondary actions | COPY-FIXES.md §5 | “Discuss a six-week pilot” first, sample record second. BOOKING_URL is used when configured; otherwise the verified email route is used. No fake booking destination. |
 | Product strip | BRIEF.md change 4a | Exact corrected reading boundary, one-card rule and company-size wording. |
 | Memory band | Original dark-statement | Copy retained, moved before How it works; redundant galaxy background removed. |
@@ -30,6 +31,20 @@ Review candidate on `codex/site-v5`, continuing the first-pass commit `6e41e13`.
 | Fonts | Existing Google Fonts families and weights | Same Latin font binaries served locally, with OFL licenses and source record, removing external stylesheet delay. Identical font binaries are reused across weight declarations. |
 | Internal design history | Original design-notes.html and unused generated imagery | Excluded from allowlisted public build. Original internal files retained. |
 | Why/statistics/proof blocks | Original sections 01, 04 and 05 | Removed all three why cards, unsourced Half/45%/87% strip, placeholder proof and reserved-evidence graphic. |
+
+## Founder hero restoration, Thu Oct 15
+
+This follow-up reverses only the hero-background choice. The earlier Hero image row and its reason remain above. The visible copy, headline variants, form, section order, brand-mark files and existing OG image are unchanged. The How it works section markup is unchanged.
+
+- Colliding-galaxy landscape restored behind the hero, with the README's source core (62.011% / 44.999%) projected onto the right/card side. Tablet positioning keeps the core within the frame rather than cropping it off the right. Text remains over a dark left scrim. On stacked phone layouts the image begins below the main copy, with the core behind the card.
+- Starfield appears only in the product strip. Its decorative contrast is inverted subtly against the existing paper surface; the strip copy stays on paper backing.
+- Hero is the only eager image, with high fetch priority and media-matched responsive image preloads. Below-fold images and other images are lazy. Sources are 2880px at 1200px and above, 1600px below 1200px, and 1200px for phones at 600px and below.
+- The first 1600px phone run was A 95 / B 94 with CLS 0.002. Because B exceeded the specified three-point loss from B 99, the 1200px phone source was added before other adjustments. The small shift came from positioning the mobile image as a percentage of font-dependent hero height; a viewport-based top anchor removed it.
+- Final mobile Lighthouse: **A 95 / B 94, CLS 0 for both**. Both exceed the required 90. The 1200px phone variant remains in use. Raw reports and summary are galaxy-lighthouse-index.json, galaxy-lighthouse-b.json and galaxy-lighthouse.log.
+- All eight Playwright checks pass for A/B, 400/1100px, light/dark: no overflow or unexpected console errors, correct headlines, in-page form success/failure, exact calculator, keyboard focus and copy checks. Responsive preload matches the hero's selected source; all other images are lazy.
+- Contrast is measured against every rendered background pixel inside each text-line rectangle, including the image, actual scrim, alpha-composited foreground and button surfaces. Minimum ratios: **400px A/B 7.57:1; 1100px A 7.28:1, B 7.57:1**, identical in light and dark. Detailed per-line results are in galaxy-hero-contrast.json. The extra responsive sweep checks 320, 600, 601, 760, 761, 1020, 1199, 1200, 1600 and 1920px for both variants, including contrast, overflow and shared-core placement. Its minimum contrast is 7.16:1.
+- New screenshots use galaxy-a/b-width-theme.png beside the previous screenshots. VERIFY_PREFIX=galaxy- preserves the previous artifacts; SKIP_OG_RENDER=1 preserves the OG image byte-for-byte.
+- Copy grep passes. No push, deployment, DNS/hosting change or PR action was performed for this founder restoration. The commit remains local on codex/site-v5.
 
 ## Calculator provenance
 

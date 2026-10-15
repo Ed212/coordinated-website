@@ -3,6 +3,9 @@ import assert from 'node:assert/strict';
 import { writeFile, mkdir, readFile } from 'node:fs/promises';
 import { checkCopy } from './check-copy.mjs';
 import { createHash } from 'node:crypto';
+import { measureHeroContrast } from './hero-contrast.mjs';
+const prefix=process.env.VERIFY_PREFIX || '';
+const contrastLog=[];
 const originalCalc=await readFile('docs/site-v5/calc.js','utf8');
 const digest=text=>createHash('sha256').update(text).digest('hex');
 const documents=new Map();
@@ -17,6 +20,18 @@ try {
   await page.goto(`${base}/${file}`);await page.evaluate(()=>document.fonts.ready);
   assert.equal(await page.locator('h1').textContent(),file==='index.html'?'Give your team its focus back.':'Stop repeating decisions and chasing updates.');
   assert(await page.evaluate(()=>document.scrollingElement.scrollWidth<=innerWidth),'Horizontal overflow');
+  const contrast=await measureHeroContrast(page);
+  assert(contrast.minimum>=4.5,`Hero contrast ${contrast.minimum.toFixed(2)} below 4.5:1`);
+  contrastLog.push({file,width,colorScheme,...contrast});
+  const heroImage=page.locator('.hero-galaxy');
+  assert.equal(await heroImage.getAttribute('loading'),'eager');
+  assert.equal(await heroImage.getAttribute('fetchpriority'),'high');
+  const chosen=await heroImage.evaluate(image=>image.currentSrc);
+  assert(/landscape-(1600|1200)\.webp/.test(chosen),'Hero must use a responsive landscape below 1200px');
+  assert(await page.evaluate(()=>[...document.querySelectorAll('link[rel="preload"][as="image"]')].some(link=>matchMedia(link.media).matches&&new URL(link.href).href===document.querySelector('.hero-galaxy').currentSrc&&link.imageSrcset&&link.imageSizes)),'Preload does not match the chosen hero source');
+  assert.equal(await page.locator('.hero .hero-starfield').count(),0);
+  assert.equal(await page.locator('.ribbon-starfield').count(),1);
+  assert.equal(await page.locator('img:not(.hero-galaxy)').evaluateAll(images=>images.every(image=>image.loading==='lazy')),true,'Only the hero image may be eager');
   // Scroll the complete document to load images and observe all six moments.
   await page.evaluate(async()=>{for(let y=0;y<document.body.scrollHeight;y+=700){scrollTo(0,y);await new Promise(r=>setTimeout(r,15))}});
   assert.deepEqual(checkCopy(await page.locator('body').innerText(),`${file} rendered`),[]);
@@ -66,13 +81,13 @@ try {
   assert.equal(await page.locator('#document').inputValue(),'Retain this text after a failed send.');
   await page.unroute('**/api/contact');await page.locator('#launch-form').evaluate(form=>form.reset());await page.locator('#form-status').evaluate(el=>el.textContent='');
   await page.locator('h1').click();await page.evaluate(()=>scrollTo(0,0));
-  await page.screenshot({path:`docs/site-v5/screenshots/${file==='index.html'?'a':'b'}-${width}-${colorScheme}.png`,fullPage:true});
+  await page.screenshot({path:`docs/site-v5/screenshots/${prefix}${file==='index.html'?'a':'b'}-${width}-${colorScheme}.png`,fullPage:true});
   assert.deepEqual(errors,[],'Browser console errors');
   log.push(`PASS ${file} ${width}px ${colorScheme}: headline, B unlinked, totals 52/58/36/29, pessimistic 41/35, sliders, ledger weekdays, unchanged calculator hash, labels, optional form, copy address, overflow, rendered copy, images, focus, links/anchors, form success/failure without navigation.`);
   await page.close();
  }
  const noJS=await browser.newPage({javaScriptEnabled:false});await noJS.goto(base);assert(await noJS.locator('noscript a[href="mailto:ed@coordinatedai.ai"]').isVisible());await noJS.close();log.push('PASS no-JavaScript email fallback.');
  // OG is rendered by the same browser, never generated from an unrelated asset.
- const og=await browser.newPage({viewport:{width:1200,height:630},deviceScaleFactor:1});await og.goto(`${base}/og.html`);await og.evaluate(()=>document.fonts.ready);await og.screenshot({path:'assets/galaxy/og-1200x630.png'});await og.close();log.push('PASS OG rendered from dedicated og.html at 1200x630.');
+ if(!process.env.SKIP_OG_RENDER) { const og=await browser.newPage({viewport:{width:1200,height:630},deviceScaleFactor:1});await og.goto(`${base}/og.html`);await og.evaluate(()=>document.fonts.ready);await og.screenshot({path:'assets/galaxy/og-1200x630.png'});await og.close();log.push('PASS OG rendered from dedicated og.html at 1200x630.'); } else log.push('PASS existing OG image left unchanged.');
  log.push('PASS calculator SHA-256 '+digest(originalCalc));
-} catch(error) {log.push(`FAIL ${error.stack}`);throw error} finally {await browser.close();await writeFile('docs/site-v5/logs/playwright.log',log.join('\n')+'\n');console.log(log.join('\n'))}
+} catch(error) {log.push(`FAIL ${error.stack}`);throw error} finally {await browser.close();await writeFile(`docs/site-v5/logs/${prefix}playwright.log`,log.join('\n')+'\n');await writeFile(`docs/site-v5/logs/${prefix}hero-contrast.json`,JSON.stringify(contrastLog,null,2)+'\n');console.log(log.join('\n'))}

@@ -27,7 +27,7 @@ for (const file of ['index.html','b.html','use-cases.html','pilot-evidence.html'
 await cp('assets/fonts','dist/assets/fonts',{recursive:true});
 await mkdir('dist/brand',{recursive:true}); await mkdir('dist/assets/galaxy',{recursive:true});
 for(const file of ['mark_dark.svg','mark_light.svg','favicon_64.png']) await cp(`brand/${file}`,`dist/brand/${file}`);
-for(const file of ['starfield-2880x1600.webp','starfield-1600.webp','landscape-upscaled-2880x1600.webp','landscape-1600.webp','og-1200x630.png']) await cp(`assets/galaxy/${file}`,`dist/assets/galaxy/${file}`);
+for(const file of ['starfield-2880x1600.webp','starfield-1600.webp','landscape-upscaled-2880x1600.webp','landscape-1600.webp','landscape-1200.webp','og-1200x630.png']) await cp(`assets/galaxy/${file}`,`dist/assets/galaxy/${file}`);
 await writeFile('docs/site-v5/logs/calc-sha256.log',`${digest}  docs/site-v5/calc.js\n`);
 console.log('calc.js SHA-256:',digest);
 await import('./check-copy.mjs');
