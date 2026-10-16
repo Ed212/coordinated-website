@@ -58,6 +58,16 @@ Follow-up to the founder's report that the galaxy arms were unclear. The previou
 - Mobile Lighthouse: A 95, B 95, CLS 0 for both. Artifacts use the framing- prefix beside the earlier screenshots and logs.
 - All visible copy, headline variants, form, section order, How it works frame, OG image bytes, brand files and hosting configuration remain unchanged. This update is local only; no push, deployment or PR action.
 
+## Natural hero blend refinement, Thu Oct 15
+
+Follow-up to the founder's screenshot showing a gray-blue cast in the copy area and a flat charcoal band below the image.
+
+- The cause was the charcoal hero base showing through the image edge fade, together with the tinted rectangular copy backing and box shadow. The hero base now matches the artwork's black; other site color variables remain unchanged.
+- Replaced the tinted panel and shadow with neutral-black darkening that is solid beneath the text and continuously feathered over 60px outside it. The neutral mask preserves the visible galaxy arms and uncovered shared core. On phones, the copy needs no overlay because the full galaxy sits below it.
+- All eight browser checks and the copy check pass. Pixel-based text contrast has a minimum of 5.76:1 at the required viewport/theme combinations, and 5.70:1 across the responsive-boundary sweep. These exceed 4.5:1.
+- Mobile Lighthouse remains A 95 / B 95 with CLS 0. New screenshots and logs use the natural- prefix; natural-hero-1600.png shows the blended desktop composition.
+- No copy, layout dimensions, image sources, OG image, brand files, form or hosting configuration changed. Saved locally with no push, deployment or PR action.
+
 ## Calculator provenance
 
 `docs/site-v5/calc.js` SHA-256:

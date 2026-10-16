@@ -443,12 +443,15 @@ summary:focus-visible, [tabindex="0"]:focus-visible { outline: 3px solid current
 
 /* Thu Oct 15 founder decision: keep the complete 9:5 composition visible.
    The source core remains 62.011% / 44.999%; the card starts below it. */
-.hero { min-height: 940px; }
+.hero { min-height: 940px; background: #000; }
 .hero-layout { min-height: inherit; align-items: start; padding-block: 90px 80px; }
 .hero-media { inset: auto; top: 40px; left: 50%; width: 100vw; height: auto; aspect-ratio: 9 / 5; transform: translateX(-50%); mask-image: linear-gradient(180deg, transparent, #000 8%, #000 92%, transparent); }
 .hero-galaxy { object-fit: contain; object-position: 50% 50%; transform: none; will-change: auto; }
 .hero-scrim { display: none; }
-.hero-copy { background: rgba(22,24,29,.82); box-shadow: 0 0 30px 22px rgba(22,24,29,.82); }
+/* Neutral black darkens the artwork without adding a charcoal-colored panel.
+   The mask stays opaque beneath text, then feathers continuously outside it. */
+.hero-copy { background: none; box-shadow: none; }
+.hero-copy::before { content: ""; position: absolute; z-index: -1; inset: -64px; pointer-events: none; background: rgba(0,0,0,.78); mask-image: linear-gradient(90deg, transparent, #000 60px, #000 calc(100% - 60px), transparent), linear-gradient(180deg, transparent, #000 60px, #000 calc(100% - 60px), transparent); mask-composite: intersect; }
 .hero-product { margin-top: calc(25vw + 70px); }
 .trust-ribbon { position: relative; overflow: hidden; }
 .ribbon-starfield-picture, .ribbon-starfield { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -459,6 +462,7 @@ summary:focus-visible, [tabindex="0"]:focus-visible { outline: 3px solid current
  .hero { min-height: 0; }
  .hero-layout { padding-block: 56px 72px; }
  .hero-copy { grid-row: 1; background: none; box-shadow: none; }
+ .hero-copy::before { display: none; }
  .hero-media { position: relative; inset: auto; grid-row: 2; width: calc(100% + var(--page-pad) * 2); margin-inline: calc(-1 * var(--page-pad)); transform: none; }
  .hero-product { grid-row: 3; margin-top: -20px; }
 }
