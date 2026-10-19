@@ -1,0 +1,7 @@
+PASS visible copy, headline variants and How it works markup unchanged from 5ba6bca.
+PASS byte-for-byte unchanged: assets/galaxy/og-1200x630.png
+PASS byte-for-byte unchanged: brand/mark_dark.svg
+PASS byte-for-byte unchanged: brand/mark_light.svg
+PASS byte-for-byte unchanged: site.js
+PASS byte-for-byte unchanged: vercel.json
+PASS responsive-boundary minimum contrast 7.157:1; every projected shared core remains on the right side inside the frame.

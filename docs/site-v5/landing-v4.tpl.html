@@ -1,0 +1,437 @@
+<title>Coordinated</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one reading column on warm paper; Lato carries the argument, Plex Mono carries dates, counts and provenance (the ledger register). The chart tokens are v3's, validated for both themes. */
+:root{
+  --bg:#f9f9f7; --surface:#fcfcfb; --fg:#0b0b0b; --fg2:#52514e; --muted:#898781; --grid:#e1e0d9; --axis:#c3c2b7; --ring:rgba(11,11,11,.10);
+  --accent:#2a78d6; --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --good:#006300; --chip:#eeede8; --co:#eef4fc; --btn:#0b0b0b; --btnfg:#ffffff;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:Lato,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0d0d0d; --surface:#1a1a19; --fg:#ffffff; --fg2:#c3c2b7; --muted:#898781; --grid:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,.10);
+  --accent:#3987e5; --s1:#3987e5; --s2:#d95926; --s3:#199e70; --good:#0ca30c; --chip:#262624; --co:#17243a; --btn:#ffffff; --btnfg:#0b0b0b; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0d0d0d; --surface:#1a1a19; --fg:#ffffff; --fg2:#c3c2b7; --muted:#898781; --grid:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,.10);
+  --accent:#3987e5; --s1:#3987e5; --s2:#d95926; --s3:#199e70; --good:#0ca30c; --chip:#262624; --co:#17243a; --btn:#ffffff; --btnfg:#0b0b0b; color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:16px/1.55 var(--sans);margin:0}
+.wrap{max-width:980px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+nav{display:flex;align-items:center;justify-content:space-between;padding-block:18px;gap:12px;flex-wrap:wrap}
+.brand{font-weight:900;letter-spacing:.02em;font-size:18px}
+nav .links{display:flex;gap:16px;font-size:14px;color:var(--fg2);flex-wrap:wrap}
+nav a{color:inherit;text-decoration:none}
+nav a:hover{color:var(--fg)}
+.btn{display:inline-block;background:var(--btn);color:var(--btnfg);border-radius:8px;padding:10px 16px;font-weight:700;text-decoration:none;font-size:15px;border:1px solid var(--btn);font-family:var(--sans);cursor:pointer;line-height:1.3}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--axis)}
+.btn:focus-visible,button:focus-visible,a:focus-visible,textarea:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.hero{padding-block:56px 40px}
+.hero h1{font-size:clamp(36px,6vw,62px);line-height:1.02;letter-spacing:-.02em;margin:10px 0 20px;text-wrap:balance;font-weight:900;max-width:16ch}
+.hero .mech{font-size:19px;color:var(--fg);max-width:56ch;margin:0 0 16px;line-height:1.5}
+.hero .agent{font-size:19px;font-weight:700;max-width:56ch;margin:0 0 10px;color:var(--fg)}
+.hero .proof{font-size:17px;color:var(--fg2);max-width:56ch;margin:0 0 26px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.cta small{color:var(--muted);font-size:13px}
+section{padding-block:48px;border-top:1px solid var(--grid)}
+h2{font-size:28px;line-height:1.15;margin:0 0 10px;text-wrap:balance;letter-spacing:-.01em;max-width:30ch}
+h3{font-size:18px;line-height:1.3;margin:0 0 8px;text-wrap:balance}
+.sub{color:var(--fg2);max-width:64ch;margin:0 0 22px}
+.label{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.mono{font-family:var(--mono);font-size:12.5px;letter-spacing:0;font-variant-numeric:tabular-nums}
+.big{font-size:clamp(40px,7vw,76px);font-weight:900;line-height:1;letter-spacing:-.02em;margin:6px 0 8px}
+a{color:var(--accent)}
+code{font-family:var(--mono);font-size:.92em;overflow-wrap:anywhere}
+
+/* send form (the one call to action) */
+.send{background:var(--surface);border:1px solid var(--ring);border-radius:12px;padding:20px 20px 18px;margin-top:34px;max-width:640px}
+.send p{color:var(--fg2);margin:8px 0 14px;font-size:15px;max-width:60ch}
+.send label{display:block;font-size:13px;color:var(--fg2);margin-bottom:6px}
+.send textarea{width:100%;max-width:100%;min-height:96px;border:1px solid var(--axis);border-radius:8px;padding:10px 12px;font:15px/1.5 var(--sans);background:var(--bg);color:var(--fg);resize:vertical;display:block}
+.addr{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:14px 0 14px;min-width:0}
+.addr code{font-size:15px;font-weight:600;padding:6px 10px;background:var(--chip);border-radius:6px;min-width:0}
+.copy{font:13px/1.2 var(--sans);font-weight:700;border:1px solid var(--axis);background:transparent;color:var(--fg);border-radius:6px;padding:7px 10px;cursor:pointer}
+.copy:hover{border-color:var(--fg)}
+.status{font-size:13px;color:var(--muted);max-width:52ch}
+
+/* six moments */
+.moments{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:18px;margin-top:8px}
+.moment{background:var(--surface);border:1px solid var(--ring);border-radius:12px;padding:18px 18px 16px;min-width:0;display:flex;flex-direction:column;gap:12px}
+.moment .eyebrow{color:var(--muted);font-weight:600}
+.moment h3{font-size:19px;font-weight:700;margin:0;max-width:34ch}
+.card{background:var(--bg);border:1px solid var(--ring);border-radius:10px;padding:14px 16px;font-size:15px;min-width:0}
+.card .from{font-weight:700;margin-bottom:6px;font-size:14px}
+.card .meta{color:var(--muted);font-size:12px;margin-top:10px}
+.card .btns{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.card .btns span{border:1px solid var(--axis);border-radius:6px;padding:5px 9px;font-size:13px;font-weight:700}
+.prov{margin:0;padding:0;list-style:none;color:var(--fg2);display:flex;flex-direction:column;gap:3px}
+.prov li{padding-left:14px;position:relative;overflow-wrap:anywhere}
+.prov li::before{content:"·";position:absolute;left:3px;color:var(--muted)}
+.callout{background:var(--co);border-radius:8px;padding:9px 12px;color:var(--fg);overflow-wrap:anywhere;font-weight:600}
+
+/* comparison (reused from v3) */
+.chartbox{background:var(--surface);border:1px solid var(--ring);border-radius:10px;padding:14px 16px 10px;margin-top:8px;min-width:0;position:relative}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--fg2);margin:6px 0 8px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+svg{width:100%;height:auto;display:block;max-width:100%}
+svg text{font-family:var(--sans)}
+.tip{position:absolute;pointer-events:none;background:var(--surface);color:var(--fg);border:1px solid var(--ring);border-radius:8px;padding:6px 10px;font-size:13px;box-shadow:0 4px 14px rgba(0,0,0,.12);display:none;max-width:260px}
+table{border-collapse:collapse;width:100%;font-size:14px;background:var(--surface);border:1px solid var(--ring);border-radius:10px;overflow:hidden}
+th,td{padding:9px 10px;border-top:1px solid var(--grid);text-align:left;vertical-align:top}
+th{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);border-top:0;background:var(--chip)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+td.num{white-space:nowrap}
+tr.co td{background:var(--co)}
+.tablewrap{overflow-x:auto;margin-top:14px;max-width:100%}
+details{margin-top:16px;border:1px solid var(--ring);border-radius:10px;background:var(--surface)}
+summary{cursor:pointer;padding:12px 16px;font-weight:700;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+ ";color:var(--muted)}
+details[open] summary::before{content:"\2212  ";color:var(--muted)}
+details .inner{padding:0 16px 16px}
+.ctrls{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px 16px;padding:0 16px 16px}
+.ctrl{min-width:0}
+.ctrl label{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:var(--fg2)}
+.ctrl label b{color:var(--fg);font-variant-numeric:tabular-nums}
+.ctrl input[type=range]{width:100%;margin:4px 0 0;accent-color:var(--accent)}
+.glabel{padding:14px 16px 6px;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.check{display:flex;gap:8px;align-items:center;font-size:14px;margin:12px 0 0}
+.note{font-size:13px;color:var(--muted);max-width:78ch;margin-top:10px}
+.replace{margin-top:26px;border-left:3px solid var(--accent);padding:4px 0 4px 18px;max-width:64ch}
+.replace .q{font-size:22px;font-weight:700;line-height:1.3;margin:6px 0 8px;text-wrap:balance}
+.replace p{color:var(--fg2);margin:0}
+
+/* refusals */
+.nevers{columns:2;column-gap:28px;max-width:76ch;margin:0;padding-left:18px;color:var(--fg2)}
+.nevers li{break-inside:avoid;margin-bottom:9px}
+.nevers b{color:var(--fg)}
+
+/* pilot */
+.offer{background:var(--surface);border:1px solid var(--ring);border-radius:12px;padding:26px 24px;margin-top:8px}
+.offer blockquote{margin:0 0 14px;font-size:22px;line-height:1.3;font-weight:700;max-width:30ch;text-wrap:balance}
+.offer p{color:var(--fg2);margin:0 0 14px;max-width:62ch}
+.offer p.price{color:var(--fg);font-weight:700;margin:0}
+.starts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px;margin:22px 0 6px}
+.starts div{min-width:0;border-top:2px solid var(--axis);padding-top:10px}
+.starts .n{font-weight:600;color:var(--muted)}
+.starts p{margin:4px 0 0;color:var(--fg2);font-size:15px}
+.measures td:first-child{font-weight:700;white-space:nowrap}
+
+/* architecture */
+.arch{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:22px 28px;margin-top:10px}
+.arch div{min-width:0}
+.arch h3{font-size:16px;margin:0 0 6px}
+.arch p{margin:0;color:var(--fg2);font-size:15px}
+.arch .lead{color:var(--fg);font-weight:700;font-size:17px;margin-bottom:8px}
+.arch .wide{grid-column:1/-1;max-width:72ch}
+.tools{display:flex;flex-wrap:wrap;gap:6px 8px;margin:10px 0 8px;padding:0;list-style:none}
+.tools li code{background:var(--chip);border-radius:5px;padding:3px 7px;font-size:12.5px}
+
+footer{padding-block:28px 48px;color:var(--muted);font-size:13px;border-top:1px solid var(--grid)}
+footer p{max-width:80ch;margin:0 0 10px}
+footer .addr{margin:6px 0 16px}
+footer .addr code{color:var(--fg)}
+@media (max-width:620px){ .nevers{columns:1} .hero{padding-block:40px 28px} section{padding-block:40px} }
+@media (prefers-reduced-motion: no-preference){ html{scroll-behavior:smooth} }
+</style>
+
+<div class="wrap">
+  <nav>
+    <div class="brand">COORDINATED</div>
+    <div class="links"><a href="#moments">Six moments</a><a href="#numbers">The numbers</a><a href="#never">What it never does</a><a href="#pilot">Pilot</a><a href="#architecture">Architecture</a></div>
+  </nav>
+
+  <div class="hero" id="top">
+    <div class="label">An AI program manager in Slack</div>
+    <h1 data-variant="{{VARIANT}}">{{HEADLINE}}</h1>
+    <p class="mech">Coordinated is a shared record of your decisions, guardrails and plan, so people and agents work from what has been agreed, without you having to repeat every decision or chase every update. One version, with who agreed to each line, that only people can change.</p>
+    <p class="agent">Your people read it on Monday. Your agents read it before they act.</p>
+    <p class="proof">Every message says why it was sent and what it cost you. Most weeks, nothing.</p>
+    <div class="cta"><a class="btn" href="#send">Send us your last launch doc</a><a class="btn ghost" href="#numbers">What it costs a team</a><small>No seats. One fee per company.</small></div>
+
+    <form class="send" id="send" novalidate>
+      <div class="label">Send us your last launch doc</div>
+      <p>Any plan with a real date in it. We read it and reply with one draft of what it says your company agreed: each commitment with its owner, its date and what it depends on, the sentence it came from, and what the document leaves open, usually who can say yes to a change. Nothing reaches your team until you say so.</p>
+      <label for="send-note">A note to go with it (optional)</label>
+      <textarea id="send-note" name="note" placeholder="The launch, the date you are worried about, and who runs the review."></textarea>
+      <div class="addr"><span class="label">Send it to</span><code id="addr">{{ADDRESS}}</code><button type="button" class="copy" id="copy-addr" data-copy="addr">Copy address</button></div>
+      <div class="cta"><button type="submit" class="btn" id="send-submit">Copy address and note</button><span class="status" id="send-status">This page sends nothing. Paste into your own mail and attach the document there.</span></div>
+    </form>
+  </div>
+
+  <section id="moments">
+    <div class="label">Six moments</div>
+    <h2>When something moves, this is what your team sees.</h2>
+    <p class="sub">Illustrated on our fixture launch: Lantern, nine people, Mon Sep 28 to Mon Nov 16, 2026, one review a week. Every card names the reason it was sent, how long it takes, and the date an answer is needed by. The people not asked are named. Nothing here is a customer result.</p>
+    <div class="moments">
+
+      <article class="moment">
+        <div class="mono eyebrow">01 · A date slips · Mon Oct 19</div>
+        <h3>"Maya just said the release is now Mon Oct 26. Who has to hear before it costs them?"</h3>
+        <div class="card">
+          <div class="from">Coordinated · to Sarah</div>
+          Maya's release moved from Wed Oct 21 to Mon Oct 26. Your campaign needs five business days after it, which puts launch at Mon Nov 2, past the Fri Oct 30 bound Nadia holds. Does your five-day condition still hold? If not, what would you need? Leo, Ivy and Marco are not being asked: their accepted dates do not depend on this.
+          <div class="btns"><span>It holds</span><span>Yes, if…</span><span>Propose a date</span><span>Need to talk</span></div>
+          <div class="meta">About 2 minutes · sent because your campaign depends on Maya's release · position needed by Mon Oct 26</div>
+        </div>
+        <ul class="prov mono">
+          <li>Maya's release term, revision 1, accepted Thu Oct 1</li>
+          <li>Sarah's condition: five business days after the release, with paid placements</li>
+          <li>Nadia's remit: launch no later than Fri Oct 30</li>
+        </ul>
+        <div class="callout mono">Sarah offered three days without paid placements · Nadia decided Mon Oct 19: launch Thu Oct 29 · 1 asked, 1 answered · 3 not asked · revision 2 accepted Tue Oct 20</div>
+      </article>
+
+      <article class="moment">
+        <div class="mono eyebrow">02 · A scope changes · Tue Oct 20</div>
+        <h3>"Nadia wants to drop self-serve setup from the launch. Whose terms carry it?"</h3>
+        <div class="card">
+          <div class="from">Coordinated · to Ivy</div>
+          Nadia proposes removing self-serve setup from the launch; the admin-invitation path stays, as the remit requires. Your eight pages carry that scope. Which still apply, and does your date move? Leo and Marco are not asked: their terms do not carry it.
+          <div class="btns"><span>As is</span><span>Changes my date</span><span>Need to talk</span></div>
+          <div class="meta">About 2 minutes · sent because your content term carries the scope being removed · position needed by Thu Oct 22</div>
+        </div>
+        <ul class="prov mono">
+          <li>Nadia's proposal, Tue Oct 20, inside her remit</li>
+          <li>Ivy's content term: eight pages, scope: pages and self-serve setup</li>
+          <li>Also asked: Sarah (campaign), Maya (release)</li>
+        </ul>
+        <div class="callout mono">Ivy: six of eight pages, date unchanged · Sarah: still Thu Oct 29 · Maya: two days saved, release Fri Oct 23 · Nadia decided Tue Oct 20: launch stays Thu Oct 29, the saved days are buffer · 3 accepted Wed Oct 21</div>
+      </article>
+
+      <article class="moment">
+        <div class="mono eyebrow">03 · An owner leaves · Fri Nov 20</div>
+        <h3>"Ivy is on leave from Mon Nov 23 and her pages are due Fri Nov 27. Who owns them now?"</h3>
+        <div class="card">
+          <div class="from">Coordinated · to Sarah</div>
+          Haley asked you to take over: Setup pages approved · Fri Nov 27 · owned by Ivy until Fri Nov 20. Why: Ivy is on leave from Mon Nov 23. Until you answer, the term shows no owner, and the people who rely on it see confirmation pending.
+          <div class="btns"><span>Accept</span><span>Yes, if…</span><span>Propose a date</span><span>Can't take this</span></div>
+          <div class="meta">About 2 minutes · sent because a term lost its owner · answer needed by Fri Nov 20</div>
+        </div>
+        <ul class="prov mono">
+          <li>Ivy's acceptance, revision 1, stays in the history</li>
+          <li>Haley's handoff note, Wed Nov 18</li>
+          <li>No owner since Fri Nov 20 until someone accepts</li>
+        </ul>
+        <div class="callout mono">An owner change is an acceptance by the new owner, never a rename · "no owner since Fri Nov 20" on Haley's Home and in the Thursday brief until Sarah answers · 1 asked · 1 informed</div>
+      </article>
+
+      <article class="moment">
+        <div class="mono eyebrow">04 · A promise is made to a customer · Tue Sep 29, re-checked Mon Oct 19</div>
+        <h3>"Marco told Meridian the campaign would be live before their rollout week. Where does that promise live now?"</h3>
+        <div class="card">
+          <div class="from">Coordinated · to Marco</div>
+          The launch on record moved to Thu Oct 29. Meridian's expectation, as you reported it on Tue Sep 29: the campaign live before their admin rollout, the week of Mon Nov 2. Still what they expect? It stays on record as external, in your words; nothing here contacts Meridian.
+          <div class="btns"><span>Still true</span><span>Changed</span><span>Cannot verify yet</span></div>
+          <div class="meta">About 1 minute · sent because the launch date changed and this expectation is checked against it · answer by Thu Oct 22</div>
+        </div>
+        <ul class="prov mono">
+          <li>External statement, recorded Tue Sep 29 by Marco, kind: expectation</li>
+          <li>Source: call with Meridian's IT lead, reported wording</li>
+          <li>Checked against the launch term, revision 2</li>
+        </ul>
+        <div class="callout mono">Re-checked with Marco, never with Meridian · 0 messages left the company · the expectation stays on record as external and unresolved by design</div>
+      </article>
+
+      <article class="moment">
+        <div class="mono eyebrow">05 · An assumption comes due · Mon Nov 9</div>
+        <h3>"The launch rested on a bet: six in ten admins finish setup within a week. Is it true?"</h3>
+        <div class="card">
+          <div class="from">Coordinated · to Marco</div>
+          The bet behind the launch is due: at least 60% of eligible admins complete setup within seven days. Your evidence term is seven business days after launch (Thu Oct 29), so today, Mon Nov 9. Post the count with its cohort, window and source. Two honest counts that disagree stay on record as a conflict until a person resolves it.
+          <div class="btns"><span>Post the count</span><span>Need until…</span></div>
+          <div class="meta">About 3 minutes · sent because the check date the bet set has arrived · needed before Priya's outcome decision, Thu Nov 12</div>
+        </div>
+        <ul class="prov mono">
+          <li>Bet recorded at formation, Wed Sep 30; evidence owner Marco</li>
+          <li>Evidence term accepted as a rule: seven business days after whatever launch is</li>
+          <li>Check date derived from the launch term, revision 2</li>
+        </ul>
+        <div class="callout mono">Asked once, on the date the bet set, no reminder · outcome decision: Priya, Thu Nov 12 · the lesson keeps the basis it earned: one cycle makes an estimate, not an established lead time</div>
+      </article>
+
+      <article class="moment">
+        <div class="mono eyebrow">06 · A review starts · Thu Oct 22</div>
+        <h3>"It is Thursday. What does the review have to decide?"</h3>
+        <div class="card">
+          <div class="from">Coordinated · to Haley and Nadia</div>
+          Thursday review, Thu Oct 22. Decisions due: none. Evidence due: none; all current. Settled this week: the release date (Mon Oct 19) and the scope change (Tue Oct 20). Unresolved: Meridian's expectation, external, by design. Raised: Ivy's recheck after the cut. Proposed length: no meeting needed. Nothing is waiting on a person in the room.
+          <div class="btns"><span>Hold it anyway</span><span>Skip it this week</span></div>
+          <div class="meta">Derived from the record · the channel sees counts only · the full brief is in Haley's and Nadia's Home</div>
+        </div>
+        <ul class="prov mono">
+          <li>Two settlement notes, Tue Oct 20 and Wed Oct 21</li>
+          <li>0 decisions past their deadline</li>
+          <li>Evidence current since the check of Mon Oct 12</li>
+        </ul>
+        <div class="callout mono">Brief derived Thu Oct 22 · no meeting needed · the meeting a sponsor retires is where the hours below come from</div>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="numbers">
+    <div class="label">Counted on our fixture</div>
+    <h2>What coordination costs a team, with and without us</h2>
+    <p class="sub">One launch: nine people, seven weeks, two material changes, one review. The cards, notes and posts in Coordinated's column are counted from our simulator's event log. The minutes, the meetings and everything in the "today" column are assumptions you can change, including the possibility that Coordinated adds work. Savings can be negative, and the table says when.</p>
+    <div id="hero"></div>
+    <div class="chartbox">
+      <div class="label">Team hours on coordination over the launch</div>
+      <div class="legend"><span><i class="sw" style="background:var(--s1)"></i>In meetings</span><span><i class="sw" style="background:var(--s2)"></i>Messages and threads</span><span><i class="sw" style="background:var(--s3)"></i>Coordinated's own work</span></div>
+      <div id="chart"></div>
+      <div class="tip" id="tip"></div>
+    </div>
+    <div class="tablewrap"><table id="cmp"></table></div>
+    <p class="note" id="own"></p>
+    <p class="note">"Meetings smaller and shorter" keeps the first two status meetings, then a 15-minute sync with four people each week, a 30-minute review with four people, and a 15-minute discussion with three people per change. The 30-minute weekly status meeting in the "today" column is far below the 18 hours a week workers report in meetings, so the defaults favour today's workflow. Nothing here is a customer result.</p>
+    <label class="check"><input type="checkbox" id="pess"> Pessimistic case: setup takes twice as long and each card takes five minutes</label>
+    <details>
+      <summary>Change the assumptions</summary>
+      <div class="glabel">The launch</div><div class="ctrls" id="c-launch"></div>
+      <div class="glabel">Today's workflow</div><div class="ctrls" id="c-today"></div>
+      <div class="glabel">Coordinated's own work</div><div class="ctrls" id="c-co"></div>
+      <div class="glabel">Rates</div><div class="ctrls" id="c-speed"></div>
+    </details>
+    <details>
+      <summary>Person by person: what Coordinated sent in seven weeks</summary>
+      <div class="inner">
+        <p class="note" style="margin-top:0">Every card is logged against the person who received it, with the reason it was sent. Counts are measured on the fixture (33 cards, 9 notes, seven weeks, nine people); reading minutes are estimates at the reading speed set above. Your team gets the same ledger at the end of every initiative.</p>
+        <div class="tablewrap"><table id="ledgerV4"></table></div>
+        <p class="note">Thirty-three cards needed an answer, nine settlement notes needed reading, and every person read twelve channel posts, seven of them Monday pictures. The sponsor and the people who own nothing on the launch answered nothing. The week a person moves their own date is the week they hear from us: Maya moved hers, and five of her ten cards came that week. The Thursday brief derived "No meeting needed: nothing is waiting on a person in the room."</p>
+      </div>
+    </details>
+    <div class="replace">
+      <div class="label">The question we ask at formation</div>
+      <p class="q">Which recurring meeting does this launch retire, and from when?</p>
+      <p>The hours above come from that answer, and from nothing else. If every meeting stays, Coordinated adds work. The sponsor answers it on day one, the default being that the Monday picture replaces the status meeting from week three once it has been right for two, and the readout says whether the meeting stayed retired.</p>
+    </div>
+  </section>
+
+  <section id="never">
+    <div class="label">What it never does</div>
+    <h2>The refusals are the product.</h2>
+    <p class="sub">Every other tool produces more for you to read. Coordinated produces acceptances, prepared decisions, and a quiet week that says what it checked. Each line below is enforced by code, not by a model's judgment.</p>
+    <ul class="nevers">
+      <li><b>Never predicts a person, never scores people.</b> No risk labels, no health colours, no ranking, no sentiment.</li>
+      <li><b>Never invents a path, a party or a date.</b> Options come from your answers and your record; every date on a card is a date on record.</li>
+      <li><b>Never contacts a customer.</b> What a customer was told is recorded in the words of the person who heard it, and re-checked with that person.</li>
+      <li><b>Never writes to another system.</b> Read-only, by rule and by code: no write tool can be registered.</li>
+      <li><b>Only a person's acceptance makes a term real.</b> A decision creates cards to accept, not acceptance. Until the owners answer, the previous terms stand and the note says so.</li>
+      <li><b>Silence is never consent.</b> Nothing is accepted by a timeout. A decision past its deadline goes to the person you named for that, by the rule you set at formation.</li>
+      <li><b>Reads nothing you did not hand it,</b> post in a channel it has claimed, or tag it in. No channel summaries, no reading of direct messages or meetings.</li>
+      <li><b>No nudges, no "just checking in", no reminder of any kind.</b> A second ask about the same thing is refused unless the record changed.</li>
+      <li><b>Counts in channels, never your terms.</b> Each person sees only their own card. No app to check: it lives in Slack.</li>
+      <li><b>An attention budget per person,</b> agreed at formation, with escalation rules. Nothing waits in a digest if a launch depends on it.</li>
+    </ul>
+  </section>
+
+  <section id="pilot">
+    <div class="label">The pilot · the program manager you don't hire</div>
+    <h2>Six weeks, one launch, two responsibilities off your operator's plate.</h2>
+    <div class="offer">
+      <blockquote>Before adding a program-management hire, delegate one cross-functional initiative to Coordinated and measure how much coordination work it takes off your team.</blockquote>
+      <p>Put your most important cross-functional launch under watch for six weeks. We establish its terms with the people who own them, in your Slack, with nothing connected to your systems. You name two recurring responsibilities your operator stops doing, and the readout says whether they actually stopped. We count our own setup and supervision too. In the first pilots our team runs the desk by hand inside your Slack, under the same rules, and every hour of ours is logged in its own column.</p>
+      <p class="price">One fee per company, no seats. Ask us for the number.</p>
+    </div>
+    <div class="starts">
+      <div><div class="mono n">1</div><p>Send one document with a real date in the next six weeks.</p></div>
+      <div><div class="mono n">2</div><p>Review one draft; one card goes to each person, and they accept, add a condition, propose a date or decline.</p></div>
+      <div><div class="mono n">3</div><p>Work through one change before the next review.</p></div>
+    </div>
+    <h3>What the readout measures</h3>
+    <div class="tablewrap"><table class="measures">
+      <tr><th>Measure</th><th>How it is counted</th></tr>
+      <tr><td>The replacement test</td><td>The two responsibilities you named: did the operator actually stop? Which meeting was retired, and did it stay retired. Operator-reported, signed at the readout.</td></tr>
+      <tr><td>Net hours recovered</td><td>Your baseline hours to keep one operating review decision-ready, minus the hours with Coordinated, counting interviews, reading, answering, approvals and corrections. Our own hours sit in a separate column, never blended in.</td></tr>
+      <tr><td>Chase load per week</td><td>Follow-ups your people send to learn a status or get a decision. Counted by your operator; Coordinated cannot see them.</td></tr>
+      <tr><td>Report to decision</td><td>Business hours from a reported change to the recorded decision, per change. From the record's event log; can be inspected.</td></tr>
+      <tr><td>Decided before the deadline</td><td>The share of material changes decided before the earliest affected deadline: a spend lock, a customer date, a send day. From the event log.</td></tr>
+      <tr><td>Pending at the deadline</td><td>For each change, who was asked and answered, informed and acknowledged, or still pending when the deadline came. From the event log.</td></tr>
+      <tr><td>The attention ledger</td><td>Every message, per person per week, with the reason it was sent; reading minutes estimated and labeled so. Asks stay inside the budget agreed at formation.</td></tr>
+      <tr><td>The quiet test</td><td>An unrelated change during the pilot must produce nothing. Silence is a measured result.</td></tr>
+      <tr><td>Claims without provenance</td><td>Every sentence sent to a person carried who accepted it, what evidence supports it and which right authorises it. Target: zero without.</td></tr>
+      <tr><td>Understood without explanation</td><td>A participant, shown only their card, can say what they owe, to whom, by when, under which condition, and what changed since they accepted.</td></tr>
+    </table></div>
+    <p class="note">Product-measured figures come from the record's event log and can be inspected. Operator-reported figures carry that label until your operator signs the readout. No figure enters this page above its grade, which is why there is no customer number on it yet.</p>
+  </section>
+
+  <section id="architecture">
+    <div class="label">For the architecture reader</div>
+    <h2>Three agents, one record, guardrails as code.</h2>
+    <p class="sub">Everything above rests on one object: the record of what your company agreed, that people and agents read the same, and that only people can change. This is how it is kept true.</p>
+    <div class="arch">
+      <div>
+        <h3>The driver, the operator's agent</h3>
+        <p>The program manager. It prepares before it asks: it reads what you already have, proposes owners, dates, dependencies and the decisions nobody has made, each with the source behind it, then interviews each owner alone and reads their terms back as a card they accept. It keeps the Monday picture, opens a case when a move crosses the rule set at formation, asks only the people whose accepted terms are exposed, and builds options only from their answers. Its objective is the least human effort per dependable commitment, inside a mandate the operator grants and can pause.</p>
+      </div>
+      <div>
+        <h3>The verifier, the record's agent</h3>
+        <p>The keeper of evidence. Before any message reaches a person it attaches, to every claim, the acceptance that made it true, the evidence that supports it with the period it covers, and the right that authorises it. A claim it cannot support is qualified or removed if no decision needs it, and refused with an objection if one does. It verifies a condition only when a decision needs it, tells accepted from recently verified from unknown on every Monday picture, and routes a second-hand report to its owner instead of recording it. Its core is a lookup in the record, not a model's opinion, and it runs on a different model from the driver.</p>
+      </div>
+      <div>
+        <h3>The aligner, the sponsor's agent</h3>
+        <p>It watches the distance between the accepted terms and the outcome the sponsor stated, and the decisions past their derived deadline. When an accepted change touches the outcome statement or the bet behind it, the sponsor gets a drift event as information, never a block. It prepares the outcome decision from the evidence on record, and its second job is to say when that evidence suggests the objective itself needs reconsidering. Three agents with one objective would agree with each other and be wrong together; these three want different things, and a disagreement they cannot settle in three rounds goes to a person.</p>
+      </div>
+      <div>
+        <h3>Guardrails as code</h3>
+        <p>No guardrail is enforced by a model. Thirty-six deterministic checks, G1 to G36, are pure functions over the message or the change and the record: same input, same verdict, no network, no model, each with a passing and a failing test. They run on every change to the record, on every message before it can be sent, and on every scheduled tick. A violation never reaches a person; it becomes a refusal event with the rule id, and the readout counts refusals by rule. Among them: only a person's acceptance makes a term real (G1); nothing invented (G5); silence is never consent (G6); provenance on every claim (G14); the attention budget (G16); nothing goes outside the company (G20); no writes to other systems (G21); models never write (G32).</p>
+      </div>
+      <div>
+        <h3>Provenance on every message, and version control for agreements</h3>
+        <p>The run record is an append-only, hash-chained log of events; replaying it reproduces the record to the byte, and the readout is computed from events by the engine, never by a model summarising its own work. Every term carries its revisions. Acceptance is per person, per term, per revision; a card issued against an old revision cannot act on a new one; a decision creates cards to accept, not acceptances; the next phase inherits the history and none of the acceptances. That is version control for what your company has agreed, a different object from version control for tasks or for documents: who accepted this line, at which revision, on what basis, under which conditions, and who may change it.</p>
+      </div>
+      <div>
+        <h3>Who can say yes, as data</h3>
+        <p>A decision right is granted by a person to a person, with a scope, bounds and an expiry, and it counts only once the holder accepts it. A decision outside the bounds is refused by code; a conflict in authority is shown, never resolved by the product. Governance, in this design, is a lookup rather than a meeting: every agent, human or software, can ask what is current, who may change it, what counts as done, and how much attention it may spend.</p>
+      </div>
+      <div class="wide">
+        <p class="lead">Your agents can read it: who decides, what was agreed, what changed since.</p>
+        <p>A read-only server over the record, speaking the Model Context Protocol, with provenance on every answer: the acceptance or evidence that makes each answer true, and the record's hash at that moment. The tools, in the order agents need them:</p>
+        <ul class="tools">
+          <li><code>who_decides</code></li><li><code>open_decisions</code></li><li><code>commitments</code></li><li><code>impact_preview</code></li><li><code>constraints</code></li><li><code>what_changed_since</code></li><li><code>plan_as_of</code></li><li><code>current(kind)</code></li>
+        </ul>
+        <p>The one write is <code>propose</code>, which routes to the person who holds the right and can never accept. An agent about to draft a campaign reads <code>current('positioning')</code> first; an agent about to move a milestone asks <code>who_decides</code> before it does. Canonical documents enter the record as pointers with a single decider, never as content; the document stays where it lives, and the record says which version the company is executing against and who may change that.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p><b>Coordinated</b> · an AI program manager in Slack, backed by the record of what your company agreed, that people and agents read the same, and that only people can change.</p>
+    <div class="addr"><span class="label">Write to us</span><code id="addr2">{{ADDRESS}}</code><button type="button" class="copy" id="copy-addr2" data-copy="addr2">Copy address</button></div>
+    <p>Nothing on this page sends a message. The address is here to copy into your own mail.</p>
+    <p>The scenario above is a costed illustration, not a customer result. Coordinated's cards, notes and posts are counted in our simulator on a fixed launch; every duration, and everything in the "today" column, is an assumption shown in the table. We replace assumptions with pilot measurements as we earn them.</p>
+    <p>Sources for the defaults: Microsoft Work Trend Index (2025); Otter.ai with Steven Rogelberg, UNC Charlotte (2022); Atlassian, State of Teams (2024).</p>
+  </footer>
+</div>
+
+<script>
+/*CALC*/
+function render(){ renderCore(); renderLedgerV4(); }
+// Person-by-person ledger, rendered from the measured LEDGER with the weekday on every date (the fixture's busiest weeks start Mon Sep 28 and Mon Oct 19, 2026).
+var WEEKDAY = { 'Sep 28':'Mon Sep 28', 'Oct 19':'Mon Oct 19' };
+function withWeekday(s){ return String(s).replace(/\b(Sep 28|Oct 19)\b/g, function(m){ return WEEKDAY[m] || m; }); }
+function renderLedgerV4(){
+  var L = document.getElementById('ledgerV4'); if (!L) return;
+  L.innerHTML = '<tr><th>Person</th><th>Role</th><th class="num">Cards to answer</th><th class="num">Settlement notes to read</th><th class="num">Channel posts to read</th><th class="num">Reading minutes (estimate)</th><th>Busiest week</th></tr>' +
+    Object.keys(LEDGER).map(function(k){ var p = LEDGER[k]; return '<tr><td>' + k[0].toUpperCase() + k.slice(1) + '</td><td>' + p.persona + (p.approvals ? ' (also approved ' + p.approvals + ' sends)' : '') + '</td><td class="num">' + p.cards + '</td><td class="num">' + p.notes + '</td><td class="num">' + p.posts + '</td><td class="num">' + h1(p.words / P.wpm.v) + '</td><td>' + (p.peak === 'none' ? 'none' : 'week of ' + withWeekday(p.peak)) + '</td></tr>'; }).join('') +
+    '<tr class="co"><td>Total</td><td>nine people, seven weeks</td><td class="num">' + FIX.cards + '</td><td class="num">' + FIX.notes + '</td><td class="num">' + FIX.postsPerPerson + ' each</td><td class="num">' + h1(FIX.wordsTotal / P.wpm.v) + '</td><td></td></tr>';
+}
+// Copy buttons and the send form: nothing leaves the page; the address is text to copy.
+function copyText(text, done){
+  function fallback(){ var ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.left = '-9999px'; document.body.appendChild(ta); ta.select(); var ok = false; try { ok = document.execCommand('copy'); } catch (e) { ok = false; } document.body.removeChild(ta); done(ok); }
+  try { if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text).then(function(){ done(true); }, fallback); } else { fallback(); } } catch (e) { fallback(); }
+}
+function selectNode(el){ try { var r = document.createRange(); r.selectNodeContents(el); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); } catch (e) {} }
+Array.prototype.forEach.call(document.querySelectorAll('.copy[data-copy]'), function(btn){
+  btn.addEventListener('click', function(){ var el = document.getElementById(btn.dataset.copy); var text = el ? el.textContent.trim() : ''; var label = btn.textContent;
+    copyText(text, function(ok){ if (ok) { btn.textContent = 'Copied'; } else { btn.textContent = 'Select and copy'; if (el) selectNode(el); } setTimeout(function(){ btn.textContent = label; }, 2200); }); });
+});
+var form = document.getElementById('send');
+if (form) form.addEventListener('submit', function(e){ e.preventDefault();
+  var addr = document.getElementById('addr').textContent.trim(); var note = (document.getElementById('send-note').value || '').trim(); var status = document.getElementById('send-status');
+  var text = 'To: ' + addr + '\nSubject: Our last launch doc\n\n' + (note ? note + '\n\n' : '') + '(Attach the document in your own mail.)';
+  copyText(text, function(ok){ status.textContent = ok ? 'Copied the address and your note. Paste them into your own mail and attach the document there. This page sent nothing.' : 'Copying is blocked in this view. Select the address above and copy it by hand; attach the document in your own mail. This page sent nothing.'; });
+});
+buildControls(); render();
+</script>

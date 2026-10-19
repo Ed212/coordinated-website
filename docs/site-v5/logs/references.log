@@ -1,0 +1,5 @@
+
+> coordinated-marketing@5.0.0 check:references
+> node scripts/check-references.mjs
+
+PASS original v5 references and comparison port present; calc.js SHA-256 a289412212e78d7b1bdf20d1063077ed0ca991be56fd5f300d6da42c3a45adde

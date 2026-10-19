@@ -1,0 +1,17 @@
+{
+  "name": "coordinated-marketing",
+  "version": "5.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "preview": "node scripts/preview.mjs",
+    "check:copy": "node scripts/check-copy.mjs",
+    "check:references": "node scripts/check-references.mjs",
+    "test": "node --test tests/contact.test.mjs",
+    "test:browser": "node scripts/verify.mjs",
+    "test:performance": "node scripts/performance.mjs"
+  },
+  "dependencies": { "nodemailer": "^7.0.0" },
+  "devDependencies": { "playwright": "^1.58.0", "lighthouse": "^13.0.0" }
+}

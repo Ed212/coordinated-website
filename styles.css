@@ -337,3 +337,132 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .narrative-core { animation: none !important; }
   .tail-flow { display: none; }
 }
+
+/* v5: retain the existing palette, type and chapter system. */
+.hero { min-height: 820px; }
+.hero-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .9fr); align-items: center; gap: 64px; }
+.hero-copy { width: 100%; }
+.hero-product { position: relative; top: auto; right: auto; width: 100%; }
+.hero-starfield { opacity: .28; }
+.hero-scrim { background: linear-gradient(90deg, rgba(22,24,29,.75), rgba(22,24,29,.25)); }
+.hero h1 { font-size: clamp(46px, 5.2vw, 74px); }
+.hero-promise { margin-bottom: 22px; font-size: 17px; }
+.agent-line { font-size: 16px; }
+.proof-line { max-width: 54ch; margin: 20px 0 30px; color: #b8bcc4; font-family: var(--mono); font-size: 11px; }
+.hero-actions { gap: 10px 20px; }
+.dark-statement::before { background: none; }
+.dark-statement { min-height: 460px; }
+.sample-note { max-width: 65ch; margin-bottom: 40px; color: var(--muted); font-size: 13px; }
+.architecture { max-width: 760px; margin-top: 64px; padding-top: 30px; border-top: 1px solid var(--rule); }
+.architecture h3 { font-size: 28px; font-weight: 500; letter-spacing: -.03em; }
+.architecture p:last-child { color: var(--muted); }
+.pilot-price { margin: 36px 0 8px; font-family: var(--mono); }
+.document-section { background: var(--paper-deep); }
+.document-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+.document-layout h2 { font-size: clamp(34px, 4vw, 56px); line-height: 1.08; font-weight: 500; letter-spacing: -.045em; }
+#launch-form { display: grid; gap: 12px; position: relative; }
+#launch-form label { font-family: var(--mono); font-size: 12px; }
+#launch-form input, #launch-form textarea { width: 100%; min-width: 0; padding: 12px; border: 1px solid var(--muted); border-radius: 2px; background: var(--paper); color: var(--ink); }
+#launch-form textarea { resize: vertical; }
+#launch-form button { justify-self: start; cursor: pointer; }
+#launch-form button:disabled { opacity: .6; cursor: wait; }
+#form-status { min-height: 26px; font-size: 14px; overflow-wrap: anywhere; }
+.form-trap { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.measure { grid-template-columns: 80px minmax(0,1fr); }
+@media (max-width: 760px) {
+ .hero-layout, .document-layout { grid-template-columns: 1fr; gap: 40px; }
+ .hero { min-height: 0; }
+ .hero-product { margin-top: 0; }
+ .hero h1 { font-size: clamp(42px, 12vw, 58px); }
+ .hero .hero-actions { gap: 8px; }
+ .hero .hero-starfield { opacity: .2; }
+ .measure { grid-template-columns: 32px minmax(0,1fr); gap: 14px; }
+ .narrative-overlay { display: block; }
+}
+
+.og-page { width: 1200px; height: 630px; overflow: hidden; background: var(--ink); color: var(--paper); }
+.og-layout { height: 630px; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 64px; padding: 64px; }
+.og-layout h1 { font-size: 76px; line-height: 1; font-weight: 500; letter-spacing: -.055em; }
+.og-layout .hero-card { color: var(--ink); }
+.og-layout .eyebrow { color: #b8bcc4; }
+
+/* The port uses the existing brand palette, with labels and a table for each series. */
+.evidence-label, .example-label { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; }
+.evidence-label { margin-bottom: 20px; }
+.example-label { color: var(--muted); }
+.pilot-disclosure, .scope-line { max-width: 72ch; }
+.scope-line { margin-top: 48px; }
+.contact-route { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin: 20px 0; font-family: var(--mono); font-size: 12px; }
+.contact-route button { min-height: 36px; padding: 6px 10px; border: 1px solid currentColor; background: transparent; color: inherit; cursor: pointer; }
+.copy-status { font-size: 12px; }
+#pilot .document-section { margin-top: 28px; padding: 32px; border: 1px solid var(--rule); }
+#pilot .document-layout { gap: 48px; }
+.document-layout h3 { font-size: 32px; line-height: 1.15; font-weight: 500; letter-spacing: -.03em; }
+.site-footer .contact-route { max-width: 230px; }
+.architecture h4 { margin: 30px 0 10px; font-size: 20px; font-weight: 500; }
+.attention-section { --bg:var(--paper); --surface:var(--white); --fg:var(--ink); --fg2:var(--muted); --grid:var(--rule); --axis:var(--muted); --ring:var(--rule); --s1:var(--ink); --s2:var(--muted); --s3:var(--changed); --co:var(--paper-deep); --chip:var(--paper-deep); }
+.attention-section h2 { max-width: 900px; font-size: clamp(34px,4.3vw,62px); line-height: 1.08; font-weight: 500; letter-spacing: -.045em; }
+.attention-section .label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+.attention-section .sub { max-width: 78ch; color: var(--muted); }
+.attention-section .big { margin: 10px 0; font-size: clamp(46px,6vw,76px); line-height: 1; letter-spacing: -.04em; }
+.attention-section .chartbox { position: relative; padding: 24px; border: 1px solid var(--rule); background: var(--white); }
+.attention-section .legend { display: flex; flex-wrap: wrap; gap: 16px; margin: 15px 0; font-size: 12px; }
+.attention-section .legend span { display: inline-flex; align-items: center; gap: 6px; }
+.attention-section .sw { width: 12px; height: 12px; display: inline-block; }
+.attention-section #chart svg { width: 100%; height: auto; }
+.attention-section .tip { display: none; position: absolute; pointer-events: none; max-width: 260px; padding: 6px 10px; background: var(--paper); border: 1px solid var(--ink); font-size: 13px; }
+.attention-section .tablewrap { max-width: 100%; overflow-x: auto; margin: 20px 0; overscroll-behavior-inline: contain; }
+.attention-section table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.attention-section th, .attention-section td { padding: 12px 10px; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+.attention-section th { font-family: var(--mono); font-size: 10px; font-weight: 500; }
+.attention-section .num { text-align: right; font-variant-numeric: tabular-nums; }
+.attention-section td.num { white-space: nowrap; }
+.attention-section .co { background: var(--paper-deep); }
+.attention-section .note { max-width: 90ch; font-size: 13px; color: var(--muted); }
+.attention-section .check { display: flex; align-items: flex-start; gap: 10px; margin: 24px 0; font-size: 14px; }
+.attention-section input[type=checkbox] { margin-top: 6px; accent-color: var(--ink); }
+.attention-section details { margin: 16px 0; border: 1px solid var(--rule); }
+.attention-section summary { padding: 16px; cursor: pointer; }
+.attention-section .inner { padding: 0 16px 16px; }
+.attention-section .glabel { padding: 16px 16px 8px; font-family: var(--mono); font-size: 11px; }
+.attention-section .ctrls { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px; padding: 0 16px 16px; }
+.attention-section .ctrl label { display: flex; justify-content: space-between; gap: 12px; font-size: 12px; }
+.attention-section input[type=range] { width: 100%; accent-color: var(--ink); }
+.attention-section .replace { margin-top: 36px; padding-left: 24px; border-left: 2px solid var(--changed); max-width: 78ch; }
+.attention-section .q { margin: 12px 0; font-size: 28px; line-height: 1.25; letter-spacing: -.025em; }
+@media(max-width:760px) {
+ #pilot .document-section { padding: 20px; }
+ .attention-section .ctrls { grid-template-columns: 1fr; }
+ .attention-section .chartbox { padding: 16px 10px; }
+ .attention-section #chart { overflow-x: auto; }
+ .attention-section #chart svg { min-width: 660px; }
+ .attention-section .tablewrap table { min-width: 740px; }
+ .attention-section .replace { padding-left: 16px; }
+}
+summary:focus-visible, [tabindex="0"]:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
+
+/* Thu Oct 15 founder decision: keep the complete 9:5 composition visible.
+   The source core remains 62.011% / 44.999%; the card starts below it. */
+.hero { min-height: 940px; background: #000; }
+.hero-layout { min-height: inherit; align-items: start; padding-block: 90px 80px; }
+.hero-media { inset: auto; top: 40px; left: 50%; width: 100vw; height: auto; aspect-ratio: 9 / 5; transform: translateX(-50%); mask-image: linear-gradient(180deg, transparent, #000 8%, #000 92%, transparent); }
+.hero-galaxy { object-fit: contain; object-position: 50% 50%; transform: none; will-change: auto; }
+.hero-scrim { display: none; }
+/* Neutral black darkens the artwork without adding a charcoal-colored panel.
+   The mask stays opaque beneath text, then feathers continuously outside it. */
+.hero-copy { background: none; box-shadow: none; }
+.hero-copy::before { content: ""; position: absolute; z-index: -1; inset: -64px; pointer-events: none; background: rgba(0,0,0,.78); mask-image: linear-gradient(90deg, transparent, #000 60px, #000 calc(100% - 60px), transparent), linear-gradient(180deg, transparent, #000 60px, #000 calc(100% - 60px), transparent); mask-composite: intersect; }
+.hero-product { margin-top: calc(25vw + 70px); }
+.trust-ribbon { position: relative; overflow: hidden; }
+.ribbon-starfield-picture, .ribbon-starfield { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ribbon-starfield { object-fit: cover; filter: invert(1); opacity: .14; }
+.trust-ribbon-grid { position: relative; }
+.trust-ribbon p { background: rgba(251,251,248,.96); }
+@media (max-width: 760px) {
+ .hero { min-height: 0; }
+ .hero-layout { padding-block: 56px 72px; }
+ .hero-copy { grid-row: 1; background: none; box-shadow: none; }
+ .hero-copy::before { display: none; }
+ .hero-media { position: relative; inset: auto; grid-row: 2; width: calc(100% + var(--page-pad) * 2); margin-inline: calc(-1 * var(--page-pad)); transform: none; }
+ .hero-product { grid-row: 3; margin-top: -20px; }
+}

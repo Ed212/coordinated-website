@@ -1,0 +1,26 @@
+name: Site verification
+on: [push, pull_request]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+      - run: npx playwright install --with-deps chromium
+      - run: TEST_MAIL_SINK=1 npm run preview > /tmp/site-preview.log 2>&1 &
+      - run: npm run test:browser
+      - run: npm run test:performance
+      - run: npm run check:references
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: site-verification
+          path: |
+            docs/site-v5/logs/
+            docs/site-v5/screenshots/

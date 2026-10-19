@@ -1,0 +1,7 @@
+PASS visible copy and How it works unchanged from 2409e5d.
+PASS byte-for-byte unchanged: assets/galaxy/og-1200x630.png
+PASS byte-for-byte unchanged: brand/mark_dark.svg
+PASS byte-for-byte unchanged: brand/mark_light.svg
+PASS byte-for-byte unchanged: site.js
+PASS byte-for-byte unchanged: api/contact.js
+PASS byte-for-byte unchanged: vercel.json
