@@ -18,8 +18,10 @@ try {
   const page=await browser.newPage({viewport:{width,height:900},colorScheme,reducedMotion:'reduce'});
   let expectedFailure=false;const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error' && !(expectedFailure && /502|404/.test(m.text())))errors.push(m.text())});
   await page.goto(`${base}/${file}`);await page.evaluate(()=>document.fonts.ready);
-  assert(await page.locator('.launch-comparison').innerText().then(t=>t.includes('Same intended outcome')));
+  assert(await page.locator('.launch-comparison').innerText().then(t=>t.toLowerCase().includes('same intended outcome')));
   assert.equal(await page.locator('.dependency-map-rows article').count(),7);
+  await page.screenshot({path:`docs/site-v5/screenshots/speed-${file}-${width}-${colorScheme}-hero.png`});
+  await page.locator('#moments').screenshot({path:`docs/site-v5/screenshots/speed-${file}-${width}-${colorScheme}-scenario.png`});
   await page.locator('.legacy-model > summary').click();
   assert.equal(await page.locator('h1').textContent(),'Let your go-to-market move at the speed of your product.');
   assert(await page.evaluate(()=>document.scrollingElement.scrollWidth<=innerWidth),'Horizontal overflow');
