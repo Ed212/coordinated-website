@@ -1,22 +1,48 @@
-# Rules for every stream (Wed Oct 14, 2026)
+## November 3 positioning update
 
-Scope and safety
-- Work only inside your stream folder under /mnt/user-data/outputs/coordinated_docs/streams/ and the scratchpad. Do not edit any existing memo in coordinated_docs; read them freely.
-- No access to the Handled repository or any git remote. No pushes, branches, merges. Never read or print any .env file.
-- Nothing is sent to anyone: no email, message, post, form submission, or outreach of any kind. Drafts are files.
-- No Clay or paid data tools. Public web only (WebSearch, WebFetch, company sites, job boards, press).
-- Do not contact or alert adjacent companies (policy and rule engines, assistant platforms, work-graph tools, agent frameworks, personal AI assistants). They are excluded from any outreach list.
-- Every fact about a company or a market carries a source URL and a date. Unknown stays "unknown"; never guess a headcount, a title or a quote.
+The current website request supersedes earlier category-provisional copy and local-only delivery restrictions for this website update. Lead with “AI go-to-market program manager for launches”. Describe an adaptable current plan, accountable owners, approvals, launch gates, dependencies, readiness evidence and changed commitments. People keep decision and approval authority. Approved positioning, feature and security information underpin this workflow; broader company decisions are secondary. Coordinated is prelaunch with no launched users; illustrative workflows and simulator assumptions are not shipped capability or customer results. Discovery is a 30-minute walkthrough of the last launch, no prep or documents, using the visitor’s screen rather than collecting data. Any pilot and data sharing need a separate scope and permissions agreement. Preserve existing hosting audience, privacy and security boundaries.
 
-Copy rules (anything a person outside the company might read)
-- No em dashes. Never "genuinely", "honestly", "straightforward". No exclamation marks in outreach.
-- Never "system of record". Never Git vocabulary in person-facing text (commit, merge, branch, diff, repo, pull request).
-- No risk labels (at risk, on track, likely to slip, health, score). No response-time promise ("within the hour"). No "40x" or any unverified multiplier. No "Nobody pinged" in public copy.
-- No competitor named on the website. No SOC 2 claim. No traction claim that is not in the memos.
-- The pitch sentence keeps the word "agreed" in every version: "a shared record of your decisions, guardrails and plan, so people and agents work from what has been agreed, without you having to repeat every decision or chase every update."
-- Every date in product copy carries its weekday (Mon Oct 19). Attention counts are measured on the fixture (33 cards, 9 notes, seven weeks, nine people); minutes are estimates and are labeled so.
-- The product is "an AI program manager in Slack" backed by "the record of what your company agreed, that people and agents read the same, and that only people can change."
+# Current copy rules — October 30, 2026
 
-Deliverables
-- Files in your stream folder plus STATUS.md: what was produced, what was verified and how, what is uncertain, open questions for Ed (max five), and what you did not do.
-- Final message to the coordinator: at most 200 words, naming the files.
+Status: local, proposed, unpublished. [BRIEF](BRIEF.md) routes canonical sources.
+[Previous rules](archive/2026-10-30-decision-to-action/RULES.md) remain history.
+
+- Lead with concrete intended outcomes: “Launch faster. Keep your standards.”
+  Put four distinct role benefits immediately after the hero. Category naming
+  remains provisional; AI program manager is a supporting analogy only.
+- Describe the complete active job: discover/consult, prepare options and scoped
+  decisions, obtain exact feasible acceptance, carry authorized change/work,
+  verify effects/delivery and inspect business evidence/assumptions after release.
+- Start from outcome/analysis and known people. Documents are optional. The
+  operator resolves unknown people/authority, not every domain answer or graph.
+- Explain official claims, strategic goal, mandatory gates/owners, taste criteria,
+  options, budget/usable capacity, promises and evidence through one launch.
+- Human decision approval, delivery-owner acceptance, readiness and action rights
+  are separate. DACI participation grants no rights. Specialist gates cannot be
+  voted away. A human Driver and planned Driver agent are different actors.
+- Shared approved company judgment has scoped owners, versions, effective time
+  and permission-filtered views. Reading context is not enforcement or action.
+- Show the staged direction: complete launch, reusable context, then selected new
+  functions/decisions. No autonomous sensitive HR selection/termination or HR
+  prerequisite for the first launch.
+- State intended persona benefits without claiming achieved speed, project
+  success, focus or savings. No exclusivity, testimonials, traction or invented ROI.
+- Omit the 25% McKinsey/DACI statistic. Role clarity needs no quantitative claim.
+- Label unfinished software, illustrative examples, simulator counts, prototypes
+  and separately scoped possible manual exploration. Advertising is not readiness.
+- Slack-only is intended. Linear/GitHub coexistence implies no deployed connector,
+  synchronization, issue creation, write integration or partnership.
+- Distinguish voluntary messages directly to Coordinated from other private DMs;
+  no broader information or financial/customer/source-system authority is implied.
+- Keep existing static checks: no em dashes, exclamation marks, “genuinely”,
+  “honestly”, “straightforward”, “system of record”, Git workflow vocabulary,
+  unsupported timing/status promises or certification/security guarantees.
+- Cut repeated homepage explanation; use one supporting sentence, three brief
+  benefits and one primary CTA. Keep one clear maturity boundary. Move scenarios
+  behind the existing detail page; report default and expanded whole-page counts.
+- Preserve photos, geometry, brand, runtime, privacy/contact behavior and
+  calculator bytes. Minimal clarity/layout CSS and derived OG copy can change
+  through the existing build.
+- Local only: no Git, install, publication, deployment, tracking, spending, accounts,
+  outreach or external agents. Never inspect secrets/environment values.
+- No comprehension score, local test or fictional fixture authorizes release.

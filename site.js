@@ -175,15 +175,15 @@ if (launchForm) {
     const button = launchForm.querySelector('button[type="submit"]');
     if (button.disabled || !launchForm.reportValidity()) return;
     button.disabled = true;
-    status.textContent = 'Sending your document…';
+    status.textContent = 'Sending your note…';
     try {
       const response = await fetch(launchForm.action, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(Object.fromEntries(new FormData(launchForm))),
         signal: AbortSignal.timeout(20000)
       });
-      const result = await response.json().catch(() => ({ error: 'The form is unavailable. Please email your document to ed@coordinatedai.ai.' }));
-      if (!response.ok) throw new Error(result.error || 'Your document could not be sent. Please try again.');
+      const result = await response.json().catch(() => ({ error: 'The form is unavailable. Please email a short note to ed@coordinatedai.ai.' }));
+      if (!response.ok) throw new Error(result.error || 'Your note could not be sent. Please try again.');
       status.textContent = result.message;
       launchForm.reset();
     } catch (error) {

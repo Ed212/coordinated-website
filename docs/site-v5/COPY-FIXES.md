@@ -1,41 +1,34 @@
-# Copy fixes for site v5 (from the Oct 15 review of the page)
+## November 3 positioning update
 
-For the `codex/site-v5` thread. Apply to `templates/home.html` and the pages it generates; rerun the copy grep and the eight browser checks after. Keep the pitch sentence verbatim everywhere ("a shared record of your decisions, guardrails and plan, so people and agents work from what has been agreed, without you having to repeat every decision or chase every update").
+The current website request supersedes earlier category-provisional copy and local-only delivery restrictions for this website update. Lead with “AI go-to-market program manager for launches”. Describe an adaptable current plan, accountable owners, approvals, launch gates, dependencies, readiness evidence and changed commitments. People keep decision and approval authority. Approved positioning, feature and security information underpin this workflow; broader company decisions are secondary. Coordinated is prelaunch with no launched users; illustrative workflows and simulator assumptions are not shipped capability or customer results. Discovery is a 30-minute walkthrough of the last launch, no prep or documents, using the visitor’s screen rather than collecting data. Any pilot and data sharing need a separate scope and permissions agreement. Preserve existing hosting audience, privacy and security boundaries.
 
-## 1. Three labels, so simulator results, built capability and intended architecture never blur
+# Active copy reconciliation — October 30, 2026
 
-Add a short mono label at the top of each section, one of exactly three:
-- "Measured on the simulator fixture" on the attention comparison and any count (33 cards, 9 notes, seven weeks, nine people; minutes are estimates).
-- "In the pilot today" on the six-week pilot section and the moments: formation by interview, one card per commitment per person, the Monday picture, the Thursday brief, settlement notes; delivery is by hand in the first pilots and the page says so (Decision 16).
-- "What we are building" on the architecture section (the three agents, guardrails as code, the read contract for agents). Nothing in that section is described in the present tense as available.
+Status: later October 30 homepage clarity revision, proposed and unpublished.
+Read [BRIEF](BRIEF.md) and [RULES](RULES.md). The October 29 candidate remains
+preserved in the [archive](archive/2026-10-30-decision-to-action/README.md).
 
-## 2. Remove the absolutes that outrun measured behavior or approved rules
-
-| Current text | Replace with |
+| Earlier expression | Current requirement |
 |---|---|
-| "Every message says why it was sent and what it cost you. Most weeks, nothing." | "Every message says why it was sent and what it cost you." Optional measured line under the comparison: "On the seven-week fixture, 55 of 72 person-weeks had no card at all; every week had one Monday post." |
-| "No nudges, no 'just checking in', no reminder of any kind. A second ask about the same thing is refused unless the record changed." | "No nudges and no 'just checking in'. A second ask about the same thing goes out only when the record changed, or when a follow-up policy you approved says so." |
-| any "never stores content" / "never holds content" / "holds pointers, never content" | "The record holds pointers to your documents, with the version and the person who decides each, and keeps the evidence you hand it under your retention policy." |
+| AI program manager as default identity | Decision-to-action promise; program manager is a supporting analogy. |
+| Abstract decision-to-action headline | A: Launch faster. Keep your standards. B: Launch faster. Stay true to your standards. |
+| Plan formation alone | Options/criteria, scoped approval, separate feasible acceptance, authorized action and evidence. |
+| Generic approved company context | One launch's official claims, goals, gates/owners, taste, options, budget/usable capacity, promises and checks. |
+| One isolated launch | Full launch workflow, reusable shared context, then selected functions and decision types. |
+| A six-week pilot CTA implies an available offer | Explore one launch; software unfinished and any manual test requires separately agreed scope and verified readiness. |
+| Framework means authority | DACI describes participation, separately from specialist gates, acceptance and action rights. |
 
-## 3. Acceptance is not truth
+Keep the operator as the reference for unknown people/authority, never the answer
+relay. Keep persona benefits intended and testable. No 25% McKinsey statistic,
+measured acceleration, unique-category, active integration or customer-proof claim.
+Retain post-launch evidence owners, review windows and assumption checks.
 
-| Current text (verifier paragraph) | Replace with |
-|---|---|
-| "…it attaches, to every claim, the acceptance that made it true, the evidence that supports it with the period it covers, and the right that authorizes it." | "…it marks every claim as one of three things: accepted by a named person, supported by current evidence with the period it covers, or unknown. Nothing on the page or in a message is presented as true because someone accepted it." |
-
-The same three words (accepted, supported, unknown) go on the Monday picture's quiet line wherever it is shown.
-
-## 4. The examples must agree with one fixture
-
-Rule: every moment on the page uses one example world, with dates inside its window, and carries one label: "From the simulator fixture (Lantern, Sep 28 to Nov 16)" or "Fictional example". No moment may contradict another moment's dates or due items.
-- The owner-leave moment (Ivy on leave, Fri Nov 20 to Fri Nov 27) is outside the fixture window, which ends Mon Nov 16. Remove it, or rewrite it inside the window and label it fictional. Five moments are fine.
-- The review moment ("Decisions due: none. Evidence due: none") must be checked against every other moment on the same page: if any owner's answer or evidence is due on the review date, the brief must list it. On the fixture, Thu Oct 22 has nothing due and no card to Marco (steps s10.1 to s10.3); if the page uses the Atlas example instead, re-derive the review line from that example's dates.
-
-## 5. The ask
-
-- Primary action: "Discuss a six-week pilot" linking to BOOKING_URL. Secondary: "See a sample record" (anchor to the moments). The launch-document request moves into the pilot section with the line "Once we agree the scope, send one document with a real date; the first card goes out from it." The form stays, below that line, and remains optional.
-- Replace the unfinished address everywhere with the verified route: ed@coordinatedai.ai shown as text with a copy button, plus the booking link. No placeholder may remain in the built site; the existing placeholder grep covers it.
-
-## 6. Outreach
-
-The messages reuse only the pitch sentence and the three-state line; none of the removed absolutes appear in any draft.
+Keep the six fictional cards on the existing use-case detail page. Replace their
+homepage repetition with a short detail link below the core value and journey.
+Separate chiefs of staff, product leaders, program leaders and founders directly
+after the hero. Cut repeated abstractions/status paragraphs; preserve concise
+authority/privacy and one visible maturity boundary.
+Preserve contact behavior and optional context. Update source/build/metadata and
+A/B, relevant use-case/evidence and derived OG copy coherently. The original
+calculator remains byte-identical, a bounded simulator comparison, not full-job
+or customer proof. No GTM, roadmap, outreach or product implementation changes.

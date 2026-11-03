@@ -3,25 +3,25 @@ import { createHash } from 'node:crypto';
 const escape = text => text.replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;').replaceAll('>','&gt;');
 const booking = process.env.BOOKING_URL?.trim();
 if (booking && new URL(booking).protocol !== 'https:') throw Error('BOOKING_URL must use HTTPS');
-if (!booking) console.warn('TODO Ed: BOOKING_URL is unset; pilot discussion uses the verified email route.');
+if (!booking) console.warn('TODO Ed: BOOKING_URL is unset; launch discussion uses the verified email route.');
 await import('./check-references.mjs');
 const calc = await readFile('docs/site-v5/calc.js','utf8');
 const comparison = await readFile('docs/site-v5/attention-section.html','utf8');
 const runtime = await readFile('templates/attention-runtime.js','utf8');
 const digest=createHash('sha256').update(calc).digest('hex');
-const destination=booking || 'mailto:ed@coordinatedai.ai?subject=Discuss%20a%20six-week%20pilot';
-const action=theme=>`<a class="button button-${theme}" href="${escape(destination)}" data-pilot-action>Discuss a six-week pilot</a>`;
+const destination=booking || 'mailto:ed@coordinatedai.ai?subject=30-minute%20launch%20walkthrough';
+const action=theme=>`<a class="button button-${theme}" href="${escape(destination)}" data-pilot-action>Walk through your last launch</a>`;
 let template = await readFile('templates/home.html','utf8');
 for(const [marker,value] of Object.entries({
  '{{PILOT_LINK}}':action('paper'), '{{PILOT_ACTION}}':action('dark'),
- '{{FOOTER_BOOKING}}':booking?`<a href="${escape(booking)}">Book 20 minutes</a>`:'',
+ '{{FOOTER_BOOKING}}':booking?`<a href="${escape(booking)}">Book 30 minutes</a>`:'',
  '{{PILOT_PRICE}}':escape(process.env.PILOT_PRICE?.trim() || 'Ask us for the number'),
  '{{COMPARISON}}':comparison
 })) template=template.replaceAll(marker,()=>value);
 template=template.replace(/[ \t]+$/gm,'');
 // Insert after all formatting so the source bytes, including whitespace, remain unchanged.
 template=template.replace('</body>',()=>`<script id="attention-model">${calc}</script>\n<script>${runtime}</script>\n</body>`);
-for (const [file,headline] of [['index.html','Give your team its focus back.'],['b.html','Stop repeating decisions and chasing updates.']]) await writeFile(file,template.replace('{{HEADLINE}}',headline));
+for (const [file,headline] of [['index.html','Your AI go-to-market program manager for launches.'],['b.html','Your AI go-to-market program manager for launches.']]) await writeFile(file,template.replace('{{HEADLINE}}',headline));
 await rm('dist',{recursive:true,force:true}); await mkdir('dist',{recursive:true});
 for (const file of ['index.html','b.html','use-cases.html','pilot-evidence.html','privacy.html','terms.html','og.html','fonts.css','styles.css','site.js']) await cp(file,`dist/${file}`);
 await cp('assets/fonts','dist/assets/fonts',{recursive:true});

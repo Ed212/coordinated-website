@@ -1,62 +1,37 @@
-# The five-second test: protocol for the v4 hero
+## November 3 positioning update
 
-**Date:** Wednesday, October 14, 2026 · **Rule:** PLAN Decision 22(c), from POSITIONING-2026-10-10 §4 · **Runs before the page goes live.**
+The current website request supersedes earlier category-provisional copy and local-only delivery restrictions for this website update. Lead with “AI go-to-market program manager for launches”. Describe an adaptable current plan, accountable owners, approvals, launch gates, dependencies, readiness evidence and changed commitments. People keep decision and approval authority. Approved positioning, feature and security information underpin this workflow; broader company decisions are secondary. Coordinated is prelaunch with no launched users; illustrative workflows and simulator assumptions are not shipped capability or customer results. Discovery is a 30-minute walkthrough of the last launch, no prep or documents, using the visitor’s screen rather than collecting data. Any pilot and data sharing need a separate scope and permissions agreement. Preserve existing hosting audience, privacy and security boundaries.
 
-**What is tested.** The hero only (label, headline, mechanism paragraph, agent line, proof line, the two buttons), shown for five seconds. The question: does a stranger in the segment see the difference from a tracker or an assistant without being told? Variants A ("Give your team its focus back.") and B ("Stop repeating decisions and chasing updates.") differ only in the headline.
+# Five-second comprehension protocol — revised October 30, 2026
 
-## 1. Who, and the recruiting note
+Proposed research only. No participants, results, recruitment or publication
+are authorized. [BRIEF](BRIEF.md) routes the October 30 positioning. The earlier
+[protocol](archive/2026-10-30-decision-to-action/FIVE-SECOND-TEST.md) is history.
 
-Five founders (or the CEO or COO) of product-led B2B software companies of roughly 50 to 300 people that run on Slack, recruited as prospective customers, not as advisors. Nobody from a company that builds policy or rule engines, assistant platforms, work-graph tools, agent frameworks or personal AI assistants, and nobody from a competitor (RULES.md; PLAN §4). Each founder sees one variant, once.
+A: Launch faster. Keep your standards.
+B: Launch faster. Stay true to your standards.
 
-The note Ed can send, one paragraph:
+Show one hero for five seconds, hide it and record verbatim:
+1. What concrete benefit would you expect, and for whom?
+2. What would you supply to begin, and who would it work with?
+3. Which decisions and commitments would still belong to people?
+4. Is this available software, a manual exploration or something being built?
 
-> Hi [name], I am building Coordinated, an AI program manager in Slack for companies your size, and before the site goes live I am testing whether the first screen says what it is. It takes ten minutes on a call: I show you one screen for five seconds, then ask four short questions about what you saw. Nothing to prepare and no pitch; I want your first reading, including the words that confused you. Would [day, time] or [day, time] work? Thank you either way.
+Under separate research authorization, include CoS/COO, product/program leaders
+and founders from relevant software companies. Alternate variants; show each
+person only one. Record date, exact rendered hash, role, unprompted words,
+confusion and next-click intent. Five people can reveal comprehension problems,
+not establish demand, statistically rank headlines or prove differentiation.
 
-## 2. Setup
+Proposed signal: four of five understand active coordination from decisions to
+feasible accepted work and evidence, rather than a decision archive or autonomous
+executive. Record any confusion between approval, delivery acceptance and action
+permission, or between intended and available capability. This is not a release gate.
 
-1. Screen share on a call, or one laptop in person. Desktop width (about 1100 px), light theme. Use `screenshots/v4a-hero.png` or `v4b-hero.png` (the hero cropped above the form), or the live page scrolled to the top with the form below the fold.
-2. Say only: "I will show you a screen for five seconds, then ask what you saw. First reading, no right answer."
-3. Show the hero, count five seconds on a timer, hide it (stop sharing or switch to a blank tab). Do not show it again until the questions are done.
-4. Ask the four questions in order and write the founder's words verbatim. Do not prompt, rephrase or supply a word; to "do you mean X?" answer "whatever you took from it."
-5. Then two unscored follow-ups from the positioning memo: "which word confused you?" and "would you click, and on what?" After that you may show the whole page and listen.
-
-## 3. The questions, in order
-
-1. **What is this?**  2. **Who is it for?**  3. **What would you expect it to do on Monday?**  4. **What is it not?**
-
-## 4. The scoring sheet
-
-One row per founder. "Words used unprompted" is the founder's own vocabulary across the four answers, before any follow-up; the two yes/no columns are scored from those words only.
-
-| Founder | Headline seen | Words used unprompted (verbatim) | Said "agreements", "who agreed" or "version" | Said "another assistant" or "another tracker" (or named a tool of either kind) | One quote |
-|---|---|---|---|---|---|
-| 1 | A | | yes / no | yes / no | |
-| 2 | B | | yes / no | yes / no | |
-| 3 | A | | yes / no | yes / no | |
-| 4 | B | | yes / no | yes / no | |
-| 5 | A | | yes / no | yes / no | |
-
-Pass words: "agreed", "agreement", "what we agreed", "who signed off", "who said yes", "one version", "the current version". Fail words: "a Slack bot that summarises", "an assistant", "a chatbot", "a copilot", "a project tracker", "a task tool", "a status tool", any competitor's name. Also record "compliance" or "governance" if said, although neither word is in the hero.
-
-## 5. The pass rule (Decision 22(c))
-
-The hero passes when **four of five** founders use a pass word unprompted **and none** of the five uses a fail word. Both conditions: one "another assistant" fails the round even at five of five on the pass words. A pass publishes the page; the variant that produced more pass words is the one to publish, and with a 3/2 split that preference is a hint, not a result.
-
-## 6. The A/B assignment
-
-Alternate by recruiting order: the first founder to confirm sees A, the second B, then A, B, A (3 A, 2 B). Never choose the variant by founder; no founder sees both. Five founders cannot tell A from B statistically; the split is there so that neither headline goes live untested and so you hear which headline's words get repeated.
-
-## 7. What to change on the page for each failure pattern
-
-| What happened | What it means | Change, then re-run with five new founders |
-|---|---|---|
-| Fewer than four used a pass word, no fail word | The headline is read, the mechanism paragraph is not | Move "One version, with who agreed to each line, that only people can change" above the pitch sentence as a bold first line (the pitch sentence stays verbatim). If A was shown, try B, whose verbs point at agreement. |
-| Anyone said "assistant", "bot", "copilot" | "AI" in the label and "agents" in the agent line read as a chat assistant | Move the agent line below the proof line or down to the architecture section; try the label "A program manager in Slack, backed by the record of what your company agreed". |
-| Anyone said "tracker" or a tracker's name | "plan" and "updates" read as tasks | Show A rather than B (B contains "updates"); add "Nothing becomes a commitment until a person answers" under the mechanism. |
-| Wrong buyer for "who is it for" (engineers, enterprises, everyone) | The segment is implicit | Add under the label: "For the founder or COO of a 50-to-300-person software company and the person who runs the weekly review." |
-| "On Monday" drew a blank or "notifications" | "Monday" needs its object | Add under the agent line: "One Monday post says what is accepted, what is verified and what is unknown. A quiet week says so in one line." |
-| "What is it not" drew a blank | The refusals are below the fold | Promote one refusal into the proof line: "It never contacts a customer, never writes to another system, and only people change the record." |
-| Anyone said "compliance" or "governance" | An architecture word is inferred, most likely from "guardrails" | The pitch sentence is fixed by Decision 28: record it and raise it with Ed. If two founders say it, test a next line that explains guardrails ("the limits you set, in plain words"). |
-| Pass words came only from the headline | The headline works; the rest is not read in five seconds | Nothing for the test; for the page, cut the mechanism's supporting sentence to seven words or fewer. |
-
-Record each round with the date, who ran it and the variant files' hashes (`sha256sum coordinated-landing-v4a.html coordinated-landing-v4b.html`). Every edit to the hero after a failed round is a new round with five new founders.
+Then show the page. Ask how official claims, launch gates, usable capacity and a
+customer promise shape options; who accepts changed work; what an AI teammate
+may consult; and what happens when post-launch evidence or assumptions change.
+Check whether the staged expansion and optional documents are understood. Do not
+require internal vocabulary or teach an answer. Retain failures and revised hashes.
+No literature percentage, scripted fixture or comprehension result proves a
+Coordinated business outcome or authorizes publication.

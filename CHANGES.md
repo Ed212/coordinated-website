@@ -1,4 +1,57 @@
+> Current authority: October 30 local decision-to-action revision below.
+> Older dated rows and their reasoning remain decision history, not current copy
+> or publication authority. This candidate is local and unpublished.
+
 # Coordinated site v5 changes
+
+
+## Later October 30 homepage clarity pass
+
+Ed's later review supersedes the abstract hero below. The homepage now opens
+with “Launch faster. Keep your standards.” One supporting sentence makes company
+judgment for humans/agents explicit; three concise benefits and one primary CTA
+lead into four separate role benefits. The five-step journey is shorter. Six
+scenario cards remain on the existing use-case detail page; repeated architecture,
+offer/status and expansion paragraphs were cut. DACI and the browser receipt
+are supporting collapsible detail; the calculator and form controls remain.
+
+The same whole-rendered-body method at 1100×900 counts 2,333 → 823 words by
+default and 2,782 → 1,209 with every details panel open. This includes navigation,
+footer, widgets, cards, form and receipt. It is not an above-fold-only count.
+Expanded counts expose retained collapsed copy. Fresh captures, final counts,
+QA, hashes and the incremental diff are in
+`docs/site-v5/reviews/2026-10-30-homepage-clarity/RECEIPT.md`.
+
+Minimal scoped layout CSS retains the visual system and galaxy/reticle assets.
+The prior local candidate and source instructions are preserved. No publication,
+Git, hosting, product-runtime/schema/security, integration or canonical GTM/roadmap
+change. Earlier rows and their reasoning remain historical evidence below.
+
+
+
+## October 30 local decision-to-action revision
+
+| Area | Controlling source | Result |
+| --- | --- | --- |
+| Identity and hero | October 30 ROADMAP intent and GTM governing sections | A: “Turn company decisions into coordinated action.” B: “Keep decisions moving as plans change.” Program manager is no longer the default identity. Visual hero composition is preserved. |
+| Complete launch job | Decision → agreement → execution → evidence intent | Outcome/analysis and partial stakeholders; consultation, options/criteria, scoped approval, separate exact feasible delivery acceptance, authorized work/change and later evidence. The operator resolves unknown identities/authority rather than relaying every answer. |
+| Illustrative launch | Current launch questions and staged adoption | One fictional Atlas goal, permitted claim, specialist gates, taste examples/options, $60,000 envelope, usable capacity and Acme promise. No customer result or autonomous authority. |
+| Company judgment and DACI | Current scoped context and proposed participation contract | Consistent permission-filtered applicable versions/effective time for humans/agents; participation, specialist gates, commitment acceptance and action permission remain separate. Human Driver and planned Driver agent are distinct. |
+| Audience and adoption | Current persona matrix and adoption sequence | Intended CoS/COO, product/program and founder benefits; complete launch, reusable company context, then selected functions/decision types. No measured speed/project-success claim or sensitive HR prerequisite. |
+| Availability and evidence | Current GTM truth boundaries; C8/V4 clarification | Explore-one-launch CTA; unfinished software and product pilot, separately scoped/readiness-verified manual exploration. Separate delivery/business results and assumption checks with original/current baseline/target, actual evidence, named owners/windows and human next decisions. Disputed 25% statistic omitted. |
+| Preserved behavior and visuals | Existing site and founder visual direction | Galaxy/reticle/brand, styles, runtime/API/config, calculator, responsive sources/preloads and form behavior unchanged. Copy and derived OG image updated using the existing layout/build. |
+
+Current validation: build/copy/reference checks; four injected contact tests;
+eight A/B browser cases (400/1100, light/dark); mobile Lighthouse A 95/B 95 with
+CLS 0. Hero contrast at 400px is 8.08:1 and 1100px 5.76:1 for both variants/themes.
+Supporting renders, breakpoint checks, exact incremental diff and before/after
+hashes are in `docs/site-v5/reviews/2026-10-30-decision-to-action/REPORT.md`.
+No Git, publication, deployment, hosting/DNS change, installation, outreach or
+product-runtime/security change. Prior source instructions are archived under
+`docs/site-v5/archive/2026-10-30-decision-to-action/`. Earlier rows remain below.
+
+## Earlier v5 history
+
 
 Review candidate on `codex/site-v5`, continuing the first-pass commit `6e41e13`. The newly supplied reference files and COPY-FIXES.md have been applied. Production deployment remains manual; no merge, deployment command or DNS change was performed. The follow-up Vercel output-directory correction is recorded below. The updated request allows automatic branch previews. The brand marks, Inter/JetBrains Mono families and existing color variables are preserved. Pre-existing untracked artwork and `.DS_Store` changes are excluded.
 
