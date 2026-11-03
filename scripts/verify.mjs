@@ -18,7 +18,10 @@ try {
   const page=await browser.newPage({viewport:{width,height:900},colorScheme,reducedMotion:'reduce'});
   let expectedFailure=false;const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error' && !(expectedFailure && /502|404/.test(m.text())))errors.push(m.text())});
   await page.goto(`${base}/${file}`);await page.evaluate(()=>document.fonts.ready);
-  assert.equal(await page.locator('h1').textContent(),'Your AI go-to-market program manager for launches.');
+  assert(await page.locator('.launch-comparison').innerText().then(t=>t.includes('Same intended outcome')));
+  assert.equal(await page.locator('.dependency-map-rows article').count(),7);
+  await page.locator('.legacy-model > summary').click();
+  assert.equal(await page.locator('h1').textContent(),'Let your go-to-market move at the speed of your product.');
   assert(await page.evaluate(()=>document.scrollingElement.scrollWidth<=innerWidth),'Horizontal overflow');
   const contrast=await measureHeroContrast(page);
   assert(contrast.minimum>=4.5,`Hero contrast ${contrast.minimum.toFixed(2)} below 4.5:1`);
@@ -60,7 +63,7 @@ try {
   await page.locator('#reader-receipt summary').click();assert(await page.locator('#receipt-items').isVisible());await page.locator('#reader-receipt summary').click();
   assert.equal(await page.locator('#moments [data-moment-row]').count(),0);
   assert(await page.locator('#moments a[href="use-cases.html"]').isVisible());
-  assert(await page.locator('.proof-line').textContent().then(t=>t.includes('Software in development')));
+  assert(await page.locator('.proof-line').textContent().then(t=>t.includes('software in development')));
   assert.equal(await page.locator('#architecture summary').textContent(),'Decision roles and authority');
   await page.locator('#architecture summary').click();
   assert(await page.locator('#architecture p').isVisible());

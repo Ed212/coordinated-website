@@ -21,7 +21,7 @@ for(const [marker,value] of Object.entries({
 template=template.replace(/[ \t]+$/gm,'');
 // Insert after all formatting so the source bytes, including whitespace, remain unchanged.
 template=template.replace('</body>',()=>`<script id="attention-model">${calc}</script>\n<script>${runtime}</script>\n</body>`);
-for (const [file,headline] of [['index.html','Your AI go-to-market program manager for launches.'],['b.html','Your AI go-to-market program manager for launches.']]) await writeFile(file,template.replace('{{HEADLINE}}',headline));
+for (const [file,headline] of [['index.html','Let your go-to-market move at the speed of your product.'],['b.html','Let your go-to-market move at the speed of your product.']]) await writeFile(file,template.replace('{{HEADLINE}}',headline));
 await rm('dist',{recursive:true,force:true}); await mkdir('dist',{recursive:true});
 for (const file of ['index.html','b.html','use-cases.html','pilot-evidence.html','privacy.html','terms.html','og.html','fonts.css','styles.css','site.js']) await cp(file,`dist/${file}`);
 await cp('assets/fonts','dist/assets/fonts',{recursive:true});

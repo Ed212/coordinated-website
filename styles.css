@@ -504,3 +504,40 @@ summary:focus-visible, [tabindex="0"]:focus-visible { outline: 3px solid current
 .homepage-clarity .hero h1 { font-size: clamp(42px, 4.2vw, 62px); line-height: 1.03; }
 @media (max-width: 760px) { .homepage-clarity .hero h1 { font-size: clamp(38px, 10.5vw, 52px); } }
 .og-layout h1 { font-size: 57px; }
+
+/* Launch-speed positioning preview; preserve the existing galaxy and brand system. */
+.launch-comparison h2 { max-width: 850px; font-size: clamp(34px, 4vw, 52px); line-height: 1.08; font-weight: 500; letter-spacing: -.035em; }
+.scenario-trigger { max-width: 76ch; margin: 24px 0 32px; color: var(--muted); font-size: 17px; }
+.scenario-trigger strong { color: var(--ink); }
+.launch-comparison-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.launch-comparison-panel { padding: clamp(24px, 3vw, 40px); border: 1px solid var(--rule); background: var(--paper); }
+.launch-comparison-panel h3 { max-width: 22ch; font-size: clamp(25px, 2.6vw, 34px); line-height: 1.1; font-weight: 500; letter-spacing: -.03em; }
+.launch-comparison-panel ol { display: grid; gap: 22px; padding-left: 20px; margin: 30px 0 0; color: var(--muted); font-size: 15px; }
+.launch-comparison-panel li { padding-left: 6px; }
+.launch-comparison-panel strong { color: var(--ink); }
+.proposed-panel { border-top: 3px solid var(--changed); }
+.shared-outcome { margin-top: 24px; padding: 26px 30px; border: 1px solid var(--ink); }
+.shared-outcome p:last-child { max-width: 88ch; margin-bottom: 0; font-size: 17px; }
+.dependency-map { margin-top: 32px; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.dependency-map > summary, .legacy-model > summary { padding: 22px 0; cursor: pointer; font-size: 17px; }
+.dependency-map-rows { padding-bottom: 20px; }
+.dependency-map-rows article { display: grid; grid-template-columns: minmax(120px,.6fr) minmax(0,2fr) minmax(160px,.9fr); align-items: start; gap: 24px; padding: 20px 0; border-top: 1px solid var(--rule); }
+.dependency-map-rows h3 { margin: 0; font-size: 16px; font-weight: 500; }
+.dependency-map-rows p { margin: 0; color: var(--muted); font-size: 14px; }
+.dependency-tag { font-family: var(--mono); font-size: 11px; line-height: 1.6; }
+.blocked-tag { color: #9e362f; }
+.launch-state { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); margin-top: 32px; padding: 28px; gap: 26px; background: var(--ink); color: var(--paper); }
+.launch-state span { display: block; margin-bottom: 12px; font-family: var(--mono); font-size: 11px; text-transform: uppercase; color: #b8bcc4; }
+.launch-state p { margin: 0; font-size: 14px; line-height: 1.55; }
+.scenario-disclosure { max-width: 95ch; margin: 24px 0; color: var(--muted); font-size: 13px; }
+.model-disclosure-wrap { padding-block: 30px; border-top: 1px solid var(--rule); }
+.model-context { max-width: 75ch; color: var(--muted); font-size: 14px; }
+.legacy-model .ledger-boundary { padding-inline: 0; }
+.legacy-model .section { padding-top: 28px; }
+@media (max-width:760px) {
+ .launch-comparison-grid { grid-template-columns: 1fr; }
+ .dependency-map-rows article { grid-template-columns: 1fr; gap: 8px; }
+ .launch-state { grid-template-columns: 1fr; gap: 22px; padding: 24px; }
+ .shared-outcome { padding: 24px; }
+ .scenario-trigger { font-size: 16px; }
+}
