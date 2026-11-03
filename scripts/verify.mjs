@@ -21,13 +21,12 @@ try {
   assert(await page.locator('.launch-comparison').innerText().then(t=>t.toLowerCase().includes('same intended outcome')));
   assert.equal(await page.locator('.dependency-map-rows article').count(),7);
   await page.screenshot({path:`docs/site-v5/screenshots/speed-${file}-${width}-${colorScheme}-hero.png`});
-  await page.locator('#moments').screenshot({path:`docs/site-v5/screenshots/speed-${file}-${width}-${colorScheme}-scenario.png`});
-  await page.locator('.legacy-model > summary').click();
   assert.equal(await page.locator('h1').textContent(),'Let your go-to-market move at the speed of your product.');
   assert(await page.evaluate(()=>document.scrollingElement.scrollWidth<=innerWidth),'Horizontal overflow');
+  await page.evaluate(()=>scrollTo(0,0));
   const contrast=await measureHeroContrast(page);
-  assert(contrast.minimum>=4.5,`Hero contrast ${contrast.minimum.toFixed(2)} below 4.5:1`);
   contrastLog.push({file,width,colorScheme,...contrast});
+  assert(contrast.minimum>=4.5,`Hero contrast ${contrast.minimum.toFixed(2)} below 4.5:1`);
   const heroImage=page.locator('.hero-galaxy');
   assert.equal(await heroImage.getAttribute('loading'),'eager');
   assert.equal(await heroImage.getAttribute('fetchpriority'),'high');
@@ -37,6 +36,8 @@ try {
   assert.equal(await page.locator('.hero .hero-starfield').count(),0);
   assert.equal(await page.locator('.ribbon-starfield').count(),1);
   assert.equal(await page.locator('img:not(.hero-galaxy)').evaluateAll(images=>images.every(image=>image.loading==='lazy')),true,'Only the hero image may be eager');
+  await page.locator('#moments').screenshot({path:`docs/site-v5/screenshots/speed-${file}-${width}-${colorScheme}-scenario.png`});
+  await page.locator('.legacy-model > summary').click();
   // Scroll the complete document to load images and observe all six moments.
   await page.evaluate(async()=>{for(let y=0;y<document.body.scrollHeight;y+=700){scrollTo(0,y);await new Promise(r=>setTimeout(r,15))}});
   assert.deepEqual(checkCopy(await page.locator('body').innerText(),`${file} rendered`),[]);
