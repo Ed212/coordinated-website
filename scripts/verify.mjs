@@ -1,117 +1,215 @@
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
-import { writeFile, mkdir, readFile } from 'node:fs/promises';
+import { writeFile, mkdir } from 'node:fs/promises';
 import { checkCopy } from './check-copy.mjs';
-import { createHash } from 'node:crypto';
 import { measureHeroContrast } from './hero-contrast.mjs';
-const prefix=process.env.VERIFY_PREFIX || '';
-const contrastLog=[];
-const originalCalc=await readFile('docs/site-v5/calc.js','utf8');
-const digest=text=>createHash('sha256').update(text).digest('hex');
-const documents=new Map();
-const base=process.env.BASE_URL || 'http://127.0.0.1:4174';
-const browser=await chromium.launch({headless:true,...(process.env.CHROME_PATH?{executablePath:process.env.CHROME_PATH}:{})});
-const log=[];
-await mkdir('docs/site-v5/screenshots',{recursive:true});
-try {
- for(const file of ['index.html','b.html']) for(const width of [400,1100]) for(const colorScheme of ['light','dark']) {
-  const page=await browser.newPage({viewport:{width,height:900},colorScheme,reducedMotion:'reduce'});
-  let expectedFailure=false;const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error' && !(expectedFailure && /502|404/.test(m.text())))errors.push(m.text())});
-  await page.goto(`${base}/${file}`);await page.evaluate(()=>document.fonts.ready);
-  assert(await page.locator('.launch-comparison').innerText().then(t=>t.toLowerCase().includes('same intended outcome')));
-  assert.equal(await page.locator('.dependency-map-rows article').count(),7);
-  await page.screenshot({path:`docs/site-v5/screenshots/speed-${file}-${width}-${colorScheme}-hero.png`});
-  assert.equal(await page.locator('h1').textContent(),'Let your go-to-market move at the speed of your product.');
-  assert(await page.evaluate(()=>document.scrollingElement.scrollWidth<=innerWidth),'Horizontal overflow');
-  await page.evaluate(()=>scrollTo(0,0));
-  const contrast=await measureHeroContrast(page);
-  contrastLog.push({file,width,colorScheme,...contrast});
-  assert(contrast.minimum>=4.5,`Hero contrast ${contrast.minimum.toFixed(2)} below 4.5:1`);
-  const heroImage=page.locator('.hero-galaxy');
-  assert.equal(await heroImage.getAttribute('loading'),'eager');
-  assert.equal(await heroImage.getAttribute('fetchpriority'),'high');
-  const chosen=await heroImage.evaluate(image=>image.currentSrc);
-  assert(/landscape-(1600|1200)\.webp/.test(chosen),'Hero must use a responsive landscape below 1200px');
-  assert(await page.evaluate(()=>[...document.querySelectorAll('link[rel="preload"][as="image"]')].some(link=>matchMedia(link.media).matches&&new URL(link.href).href===document.querySelector('.hero-galaxy').currentSrc&&link.imageSrcset&&link.imageSizes)),'Preload does not match the chosen hero source');
-  assert.equal(await page.locator('.hero .hero-starfield').count(),0);
-  assert.equal(await page.locator('.ribbon-starfield').count(),1);
-  assert.equal(await page.locator('img:not(.hero-galaxy)').evaluateAll(images=>images.every(image=>image.loading==='lazy')),true,'Only the hero image may be eager');
-  await page.locator('#moments').screenshot({path:`docs/site-v5/screenshots/speed-${file}-${width}-${colorScheme}-scenario.png`});
-  await page.locator('.legacy-model > summary').click();
-  // Scroll the complete document to load images and observe all six moments.
-  await page.evaluate(async()=>{for(let y=0;y<document.body.scrollHeight;y+=700){scrollTo(0,y);await new Promise(r=>setTimeout(r,15))}});
-  assert.deepEqual(checkCopy(await page.locator('body').innerText(),`${file} rendered`),[]);
-  assert.equal(digest(await page.locator('#attention-model').textContent()),digest(originalCalc),'Inline calculator bytes changed');
-  const totals=()=>page.locator('#cmp tr:not(:first-child)').evaluateAll(rows=>rows.map(row=>row.cells[4].textContent));
-  assert.deepEqual(await totals(),['52','58','36','29']);
-  assert.deepEqual(await page.evaluate(()=>model().R.map(row=>Math.round(row.total))),[52,58,36,29]);
-  await page.locator('#pess').check();assert.deepEqual((await totals()).slice(2),['41','35']);
-  await page.locator('#pess').uncheck();assert.deepEqual(await totals(),['52','58','36','29']);
-  await page.locator('#numbers details').first().locator('summary').click();
-  await page.locator('#r-cardMin').fill('3');await page.locator('#r-cardMin').dispatchEvent('input');assert.equal(await page.locator('#v-cardMin').textContent(),'3.0');
-  assert.equal(await page.evaluate(()=>P.cardMin.v),3);assert((await totals())[1]!=='58','Assumption did not recalculate');
-  await page.locator('#r-cardMin').fill('2');await page.locator('#r-cardMin').dispatchEvent('input');assert.deepEqual(await totals(),['52','58','36','29']);
-  await page.locator('#numbers details').nth(1).locator('summary').click();
-  assert.equal(await page.locator('#ledgerV4 tr').count(),11);assert.equal(await page.locator('#ledgerV4 tr').last().locator('td').nth(2).textContent(),'33');
-  assert.deepEqual(checkCopy(await page.locator('body').innerText(),`${file} expanded rendered`),[]);
-  assert(!await page.locator('nav a').evaluateAll(links=>links.some(a=>/(?:^|\/)b(?:\.html)?(?:$|[?#])/.test(a.getAttribute('href')))),'B appears in navigation');
-  assert.equal(await page.locator('.hero [data-pilot-action]').textContent(),'Walk through your last launch');
-  assert.equal(await page.locator('#roles article').count(),4);
-  assert.equal(await page.locator('.hero [data-pilot-action]').count(),1);
-  assert.equal(await page.locator('.hero-copy a').count(),1);
-  assert.equal(await page.locator('.hero-audience').count(),1);
-  assert(await page.locator('.hero-audience').innerText().then(t=>t.includes('product and GTM leaders')));
-  const affected=page.locator('.hero a[data-open-detail]');
-  await affected.click();assert.equal(new URL(page.url()).hash,'#launch-dependencies');assert(await page.locator('#launch-dependencies').evaluate(el=>el.open));
-  assert(await page.locator('#launch-dependencies article').first().isVisible());
-  await page.locator('.hero a[data-focus-target]').click();assert.equal(new URL(page.url()).hash,'#next-decision');assert(await page.locator('#next-decision').isVisible());
-  await page.locator('#launch-dependencies summary').click();
-  await page.locator('#reader-receipt summary').click();assert(await page.locator('#receipt-items').isVisible());await page.locator('#reader-receipt summary').click();
-  assert.equal(await page.locator('#moments [data-moment-row]').count(),0);
-  assert(await page.locator('#moments a[href="use-cases.html"]').isVisible());
-  assert(await page.locator('.proof-line').textContent().then(t=>t.includes('software in development')));
-  assert.equal(await page.locator('#architecture summary').textContent(),'Decision roles and authority');
-  await page.locator('#architecture summary').click();
-  assert(await page.locator('#architecture p').isVisible());
-  await page.locator('#architecture summary').click();
-  assert(await page.locator('#pilot').innerText().then(t=>t.includes('No prep or documents needed')));
-  assert.equal(await page.locator('#launch-form').count(),0);
-  assert.equal(await page.locator('#pilot a[data-pilot-action]').getAttribute('href'),'mailto:ed@coordinatedai.ai?subject=30-minute%20launch%20walkthrough');
-  assert(await page.locator('#pilot').innerText().then(t=>t.includes('does not send a message or confirm delivery')));
-  const images=await page.locator('img').evaluateAll(imgs=>imgs.map(i=>({alt:i.getAttribute('alt'),loaded:i.complete&&i.naturalWidth>0,source:i.currentSrc})));
-  assert(images.every(i=>i.alt!==null&&i.loaded),'Missing alt or broken image');
-  assert(images.some(i=>i.source.includes('starfield-1600.webp')),'Responsive starfield must use 1600px below 1200px');
-  await page.keyboard.press('Tab');
-  const controls=await page.locator('a, button, input:not([tabindex="-1"]), textarea, summary, [tabindex="0"]').all();
-  for(const control of controls){if(!await control.isVisible())continue;await control.focus();assert(await control.evaluate(el=>{const s=getComputedStyle(el);return s.outlineStyle!=='none'&&parseFloat(s.outlineWidth)>0}),'Missing visible focus indicator on '+await control.evaluate(el=>el.outerHTML.slice(0,180)))}
-  for(const href of await page.locator('a[href]').evaluateAll(links=>links.map(a=>a.getAttribute('href')))) {
-   const url=new URL(href,page.url());if(url.origin!==new URL(base).origin)continue;
-   const key=url.origin+url.pathname;
-   if(!documents.has(key)){const response=await page.request.get(key);assert(response.ok(),`Broken link ${href}`);documents.set(key,await response.text())}
-   if(url.hash)assert(await page.evaluate(({html,id})=>new DOMParser().parseFromString(html,'text/html').getElementById(id)!==null,{html:documents.get(key),id:decodeURIComponent(url.hash.slice(1))}),`Broken anchor ${href}`);
+
+const prefix = process.env.VERIFY_PREFIX || '';
+const base = new URL(process.env.BASE_URL || 'http://127.0.0.1:4174');
+const headline = 'Let your go-to-market move at the speed of your product.';
+const walkthrough = 'Walk through your last launch';
+const email = 'mailto:ed@coordinatedai.ai?subject=30-minute%20launch%20walkthrough';
+const documents = new Map(), contrastLog = [], log = [];
+const normalize = text => text.replace(/\s+/g, ' ').trim();
+const browser = await chromium.launch({ headless: true, ...(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {}) });
+await mkdir('docs/site-v5/screenshots', { recursive: true });
+await mkdir('docs/site-v5/logs', { recursive: true });
+
+function recordErrors(page) {
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  page.on('console', message => { if (message.type() === 'error') errors.push(`${message.text()} ${message.location().url || ''}`); });
+  return errors;
+}
+
+async function checkLinks(page) {
+  for (const href of await page.locator('a[href]').evaluateAll(links => links.map(link => link.getAttribute('href')))) {
+    const url = new URL(href, page.url());
+    if (url.origin !== base.origin) continue;
+    const key = url.origin + url.pathname;
+    if (!documents.has(key)) {
+      const response = await page.request.get(key);
+      assert(response.ok(), `Broken link ${href}`);
+      documents.set(key, await response.text());
+    }
+    if (url.hash) assert(await page.evaluate(({ html, id }) => new DOMParser().parseFromString(html, 'text/html').getElementById(id) !== null,
+      { html: documents.get(key), id: decodeURIComponent(url.hash.slice(1)) }), `Broken anchor ${href}`);
   }
-  await page.getByRole('button',{name:'Copy address'}).first().click();await page.waitForFunction(()=>document.querySelector('.copy-status').textContent.length>0);
-  await page.locator('.copy-status').evaluateAll(elements=>elements.forEach(el=>el.textContent=''));
-  await page.locator('details').evaluateAll(elements=>elements.forEach(el=>el.open=false));
-  assert.equal(await page.locator('form').count(),0,'No unverified submission flow should be exposed');
-  await page.locator('h1').click();await page.evaluate(()=>scrollTo(0,0));
-  await page.screenshot({path:`docs/site-v5/screenshots/${prefix}${file==='index.html'?'a':'b'}-${width}-${colorScheme}.png`,fullPage:true});
-  assert.deepEqual(errors,[],'Browser console errors');
-  log.push(`PASS ${file} ${width}px ${colorScheme}: headline, B unlinked, totals 52/58/36/29, pessimistic 41/35, sliders, ledger weekdays, unchanged calculator hash, labels, mailto contact, copy address, overflow, rendered copy, images, focus, links/anchors, working hero links and no submission form.`);
-  await page.close();
- }
- const noJS=await browser.newPage({javaScriptEnabled:false});await noJS.goto(base);assert(await noJS.locator('.hero a[href^="mailto:ed@coordinatedai.ai"]').isVisible());await noJS.close();log.push('PASS no-JavaScript email fallback.');
- // OG is rendered by the same browser, never generated from an unrelated asset.
- if(!process.env.SKIP_OG_RENDER) { const og=await browser.newPage({viewport:{width:1200,height:630},deviceScaleFactor:1});await og.goto(`${base}/og.html`);await og.evaluate(()=>document.fonts.ready);await og.screenshot({path:'assets/galaxy/og-1200x630.png'});await og.close();log.push('PASS OG rendered from dedicated og.html at 1200x630.'); } else log.push('PASS existing OG image left unchanged.');
- for(const width of [320,375,768,1024,1440,1920]) {
-  const page=await browser.newPage({viewport:{width,height:900},reducedMotion:'reduce'});await page.goto(base);await page.evaluate(()=>document.fonts.ready);
-  assert(await page.evaluate(()=>document.scrollingElement.scrollWidth<=innerWidth),`Overflow at ${width}`);
-  assert(await page.evaluate(()=>{const a=document.querySelector('.hero-copy').getBoundingClientRect(),b=document.querySelector('.hero-product').getBoundingClientRect();return a.right<=b.left||b.right<=a.left||a.bottom<=b.top||b.bottom<=a.top}),`Hero collision at ${width}`);
-  await page.screenshot({path:`docs/site-v5/screenshots/${prefix}responsive-${width}.png`});await page.close();
- }
- log.push('PASS responsive sweep 320/375/768/1024/1440/1920: no overflow or hero collision.');
- const privacy=await browser.newPage();await privacy.goto(`${base}/privacy.html`);const privacyText=await privacy.locator('body').innerText();
- assert(!/regular security assessments|industry-standard security|encryption of sensitive data|account is active/i.test(privacyText));assert(privacyText.includes('Coordinated is prelaunch'));await privacy.close();
- log.push('PASS privacy claims narrowed to current website and enquiries.');
- log.push('PASS calculator SHA-256 '+digest(originalCalc));
-} catch(error) {log.push(`FAIL ${error.stack}`);throw error} finally {await browser.close();await writeFile(`docs/site-v5/logs/${prefix}playwright.log`,log.join('\n')+'\n');await writeFile(`docs/site-v5/logs/${prefix}hero-contrast.json`,JSON.stringify(contrastLog,null,2)+'\n');console.log(log.join('\n'))}
+}
+
+async function checkImages(page) {
+  await page.evaluate(async () => {
+    for (let y = 0; y < document.body.scrollHeight; y += 700) {
+      scrollTo(0, y);
+      await new Promise(resolve => setTimeout(resolve, 15));
+    }
+    await Promise.all([...document.images].map(image => image.decode().catch(() => {})));
+  });
+  const images = await page.locator('img').evaluateAll(elements => elements.map(image => ({ alt: image.getAttribute('alt'), loaded: image.complete && image.naturalWidth > 0 })));
+  assert(images.every(image => image.alt !== null && image.loaded), 'Missing alt attribute or broken image');
+}
+
+async function checkNavigation(page) {
+  const links = await page.locator('nav a').evaluateAll(elements => elements.map(link => ({ href: link.getAttribute('href'), text: link.textContent.replace(/\s+/g, ' ').trim().replace(/’/g, "'") })));
+  assert(!links.some(link => /(?:^|\/)b(?:\.html)?(?:$|[?#])/.test(link.href)), 'B variant stays unlinked');
+  for (const link of links) {
+    if (/(?:^|\/)use-cases(?:\.html)?(?:$|[?#])/.test(link.href)) assert.equal(link.text, 'Launch example');
+    if (/(?:^|\/)pilot-evidence(?:\.html)?(?:$|[?#])/.test(link.href)) assert.equal(link.text, "How we'll measure");
+  }
+  assert(await page.locator('.primary-nav').evaluate(nav => nav.scrollWidth <= nav.clientWidth + 1), 'Primary navigation is not horizontally clipped');
+  assert(await page.locator('.site-header').evaluate(header => {
+    const brand = header.querySelector('.brand').getBoundingClientRect(), nav = header.querySelector('nav').getBoundingClientRect();
+    return brand.right <= nav.left + 1 || nav.right <= brand.left + 1 || brand.bottom <= nav.top + 1 || nav.bottom <= brand.top + 1;
+  }), 'Brand and navigation do not overlap');
+}
+
+async function checkFocus(page) {
+  await page.keyboard.press('Tab');
+  for (const control of await page.locator('a, button, input:not([tabindex="-1"]), textarea, summary, [tabindex="0"]').all()) {
+    if (!await control.isVisible() || await control.isDisabled()) continue;
+    await control.focus();
+    assert(await control.evaluate(element => { const style = getComputedStyle(element); return style.outlineStyle !== 'none' && parseFloat(style.outlineWidth) > 0; }), 'Missing visible keyboard focus: ' + await control.evaluate(element => element.outerHTML.slice(0, 180)));
+  }
+}
+
+async function checkCTA(page, initiallyVisible = false) {
+  const actions = page.locator('a[data-pilot-action]');
+  for (const action of await actions.all()) {
+    assert.equal(normalize(await action.textContent()), walkthrough);
+    assert.equal(await action.getAttribute('href'), email);
+  }
+  if (await page.locator('.hero').count()) {
+    const action = page.locator('.hero [data-pilot-action]');
+    assert.equal(await action.count(), 1);
+    if (!initiallyVisible) await action.scrollIntoViewIfNeeded();
+    assert(await action.evaluate(element => { const rect = element.getBoundingClientRect(); return rect.top >= 0 && rect.bottom <= innerHeight && rect.left >= 0 && rect.right <= innerWidth; }), 'Primary CTA is visible and unclipped');
+  }
+}
+
+async function checkHeadings(page) {
+  assert(await page.evaluate(() => document.scrollingElement.scrollWidth <= innerWidth), 'Horizontal overflow');
+  assert(await page.locator('h1').evaluateAll(elements => elements.length === 1 && elements[0].textContent.trim().length > 0), 'One readable page heading');
+  assert(await page.locator('h1,h2,h3').evaluateAll(elements => elements.every(element => element.scrollWidth <= element.clientWidth + 1)), 'Heading text is clipped');
+  if (await page.locator('.hero-copy').count()) assert(await page.evaluate(() => {
+    const copy = document.querySelector('.hero-copy').getBoundingClientRect(), card = document.querySelector('.hero-product').getBoundingClientRect();
+    return copy.right <= card.left + 1 || card.right <= copy.left + 1 || copy.bottom <= card.top + 1 || card.bottom <= copy.top + 1;
+  }), 'Hero copy and example do not overlap');
+}
+
+try {
+  for (const file of ['index.html', 'b.html']) for (const width of [400, 1100]) for (const colorScheme of ['light', 'dark']) {
+    const page = await browser.newPage({ viewport: { width, height: 900 }, colorScheme, reducedMotion: 'reduce' });
+    const errors = recordErrors(page);
+    await page.goto(new URL(file, base).href);
+    await page.evaluate(() => document.fonts.ready);
+    await page.locator('.hero-galaxy').evaluate(image => image.decode());
+    assert.equal(await page.locator('h1').textContent(), headline);
+    const heroText = normalize(await page.locator('.hero').innerText());
+    assert.equal((heroText.match(/AI go-to-market program manager for launches/gi) || []).length, 1, 'Category appears once in the hero');
+    assert(/50\s*(?:to|[–-])\s*300/i.test(heroText) && /software/i.test(heroText), 'The intended company size and audience appear early');
+    assert(/ship|product/i.test(heroText) && /GTM|go-to-market/i.test(heroText));
+    const bodyText = await page.locator('body').innerText();
+    assert.equal((bodyText.match(/prelaunch/gi) || []).length, 1, 'One clear homepage Prelaunch disclosure');
+    assert.equal(await page.locator('.legacy-model,#reader-receipt,#attention-model,#cmp,video,.hero-film-stage').count(), 0, 'Removed simulator, receipt and video are absent');
+    assert(await page.evaluate(() => typeof globalThis.model === 'undefined'), 'Archived calculator is not injected into the homepage');
+    assert.equal(await page.locator('form').count(), 0);
+    assert.equal(await page.locator('.dependency-map-rows article').count(), 7);
+    const scenario = normalize(await page.locator('#moments').innerText());
+    assert(/Northstar/.test(scenario) && /illustrative/i.test(scenario));
+    assert(/See what can move and what must wait/i.test(scenario));
+    assert(/Product/.test(scenario) && /Pricing/.test(scenario) && /confirm/i.test(scenario) && /release owner/i.test(scenario) && /go\/no.go|go or no.go|go.ahead/i.test(scenario), 'Scenario ends with human decisions, owner confirmation and release authority');
+    assert(/export/i.test(scenario) && /Security/.test(scenario) && /held|blocked|clearance/i.test(scenario), 'Export retains its Security gate');
+    await checkHeadings(page);
+    await checkNavigation(page);
+    await checkCTA(page, true);
+    const contrast = await measureHeroContrast(page);
+    contrastLog.push({ file, width, colorScheme, ...contrast });
+    assert(contrast.minimum >= 4.5, `Hero contrast ${contrast.minimum.toFixed(2)} below 4.5:1`);
+    const heroImage = page.locator('.hero-galaxy');
+    assert.equal(await heroImage.getAttribute('loading'), 'eager');
+    assert.equal(await heroImage.getAttribute('fetchpriority'), 'high');
+    assert.equal(await heroImage.evaluate(image => getComputedStyle(image).objectFit), 'contain', 'Protected complete hero photograph remains contained');
+    assert(/landscape-(1600|1200)\.webp/.test(await heroImage.evaluate(image => image.currentSrc)), 'Protected responsive landscape is used below 1200px');
+    assert(await page.evaluate(() => [...document.querySelectorAll('link[rel="preload"][as="image"]')].some(link => matchMedia(link.media).matches && new URL(link.href).href === document.querySelector('.hero-galaxy').currentSrc && link.imageSrcset && link.imageSizes)), 'Hero preload matches its responsive source');
+    await page.evaluate(() => scrollTo(0, 0));
+    await page.screenshot({ path: `docs/site-v5/screenshots/${prefix}${file === 'index.html' ? 'a' : 'b'}-${width}-${colorScheme}-hero.png` });
+    const affected = page.locator('.hero a[data-open-detail]');
+    await affected.click();
+    assert.equal(new URL(page.url()).hash, '#launch-dependencies');
+    assert(await page.locator('#launch-dependencies').evaluate(element => element.open));
+    assert(await page.locator('#launch-dependencies article').first().isVisible());
+    await page.locator('.hero a[data-focus-target]').click();
+    assert.equal(new URL(page.url()).hash, '#next-decision');
+    assert.equal(await page.evaluate(() => document.activeElement.id), 'next-decision');
+    assert(await page.locator('#next-decision').isVisible());
+    const contact = normalize(await page.locator('#pilot').innerText());
+    assert(/no (?:prep|preparation).*documents? needed/i.test(contact));
+    assert(/does not send a message or confirm delivery/i.test(contact));
+    await checkImages(page);
+    assert.deepEqual(checkCopy(await page.locator('body').innerText(), `${file} rendered`), []);
+    await checkLinks(page);
+    await checkFocus(page);
+    await page.getByRole('button', { name: 'Copy address' }).first().click();
+    await page.waitForFunction(() => [...document.querySelectorAll('.copy-status')].some(element => element.textContent.length > 0));
+    await page.locator('.copy-status').evaluateAll(elements => elements.forEach(element => element.textContent = ''));
+    await page.locator('details').evaluateAll(elements => elements.forEach(element => element.open = false));
+    await page.evaluate(() => scrollTo(0, 0));
+    await page.screenshot({ path: `docs/site-v5/screenshots/${prefix}${file === 'index.html' ? 'a' : 'b'}-${width}-${colorScheme}.png`, fullPage: true });
+    assert.deepEqual(errors, [], 'Browser console/runtime errors');
+    log.push(`PASS ${file} ${width}px ${colorScheme}: audience/category/prelaunch, illustrative human approvals and owner confirmation, protected hero photo, visible CTA, working hero anchors, navigation, copy address, images/links/focus and no forms, simulator, receipt or video.`);
+    await page.close();
+  }
+
+  for (const file of ['index.html', 'use-cases.html', 'pilot-evidence.html']) for (const width of [320, 375, 768, 1024, 1440, 1920]) {
+    const page = await browser.newPage({ viewport: { width, height: 900 }, reducedMotion: 'reduce' });
+    const errors = recordErrors(page);
+    await page.goto(new URL(file, base).href);
+    await page.evaluate(() => document.fonts.ready);
+    await checkHeadings(page);
+    await checkNavigation(page);
+    await checkCTA(page);
+    assert.equal(await page.locator('form').count(), 0);
+    if (file !== 'index.html') {
+      const text = await page.locator('main').innerText();
+      assert(!/exact feasible commitments|last useful action time|pinned original|human rescue|permission-filtered views/i.test(text), 'Supporting pages use plain language');
+      assert.deepEqual(checkCopy(text, `${file} rendered`), []);
+    }
+    await checkImages(page);
+    await checkLinks(page);
+    await page.evaluate(() => scrollTo(0, 0));
+    await page.screenshot({ path: `docs/site-v5/screenshots/${prefix}responsive-${file.replace('.html', '')}-${width}.png` });
+    assert.deepEqual(errors, [], 'Responsive page errors');
+    await page.close();
+  }
+  log.push('PASS 320/375/768/1024/1440/1920px sweep on home, Launch example and How we’ll measure: overflow, headings/nav, CTA, images and links/anchors.');
+
+  const noJS = await browser.newPage({ javaScriptEnabled: false, viewport: { width: 400, height: 900 } });
+  await noJS.goto(base.href);
+  assert(await noJS.locator('.hero a[href^="mailto:ed@coordinatedai.ai"]').isVisible());
+  assert.equal(await noJS.locator('form,video,.legacy-model,#reader-receipt').count(), 0);
+  await noJS.close();
+  log.push('PASS no-JavaScript email fallback.');
+  if (!process.env.SKIP_OG_RENDER) {
+    const og = await browser.newPage({ viewport: { width: 1200, height: 630 }, deviceScaleFactor: 1 });
+    await og.goto(new URL('og.html', base).href);
+    await og.evaluate(() => document.fonts.ready);
+    await og.screenshot({ path: `docs/site-v5/screenshots/${prefix}og-review.png` });
+    await og.close();
+    log.push('PASS OG review screenshot captured without changing a published image asset.');
+  } else log.push('PASS existing OG image left unchanged.');
+  const privacy = await browser.newPage();
+  await privacy.goto(new URL('privacy.html', base).href);
+  const privacyText = await privacy.locator('body').innerText();
+  assert(!/regular security assessments|industry-standard security|encryption of sensitive data|account is active|reading-receipt code/i.test(privacyText));
+  assert(privacyText.includes('Coordinated is prelaunch'));
+  await privacy.close();
+  log.push('PASS privacy matches the current website/enquiry scope and removed receipt. Archived calculator preservation is checked by check:references.');
+} catch (error) {
+  log.push(`FAIL ${error.stack}`);
+  throw error;
+} finally {
+  await browser.close();
+  await writeFile(`docs/site-v5/logs/${prefix}playwright.log`, log.join('\n') + '\n');
+  await writeFile(`docs/site-v5/logs/${prefix}hero-contrast.json`, JSON.stringify(contrastLog, null, 2) + '\n');
+  console.log(log.join('\n'));
+}

@@ -121,52 +121,6 @@ if (momentRows.length && "IntersectionObserver" in window) {
   momentRows.forEach((row) => momentObserver.observe(row));
 }
 
-const receiptItems = document.querySelector("#receipt-items");
-const receiptCount = document.querySelector("#receipt-count");
-const receiptTime = document.querySelector("#receipt-time");
-const receiptSections = [...document.querySelectorAll("[data-receipt-label]")];
-const recordedSections = new Set(["Homepage opened"]);
-
-function formatReceiptTime() {
-  return new Intl.DateTimeFormat("en-US", {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-    hour: "numeric",
-    minute: "2-digit"
-  }).format(new Date());
-}
-
-function renderReceipt() {
-  if (!receiptItems || !receiptCount || !receiptTime) return;
-  receiptItems.replaceChildren(...[...recordedSections].map((label) => {
-    const item = document.createElement("li");
-    item.textContent = label;
-    return item;
-  }));
-  const count = recordedSections.size;
-  receiptCount.textContent = `${count} ${count === 1 ? "section" : "sections"} recorded`;
-  receiptTime.textContent = formatReceiptTime();
-}
-
-if (receiptItems) {
-  renderReceipt();
-
-  if ("IntersectionObserver" in window) {
-    const receiptObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        recordedSections.add(entry.target.dataset.receiptLabel);
-        renderReceipt();
-        receiptObserver.unobserve(entry.target);
-      });
-    }, { threshold: 0.28 });
-
-    receiptSections.forEach((section) => receiptObserver.observe(section));
-  }
-}
-
 const launchForm = document.querySelector('#launch-form');
 if (launchForm) {
   launchForm.addEventListener('submit', async (event) => {

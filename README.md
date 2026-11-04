@@ -1,3 +1,11 @@
+## November 4 content follow-up: preserve the live hero
+
+This content-only preview keeps the exact live hero photo, responsive image sources, hero-specific styles and desktop photo/card geometry from live commit a9db33408f81ffaefa8f54ef206a6622950e7bf4. The mobile order stays copy, photo, card. New text changes wrapping and moves the mobile photo/card down 31.484px; header height and image framing match live. The mobile header CTA is now visible and unclipped. Video work stays deferred on its separate branch and preview.
+
+Lead with the AI go-to-market program manager for launches, the 50 to 300-person software-company audience and the product/GTM pace gap. Explain active coordination, human decisions and owner confirmation through one illustrative Northstar story. Keep one clear Prelaunch disclosure, no launched-user/results claims and no unsupported security/privacy guarantees. Use Walk through your last launch with existing email/copy fallback. Remove homepage simulator, reading receipt and broader company-decision pitch; preserve the original calculator source only as an archive. Supporting pages use one Launch example and How we’ll measure vocabulary.
+
+Current work is preview-only on the existing content-preview branch. Do not merge, promote production, change account security or add video. The current user instruction overrides older hero-enlargement and historical local-only notes below.
+
 ## November 4 review corrections
 
 The preview foregrounds the illustrative product card and audience. Hero links reveal the affected work and the next decision; they do not approve changes. The website now offers mailto contact only, with no collection/submission form. BOOKING_URL is intentionally unused in this preview so every contact CTA matches its email-app explanation. The legacy contact endpoint is retained for compatibility; its response confirms configured mail-service recipient acceptance only, never inbox delivery. Its tests use injected transports and send no real messages. Privacy text covers the marketing website and email enquiries; proposed product boundaries are not presented as verified production controls. This work remains preview-only, with no production promotion or security-setting changes.
@@ -42,7 +50,7 @@ Server variables:
 - `CONTACT_ADDRESS`: document recipient, default `ed@coordinatedai.ai`; confirm with Ed.
 - `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM`: authenticated mail transport and verified sender. Port 465 uses TLS; other ports require STARTTLS.
 
-The form sends email and pasted document text to `/api/contact` on this site's host. There is no third-party form service or document storage. Success is returned only after SMTP accepts the message. Delivery failure keeps the document in the form. No JavaScript fallback: email `ed@coordinatedai.ai`.
+The public site uses mailto and Copy address, with no submission form or document-upload flow. The legacy `/api/contact` endpoint remains for compatibility; its tests use injected transports. A configured mail service accepting a recipient is not confirmation of inbox delivery. The website does not claim delivery or a reply.
 
 The Vercel configuration preserves clean URLs and explicitly sets the build output to dist/. The function uses the host's standard `api/` convention; no native static form service is configured. No dashboard, DNS, or environment settings were changed; the repository outputDirectory declaration corrects the reported preview-build mismatch. Configure the mail transport before accepting live submissions. Production deployment remains manual.
 

@@ -1,3 +1,11 @@
+## November 4 content follow-up: preserve the live hero
+
+This content-only preview keeps the exact live hero photo, responsive image sources, hero-specific styles and desktop photo/card geometry from live commit a9db33408f81ffaefa8f54ef206a6622950e7bf4. The mobile order stays copy, photo, card. New text changes wrapping and moves the mobile photo/card down 31.484px; header height and image framing match live. The mobile header CTA is now visible and unclipped. Video work stays deferred on its separate branch and preview.
+
+Lead with the AI go-to-market program manager for launches, the 50 to 300-person software-company audience and the product/GTM pace gap. Explain active coordination, human decisions and owner confirmation through one illustrative Northstar story. Keep one clear Prelaunch disclosure, no launched-user/results claims and no unsupported security/privacy guarantees. Use Walk through your last launch with existing email/copy fallback. Remove homepage simulator, reading receipt and broader company-decision pitch; preserve the original calculator source only as an archive. Supporting pages use one Launch example and How we’ll measure vocabulary.
+
+Current work is preview-only on the existing content-preview branch. Do not merge, promote production, change account security or add video. The current user instruction overrides older hero-enlargement and historical local-only notes below.
+
 ## November 3 review preview: product-speed go-to-market
 
 The newest review direction leads with “Let your go-to-market move at the speed of your product.” The core proof is an explicitly illustrative before/after: Security delays export; the same seven functions coordinate the same scope and approvals. Show parallel core preparation, work waiting for approved facts, unresolved Security clearance, accountable owners and the human go/no-go. No invented time savings or measured speedup. The older meeting-effort simulator is secondary and collapsed, with no claim that it evaluates launch speed. This iteration is PREVIEW ONLY; no production promotion or security-prompt interaction is authorized.
