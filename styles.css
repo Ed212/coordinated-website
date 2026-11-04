@@ -541,3 +541,28 @@ summary:focus-visible, [tabindex="0"]:focus-visible { outline: 3px solid current
  .shared-outcome { padding: 24px; }
  .scenario-trigger { font-size: 16px; }
 }
+
+/* Verified review fixes: foreground the example and simplify the first screen. */
+.homepage-clarity .hero { min-height: 0; }
+.homepage-clarity .hero-layout { min-height: 0; padding-block: 64px 72px; align-items: center; gap: 48px; }
+.homepage-clarity .hero-product { margin-top: 0; }
+.homepage-clarity .hero-media { top: 0; height: 100%; aspect-ratio: auto; opacity: .16; }
+.homepage-clarity .hero-galaxy { object-fit: cover; }
+.homepage-clarity .hero h1 { font-size: clamp(40px, 3.7vw, 60px); line-height: 1.08; letter-spacing: -.035em; }
+.headline-phrase { white-space: nowrap; }
+.hero-audience { max-width: 44ch; margin: 0 0 20px; font-size: 14px; line-height: 1.5; color: #d5d7dc; }
+.hero .card-actions a { display: inline-flex; justify-content: center; align-items: center; min-height: 44px; padding: 10px 12px; border: 1px solid var(--rule); color: var(--ink); text-align: center; font-size: 12px; }
+.hero .card-actions a:hover { border-color: var(--ink); }
+.email-contact { margin-top: 28px; max-width: 66ch; }
+.email-contact .contact-limit { margin: 16px 0 0; color: var(--muted); font-size: 13px; }
+.design-boundary-label { margin-top: 24px !important; font-size: 14px; }
+@media (max-width:760px) {
+ .homepage-clarity .hero-layout { gap: 32px; padding-block: 36px 48px; }
+ .homepage-clarity .hero-copy { grid-row: 1; }
+ .homepage-clarity .hero-product { grid-row: 2; }
+ .homepage-clarity .hero-media { position: absolute; inset: 0; width: 100vw; margin: 0; transform: none; grid-row: auto; }
+ .homepage-clarity .hero h1 { font-size: clamp(34px, 9.4vw, 42px); }
+ .hero-audience { font-size: 13px; }
+ .hero .card-actions a { font-size: 12px; }
+ .primary-nav .nav-contact { display: inline-flex; }
+}

@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Coordinated: let your go-to-market move at the speed of your product</title>
-  <meta name="description" content="We’re building an AI go-to-market program manager for launches. Coordinated helps teams turn product changes into an agreed launch plan, with owners, dependencies and human decisions kept together.">
+  <meta name="description" content="We’re building Coordinated to find dependencies, bring decisions to the right people and keep your launch moving from one agreed plan.">
   <meta name="theme-color" content="#16181D">
   <meta property="og:title" content="Coordinated: let your go-to-market move at the speed of your product">
-  <meta property="og:description" content="We’re building an AI go-to-market program manager for launches. Coordinated helps teams turn product changes into an agreed launch plan, with owners, dependencies and human decisions kept together.">
+  <meta property="og:description" content="We’re building Coordinated to find dependencies, bring decisions to the right people and keep your launch moving from one agreed plan.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://coordinatedai.ai/">
   <meta property="og:image" content="https://coordinatedai.ai/assets/galaxy/landscape-1200.webp">
@@ -34,11 +34,10 @@
       <span>Coordinated</span>
     </a>
     <nav class="primary-nav" aria-label="Primary navigation">
-      <a href="#roles">Who it helps</a>
+      <a href="#moments">Example</a>
       <a href="#how">How it works</a>
-      <a href="use-cases.html">Use cases</a>
       <a href="pilot-evidence.html">Evidence</a>
-      <a class="nav-contact" href="#pilot">Explore a launch</a>
+      <a class="nav-contact" href="#pilot">Contact</a>
     </nav>
   </header>
   <main id="main">
@@ -52,13 +51,10 @@
       <div class="hero-scrim" aria-hidden="true"></div>
         <div class="hero-copy">
           <p class="eyebrow">AI GO-TO-MARKET PROGRAM MANAGER FOR LAUNCHES</p>
+          <p class="hero-audience">For product and GTM leaders at growing software companies.</p>
           <h1 id="hero-title">{{HEADLINE}}</h1>
-          <p class="hero-promise">We’re building an AI go-to-market program manager for launches. Coordinated helps teams turn product changes into an agreed launch plan, with owners, dependencies and human decisions kept together.</p>
-          <ul class="hero-benefits">
-            <li>Get the right teams moving together.</li>
-            <li>See what can move and what must wait.</li>
-            <li>Keep the launch plan current as scope changes.</li>
-          </ul>
+          <p class="hero-promise">We’re building Coordinated to find dependencies, bring decisions to the right people and keep your launch moving from one agreed plan.</p>
+
           <p class="proof-line">Prelaunch. Proposed capabilities; software in development.</p>
           <div class="hero-actions">{{PILOT_LINK}}</div>
         </div>
@@ -78,10 +74,10 @@
               <div><dt>Must wait</dt><dd>changed claims and export release</dd></div>
               <div><dt>Next decision</dt><dd>approve a narrower launch?</dd></div>
             </dl>
-            <div class="card-actions" aria-label="Illustrative responses">
-              <button type="button" data-card-answer>See affected work</button>
-              <button type="button" data-card-answer>Review open decisions</button>
-            </div>
+            <nav class="card-actions" aria-label="Explore this illustrative example">
+              <a href="#launch-dependencies" data-open-detail="launch-dependencies">See affected work</a>
+              <a href="#next-decision" data-focus-target="next-decision">Review open decisions</a>
+            </nav>
             <p class="card-reason">Illustrative state: owner responses and security clearance are unresolved. No approval is inferred.</p>
           </article>
         </div>
@@ -123,7 +119,7 @@
           </article>
         </div>
         <div class="shared-outcome"><p class="section-number">Same intended outcome. Same human approvals.</p><p>A launch with agreed scope, accurate commercial claims and accepted owner commitments. Export stays blocked until Security clears it. The release owner decides go/no-go only after the required gates pass.</p></div>
-        <details class="dependency-map">
+        <details class="dependency-map" id="launch-dependencies">
           <summary>See the affected teams and dependencies</summary>
           <div class="dependency-map-rows">
             <article><h3>Product</h3><p>Decide whether to exclude export from this launch and approve the revised scope.</p><span class="dependency-tag">Human scope decision</span></article>
@@ -139,7 +135,7 @@
           <div><span>Proposed launch</span><p>Core product, with export excluded.</p></div>
           <div><span>Can continue</span><p>Core preparation and drafts against already approved facts.</p></div>
           <div><span>Still blocked</span><p>Export clearance; changed claims awaiting Product and Pricing.</p></div>
-          <div><span>Next decision</span><p>Product lead: approve narrower scope? Release owner: go/no-go after evidence and gates.</p></div>
+          <div id="next-decision" tabindex="-1"><span>Next decision</span><p>Product lead: approve narrower scope? Release owner: go/no-go after evidence and gates.</p></div>
         </div>
         <p class="scenario-disclosure">Both approaches include dependency discovery, owner checks, approvals, revisions and readiness work. This comparison illustrates intended coordination; it makes no measured launch-speed or time-saving claim.</p>
         <a class="text-link text-link-dark" href="use-cases.html">Explore more illustrative launch scenarios →</a>
@@ -148,7 +144,7 @@
     <section class="section narrative-section" id="how" aria-labelledby="how-title" data-receipt-label="From plan to evidence">
       <div class="ledger-boundary narrative-layout">
         <div class="narrative-copy">
-          <div class="section-intro"><p class="section-number">01 / The first launch</p><h2 id="how-title">Manage the work of the launch.</h2></div>
+          <div class="section-intro"><p class="section-number">How it works</p><h2 id="how-title">Manage the work of the launch.</h2></div>
           <p>We’re building a program manager that works from the current launch plan, checks what is needed and coordinates the work through to readiness.</p>
           <ol class="journey-list">
             <li><h3>Build the current plan</h3><p>Bring existing documents, goals and accountable owners into one current launch plan.</p></li>
@@ -193,12 +189,13 @@
     </section>
     <section class="section ledger-section" id="trust" aria-labelledby="trust-title" data-receipt-label="Company judgment and authority">
       <div class="ledger-boundary">
-        <div class="section-intro"><p class="section-number">02 / Approved launch context</p><h2 id="trust-title">One current plan. Approved information behind it.</h2></div>
+        <div class="section-intro"><p class="section-number">Approved launch context</p><h2 id="trust-title">One current plan. Approved information behind it.</h2></div>
         <p class="scope-line" id="start">Approved positioning, feature and security information would underpin the launch plan, with current versions and accountable owners. It can guide people and agents as they coordinate the work. Over time, we intend to extend that company context to other consequential decisions.</p>
+        <p class="scope-line design-boundary-label">Design boundaries for the proposed workflow, not verified production controls.</p>
         <div class="trust-grid concise-boundaries">
-          <article><h3>People keep authority.</h3><p>Decision approval, owner acceptance and action permission stay separate. Required specialist gates still apply.</p></article>
-          <article><h3>Guidance is scoped.</h3><p>People and agents see permitted context. Reading guidance neither authorizes nor enforces action.</p></article>
-          <article><h3>Private stays private.</h3><p>Share permitted context or message Coordinated directly. This does not open other people's private DMs.</p></article>
+          <article><h3>Human decisions.</h3><p>The proposed workflow requires scoped human approval, separate owner acceptance and permission to act. Required specialist gates would remain in place.</p></article>
+          <article><h3>Permitted context.</h3><p>People and agents would receive context permitted for their role and workspace. This preview does not demonstrate production permission enforcement.</p></article>
+          <article><h3>Agreed sources.</h3><p>Any future pilot would define permitted sources before data is shared. This website does not connect to Slack or read private messages.</p></article>
         </div>
         <details class="decision-detail" id="architecture">
           <summary>Decision roles and authority</summary>
@@ -211,33 +208,23 @@
     </details></div>
     <section class="section ledger-section" id="pilot" aria-labelledby="pilot-title" data-receipt-label="Explore one launch">
       <div class="ledger-boundary">
-        <div class="section-intro"><p class="section-number">04 / Explore</p><h2 id="pilot-title">Walk through your last launch.</h2></div>
+        <div class="section-intro"><p class="section-number">Contact</p><h2 id="pilot-title">Walk through your last launch.</h2></div>
         <p class="scope-line">For 50 to 300-person software teams. Spend 30 minutes walking through your last launch: who was involved, what changed and where the work got stuck. No prep or documents needed.</p>
         <p class="scope-line">Your screen, not your data. Any pilot, data sharing or manual exploration would need a separate agreement on scope and permissions. Keep Linear or GitHub for engineering; the proposed Slack experience implies no live synchronization or issue creation.</p>
         <a class="text-link text-link-dark" href="pilot-evidence.html">See the proposed evidence checks →</a>
         <div class="contact-route"><span id="pilot-address">ed@coordinatedai.ai</span><button type="button" data-copy-address="pilot-address">Copy address</button></div>
         <p class="copy-status" role="status" aria-live="polite"></p>
-        <div class="document-section" id="send-doc" aria-labelledby="document-title">
-          <div class="document-layout">
-            <div><p class="section-number">Optional conversation request</p><h3 id="document-title">Tell us what you’d like to discuss.</h3><p>A short note is enough. Please don’t paste documents or private launch data.</p></div>
-        <form id="launch-form" action="/api/contact" method="post">
-          <label for="email">Your email</label>
-          <input id="email" name="email" type="email" autocomplete="email" maxlength="254" required>
-          <label for="document">What would you like to discuss?</label>
-          <textarea id="document" name="document" rows="3" maxlength="30000" required></textarea>
-          <div class="form-trap" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
-          <button class="button button-dark" type="submit">Request a conversation</button>
-          <p id="form-status" role="status" aria-live="polite"></p>
-          <noscript><p>Email a short note to <a href="mailto:ed@coordinatedai.ai">ed@coordinatedai.ai</a>.</p></noscript>
-        </form>
-          </div>
+        <div class="email-contact" id="send-doc">
+          <p>Open your email app to request a conversation. A short note is enough; please don’t send documents, credentials or private launch data.</p>
+          {{PILOT_ACTION}}
+          <p class="contact-limit">Opening the email link does not send a message or confirm delivery.</p>
         </div>
       </div>
     </section>
     <section class="reader-receipt compact-receipt" id="reader-receipt" aria-label="Browser reading receipt">
       <details class="ledger-boundary decision-detail">
         <summary>Your browser-only reading receipt</summary>
-        <p>Stays in this browser; never sent.</p>
+        <p>This page’s reading-receipt code keeps the list in browser memory and does not send it to us.</p>
         <article class="receipt-card" aria-live="polite">
           <header><span>Coordinated</span><span>Reader receipt</span></header>
           <ul id="receipt-items"><li>Homepage opened</li></ul>
@@ -250,7 +237,7 @@
     <div class="ledger-boundary footer-grid">
       <a class="brand brand-footer" href="index.html"><img loading="lazy" src="brand/mark_light.svg" width="36" height="36" alt=""><span>Coordinated</span></a>
       <nav aria-label="Footer navigation">
-        <a href="#moments">Launch example</a><a href="#how">How it works</a><a href="pilot-evidence.html">Evidence</a><a href="#pilot">Explore</a><a href="mailto:ed@coordinatedai.ai">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a>
+        <a href="#moments">Example</a><a href="#how">How it works</a><a href="pilot-evidence.html">Evidence</a><a href="#pilot">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a>
       </nav>
       <div class="contact-route"><span id="footer-address">ed@coordinatedai.ai</span><button type="button" data-copy-address="footer-address">Copy address</button><span class="copy-status" role="status" aria-live="polite"></span>{{FOOTER_BOOKING}}</div>
     </div>

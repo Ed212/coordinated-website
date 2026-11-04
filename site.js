@@ -207,3 +207,16 @@ for (const button of document.querySelectorAll('[data-copy-address]')) {
     }
   });
 }
+
+// These links inspect an illustrative plan; they do not approve or send anything.
+for (const link of document.querySelectorAll('[data-open-detail], [data-focus-target]')) {
+  link.addEventListener('click', () => {
+    const id = link.dataset.openDetail || link.dataset.focusTarget;
+    const target = document.getElementById(id);
+    if (!target) return;
+    if (target instanceof HTMLDetailsElement) {
+      target.open = true;
+      target.querySelector('summary')?.focus({ preventScroll: true });
+    } else target.focus({ preventScroll: true });
+  });
+}

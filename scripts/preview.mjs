@@ -11,7 +11,7 @@ http.createServer(async(req,res)=>{
   req.body=input;
   const {createHandler}=await import('../api/contact.js');
   // Explicit test mode uses a local delivery sink. Production never uses this sink.
-  const sendMail=process.env.TEST_MAIL_SINK==='1' ? async()=>({accepted:['local-test']}) : undefined;
+  const sendMail=process.env.TEST_MAIL_SINK==='1' ? async()=>({accepted:[process.env.CONTACT_ADDRESS || 'ed@coordinatedai.ai']}) : undefined;
   await createHandler({sendMail})(req,res);return;
  }
  try {

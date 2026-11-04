@@ -1,3 +1,7 @@
+## November 4 review corrections
+
+The preview foregrounds the illustrative product card and audience. Hero links reveal the affected work and the next decision; they do not approve changes. The website now offers mailto contact only, with no collection/submission form. BOOKING_URL is intentionally unused in this preview so every contact CTA matches its email-app explanation. The legacy contact endpoint is retained for compatibility; its response confirms configured mail-service recipient acceptance only, never inbox delivery. Its tests use injected transports and send no real messages. Privacy text covers the marketing website and email enquiries; proposed product boundaries are not presented as verified production controls. This work remains preview-only, with no production promotion or security-setting changes.
+
 ## November 3 review preview: product-speed go-to-market
 
 The newest review direction leads with “Let your go-to-market move at the speed of your product.” The core proof is an explicitly illustrative before/after: Security delays export; the same seven functions coordinate the same scope and approvals. Show parallel core preparation, work waiting for approved facts, unresolved Security clearance, accountable owners and the human go/no-go. No invented time savings or measured speedup. The older meeting-effort simulator is secondary and collapsed, with no claim that it evaluates launch speed. This iteration is PREVIEW ONLY; no production promotion or security-prompt interaction is authorized.

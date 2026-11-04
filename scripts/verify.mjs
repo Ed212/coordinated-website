@@ -59,10 +59,13 @@ try {
   assert.equal(await page.locator('#roles article').count(),4);
   assert.equal(await page.locator('.hero [data-pilot-action]').count(),1);
   assert.equal(await page.locator('.hero-copy a').count(),1);
-  assert.equal(await page.locator('.hero-benefits li').count(),3);
-  const answers=page.locator('.hero [data-card-answer]');
-  await answers.first().click();assert.equal(await answers.first().getAttribute('aria-pressed'),'true');
-  await answers.last().click();assert.equal(await answers.first().getAttribute('aria-pressed'),'false');assert.equal(await answers.last().getAttribute('aria-pressed'),'true');
+  assert.equal(await page.locator('.hero-audience').count(),1);
+  assert(await page.locator('.hero-audience').innerText().then(t=>t.includes('product and GTM leaders')));
+  const affected=page.locator('.hero a[data-open-detail]');
+  await affected.click();assert.equal(new URL(page.url()).hash,'#launch-dependencies');assert(await page.locator('#launch-dependencies').evaluate(el=>el.open));
+  assert(await page.locator('#launch-dependencies article').first().isVisible());
+  await page.locator('.hero a[data-focus-target]').click();assert.equal(new URL(page.url()).hash,'#next-decision');assert(await page.locator('#next-decision').isVisible());
+  await page.locator('#launch-dependencies summary').click();
   await page.locator('#reader-receipt summary').click();assert(await page.locator('#receipt-items').isVisible());await page.locator('#reader-receipt summary').click();
   assert.equal(await page.locator('#moments [data-moment-row]').count(),0);
   assert(await page.locator('#moments a[href="use-cases.html"]').isVisible());
@@ -72,7 +75,9 @@ try {
   assert(await page.locator('#architecture p').isVisible());
   await page.locator('#architecture summary').click();
   assert(await page.locator('#pilot').innerText().then(t=>t.includes('No prep or documents needed')));
-  assert.equal(await page.locator('#launch-form').evaluate(form=>!!form.closest('#pilot')),true);
+  assert.equal(await page.locator('#launch-form').count(),0);
+  assert.equal(await page.locator('#pilot a[data-pilot-action]').getAttribute('href'),'mailto:ed@coordinatedai.ai?subject=30-minute%20launch%20walkthrough');
+  assert(await page.locator('#pilot').innerText().then(t=>t.includes('does not send a message or confirm delivery')));
   const images=await page.locator('img').evaluateAll(imgs=>imgs.map(i=>({alt:i.getAttribute('alt'),loaded:i.complete&&i.naturalWidth>0,source:i.currentSrc})));
   assert(images.every(i=>i.alt!==null&&i.loaded),'Missing alt or broken image');
   assert(images.some(i=>i.source.includes('starfield-1600.webp')),'Responsive starfield must use 1600px below 1200px');
@@ -88,24 +93,25 @@ try {
   await page.getByRole('button',{name:'Copy address'}).first().click();await page.waitForFunction(()=>document.querySelector('.copy-status').textContent.length>0);
   await page.locator('.copy-status').evaluateAll(elements=>elements.forEach(el=>el.textContent=''));
   await page.locator('details').evaluateAll(elements=>elements.forEach(el=>el.open=false));
-  const start=page.url();await page.locator('#email').fill('operator@example.com');await page.locator('#document').fill('A local test document.');
-  await page.locator('#launch-form button').click();await page.waitForFunction(()=>document.querySelector('#form-status').textContent==='We read it and reply.');assert.equal(page.url(),start,'Form navigated');
-  expectedFailure=true;
-  await page.route('**/api/contact',route=>route.fulfill({status:502,contentType:'application/json',body:JSON.stringify({error:'Your document could not be sent. Please try again or email ed@coordinatedai.ai.'})}));
-  await page.locator('#email').fill('operator@example.com');await page.locator('#document').fill('Retain this text after a failed send.');await page.locator('#launch-form button').click();await page.waitForFunction(()=>document.querySelector('#form-status').textContent.includes('could not be sent'));assert.equal(await page.locator('#document').inputValue(),'Retain this text after a failed send.');
-  await page.unroute('**/api/contact');
-  await page.route('**/api/contact',route=>route.fulfill({status:404,contentType:'text/html',body:'<html>Page not found</html>'}));
-  await page.locator('#launch-form button').click();await page.waitForFunction(()=>document.querySelector('#form-status').textContent.includes('Please email a short note'));assert.equal(page.url(),start,'Missing endpoint navigated');
-  assert.equal(await page.locator('#document').inputValue(),'Retain this text after a failed send.');
-  await page.unroute('**/api/contact');await page.locator('#launch-form').evaluate(form=>form.reset());await page.locator('#form-status').evaluate(el=>el.textContent='');
+  assert.equal(await page.locator('form').count(),0,'No unverified submission flow should be exposed');
   await page.locator('h1').click();await page.evaluate(()=>scrollTo(0,0));
   await page.screenshot({path:`docs/site-v5/screenshots/${prefix}${file==='index.html'?'a':'b'}-${width}-${colorScheme}.png`,fullPage:true});
   assert.deepEqual(errors,[],'Browser console errors');
-  log.push(`PASS ${file} ${width}px ${colorScheme}: headline, B unlinked, totals 52/58/36/29, pessimistic 41/35, sliders, ledger weekdays, unchanged calculator hash, labels, optional form, copy address, overflow, rendered copy, images, focus, links/anchors, form success/failure without navigation.`);
+  log.push(`PASS ${file} ${width}px ${colorScheme}: headline, B unlinked, totals 52/58/36/29, pessimistic 41/35, sliders, ledger weekdays, unchanged calculator hash, labels, mailto contact, copy address, overflow, rendered copy, images, focus, links/anchors, working hero links and no submission form.`);
   await page.close();
  }
- const noJS=await browser.newPage({javaScriptEnabled:false});await noJS.goto(base);assert(await noJS.locator('noscript a[href="mailto:ed@coordinatedai.ai"]').isVisible());await noJS.close();log.push('PASS no-JavaScript email fallback.');
+ const noJS=await browser.newPage({javaScriptEnabled:false});await noJS.goto(base);assert(await noJS.locator('.hero a[href^="mailto:ed@coordinatedai.ai"]').isVisible());await noJS.close();log.push('PASS no-JavaScript email fallback.');
  // OG is rendered by the same browser, never generated from an unrelated asset.
  if(!process.env.SKIP_OG_RENDER) { const og=await browser.newPage({viewport:{width:1200,height:630},deviceScaleFactor:1});await og.goto(`${base}/og.html`);await og.evaluate(()=>document.fonts.ready);await og.screenshot({path:'assets/galaxy/og-1200x630.png'});await og.close();log.push('PASS OG rendered from dedicated og.html at 1200x630.'); } else log.push('PASS existing OG image left unchanged.');
+ for(const width of [320,375,768,1024,1440,1920]) {
+  const page=await browser.newPage({viewport:{width,height:900},reducedMotion:'reduce'});await page.goto(base);await page.evaluate(()=>document.fonts.ready);
+  assert(await page.evaluate(()=>document.scrollingElement.scrollWidth<=innerWidth),`Overflow at ${width}`);
+  assert(await page.evaluate(()=>{const a=document.querySelector('.hero-copy').getBoundingClientRect(),b=document.querySelector('.hero-product').getBoundingClientRect();return a.right<=b.left||b.right<=a.left||a.bottom<=b.top||b.bottom<=a.top}),`Hero collision at ${width}`);
+  await page.screenshot({path:`docs/site-v5/screenshots/${prefix}responsive-${width}.png`});await page.close();
+ }
+ log.push('PASS responsive sweep 320/375/768/1024/1440/1920: no overflow or hero collision.');
+ const privacy=await browser.newPage();await privacy.goto(`${base}/privacy.html`);const privacyText=await privacy.locator('body').innerText();
+ assert(!/regular security assessments|industry-standard security|encryption of sensitive data|account is active/i.test(privacyText));assert(privacyText.includes('Coordinated is prelaunch'));await privacy.close();
+ log.push('PASS privacy claims narrowed to current website and enquiries.');
  log.push('PASS calculator SHA-256 '+digest(originalCalc));
 } catch(error) {log.push(`FAIL ${error.stack}`);throw error} finally {await browser.close();await writeFile(`docs/site-v5/logs/${prefix}playwright.log`,log.join('\n')+'\n');await writeFile(`docs/site-v5/logs/${prefix}hero-contrast.json`,JSON.stringify(contrastLog,null,2)+'\n');console.log(log.join('\n'))}
