@@ -1,0 +1,13 @@
+Read-only checks after the authorized branch push, Thu Oct 15, 2026.
+GitHub PR: https://github.com/Ed212/coordinated-website/pull/2
+Commit: 52d456f55e507af95ab3e30a2dfd2d670ea16b68
+Vercel context: failure, Deployment has failed.
+Details: https://vercel.com/ed-s-projects-7daef98f/coordinated-website-np6n/8BYx9SRHd24x9838AJjp5nQdFCYp
+Vercel settings and log inspection require sign-in; no authenticated browser session or CLI was available. Cause remains unverified.
+The existing Netlify integration also automatically produced a branch preview at https://deploy-preview-2--mellow-lokum-bcedf5.netlify.app .
+GET / and /b.html: 200, rendered calculator present, no template markers.
+GET /api/contact: 404; the Vercel serverless route is not available on this Netlify preview.
+GET /templates/home.html and /docs/site-v5/landing-v4.tpl.html: 200, raw template markers present. The Netlify configuration is serving repository sources instead of only the allowlisted dist/ build.
+The intended dist/ output passes placeholder checks and excludes source templates. Owner must select the intended host/output directory and configure the email transport before production release.
+No host settings changed. No production deploy or merge initiated. GitHub main still 74aa1565cb69cff78e79a2093c6d4129e04a1e03 at inspection.
+CI push run 38778460339 passed. PR run 38778509939 had passing browser checks and Lighthouse 97/98, then failed deleting a Chrome temporary directory (ENOTEMPTY). Cleanup now retries deletion to handle Chrome child-process teardown.

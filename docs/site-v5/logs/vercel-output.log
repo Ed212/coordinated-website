@@ -1,0 +1,10 @@
+
+> coordinated-marketing@5.0.0 build
+> node scripts/build.mjs
+
+TODO Ed: BOOKING_URL is unset; pilot discussion uses the verified email route.
+PASS original v5 references and comparison port present; calc.js SHA-256 a289412212e78d7b1bdf20d1063077ed0ca991be56fd5f300d6da42c3a45adde
+calc.js SHA-256: a289412212e78d7b1bdf20d1063077ed0ca991be56fd5f300d6da42c3a45adde
+PASS copy grep: all built HTML pages; placeholders, vocabulary, dates and promises.
+Built both headlines from templates/home.html with the original calculator.
+PASS Vercel outputDirectory is dist; both variants and runtime assets exist; source templates, docs and dependencies are excluded.

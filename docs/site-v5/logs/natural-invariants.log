@@ -1,0 +1,9 @@
+PASS byte-for-byte unchanged from c72ef1d: templates/home.html
+PASS byte-for-byte unchanged from c72ef1d: index.html
+PASS byte-for-byte unchanged from c72ef1d: b.html
+PASS byte-for-byte unchanged from c72ef1d: assets/galaxy/og-1200x630.png
+PASS byte-for-byte unchanged from c72ef1d: brand/mark_dark.svg
+PASS byte-for-byte unchanged from c72ef1d: brand/mark_light.svg
+PASS byte-for-byte unchanged from c72ef1d: site.js
+PASS byte-for-byte unchanged from c72ef1d: api/contact.js
+PASS byte-for-byte unchanged from c72ef1d: vercel.json

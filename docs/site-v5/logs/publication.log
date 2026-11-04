@@ -1,0 +1,5 @@
+Updated request permits branch previews; production deploys remain manual.
+Attempted read-only Vercel Git-settings inspection at https://vercel.com/ed-s-projects-7daef98f/coordinated-website-np6n/settings/git . It redirected to the Vercel login page, so the project's production-promotion settings could not be independently verified.
+No settings, credentials, DNS, production branch or hosting configuration changed.
+No Vercel deployment, merge or promotion command is used. The requested branch push and PR may trigger an automatic branch preview under the user's updated authorization.
+SMTP secrets belong in the Vercel environment, never in this repository. No secret file was read or printed.

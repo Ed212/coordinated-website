@@ -2,48 +2,11 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const desktopMotion = window.matchMedia("(min-width: 768px)");
 const clamp = (value, minimum = 0, maximum = 1) => Math.min(maximum, Math.max(minimum, value));
 
-const hero = document.querySelector("[data-hero]");
-const heroGalaxy = document.querySelector(".hero-galaxy");
-const heroStarfield = document.querySelector(".hero-starfield");
-const heroConnector = document.querySelector(".hero-connector");
-const heroConnectorPath = document.querySelector("[data-hero-connector]");
-const heroCardTitle = document.querySelector("[data-hero-card-title]");
-const landscapeHeroAlt = "Illustration: Two interacting spiral galaxies with pale tidal tails converging on a bright shared core marked by a tiny red point, against deep black space.";
-const portraitHeroAlt = "Illustration: Two merging galaxies with a tiny red shared core and pale tails sweeping from the left, beneath a dark, open upper field.";
-
-function updateHero() {
-  if (!hero || !heroGalaxy || !heroStarfield) return;
-  heroGalaxy.alt = desktopMotion.matches ? landscapeHeroAlt : portraitHeroAlt;
-
-  if (reduceMotion.matches || !desktopMotion.matches) {
-    heroGalaxy.style.transform = "none";
-    heroStarfield.style.transform = "none";
-  } else {
-    const heroRect = hero.getBoundingClientRect();
-    const progress = clamp(-heroRect.top / Math.max(window.innerHeight, 1));
-    heroGalaxy.style.transform = `scale(${1 + (progress * 0.05)}) rotate(${progress * 2.5}deg)`;
-    heroStarfield.style.transform = `scale(${1 + (progress * 0.08)}) rotate(${progress * 4}deg) translate3d(0, ${progress * -10}px, 0)`;
-  }
-
-  if (!heroConnector || !heroConnectorPath || !heroCardTitle || !desktopMotion.matches) return;
-  const heroRect = hero.getBoundingClientRect();
-  const titleRect = heroCardTitle.getBoundingClientRect();
-  const startX = heroRect.width * 0.62011;
-  const startY = heroRect.height * 0.45;
-  const endX = titleRect.left - heroRect.left;
-  const endY = titleRect.top - heroRect.top + Math.min(titleRect.height / 2, 14);
-  const bend = Math.max(36, (endX - startX) * 0.45);
-
-  heroConnector.setAttribute("viewBox", `0 0 ${heroRect.width} ${heroRect.height}`);
-  heroConnectorPath.setAttribute("d", `M ${startX} ${startY} C ${startX + bend} ${startY}, ${endX - 34} ${endY}, ${endX} ${endY}`);
-}
-
 let pageTicking = false;
 function queuePageMotion() {
   if (pageTicking) return;
   pageTicking = true;
   requestAnimationFrame(() => {
-    updateHero();
     updateNarrativeFlow();
     pageTicking = false;
   });
@@ -140,7 +103,6 @@ if (narrativeGalaxy && !reduceMotion.matches && desktopMotion.matches && "Inters
 
 window.addEventListener("scroll", queuePageMotion, { passive: true });
 window.addEventListener("resize", queuePageMotion, { passive: true });
-updateHero();
 updateNarrativeFlow();
 
 const momentRows = [...document.querySelectorAll("[data-moment-row]")];
@@ -203,4 +165,68 @@ if (receiptItems) {
 
     receiptSections.forEach((section) => receiptObserver.observe(section));
   }
+}
+
+const launchForm = document.querySelector('#launch-form');
+if (launchForm) {
+  launchForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const status = document.querySelector('#form-status');
+    const button = launchForm.querySelector('button[type="submit"]');
+    if (button.disabled || !launchForm.reportValidity()) return;
+    button.disabled = true;
+    status.textContent = 'Sending your note…';
+    try {
+      const response = await fetch(launchForm.action, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(launchForm))),
+        signal: AbortSignal.timeout(20000)
+      });
+      const result = await response.json().catch(() => ({ error: 'The form is unavailable. Please email a short note to ed@coordinatedai.ai.' }));
+      if (!response.ok) throw new Error(result.error || 'Your note could not be sent. Please try again.');
+      status.textContent = result.message;
+      launchForm.reset();
+    } catch (error) {
+      status.textContent = error.name === 'TimeoutError' ? 'We could not confirm delivery. Please email ed@coordinatedai.ai before trying again.' : error.message;
+    } finally { button.disabled = false; }
+  });
+}
+
+for (const button of document.querySelectorAll('[data-copy-address]')) {
+  button.addEventListener('click', async () => {
+    const address = document.getElementById(button.dataset.copyAddress);
+    const status = button.parentElement.querySelector('.copy-status') || button.parentElement.nextElementSibling;
+    try {
+      await navigator.clipboard.writeText(address.textContent.trim());
+      status.textContent = 'Address copied.';
+    } catch {
+      const selection = window.getSelection();
+      const range = document.createRange(); range.selectNodeContents(address);
+      selection.removeAllRanges(); selection.addRange(range);
+      status.textContent = 'Address selected. Copy it to your email.';
+    }
+  });
+}
+
+// These links inspect an illustrative plan; they do not approve or send anything.
+for (const link of document.querySelectorAll('[data-open-detail], [data-focus-target]')) {
+  link.addEventListener('click', () => {
+    const id = link.dataset.openDetail || link.dataset.focusTarget;
+    const target = document.getElementById(id);
+    if (!target) return;
+    if (target instanceof HTMLDetailsElement) {
+      target.open = true;
+      target.querySelector('summary')?.focus({ preventScroll: true });
+    } else target.focus({ preventScroll: true });
+  });
+}
+
+// Hosted activation requires the isolated preview page on the existing Netlify site.
+const localFilmPreview = ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname) && new URLSearchParams(location.search).get('heroFilm') === '1';
+const dedicatedFilmPage = document.documentElement.dataset.heroFilmPreview === 'motion' && ['/hero-film', '/hero-film.html'].includes(location.pathname);
+const hostedFilmPreview = /^deploy-preview-\d+--mellow-lokum-bcedf5\.netlify\.app$/.test(location.hostname) && dedicatedFilmPage;
+if (localFilmPreview || hostedFilmPreview || (dedicatedFilmPage && ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname))) {
+  import('./hero-film-preview.js').then(module => module.initHeroFilmPreview()).catch(error => {
+    console.warn('Video preview could not load; the ordinary static hero remains.', error);
+  });
 }
