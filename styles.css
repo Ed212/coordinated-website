@@ -566,3 +566,41 @@ summary:focus-visible, [tabindex="0"]:focus-visible { outline: 3px solid current
  .hero .card-actions a { font-size: 12px; }
  .primary-nav .nav-contact { display: inline-flex; }
 }
+
+/* Isolated local motion preview. Ordinary homepage selectors remain unchanged. */
+.hero-film-experiment .hero-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: start; gap: 32px; padding-block: 36px 48px; }
+.hero-film-experiment .hero-copy { grid-column: 1; grid-row: 1; }
+.hero-film-experiment .hero-copy::before { display: none; }
+.hero-film-experiment .hero-film-panel { grid-column: 2; grid-row: 1; min-width: 0; }
+.hero-film-experiment .hero-product { grid-column: 1 / -1; grid-row: 2; width: min(100%, 760px); margin-inline: auto; }
+.hero-film-experiment .hero-film-stage { position: relative; width: 100%; aspect-ratio: 9 / 5; margin: 0; background: #000; overflow: hidden; }
+.hero-film-experiment .hero-film-poster { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 1; }
+.hero-film-experiment .hero-film-poster picture { display: block; width: 100%; height: 100%; }
+.hero-film-experiment .hero-film-poster-image, .hero-film-experiment .hero-film-video { width: 100%; height: 100%; object-fit: contain; object-position: center; }
+.hero-film-experiment .hero-film-video { position: absolute; inset: 0; background: #000; opacity: 1; }
+.hero-film-experiment .hero-launch-video { z-index: 2; transition: opacity 600ms ease; }
+.hero-film-experiment .hero-galaxy-video { z-index: 1; transition: opacity 220ms ease; }
+.hero-film-experiment .hero-film-video.is-dissolving { opacity: 0; }
+.hero-film-experiment .hero-film-controls { padding-block: 16px 20px; border-bottom: 1px solid #34363b; color: var(--paper); }
+.hero-film-experiment .hero-film-controls .section-number { color: #b8bcc4; margin-bottom: 10px; }
+.hero-film-experiment #hero-film-status { min-height: 4.5em; margin-bottom: 12px; font-size: 13px; line-height: 1.5; }
+.hero-film-experiment .hero-film-control-row { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-block: 12px; }
+.hero-film-experiment .hero-film-control-row button { min-height: 44px; padding: 10px 12px; border: 1px solid #b8bcc4; color: var(--paper); background: var(--ink); cursor: pointer; font-size: 13px; }
+.hero-film-experiment .hero-film-control-row button:disabled { opacity: .5; cursor: default; }
+.hero-film-experiment .hero-film-control-row button:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.hero-film-experiment .hero-film-note, .hero-film-experiment .hero-film-exit { font-size: 12px; line-height: 1.5; color: #d5d7dc; }
+.hero-film-experiment .hero-film-file-picker { margin-bottom: 16px; font-size: 13px; }
+.hero-film-experiment .hero-film-file-picker label { display: grid; gap: 8px; margin-block: 12px; }
+.hero-film-experiment .hero-film-file-picker summary { cursor: pointer; color: #d5d7dc; }
+@media (max-width:900px) {
+ .hero-film-experiment .hero-layout { grid-template-columns: 1fr; gap: 28px; padding-block: 28px 40px; }
+ .hero-film-experiment .hero-copy { grid-column: 1; grid-row: 1; }
+ .hero-film-experiment .hero-film-panel { grid-column: 1; grid-row: 2; }
+ .hero-film-experiment .hero-product { grid-column: 1; grid-row: 3; }
+ .hero-film-experiment .hero h1 { font-size: clamp(32px, 8.5vw, 42px); margin-bottom: 20px; }
+ .hero-film-experiment .hero-promise { font-size: 16px; line-height: 1.5; margin-bottom: 20px; }
+ .hero-film-experiment .hero-audience { margin-bottom: 12px; }
+}
+@media (prefers-reduced-motion:reduce) {
+ .hero-film-experiment .hero-film-video { transition: none; }
+}

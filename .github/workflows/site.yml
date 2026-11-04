@@ -17,6 +17,12 @@ jobs:
       - run: npm run test:browser
       - run: npm run test:performance
       - run: npm run check:references
+      - name: Verify isolated video preview
+        if: github.ref_name == 'codex/hero-film-preview' || github.head_ref == 'codex/hero-film-preview'
+        run: |
+          NETLIFY=true CONTEXT=deploy-preview HEAD=codex/hero-film-preview npm run build
+          BASE_URL=http://127.0.0.1:4174 node scripts/verify-hero-film.mjs
+          PERFORMANCE_PAGES=hero-film.html VERIFY_PREFIX=hero-film- npm run test:performance
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -24,3 +30,4 @@ jobs:
           path: |
             docs/site-v5/logs/
             docs/site-v5/screenshots/
+            preview-review/hero-film-local/interaction-final/

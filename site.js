@@ -220,3 +220,13 @@ for (const link of document.querySelectorAll('[data-open-detail], [data-focus-ta
     } else target.focus({ preventScroll: true });
   });
 }
+
+// Hosted activation requires the isolated preview page on the existing Netlify site.
+const localFilmPreview = ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname) && new URLSearchParams(location.search).get('heroFilm') === '1';
+const dedicatedFilmPage = document.documentElement.dataset.heroFilmPreview === 'motion' && ['/hero-film', '/hero-film.html'].includes(location.pathname);
+const hostedFilmPreview = /^deploy-preview-\d+--mellow-lokum-bcedf5\.netlify\.app$/.test(location.hostname) && dedicatedFilmPage;
+if (localFilmPreview || hostedFilmPreview || (dedicatedFilmPage && ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname))) {
+  import('./hero-film-preview.js').then(module => module.initHeroFilmPreview()).catch(error => {
+    console.warn('Video preview could not load; the ordinary static hero remains.', error);
+  });
+}
