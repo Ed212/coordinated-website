@@ -1,0 +1,5 @@
+
+> coordinated-marketing@5.0.0 check:copy
+> node scripts/check-copy.mjs
+
+PASS copy grep: all built HTML pages; placeholders, vocabulary, dates and promises.

@@ -2,48 +2,11 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const desktopMotion = window.matchMedia("(min-width: 768px)");
 const clamp = (value, minimum = 0, maximum = 1) => Math.min(maximum, Math.max(minimum, value));
 
-const hero = document.querySelector("[data-hero]");
-const heroGalaxy = document.querySelector(".hero-galaxy");
-const heroStarfield = document.querySelector(".hero-starfield");
-const heroConnector = document.querySelector(".hero-connector");
-const heroConnectorPath = document.querySelector("[data-hero-connector]");
-const heroCardTitle = document.querySelector("[data-hero-card-title]");
-const landscapeHeroAlt = "Illustration: Two interacting spiral galaxies with pale tidal tails converging on a bright shared core marked by a tiny red point, against deep black space.";
-const portraitHeroAlt = "Illustration: Two merging galaxies with a tiny red shared core and pale tails sweeping from the left, beneath a dark, open upper field.";
-
-function updateHero() {
-  if (!hero || !heroGalaxy || !heroStarfield) return;
-  heroGalaxy.alt = desktopMotion.matches ? landscapeHeroAlt : portraitHeroAlt;
-
-  if (reduceMotion.matches || !desktopMotion.matches) {
-    heroGalaxy.style.transform = "none";
-    heroStarfield.style.transform = "none";
-  } else {
-    const heroRect = hero.getBoundingClientRect();
-    const progress = clamp(-heroRect.top / Math.max(window.innerHeight, 1));
-    heroGalaxy.style.transform = `scale(${1 + (progress * 0.05)}) rotate(${progress * 2.5}deg)`;
-    heroStarfield.style.transform = `scale(${1 + (progress * 0.08)}) rotate(${progress * 4}deg) translate3d(0, ${progress * -10}px, 0)`;
-  }
-
-  if (!heroConnector || !heroConnectorPath || !heroCardTitle || !desktopMotion.matches) return;
-  const heroRect = hero.getBoundingClientRect();
-  const titleRect = heroCardTitle.getBoundingClientRect();
-  const startX = heroRect.width * 0.62011;
-  const startY = heroRect.height * 0.45;
-  const endX = titleRect.left - heroRect.left;
-  const endY = titleRect.top - heroRect.top + Math.min(titleRect.height / 2, 14);
-  const bend = Math.max(36, (endX - startX) * 0.45);
-
-  heroConnector.setAttribute("viewBox", `0 0 ${heroRect.width} ${heroRect.height}`);
-  heroConnectorPath.setAttribute("d", `M ${startX} ${startY} C ${startX + bend} ${startY}, ${endX - 34} ${endY}, ${endX} ${endY}`);
-}
-
 let pageTicking = false;
 function queuePageMotion() {
   if (pageTicking) return;
   pageTicking = true;
   requestAnimationFrame(() => {
-    updateHero();
     updateNarrativeFlow();
     pageTicking = false;
   });
@@ -140,7 +103,6 @@ if (narrativeGalaxy && !reduceMotion.matches && desktopMotion.matches && "Inters
 
 window.addEventListener("scroll", queuePageMotion, { passive: true });
 window.addEventListener("resize", queuePageMotion, { passive: true });
-updateHero();
 updateNarrativeFlow();
 
 const momentRows = [...document.querySelectorAll("[data-moment-row]")];
@@ -159,48 +121,56 @@ if (momentRows.length && "IntersectionObserver" in window) {
   momentRows.forEach((row) => momentObserver.observe(row));
 }
 
-const receiptItems = document.querySelector("#receipt-items");
-const receiptCount = document.querySelector("#receipt-count");
-const receiptTime = document.querySelector("#receipt-time");
-const receiptSections = [...document.querySelectorAll("[data-receipt-label]")];
-const recordedSections = new Set(["Homepage opened"]);
-
-function formatReceiptTime() {
-  return new Intl.DateTimeFormat("en-US", {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-    hour: "numeric",
-    minute: "2-digit"
-  }).format(new Date());
-}
-
-function renderReceipt() {
-  if (!receiptItems || !receiptCount || !receiptTime) return;
-  receiptItems.replaceChildren(...[...recordedSections].map((label) => {
-    const item = document.createElement("li");
-    item.textContent = label;
-    return item;
-  }));
-  const count = recordedSections.size;
-  receiptCount.textContent = `${count} ${count === 1 ? "section" : "sections"} recorded`;
-  receiptTime.textContent = formatReceiptTime();
-}
-
-if (receiptItems) {
-  renderReceipt();
-
-  if ("IntersectionObserver" in window) {
-    const receiptObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        recordedSections.add(entry.target.dataset.receiptLabel);
-        renderReceipt();
-        receiptObserver.unobserve(entry.target);
+const launchForm = document.querySelector('#launch-form');
+if (launchForm) {
+  launchForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const status = document.querySelector('#form-status');
+    const button = launchForm.querySelector('button[type="submit"]');
+    if (button.disabled || !launchForm.reportValidity()) return;
+    button.disabled = true;
+    status.textContent = 'Sending your note…';
+    try {
+      const response = await fetch(launchForm.action, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(launchForm))),
+        signal: AbortSignal.timeout(20000)
       });
-    }, { threshold: 0.28 });
+      const result = await response.json().catch(() => ({ error: 'The form is unavailable. Please email a short note to ed@coordinatedai.ai.' }));
+      if (!response.ok) throw new Error(result.error || 'Your note could not be sent. Please try again.');
+      status.textContent = result.message;
+      launchForm.reset();
+    } catch (error) {
+      status.textContent = error.name === 'TimeoutError' ? 'We could not confirm delivery. Please email ed@coordinatedai.ai before trying again.' : error.message;
+    } finally { button.disabled = false; }
+  });
+}
 
-    receiptSections.forEach((section) => receiptObserver.observe(section));
-  }
+for (const button of document.querySelectorAll('[data-copy-address]')) {
+  button.addEventListener('click', async () => {
+    const address = document.getElementById(button.dataset.copyAddress);
+    const status = button.parentElement.querySelector('.copy-status') || button.parentElement.nextElementSibling;
+    try {
+      await navigator.clipboard.writeText(address.textContent.trim());
+      status.textContent = 'Address copied.';
+    } catch {
+      const selection = window.getSelection();
+      const range = document.createRange(); range.selectNodeContents(address);
+      selection.removeAllRanges(); selection.addRange(range);
+      status.textContent = 'Address selected. Copy it to your email.';
+    }
+  });
+}
+
+// These links inspect an illustrative plan; they do not approve or send anything.
+for (const link of document.querySelectorAll('[data-open-detail], [data-focus-target]')) {
+  link.addEventListener('click', () => {
+    const id = link.dataset.openDetail || link.dataset.focusTarget;
+    const target = document.getElementById(id);
+    if (!target) return;
+    if (target instanceof HTMLDetailsElement) {
+      target.open = true;
+      target.querySelector('summary')?.focus({ preventScroll: true });
+    } else target.focus({ preventScroll: true });
+  });
 }

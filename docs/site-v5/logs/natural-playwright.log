@@ -1,0 +1,11 @@
+PASS index.html 400px light: headline, B unlinked, totals 52/58/36/29, pessimistic 41/35, sliders, ledger weekdays, unchanged calculator hash, labels, optional form, copy address, overflow, rendered copy, images, focus, links/anchors, form success/failure without navigation.
+PASS index.html 400px dark: headline, B unlinked, totals 52/58/36/29, pessimistic 41/35, sliders, ledger weekdays, unchanged calculator hash, labels, optional form, copy address, overflow, rendered copy, images, focus, links/anchors, form success/failure without navigation.
+PASS index.html 1100px light: headline, B unlinked, totals 52/58/36/29, pessimistic 41/35, sliders, ledger weekdays, unchanged calculator hash, labels, optional form, copy address, overflow, rendered copy, images, focus, links/anchors, form success/failure without navigation.
+PASS index.html 1100px dark: headline, B unlinked, totals 52/58/36/29, pessimistic 41/35, sliders, ledger weekdays, unchanged calculator hash, labels, optional form, copy address, overflow, rendered copy, images, focus, links/anchors, form success/failure without navigation.
+PASS b.html 400px light: headline, B unlinked, totals 52/58/36/29, pessimistic 41/35, sliders, ledger weekdays, unchanged calculator hash, labels, optional form, copy address, overflow, rendered copy, images, focus, links/anchors, form success/failure without navigation.
+PASS b.html 400px dark: headline, B unlinked, totals 52/58/36/29, pessimistic 41/35, sliders, ledger weekdays, unchanged calculator hash, labels, optional form, copy address, overflow, rendered copy, images, focus, links/anchors, form success/failure without navigation.
+PASS b.html 1100px light: headline, B unlinked, totals 52/58/36/29, pessimistic 41/35, sliders, ledger weekdays, unchanged calculator hash, labels, optional form, copy address, overflow, rendered copy, images, focus, links/anchors, form success/failure without navigation.
+PASS b.html 1100px dark: headline, B unlinked, totals 52/58/36/29, pessimistic 41/35, sliders, ledger weekdays, unchanged calculator hash, labels, optional form, copy address, overflow, rendered copy, images, focus, links/anchors, form success/failure without navigation.
+PASS no-JavaScript email fallback.
+PASS existing OG image left unchanged.
+PASS calculator SHA-256 a289412212e78d7b1bdf20d1063077ed0ca991be56fd5f300d6da42c3a45adde

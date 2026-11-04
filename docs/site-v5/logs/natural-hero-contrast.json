@@ -1,0 +1,122 @@
+[
+  {
+    "file": "index.html",
+    "width": 400,
+    "colorScheme": "light",
+    "minimum": 8.079460076806672,
+    "byText": {
+      "eyebrow": 8.079460076806672,
+      "H1": 20.256180207822883,
+      "hero-promise": 10.77110348204519,
+      "agent-line": 20.256180207822883,
+      "proof-line": 11.028461778025905,
+      "button button-paper": 17.12981897723634,
+      "text-link": 20.256180207822883
+    }
+  },
+  {
+    "file": "index.html",
+    "width": 400,
+    "colorScheme": "dark",
+    "minimum": 8.079460076806672,
+    "byText": {
+      "eyebrow": 8.079460076806672,
+      "H1": 20.256180207822883,
+      "hero-promise": 10.77110348204519,
+      "agent-line": 20.256180207822883,
+      "proof-line": 11.028461778025905,
+      "button button-paper": 17.12981897723634,
+      "text-link": 20.256180207822883
+    }
+  },
+  {
+    "file": "index.html",
+    "width": 1100,
+    "colorScheme": "light",
+    "minimum": 5.75603051096776,
+    "byText": {
+      "eyebrow": 5.75603051096776,
+      "H1": 11.605439504649235,
+      "hero-promise": 7.168595983341992,
+      "agent-line": 11.310458862521344,
+      "proof-line": 8.68419777571647,
+      "button button-paper": 17.12981897723634,
+      "text-link": 12.008671216055987
+    }
+  },
+  {
+    "file": "index.html",
+    "width": 1100,
+    "colorScheme": "dark",
+    "minimum": 5.75603051096776,
+    "byText": {
+      "eyebrow": 5.75603051096776,
+      "H1": 11.605439504649235,
+      "hero-promise": 7.168595983341992,
+      "agent-line": 11.310458862521344,
+      "proof-line": 8.68419777571647,
+      "button button-paper": 17.12981897723634,
+      "text-link": 12.008671216055987
+    }
+  },
+  {
+    "file": "b.html",
+    "width": 400,
+    "colorScheme": "light",
+    "minimum": 8.079460076806672,
+    "byText": {
+      "eyebrow": 8.079460076806672,
+      "H1": 20.256180207822883,
+      "hero-promise": 10.77110348204519,
+      "agent-line": 20.256180207822883,
+      "proof-line": 11.028461778025905,
+      "button button-paper": 17.12981897723634,
+      "text-link": 20.256180207822883
+    }
+  },
+  {
+    "file": "b.html",
+    "width": 400,
+    "colorScheme": "dark",
+    "minimum": 8.079460076806672,
+    "byText": {
+      "eyebrow": 8.079460076806672,
+      "H1": 20.256180207822883,
+      "hero-promise": 10.77110348204519,
+      "agent-line": 20.256180207822883,
+      "proof-line": 11.028461778025905,
+      "button button-paper": 17.12981897723634,
+      "text-link": 20.256180207822883
+    }
+  },
+  {
+    "file": "b.html",
+    "width": 1100,
+    "colorScheme": "light",
+    "minimum": 5.75603051096776,
+    "byText": {
+      "eyebrow": 5.75603051096776,
+      "H1": 11.901207876436704,
+      "hero-promise": 7.018639576984643,
+      "agent-line": 12.135770577546973,
+      "proof-line": 6.183930034164181,
+      "button button-paper": 17.12981897723634,
+      "text-link": 14.395231453003687
+    }
+  },
+  {
+    "file": "b.html",
+    "width": 1100,
+    "colorScheme": "dark",
+    "minimum": 5.75603051096776,
+    "byText": {
+      "eyebrow": 5.75603051096776,
+      "H1": 11.901207876436704,
+      "hero-promise": 7.018639576984643,
+      "agent-line": 12.135770577546973,
+      "proof-line": 6.183930034164181,
+      "button button-paper": 17.12981897723634,
+      "text-link": 14.395231453003687
+    }
+  }
+]

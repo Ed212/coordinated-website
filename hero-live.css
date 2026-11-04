@@ -1,0 +1,81 @@
+/* Hero geometry and image styling preserved from live commit a9db334. */
+
+
+.hero { position: relative; min-height: max(960px, calc(100svh - 122px)); overflow: hidden; color: var(--paper); background: var(--ink); }
+.hero-media, .hero-media picture, .hero-scrim, .hero-connector { position: absolute; inset: 0; }
+.hero-media { overflow: hidden; }
+.hero-media picture { display: block; }
+.hero-galaxy, .hero-starfield { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 62.011% 45%; }
+.hero-galaxy { transform-origin: 62.011% 45%; will-change: transform; }
+.hero-starfield { opacity: .72; transform-origin: 62.011% 45%; will-change: transform; }
+.hero-scrim { z-index: 1; background: linear-gradient(90deg, rgba(22,24,29,.98) 0%, rgba(22,24,29,.9) 33%, rgba(22,24,29,.36) 58%, rgba(22,24,29,.08) 100%), linear-gradient(180deg, rgba(22,24,29,.15), transparent 44%, rgba(22,24,29,.32)); pointer-events: none; }
+.hero-connector { z-index: 2; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.hero-connector path { fill: none; stroke: rgba(251,251,248,.4); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.hero-layout { position: relative; z-index: 3; min-height: inherit; padding-block: clamp(72px, 9vh, 112px) 80px; }
+.hero-copy { width: min(48%, 650px); position: relative; z-index: 2; }
+.hero .eyebrow { color: rgba(251,251,248,.64); }
+.hero h1 { max-width: 720px; margin-bottom: 28px; color: var(--paper); font-size: clamp(46px, 5.15vw, 74px); font-weight: 500; line-height: 0.99; letter-spacing: -0.055em; }
+.hero-promise { max-width: 620px; margin-bottom: 34px; color: rgba(251,251,248,.74); font-size: 18px; line-height: 1.55; }
+.hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 24px; }
+
+.hero-product { position: absolute; top: 55%; right: 0; width: min(44%, 520px); }
+.hero-card { width: 100%; color: var(--ink); box-shadow: 0 26px 70px rgba(0,0,0,.42); }
+
+@media (max-width: 1020px) {
+  .hero-copy { width: min(56%, 590px); }
+  .hero-product { width: min(47%, 470px); }}
+
+@media (max-width: 760px) {
+  .hero { min-height: 0; }
+  .hero-layout { min-height: 0; padding-block: 56px 72px; }
+  .hero-copy { width: 100%; }
+  .hero h1 { font-size: clamp(42px, 13.3vw, 58px); }
+  .hero-promise { font-size: 16px; }
+  .hero-actions { align-items: flex-start; flex-direction: column; }
+  .hero-product { position: relative; top: auto; right: auto; width: 100%; margin-top: 72px; }
+  .hero-card { width: 100%; }
+  .hero-galaxy { object-position: 62.065% 45%; transform: none !important; }
+  .hero-media .hero-starfield-picture, .hero-connector { display: none; }
+  .hero-scrim { background: linear-gradient(180deg, rgba(22,24,29,.98) 0%, rgba(22,24,29,.9) 28%, rgba(22,24,29,.24) 43%, rgba(22,24,29,.08) 58%, rgba(22,24,29,.36) 100%); }}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-galaxy, .hero-starfield { transform: none !important; }}
+
+/* v5: retain the existing palette, type and chapter system. */
+.hero { min-height: 820px; }
+.hero-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .9fr); align-items: center; gap: 64px; }
+.hero-copy { width: 100%; }
+.hero-product { position: relative; top: auto; right: auto; width: 100%; }
+.hero-starfield { opacity: .28; }
+.hero-scrim { background: linear-gradient(90deg, rgba(22,24,29,.75), rgba(22,24,29,.25)); }
+.hero h1 { font-size: clamp(46px, 5.2vw, 74px); }
+.hero-promise { margin-bottom: 22px; font-size: 17px; }
+.hero-actions { gap: 10px 20px; }
+@media (max-width: 760px) {
+.hero-layout { grid-template-columns: 1fr; gap: 40px; }
+ .hero { min-height: 0; }
+ .hero-product { margin-top: 0; }
+ .hero h1 { font-size: clamp(42px, 12vw, 58px); }
+ .hero .hero-actions { gap: 8px; }
+ .hero .hero-starfield { opacity: .2; }}
+.og-layout .hero-card { color: var(--ink); }
+
+/* Thu Oct 15 founder decision: keep the complete 9:5 composition visible.
+   The source core remains 62.011% / 44.999%; the card starts below it. */
+.hero { min-height: 940px; background: #000; }
+.hero-layout { min-height: inherit; align-items: start; padding-block: 90px 80px; }
+.hero-media { inset: auto; top: 40px; left: 50%; width: 100vw; height: auto; aspect-ratio: 9 / 5; transform: translateX(-50%); mask-image: linear-gradient(180deg, transparent, #000 8%, #000 92%, transparent); }
+.hero-galaxy { object-fit: contain; object-position: 50% 50%; transform: none; will-change: auto; }
+.hero-scrim { display: none; }
+/* Neutral black darkens the artwork without adding a charcoal-colored panel.
+   The mask stays opaque beneath text, then feathers continuously outside it. */
+.hero-copy { background: none; box-shadow: none; }
+.hero-copy::before { content: ""; position: absolute; z-index: -1; inset: -64px; pointer-events: none; background: rgba(0,0,0,.78); mask-image: linear-gradient(90deg, transparent, #000 60px, #000 calc(100% - 60px), transparent), linear-gradient(180deg, transparent, #000 60px, #000 calc(100% - 60px), transparent); mask-composite: intersect; }
+.hero-product { margin-top: calc(25vw + 70px); }
+@media (max-width: 760px) {
+ .hero { min-height: 0; }
+ .hero-layout { padding-block: 56px 72px; }
+ .hero-copy { grid-row: 1; background: none; box-shadow: none; }
+ .hero-copy::before { display: none; }
+ .hero-media { position: relative; inset: auto; grid-row: 2; width: calc(100% + var(--page-pad) * 2); margin-inline: calc(-1 * var(--page-pad)); transform: none; }
+ .hero-product { grid-row: 3; margin-top: -20px; }}
