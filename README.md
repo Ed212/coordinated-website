@@ -1,3 +1,11 @@
+## November 7 growth-led review preview
+
+The current preview starts from published commit `5e5c8707268f9257554045c7f248a411209df6ad`, whose tree matches the approved November 4 source. Lead with “Turn product momentum into market growth.” Coordinated is an AI GTM program manager in development: form concrete dated owner commitments, map dependencies and launch gates, run targeted owner check-ins, gather market evidence against assumptions and help people carry decisions into coordinated follow-through. Launch is a milestone, not the end. Growth is an outcome ambition, not a demonstrated lift.
+
+Use the illustrative Northstar guided-activation program to show both forming commitments and learning after launch. Keep the export/Security delay as a supporting dependency, not the entire job. Distinguish proposed work, exact owner acceptance, human judgment/approval, specialist gates and action authority. Named people and selected Slack sources may support a separately permitted first pilot; do not imply CRM/product-analytics integrations, automatic prioritization, setup-time evidence, launched software or customer results.
+
+Preserve the original galaxy assets and hero geometry, static stack, existing email/copy fallback, privacy and terms behavior. Video stays deferred on its separate branch. This iteration authorizes an isolated GitHub/Netlify review preview only; no merge, production promotion, security/DNS/environment changes or outreach. This latest direction supersedes the narrower launch-only positioning and earlier publication status notes below. See `CONTENT-POSITIONING-2026-11-07.md` for current scope and verification.
+
 ## November 4 content follow-up: preserve the live hero
 
 This content-only preview keeps the exact live hero photo, responsive image sources, hero-specific styles and desktop photo/card geometry from live commit a9db33408f81ffaefa8f54ef206a6622950e7bf4. The mobile order stays copy, photo, card. New text changes wrapping and moves the mobile photo/card down 31.484px; header height and image framing match live. The mobile header CTA is now visible and unclipped. Video work stays deferred on its separate branch and preview.

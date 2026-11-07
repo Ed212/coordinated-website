@@ -6,7 +6,7 @@ import { measureHeroContrast } from './hero-contrast.mjs';
 
 const prefix = process.env.VERIFY_PREFIX || '';
 const base = new URL(process.env.BASE_URL || 'http://127.0.0.1:4174');
-const headline = 'Let your go-to-market move at the speed of your product.';
+const headline = 'Turn product momentum into market growth.';
 const walkthrough = 'Walk through your last launch';
 const email = 'mailto:ed@coordinatedai.ai?subject=30-minute%20launch%20walkthrough';
 const documents = new Map(), contrastLog = [], log = [];
@@ -105,9 +105,14 @@ try {
     await page.locator('.hero-galaxy').evaluate(image => image.decode());
     assert.equal(await page.locator('h1').textContent(), headline);
     const heroText = normalize(await page.locator('.hero').innerText());
-    assert.equal((heroText.match(/AI go-to-market program manager for launches/gi) || []).length, 1, 'Category appears once in the hero');
+    assert.equal((heroText.match(/AI (?:GTM|go-to-market) program manager/gi) || []).length, 1, 'Category appears once in the hero');
     assert(/50\s*(?:to|[–-])\s*300/i.test(heroText) && /software/i.test(heroText), 'The intended company size and audience appear early');
-    assert(/ship|product/i.test(heroText) && /GTM|go-to-market/i.test(heroText));
+    assert(/product/i.test(heroText) && /GTM|go-to-market/i.test(heroText));
+    const heroCard = normalize(await page.locator('.hero-card').innerText());
+    assert(/commitment/i.test(heroCard) && /owner|Product|GTM|Support/i.test(heroCard), 'Hero example starts with accountable commitments');
+    assert(/\b(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun) (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{1,2}\b/.test(heroCard), 'Illustrative commitments have concrete dates with weekdays');
+    assert(/gate/i.test(heroCard) && /missing|pending|open|unanswered|unconfirmed|not yet|awaiting/i.test(heroCard), 'Hero makes the unanswered gate or acceptance visible');
+    assert(/accept|confirm/i.test(heroCard), 'Draft work is distinguished from owner acceptance');
     const bodyText = await page.locator('body').innerText();
     assert.equal((bodyText.match(/prelaunch/gi) || []).length, 1, 'One clear homepage Prelaunch disclosure');
     assert.equal(await page.locator('.legacy-model,#reader-receipt,#attention-model,#cmp,video,.hero-film-stage').count(), 0, 'Removed simulator, receipt and video are absent');
@@ -116,9 +121,15 @@ try {
     assert.equal(await page.locator('.dependency-map-rows article').count(), 7);
     const scenario = normalize(await page.locator('#moments').innerText());
     assert(/Northstar/.test(scenario) && /illustrative/i.test(scenario));
-    assert(/See what can move and what must wait/i.test(scenario));
-    assert(/Product/.test(scenario) && /Pricing/.test(scenario) && /confirm/i.test(scenario) && /release owner/i.test(scenario) && /go\/no.go|go or no.go|go.ahead/i.test(scenario), 'Scenario ends with human decisions, owner confirmation and release authority');
-    assert(/export/i.test(scenario) && /Security/.test(scenario) && /held|blocked|clearance/i.test(scenario), 'Export retains its Security gate');
+    const program = normalize((await page.locator('#moments,#how,#trust').allTextContents()).join(' '));
+    assert(/commitment/i.test(scenario) && /\b(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun) (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{1,2}\b/.test(scenario), 'Main example forms dated commitments rather than only handling a feature slip');
+    assert(/dependenc/i.test(program) && /gate/i.test(program), 'Program connects commitments to dependencies and launch gates');
+    assert(/check.in/i.test(program) && /owner/i.test(program), 'Program includes targeted owner check-ins');
+    assert(/market|customer/i.test(program) && /evidence|notes|responses|feedback/i.test(program) && /assumption|hypothesis|\bbet\b/i.test(program), 'Learning considers market evidence against the original assumption');
+    assert(/human|people|Product/i.test(program) && /decid|judgment|taste/i.test(program), 'People retain judgment and decision authority');
+    assert(/accept|confirm/i.test(program) && /next|follow.through|revised/i.test(program), 'The next decision leads to owner-confirmed follow-through');
+    assert(/release owner/i.test(program) && /go\/no.go|go or no.go|go.ahead/i.test(program), 'Launch release authority remains explicit');
+    assert(/export/i.test(scenario) && /Security/.test(scenario) && /held|blocked|clearance/i.test(scenario), 'Supporting export detail retains its Security gate');
     await checkHeadings(page);
     await checkNavigation(page);
     await checkCTA(page, true);
@@ -156,7 +167,7 @@ try {
     await page.evaluate(() => scrollTo(0, 0));
     await page.screenshot({ path: `docs/site-v5/screenshots/${prefix}${file === 'index.html' ? 'a' : 'b'}-${width}-${colorScheme}.png`, fullPage: true });
     assert.deepEqual(errors, [], 'Browser console/runtime errors');
-    log.push(`PASS ${file} ${width}px ${colorScheme}: audience/category/prelaunch, illustrative human approvals and owner confirmation, protected hero photo, visible CTA, working hero anchors, navigation, copy address, images/links/focus and no forms, simulator, receipt or video.`);
+    log.push(`PASS ${file} ${width}px ${colorScheme}: audience/category/prelaunch, illustrative dated commitments, launch-to-learning loop, human authority and owner acceptance, protected hero photo, visible CTA, working hero anchors, navigation, copy address, images/links/focus and no forms, simulator, receipt or video.`);
     await page.close();
   }
 

@@ -399,7 +399,7 @@ summary:focus-visible, [tabindex="0"]:focus-visible { outline: 3px solid current
 .homepage-clarity .section { padding-block: clamp(56px, 7vw, 96px); }
 .homepage-clarity .section-intro { margin-bottom: 36px; }
 .homepage-clarity .proof-line { margin: 20px 0 24px; }
-.homepage-clarity .role-benefits { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; padding-block: 36px; }
+.homepage-clarity .role-benefits { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; padding-block: 36px; }
 .role-benefits article { position: relative; }
 .role-benefits h2 { margin-bottom: 10px; font-size: 17px; line-height: 1.3; font-weight: 500; letter-spacing: -.02em; }
 .homepage-clarity .role-benefits p { margin: 0; padding: 0; border: 0; background: transparent; font-size: 14px; line-height: 1.5; }

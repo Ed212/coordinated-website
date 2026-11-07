@@ -1,3 +1,7 @@
+## November 7, 2026: growth-led review preview
+
+Lead with Turn product momentum into market growth and an AI GTM program manager in development. Northstar now illustrates forming dated commitments, targeted owner check-ins, required gates, owner-supplied market evidence and human decisions carried into accepted next work. Growth remains an ambition. Preserve the November 4 live hero, static stack, privacy/contact behavior and deferred video. Update current metadata, example, measurement questions and copy checks. Review preview only from baseline5e5c870; no production promotion. Current scope: CONTENT-POSITIONING-2026-11-07.md. Older entries below are history.
+
 > Current authority: October 30 local decision-to-action revision below.
 > Older dated rows and their reasoning remain decision history, not current copy
 > or publication authority. This candidate is local and unpublished.
