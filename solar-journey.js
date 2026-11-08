@@ -25,9 +25,22 @@ export async function prepareJourney(canvas) {
   pixels.data[d+3]=Math.round(Math.min(1,(1-Math.sqrt(rr))*192)*255);
  }
  mx.putImageData(pixels,0,0);
- function cover(img,x=0,y=0,w=1280,h=720){const scale=Math.max(w/img.width,h/img.height);ctx.drawImage(img,x+(w-img.width*scale)/2,y+(h-img.height*scale)/2,img.width*scale,img.height*scale);}
+ function cover(img,x=0,y=0,w=1280,h=720,target=ctx){const scale=Math.max(w/img.width,h/img.height);target.drawImage(img,x+(w-img.width*scale)/2,y+(h-img.height*scale)/2,img.width*scale,img.height*scale);}
  function framing(){const scale=Math.max(canvas.clientWidth/1280,canvas.clientHeight/720),width=canvas.clientWidth/scale;return{width,left:(1280-width)*(innerWidth<=760?.73:.68),small:innerWidth<=760};}
- function galaxyCover(){const view=framing(),offset=view.small?view.left+view.width*.58-1280*.62:0;cover(galaxy,offset);}
+ function galaxyCover(target=ctx){const view=framing(),offset=view.small?view.left+view.width*.58-1280*.62:0;cover(galaxy,offset,0,1280,720,target);}
+ const galaxyLayer=document.createElement('canvas');galaxyLayer.width=1280;galaxyLayer.height=720;
+ const galaxyContext=galaxyLayer.getContext('2d');
+ function galaxyFrame(arrival){
+  const g=galaxyContext;g.clearRect(0,0,1280,720);g.globalCompositeOperation='source-over';galaxyCover(g);
+  // Feather the distant image into space so no rectangular photo edge moves
+  // across the scene. The mask disappears before the full-frame arrival.
+  const edge=ease((arrival-.8)/.2);
+  if(edge<1){g.globalCompositeOperation='destination-in';
+   const horizontal=g.createLinearGradient(0,0,1280,0);horizontal.addColorStop(0,`rgba(0,0,0,${edge})`);horizontal.addColorStop(.14,'#000');horizontal.addColorStop(.86,'#000');horizontal.addColorStop(1,`rgba(0,0,0,${edge})`);g.fillStyle=horizontal;g.fillRect(0,0,1280,720);
+   const vertical=g.createLinearGradient(0,0,0,720);vertical.addColorStop(0,`rgba(0,0,0,${edge})`);vertical.addColorStop(.2,'#000');vertical.addColorStop(.8,'#000');vertical.addColorStop(1,`rgba(0,0,0,${edge})`);g.fillStyle=vertical;g.fillRect(0,0,1280,720);
+  }
+  g.globalCompositeOperation='source-over';return galaxyLayer;
+ }
  function planet(img,time,start,length,y,size){
   const p=clamp((time-start)/length);if(time<start||p>=1)return;
   const view=framing(),radius=(.019+size*p*p)*Math.min(720,view.width*1.65),cx=view.left+(.70+.70*p*p)*view.width,cy=view.small?Math.min(620,canvas.clientHeight*.45)/canvas.clientHeight*720:(y+.09*p)*720;
@@ -37,21 +50,20 @@ export async function prepareJourney(canvas) {
   ctx.restore();
  }
  function render(time){
-  const t=Math.max(0,Math.min(journeyDuration,time)),arrival=ease((t-12)/12);
+  const t=Math.max(0,Math.min(journeyDuration,time)),arrival=ease((t-10)/14);
   ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';ctx.fillStyle='#000';ctx.fillRect(0,0,1280,720);
   const drift=1+.035*ease(t/journeyDuration);ctx.save();ctx.translate(1280*.68,720*.45);ctx.scale(drift,drift);ctx.translate(-1280*.68,-720*.45);cover(space);ctx.restore();
   // Darkness accumulates gently; the background never cuts to a black frame.
-  ctx.fillStyle=`rgba(0,0,0,${arrival*.84})`;ctx.fillRect(0,0,1280,720);
+  ctx.fillStyle=`rgba(0,0,0,${arrival})`;ctx.fillRect(0,0,1280,720);
   const sunlight=ease(t/2.5)*(1-ease((t-9)/7));
   if(sunlight>0){ctx.save();ctx.globalAlpha=sunlight*.8;const view=framing(),gx=view.left+view.width*.84,gy=720*(view.small?.42:.28),glow=ctx.createRadialGradient(gx,gy,0,gx,gy,21);glow.addColorStop(0,'rgba(255,242,212,1)');glow.addColorStop(.07,'rgba(255,224,165,.92)');glow.addColorStop(.28,'rgba(255,201,125,.12)');glow.addColorStop(1,'rgba(255,201,125,0)');ctx.fillStyle=glow;ctx.fillRect(gx-21,gy-21,42,42);ctx.restore();}
   planet(moon,t,.8,8.5,.43,.21);planet(mars,t,7.2,9,.48,.22);
   if(arrival>0){
-   // Approach the original artwork from a distant point. Its pattern never morphs.
-   const scale=.075+.925*arrival,anchorX=framing().left+framing().width*.67,anchorY=720*.43;
+   // One forward camera move through the original artwork, not two offset
+   // compositions dissolving over one another. The final frame is retained.
+   const scale=.075+1.085*arrival,view=framing(),anchorX=view.left+view.width*.67,anchorY=720*.43;
    ctx.save();ctx.translate(anchorX*(1-scale),anchorY*(1-scale));ctx.scale(scale,scale);
-   ctx.globalAlpha=ease((t-12)/6);ctx.globalCompositeOperation='screen';galaxyCover();ctx.restore();
-   // The final two seconds converge on exactly the retained original composition.
-   const finish=ease((t-22)/2);if(finish){ctx.globalAlpha=finish;galaxyCover();ctx.globalAlpha=1;}
+   ctx.globalAlpha=ease((t-10)/8);ctx.globalCompositeOperation='screen';ctx.drawImage(galaxyFrame(arrival),0,0);ctx.restore();
   }
   canvas.dataset.journeyTime=t.toFixed(3);
  }

@@ -15,6 +15,8 @@ const still=document.querySelector('[data-flight-still]');
 const status=document.querySelector('.flight-status');
 const preference=matchMedia('(prefers-reduced-motion: reduce)');
 const settleAt=Number(departure.dataset.settleAt);
+const handoffDuration=.8;
+const smooth=n=>{n=Math.max(0,Math.min(1,n));return n*n*(3-2*n);};
 let phase='still',run=0,manualPause=false,inView=true,startingDeparture=false,timeout,raf;
 const moving=()=>phase!=='still'&&!manualPause&&!preference.matches&&!document.hidden&&inView;
 function phaseTo(next){phase=next;root.dataset.flightPhase=next;root.dataset.launchState=next;}
@@ -22,7 +24,7 @@ function setPausedState(){root.dataset.motionPaused=String(!moving());pause.text
 function pauseAll(){launch.pause();departure.pause();setPausedState();}
 async function syncMotion(){
  previousFrame=0;setPausedState();if(!moving()){launch.pause();departure.pause();return;}
- try{if(phase==='launch'){if(launch.ended)await beginDeparture();else await launch.play();}else if(phase==='departure')await departure.play();}catch{showStill();}
+ try{if(phase==='launch'){if(launch.ended)await beginDeparture();else await launch.play();}else if(phase==='departure'){await departure.play();if(departure.currentTime<handoffDuration&&!launch.ended)await launch.play();}}catch{showStill();}
 }
 function load(v){if(!v.src){v.src=v.dataset.src;v.load();}}
 function showStill(){run++;clearTimeout(timeout);phaseTo('still');manualPause=false;launch.pause();departure.pause();layer.hidden=true;root.classList.remove('flight-settled');controls.hidden=preference.matches;skip.hidden=true;replay.hidden=false;pause.hidden=true;still.hidden=true;status.textContent='Still image';setPausedState();}
@@ -40,7 +42,7 @@ async function beginDeparture(){
  try{
   await departure.play();if(attempt!==run){departure.pause();return;}
   if(manualPause||document.hidden||!inView){departure.pause();startingDeparture=false;return;}
-  clearTimeout(timeout);phaseTo('departure');departure.style.opacity='1';launch.style.opacity='0';launch.pause();status.textContent='Leaving Earth behind';setPausedState();
+  clearTimeout(timeout);phaseTo('departure');departure.style.opacity='1';launch.style.opacity='1';status.textContent='Leaving Earth behind';setPausedState();
  }catch{if(attempt===run)showStill();}
 }
 async function beginBridge(){
@@ -64,8 +66,11 @@ async function start(){
 }
 function update(v,t){
  if(!moving())return;
- if(v===launch&&phase==='launch'&&t>=launch.duration-.15&&departure.readyState>=2)beginDeparture();
+ if(v===launch&&phase==='launch'&&t>=launch.duration-handoffDuration&&departure.readyState>=2)beginDeparture();
  if(v===departure&&phase==='departure'){
+  // Dissolve matched frames while both clips move; never cut through black.
+  launch.style.opacity=String(1-smooth(t/handoffDuration));
+  if(t>=handoffDuration)launch.pause();
   // Decelerate the actual camera motion, then retain its exact final composition.
   const startSlow=Math.max(0,settleAt-1),p=Math.max(0,Math.min(1,(t-startSlow)/(settleAt-startSlow)));
   departure.playbackRate=1-.25*(p*p*(3-2*p));

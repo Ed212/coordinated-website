@@ -21,6 +21,8 @@ async function journey(width){
  await p.screenshot({path:`${out}/continuous-opening-${width}.png`});
  await p.locator('[data-flight-pause]').click();await phase(p,'departure');
  assert.deepEqual(await p.locator('#hero-title').boundingBox(),box);
+ const dissolve=await p.waitForFunction(()=>{const launch=document.querySelector('#launch-intro-video'),departure=document.querySelector('#departure-video'),opacity=+getComputedStyle(launch).opacity;return opacity>0&&opacity<1&&departure.currentTime<.8?{opacity,departureTime:departure.currentTime}:false;},null,{timeout:5000});
+ assert((await dissolve.jsonValue()).opacity>0,'Matched moving clips overlap during handoff');
  await p.screenshot({path:`${out}/continuous-orbit-${width}.png`});
  await p.locator('[data-flight-pause]').click();assert(await paused(p));await p.locator('[data-flight-pause]').click();
  await phase(p,'ambient');assert.deepEqual(await p.locator('#hero-title').boundingBox(),box);
@@ -42,7 +44,7 @@ async function journey(width){
  await p.emulateMedia({reducedMotion:'no-preference'});await checkStill(p);
  assert(await p.locator('body').evaluate(e=>e.scrollWidth<=innerWidth+1));
  const cls=await p.evaluate(()=>window.__cls);assert(cls<.02,`CLS ${cls}`);assert.deepEqual(errors,[]);
- results.push({width,realTwoShotPlayback:true,stationaryHeadlineAndCTA:true,pauseResumeAllPhases:true,ambientOffscreenPauseResume:true,skipReplayStill:true,reducedMotionChange:true,cls,errors});await p.close();
+ results.push({width,realTwoShotPlayback:true,stationaryHeadlineAndCTA:true,pauseResumeAllPhases:true,movingClipDissolve:true,ambientOffscreenPauseResume:true,skipReplayStill:true,reducedMotionChange:true,cls,errors});await p.close();
 }
 try{
  await Promise.all([journey(390),journey(1440)]);

@@ -16,7 +16,7 @@ export async function measureHeroContrast(page) {
     }
     return lines;
   });
-  const hide=await page.addStyleTag({content:'.hero-copy, .hero-copy * { color: transparent !important; text-shadow: none !important; }'});
+  const hide=await page.addStyleTag({content:'.hero-copy, .hero-copy * { color: transparent !important; text-shadow: none !important; -webkit-text-stroke: 0 transparent !important; }'});
   let pixels;
   try {pixels=await page.locator('.hero').screenshot({animations:'disabled'});}finally{await hide.evaluate(style=>style.remove());}
   return page.evaluate(async({lines,encoded})=>{

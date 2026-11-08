@@ -1,61 +1,45 @@
-/* One continuous media plane; one stationary headline and CTA. Preview only. */
-.launch-preview [hidden] { display: none !important; }
-.launch-preview .hero { isolation: isolate; min-height: 960px; background: #000; }
-.flight-scene { position: absolute; inset: 0 0 auto; width: 100%; aspect-ratio: 16/9; overflow: hidden; background: #000; pointer-events: none; }
-.flight-scene picture, .flight-scene img, .flight-animation, .flight-scene video, .flight-ambient { position: absolute; inset: 0; width: 100%; height: 100%; }
-.flight-scene img, .flight-scene video { object-fit: contain; }
-.flight-animation { background: #000; }
-.flight-scene video { transition: opacity 180ms linear; mask-image: linear-gradient(180deg,transparent 0,transparent 12%,#000 18%); }
-#departure-video { opacity: 0; transition: none; }
-.flight-ambient { opacity: 0; overflow: hidden; mask-image: linear-gradient(180deg,transparent 0,transparent 12%,#000 18%); }
-.flight-ambient img { object-fit: contain; transform-origin: 65% 45%; }
-.flight-settled .flight-ambient img { animation: ambient-drift 32s ease-in-out infinite; }
-.flight-glow { position: absolute; pointer-events: none; inset: 0; opacity: 0; background: radial-gradient(ellipse at 75% 45%,rgba(153,185,224,.055),transparent 37%); mix-blend-mode: screen; }
-.flight-settled .flight-glow { animation: ambient-light 19s ease-in-out infinite; }
-.flight-scene::after { content:''; position:absolute; inset:0; background:linear-gradient(90deg,rgba(0,0,0,.78),rgba(0,0,0,.42) 40%,transparent 72%),linear-gradient(180deg,transparent 52%,#000 100%); }
-.launch-preview .hero-layout { z-index: 2; }
-.launch-preview .hero-copy, .launch-preview .hero-product { opacity: 1; }
-.launch-preview .hero-product { margin-top:calc(56.25vw - 66px); }
-.launch-preview .hero h1 { font-size:clamp(44px,5.2vw,74px); line-height:1.02; letter-spacing:-.055em; }
+/* One natural, full-hero media plane; stationary copy. Preview only. */
+.launch-preview [hidden] { display:none !important; }
+.launch-preview .hero { isolation:isolate; min-height:960px; background:#000; }
+.flight-scene { position:absolute; inset:0; width:100%; height:100%; overflow:hidden; background:#000; pointer-events:none; }
+.flight-scene picture,.flight-scene img,.flight-animation,.flight-scene video,.flight-ambient,.flight-bridge { position:absolute; inset:0; width:100%; height:100%; }
+.flight-scene img,.flight-scene video,.flight-bridge { object-fit:cover; object-position:68% 50%; }
+.flight-animation { background:#000; }
+.flight-scene video,.flight-ambient,.flight-bridge { mask-image:none; }
+#departure-video,.flight-ambient,.flight-bridge { opacity:0; }
+.flight-ambient { overflow:hidden; }
+.flight-ambient img { transform-origin:65% 45%; }
+.flight-settled .flight-ambient img { animation:ambient-drift 48s ease-in-out infinite; }
+.flight-glow { position:absolute; pointer-events:none; inset:0; opacity:0; background:radial-gradient(ellipse at 75% 45%,rgba(153,185,224,.055),transparent 37%); mix-blend-mode:screen; }
+.flight-settled .flight-glow { animation:ambient-light 19s ease-in-out infinite; }
+/* No black copy panel, full-scene darkening, edge fade or hidden video mask. */
+.launch-preview .hero-copy::before,.flight-scene::after,.launch-preview .hero-scrim { display:none; }
+.launch-preview .hero-layout { z-index:2; }
+.launch-preview .hero-copy { background:none; box-shadow:none; opacity:1; }
+/* The narrow outline follows the glyphs, leaving the natural scene untouched. */
+.launch-preview .hero-copy :is(h1,p,.eyebrow,.agent-line,.proof-line,.text-link) { color:#fff; -webkit-text-stroke:.65px rgba(0,0,0,.95); paint-order:stroke fill; text-shadow:0 1px 2px #000,0 2px 5px rgba(0,0,0,.7); }
+.launch-preview .hero-copy h1 { font-size:clamp(44px,5.2vw,74px); line-height:1.02; letter-spacing:-.055em; -webkit-text-stroke:1px rgba(0,0,0,.9); }
+.launch-preview .hero-copy .hero-actions a:not(.text-link) { -webkit-text-stroke:0; text-shadow:none; }
+.launch-preview .hero-product { opacity:1; margin-top:calc(40vw + 55px); }
 .flight-controls { position:absolute; z-index:5; top:20px; right:var(--page-pad); display:flex; align-items:center; gap:6px; flex-wrap:wrap; max-width:calc(100% - var(--page-pad)*2); }
 .flight-controls button { border:1px solid #8e99a7; border-radius:999px; background:rgba(3,8,18,.8); color:#fff; padding:9px 13px; min-height:44px; font:inherit; font-size:11px; cursor:pointer; }
 .flight-controls button:hover { background:#243242; }
 .flight-controls button:focus-visible { outline:3px solid #fff; outline-offset:3px; }
-.flight-status { color:#cbd5e0; font-size:11px; width:100%; text-align:right; }
+.flight-status { color:#fff; font-size:11px; width:100%; text-align:right; text-shadow:0 1px 2px #000,0 1px 5px #000; }
 [data-motion-paused="true"] .flight-ambient img,[data-motion-paused="true"] .flight-glow { animation-play-state:paused; }
-@keyframes ambient-drift {0%,100% {transform:scale(1) translate(0,0)}50%{transform:scale(1.003) translate(-.06%,.035%)}}
+@keyframes ambient-drift {0%,100% {transform:scale(1) translate(0,0)}50%{transform:scale(1.025) translate(-.3%,.12%)}}
 @keyframes ambient-light {0%,100%{opacity:0}50%{opacity:.5}}
 @media(max-width:760px) {
  .launch-preview .hero { min-height:0; }
- .launch-preview .hero-layout { display:block; padding-top:calc(56.25vw + 30px); }
- .launch-preview .hero-product { margin-top:44px; }
+ .launch-preview .hero-layout { display:block; padding-top:112px; }
+ .launch-preview .hero-copy { min-height:700px; }
+ .launch-preview .hero-product { margin-top:56px; }
  .launch-preview .hero h1 { font-size:clamp(35px,9.4vw,55px); }
- .flight-controls { top:10px; gap:4px; }
+ .flight-scene img,.flight-scene video,.flight-bridge { object-position:73% 50%; }
+ .flight-controls { top:16px; gap:4px; }
  .flight-controls button { padding:8px 10px; font-size:10px; }
- .flight-scene::after { background:linear-gradient(180deg,transparent 72%,#000 100%); }
 }
-@media(prefers-reduced-motion:reduce) { .flight-scene video {transition:none} .flight-ambient img,.flight-glow {animation:none!important} }
-
-/* One full-hero background at every viewport size, including portrait phones. */
-.launch-preview .hero { min-height: 960px; }
-.flight-scene { inset:0; height:100%; aspect-ratio:auto; }
-.flight-scene img,.flight-scene video,.flight-bridge { object-fit:cover; object-position:68% 50%; }
-.flight-bridge { position:absolute;inset:0;width:100%;height:100%;opacity:0; }
-.flight-scene video,.flight-ambient { mask-image:linear-gradient(180deg,transparent 0,#000 14%,#000 100%); }
-.flight-bridge { mask-image:linear-gradient(180deg,transparent 0,#000 14%,#000 100%); }
-.flight-scene::after { background:linear-gradient(90deg,rgba(0,0,0,.72),rgba(0,0,0,.25) 45%,rgba(0,0,0,.04) 78%),linear-gradient(180deg,rgba(0,0,0,.25),transparent 38%,#000 100%); }
-.launch-preview .hero-product { margin-top:calc(40vw + 55px); }
-@media(max-width:760px){
- .launch-preview .hero {min-height:0;}
- .launch-preview .hero-layout {padding-top:112px;}
- .launch-preview .hero-copy {min-height:700px;}
- .launch-preview .hero-product {margin-top:56px;}
- .launch-preview .hero-copy::before {display:block;inset:-30px -20px;background:rgba(0,0,0,.65);mask-image:linear-gradient(180deg,#000 72%,transparent);}
- .flight-scene img,.flight-scene video,.flight-bridge {object-position:73% 50%;}
- .flight-scene::after {background:linear-gradient(180deg,rgba(0,0,0,.12),rgba(0,0,0,.25) 50%,#000 100%);}
- .flight-controls {top:16px;}
-}
-
+@media(prefers-reduced-motion:reduce) { .flight-ambient img,.flight-glow {animation:none!important} }
 .study-banner {padding:10px 20px;background:#11151c;color:#d3dae5;text-align:center;font-size:12px;line-height:1.5;}
 .study-banner a {color:#fff;text-decoration:underline;}
 .study-banner a:focus-visible {outline:2px solid #fff;outline-offset:4px;}
