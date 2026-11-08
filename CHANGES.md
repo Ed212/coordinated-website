@@ -1,3 +1,7 @@
+## November 8, 2026: people and permitted agents review revision
+
+Preserve the growth-led launch-to-learning story. Add intended shared agreement/version context for humans and permitted agents, with concrete change effects and clear separation of approval, delivery acceptance, read permission and action authority. Update the example, measurement and metadata. Prior preview6e89b2b is superseded for review. Draft PR #4 preview only; required Opus review remains pending. Current scope: CONTENT-POSITIONING-2026-11-08.md.
+
 ## November 7, 2026: growth-led review preview
 
 Lead with Turn product momentum into market growth and an AI GTM program manager in development. Northstar now illustrates forming dated commitments, targeted owner check-ins, required gates, owner-supplied market evidence and human decisions carried into accepted next work. Growth remains an ambition. Preserve the November 4 live hero, static stack, privacy/contact behavior and deferred video. Update current metadata, example, measurement questions and copy checks. Review preview only from baseline5e5c870; no production promotion. Current scope: CONTENT-POSITIONING-2026-11-07.md. Older entries below are history.

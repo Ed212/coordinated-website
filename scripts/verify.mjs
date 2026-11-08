@@ -96,6 +96,46 @@ async function checkHeadings(page) {
   }), 'Hero copy and example do not overlap');
 }
 
+async function checkAgreement(page) {
+  const agreement = page.locator('#trust');
+  const text = normalize(await agreement.textContent());
+  const introduction = normalize(await agreement.locator('#start').textContent());
+  assert(/conversation history/i.test(introduction) && /said/i.test(introduction) && /building|planned|design/i.test(introduction) && /agreed|decided/i.test(introduction) && /version/i.test(introduction), 'Agreement distinction is framed as planned and distinguishes conversation recall from agreed decisions and versions');
+  for (const scope of ['positioning', 'pricing', 'budget', 'dependencies', 'launch gates']) assert(text.toLowerCase().includes(scope), `Shared direction includes ${scope}`);
+  assert(/commitments/i.test(text) && /accepted|acceptance/i.test(text) && /follow.through/i.test(text), 'Shared direction supports active coordination of accepted commitments, not only recall');
+  const benefits = agreement.locator('.trust-grid article');
+  assert.equal(await benefits.count(), 3);
+  const people = normalize(await benefits.nth(0).textContent());
+  assert(/people/i.test(people) && /accepted|acceptance/i.test(people) && /commitments/i.test(people) && /unresolved|unanswered/i.test(people) && /owners.*accept/i.test(people), 'People can distinguish accepted work from unresolved decisions and owner acceptance');
+  const agents = normalize(await benefits.nth(1).textContent());
+  assert(/permit/i.test(agents) && /agent/i.test(agents) && /would|planned|design/i.test(agents) && /approved/i.test(agents) && /version/i.test(agents) && /sources?/i.test(agents) && /missing|unknown|unanswered/i.test(agents), 'Permitted agent reads are planned, use approved version and source context, and preserve unanswered questions');
+  const authority = normalize(await benefits.nth(2).textContent());
+  assert(/read access.*no.*action.*approval authority/i.test(authority), 'Reading grants neither action nor approval authority');
+  assert(/people.*decisions.*approvals/i.test(authority) && /owners.*accept.*work.*dates/i.test(authority), 'Human decisions and required approvals remain distinct from exact owner acceptance');
+  const maturity = normalize(await agreement.locator('.scope-line').last().textContent());
+  assert(/agent/i.test(maturity) && /design|intended|planned|building/i.test(maturity) && /sources/i.test(maturity) && /permissions/i.test(maturity), 'Agent consultation is design intent subject to agreed pilot sources and permissions');
+
+  const detail = page.locator('#agreement-change');
+  assert(await detail.evaluate(element => element instanceof HTMLDetailsElement), 'Amendment uses a native disclosure');
+  assert.equal(await detail.evaluate(element => element.open), false, 'Amendment starts collapsed');
+  const summary = detail.locator('summary');
+  assert(await detail.locator('dl').isHidden(), 'Collapsed amendment content is hidden');
+  await summary.click();
+  assert(await detail.evaluate(element => element.open), 'Pointer opens the amendment');
+  assert(await detail.locator('dl').isVisible(), 'Expanded amendment content is visible');
+  const amendment = normalize(await detail.innerText());
+  assert(/illustrative.*Northstar/i.test(amendment), 'Amendment is explicitly illustrative');
+  assert(/version.*approved/i.test(amendment) && /propos/i.test(amendment) && /does not.*(?:change|replace).*accepted work/i.test(amendment), 'A proposal does not silently replace current approval or accepted work');
+  assert(/decision approval.*not.*(?:delivery|owner) acceptance/i.test(amendment), 'Decision approval is distinct from owner delivery acceptance');
+  assert(/takes effect/i.test(amendment) && /superseded.*scope/i.test(amendment) && /unchanged.*still apply/i.test(amendment) && /awaiting acceptance.*open/i.test(amendment), 'Effective amendments supersede only their scope and leave missing acceptance open');
+  assert(/source/i.test(amendment) && /observation window/i.test(amendment) && /stale.*missing.*not proof/i.test(amendment), 'Old or absent evidence is not counted as a successful result');
+  assert(await detail.locator('summary,dt,dd').evaluateAll(elements => elements.every(element => element.scrollWidth <= element.clientWidth + 1)), 'Expanded amendment text is not horizontally clipped');
+  await summary.focus();
+  await summary.press('Enter');
+  assert.equal(await detail.evaluate(element => element.open), false, 'Keyboard closes the native amendment');
+  assert(await detail.locator('dl').isHidden(), 'Closing the amendment hides its content again');
+}
+
 try {
   for (const file of ['index.html', 'b.html']) for (const width of [400, 1100]) for (const colorScheme of ['light', 'dark']) {
     const page = await browser.newPage({ viewport: { width, height: 900 }, colorScheme, reducedMotion: 'reduce' });
@@ -113,6 +153,8 @@ try {
     assert(/\b(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun) (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{1,2}\b/.test(heroCard), 'Illustrative commitments have concrete dates with weekdays');
     assert(/gate/i.test(heroCard) && /missing|pending|open|unanswered|unconfirmed|not yet|awaiting/i.test(heroCard), 'Hero makes the unanswered gate or acceptance visible');
     assert(/accept|confirm/i.test(heroCard), 'Draft work is distinguished from owner acceptance');
+    const earlyBenefits = normalize(await page.locator('#roles').innerText());
+    assert(/people/i.test(earlyBenefits) && /permitted agents/i.test(earlyBenefits) && /would/i.test(earlyBenefits), 'People and permitted-agent benefits appear early as intended capabilities');
     const bodyText = await page.locator('body').innerText();
     assert.equal((bodyText.match(/prelaunch/gi) || []).length, 1, 'One clear homepage Prelaunch disclosure');
     assert.equal(await page.locator('.legacy-model,#reader-receipt,#attention-model,#cmp,video,.hero-film-stage').count(), 0, 'Removed simulator, receipt and video are absent');
@@ -156,6 +198,7 @@ try {
     const contact = normalize(await page.locator('#pilot').innerText());
     assert(/no (?:prep|preparation).*documents? needed/i.test(contact));
     assert(/does not send a message or confirm delivery/i.test(contact));
+    await checkAgreement(page);
     await checkImages(page);
     assert.deepEqual(checkCopy(await page.locator('body').innerText(), `${file} rendered`), []);
     await checkLinks(page);
@@ -167,7 +210,7 @@ try {
     await page.evaluate(() => scrollTo(0, 0));
     await page.screenshot({ path: `docs/site-v5/screenshots/${prefix}${file === 'index.html' ? 'a' : 'b'}-${width}-${colorScheme}.png`, fullPage: true });
     assert.deepEqual(errors, [], 'Browser console/runtime errors');
-    log.push(`PASS ${file} ${width}px ${colorScheme}: audience/category/prelaunch, illustrative dated commitments, launch-to-learning loop, human authority and owner acceptance, protected hero photo, visible CTA, working hero anchors, navigation, copy address, images/links/focus and no forms, simulator, receipt or video.`);
+    log.push(`PASS ${file} ${width}px ${colorScheme}: audience/category/prelaunch, illustrative dated commitments, launch-to-learning loop, human and permitted-agent agreement/version context, separate read/decision/acceptance authority, native amendment open/close, protected hero photo, visible CTA, working hero anchors, navigation, copy address, images/links/focus and no forms, simulator, receipt or video.`);
     await page.close();
   }
 
@@ -179,6 +222,7 @@ try {
     await checkHeadings(page);
     await checkNavigation(page);
     await checkCTA(page);
+    if (file === 'index.html') await checkAgreement(page);
     assert.equal(await page.locator('form').count(), 0);
     if (file !== 'index.html') {
       const text = await page.locator('main').innerText();
@@ -192,7 +236,7 @@ try {
     assert.deepEqual(errors, [], 'Responsive page errors');
     await page.close();
   }
-  log.push('PASS 320/375/768/1024/1440/1920px sweep on home, Launch example and How we’ll measure: overflow, headings/nav, CTA, images and links/anchors.');
+  log.push('PASS 320/375/768/1024/1440/1920px sweep on home, Launch example and How we’ll measure: overflow, headings/nav, CTA, images and links/anchors, plus readable native agreement disclosure on home.');
 
   const noJS = await browser.newPage({ javaScriptEnabled: false, viewport: { width: 400, height: 900 } });
   await noJS.goto(base.href);

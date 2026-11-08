@@ -1,3 +1,5 @@
+Historical November7 preview record, superseded for review by [CONTENT-POSITIONING-2026-11-08.md](CONTENT-POSITIONING-2026-11-08.md).
+
 # Growth-led product-to-market learning preview
 
 Baseline: published `5e5c8707268f9257554045c7f248a411209df6ad`. New work is isolated on `codex/growth-learning-preview`; production and the deferred video branch stay unchanged.
