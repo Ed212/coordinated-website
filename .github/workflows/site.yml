@@ -17,6 +17,8 @@ jobs:
       - run: npm run test:browser
       - run: npm run test:performance
       - run: npm run check:references
+      - run: WIDE_LAUNCH_PREVIEW=local npm run build
+      - run: BASE_URL=http://127.0.0.1:4174 node scripts/verify-launch-preview.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -24,3 +26,4 @@ jobs:
           path: |
             docs/site-v5/logs/
             docs/site-v5/screenshots/
+            preview-review/wide-launch/

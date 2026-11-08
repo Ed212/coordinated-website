@@ -1,0 +1,38 @@
+/* Isolated motion study. The shipped hero and production page are unchanged. */
+.launch-preview [hidden] { display: none !important; }
+.launch-preview .hero { isolation: isolate; }
+.launch-intro { position: absolute; z-index: 10; inset: 0; overflow: hidden; background: #030812; color: #fbfbf8; opacity: 1; transition: opacity 850ms ease; }
+.launch-intro::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg,rgba(3,8,18,.86),rgba(3,8,18,.52) 38%,rgba(3,8,18,.04) 70%),linear-gradient(180deg,transparent 45%,#030812 90%); }
+.launch-intro video { display: block; position: absolute; inset: 0; width: 100%; height: auto; aspect-ratio: 16/9; object-fit: contain; mask-image: linear-gradient(180deg, transparent 0, transparent 7%, #000 12%); }
+.launch-intro-copy { position: relative; z-index: 2; width: min(100%,1440px); margin-inline: auto; padding: 88px var(--page-pad) 180px; }
+.launch-intro .launch-kicker { margin: 0 0 28px; font: 11px/1.5 'JetBrains Mono',monospace; text-transform: uppercase; letter-spacing: .12em; color: #ced5de; }
+.launch-intro h2 { width: min(52%,670px); font-size: clamp(44px,5.2vw,74px); font-weight: 500; line-height: 1.02; letter-spacing: -.055em; margin: 0 0 30px; color: #fbfbf8; }
+.launch-intro h2 span { white-space: nowrap; }
+.launch-intro .launch-bridge { max-width: 410px; margin-bottom: 24px; font-size: 16px; line-height: 1.6; color: #e0e5eb; }
+.launch-intro .launch-actions { display: flex; gap: 10px 22px; align-items: center; flex-wrap: wrap; }
+.launch-intro .launch-actions a:not(.button) { color: #fff; }
+.launch-controls { position: relative; margin-top: 64px; z-index: 3; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.launch-controls button, .launch-replay { background: rgba(3,8,18,.78); border: 1px solid #8e99a7; border-radius: 999px; padding: 10px 16px; color: #fff; font-size: 12px; line-height: 1.4; font-family: inherit; cursor: pointer; min-height: 44px; }
+.launch-controls button:hover, .launch-replay:hover { background: #243242; }
+.launch-controls button:focus-visible, .launch-replay:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+.launch-status { color: #d6dee8; font-size: 12px; margin-left: auto; }
+.launch-replay { position: absolute; z-index: 5; top: 22px; right: var(--page-pad); }
+.launch-preview[data-launch-active] .hero-layout { opacity: 0; transition: opacity 850ms ease; }
+.launch-preview[data-launch-state="revealing"] .launch-intro { opacity: 0; pointer-events: none; }
+.launch-preview[data-launch-state="revealing"] .hero-layout { opacity: 1; }
+@media (max-width: 1020px) and (min-width: 761px) { .launch-intro-copy { padding-top: 70px; } .launch-intro h2 { width: 64%; font-size: 54px; } }
+@media (max-width: 760px) {
+ .launch-intro { background: #030812; }
+ .launch-intro::after { background: linear-gradient(180deg,transparent 7%,rgba(3,8,18,.1) 13%,#030812 29%); }
+ .launch-intro video { top: 0; }
+ .launch-intro-copy { padding-top: calc(56.25vw + 22px); padding-bottom: 140px; }
+ .launch-intro .launch-kicker { margin-bottom: 18px; font-size: 10px; }
+ .launch-intro h2 { width: 100%; max-width: 510px; font-size: clamp(35px,9.4vw,55px); margin-bottom: 20px; }
+ .launch-intro .launch-bridge { font-size: 14px; margin-bottom: 22px; }
+ .launch-controls { margin-top: 32px; align-items: flex-start; }
+ .launch-status { width: 100%; margin: 4px 0 0; }
+ .launch-replay { top: 12px; font-size: 11px; padding: 8px 14px; }
+}
+@media (prefers-reduced-motion: reduce) { .launch-intro, .launch-preview .hero-layout { transition: none !important; } }
+
+.launch-note { margin: 20px 0 0; color: #aab8c7; font-size: 11px; letter-spacing: .035em; }

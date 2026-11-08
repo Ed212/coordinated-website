@@ -24,3 +24,5 @@ await writeFile('docs/site-v5/logs/calc-sha256.log',`${digest}  docs/site-v5/cal
 console.log('calc.js SHA-256:',digest);
 await import('./check-copy.mjs');
 console.log('Built both headline pages; archived calculator source remains unchanged.');
+
+await import("./build-launch-preview.mjs");

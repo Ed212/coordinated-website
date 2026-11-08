@@ -1,0 +1,55 @@
+import { chromium } from 'playwright';
+import assert from 'node:assert/strict';
+import { mkdir,writeFile } from 'node:fs/promises';
+const base=process.env.BASE_URL||'http://127.0.0.1:4197';
+const browser=await chromium.launch({headless:true,...(process.env.CHROME_PATH?{executablePath:process.env.CHROME_PATH}:{})});
+const results=[];
+await mkdir('preview-review/wide-launch',{recursive:true});
+for(const width of [390,1440]) {
+ const page=await browser.newPage({viewport:{width,height:900}});
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.addInitScript(()=>{window.__cls=0;new PerformanceObserver(l=>l.getEntries().forEach(e=>{if(!e.hadRecentInput)window.__cls+=e.value})).observe({type:'layout-shift',buffered:true});});
+ await page.goto(base+'/launch-preview.html');
+ await page.waitForFunction(()=>document.body.dataset.launchState==='playing');
+ await page.locator('[data-launch-pause]').click();
+ assert.equal(await page.locator('#launch-intro-video').evaluate(v=>v.paused),true);
+ assert.equal(await page.locator('.launch-intro h2').innerText(),'Let your go-to-market move at the speed of your launch.');
+ assert.equal(await page.locator('.hero-layout').evaluate(e=>e.inert),true);
+ assert(await page.locator('.launch-actions a').first().isVisible());
+ assert(await page.locator('body').evaluate(e=>e.scrollWidth<=innerWidth+1));
+ await page.screenshot({path:`preview-review/wide-launch/opening-${width}.png`,fullPage:false});
+ await page.locator('[data-launch-pause]').click();
+ await page.waitForFunction(()=>document.body.dataset.launchState==='complete',null,{timeout:20000});
+ assert.equal(await page.locator('.hero-layout').evaluate(e=>e.inert),false);
+ assert(await page.locator('.launch-replay').isVisible());
+ await page.screenshot({path:`preview-review/wide-launch/galaxy-${width}.png`,fullPage:false});
+ const cls=await page.evaluate(()=>window.__cls); assert(cls<.02,`CLS ${cls}`);
+ await page.locator('.launch-replay').click();
+ await page.locator('[data-launch-skip]').click();
+ await page.waitForFunction(()=>document.body.dataset.launchState==='skipped');
+ assert.equal(await page.locator('.launch-replay').evaluate(e=>document.activeElement===e),true);
+ await page.locator('.launch-replay').click();
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await page.waitForFunction(()=>document.body.dataset.launchState==='reduced-motion');
+ assert.equal(await page.locator('#launch-intro-video').evaluate(v=>v.paused),true);
+ await page.emulateMedia({reducedMotion:'no-preference'});
+ assert.equal(await page.locator('#launch-intro-video').evaluate(v=>v.paused),true);
+ assert.deepEqual(errors,[]);
+ results.push({width,realEndedTransition:true,pauseResume:true,skipReplay:true,preferenceChange:true,cls,errors});await page.close();
+}
+for(const mode of ['reduced','no-js','failed','autoplay-blocked','hash','save-data']) {
+ const page=await browser.newPage({javaScriptEnabled:mode!=='no-js',reducedMotion:mode==='reduced'?'reduce':'no-preference'});
+ const media=[];page.on('request',r=>{if(r.url().endsWith('.mp4'))media.push(r.url())});
+ if(mode==='failed')await page.route('**/*.mp4',r=>r.abort());
+ if(mode==='autoplay-blocked')await page.addInitScript(()=>HTMLMediaElement.prototype.play=()=>Promise.reject(new DOMException('Blocked','NotAllowedError')));
+ if(mode==='save-data')await page.addInitScript(()=>Object.defineProperty(navigator,'connection',{value:{saveData:true}}));
+ await page.goto(base+'/launch-preview.html'+(mode==='hash'?'#moments':''));
+ if(['failed','autoplay-blocked'].includes(mode))await page.waitForFunction(()=>!document.body.hasAttribute('data-launch-active'));
+ assert(await page.locator('.hero-copy').isVisible());
+ assert.equal(await page.locator('.hero-layout').evaluate(e=>e.inert),false);
+ if(['reduced','no-js','hash','save-data'].includes(mode))assert.equal(media.length,0,`Unexpected media for ${mode}`);
+ results.push({mode,staticFallback:true,mediaRequests:media.length});await page.close();
+}
+const p=await browser.newPage();await p.goto(base+'/');assert.equal(await p.locator('.launch-intro').count(),0);
+results.push({ordinaryHomepageUnchanged:true});
+await browser.close();await writeFile('preview-review/wide-launch/checks.json',JSON.stringify(results,null,2));console.log(JSON.stringify(results,null,2));

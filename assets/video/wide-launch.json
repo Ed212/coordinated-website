@@ -1,0 +1,11 @@
+{
+  "file": "assets/video/wide-shuttle-launch.mp4",
+  "bytes": 5966854,
+  "sha256": "4325f277ef1aa1c921ac3899c47a61a9704b4452708682cbf1f54500ccee76b1",
+  "width": 1920,
+  "height": 1080,
+  "duration": 10.041667,
+  "hasAudio": false,
+  "generationTask": "cc4faf72-5f80-4334-beee-e904032156df",
+  "note": "Generated cinematic compressed ascent; not actual launch footage."
+}
