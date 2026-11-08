@@ -14,8 +14,6 @@
   color: var(--ink);
   background: var(--paper);
   font-family: var(--sans);
-  font-feature-settings: "tnum" 1;
-  font-variant-numeric: tabular-nums;
 }
 
 * { box-sizing: border-box; }

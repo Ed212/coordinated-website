@@ -1,3 +1,7 @@
+## Opus follow-up on November 8
+
+The corrections to reviewed head 7f84ddd keep PR #4 draft and preview-only. Northstar’s first mention is explicitly fictional; the hero names GTM leads, product leaders and founders, and frames growth as something each launch can teach us about. A short conversation-history/agreement distinction now appears in the hero. A paired Leo/agent example consults the same approved version 1 and scope source, without action authority. Repeated loop narration is trimmed; the hero action accurately says See the learning review. The proven Inter hyphen-width issue is fixed by removing global tabular numeric features, without replacing fonts or ordinary hyphens. See CONTENT-OPUS-FOLLOWUP-2026-11-08.md for scope and review handoff. No ready transition, merge or production promotion.
+
 ## November 8 review revision: shared agreement for people and agents
 
 Continue draft PR #4 on codex/growth-learning-preview. The previous 6e89b2b preview is superseded for review by the current copy; neither prior checks nor this amendment authorize production. Keep the growth headline, active program-manager/learning loop, three benefits and original galaxy hero. Explain that conversation history helps recall what was said, while Coordinated is being built to preserve what was agreed/decided, which version applies and what still needs an answer.

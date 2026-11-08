@@ -1,3 +1,5 @@
+Updated by the bounded [Opus follow-up](CONTENT-OPUS-FOLLOWUP-2026-11-08.md); the earlier 7f84ddd review is superseded by the next exact head.
+
 # Shared agreement for people and permitted agents
 
 Review revision of draft PR #4, starting from 6e89b2b279866468a6b021ab48389cfca7e2acdf. The November 7 growth headline, active AI GTM program manager, launch-to-learning loop, three benefits, original galaxy hero/layout, static stack, contact/privacy behavior and deferred video stay intact. Production remains 5e5c870.

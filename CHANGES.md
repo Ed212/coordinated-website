@@ -1,3 +1,7 @@
+## November 8: bounded Opus corrections
+
+Clarify fictional examples and buyer roles, place agreement-versus-conversation value near the hero, show one paired approved-version example, trim repetition and accurately name the later learning-review action. Remove the proven global tabular-feature cause of widened prose hyphens. Original galaxy hero/photo/layout retained. Draft PR #4 preview only; focused review still required. Scope: CONTENT-OPUS-FOLLOWUP-2026-11-08.md.
+
 ## November 8, 2026: people and permitted agents review revision
 
 Preserve the growth-led launch-to-learning story. Add intended shared agreement/version context for humans and permitted agents, with concrete change effects and clear separation of approval, delivery acceptance, read permission and action authority. Update the example, measurement and metadata. Prior preview6e89b2b is superseded for review. Draft PR #4 preview only; required Opus review remains pending. Current scope: CONTENT-POSITIONING-2026-11-08.md.

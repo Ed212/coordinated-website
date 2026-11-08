@@ -99,16 +99,19 @@ async function checkHeadings(page) {
 async function checkAgreement(page) {
   const agreement = page.locator('#trust');
   const text = normalize(await agreement.textContent());
+  const earlyAgreement = normalize(await page.locator('.hero-agreement').textContent());
+  assert(/conversation history.*said/i.test(earlyAgreement) && /building.*agreed and decided/i.test(earlyAgreement), 'Conversation versus agreement distinction is early and framed as intended capability');
   const introduction = normalize(await agreement.locator('#start').textContent());
-  assert(/conversation history/i.test(introduction) && /said/i.test(introduction) && /building|planned|design/i.test(introduction) && /agreed|decided/i.test(introduction) && /version/i.test(introduction), 'Agreement distinction is framed as planned and distinguishes conversation recall from agreed decisions and versions');
+  assert(/design/i.test(introduction) && /approved version/i.test(introduction) && /sources/i.test(introduction), 'Agreement context is a proposed approved-version/source view');
   for (const scope of ['positioning', 'pricing', 'budget', 'dependencies', 'launch gates']) assert(text.toLowerCase().includes(scope), `Shared direction includes ${scope}`);
-  assert(/commitments/i.test(text) && /accepted|acceptance/i.test(text) && /follow.through/i.test(text), 'Shared direction supports active coordination of accepted commitments, not only recall');
+  assert(/affected commitments/i.test(text) && /people.*answer/i.test(text), 'Shared direction identifies affected work and questions for people');
   const benefits = agreement.locator('.trust-grid article');
   assert.equal(await benefits.count(), 3);
   const people = normalize(await benefits.nth(0).textContent());
-  assert(/people/i.test(people) && /accepted|acceptance/i.test(people) && /commitments/i.test(people) && /unresolved|unanswered/i.test(people) && /owners.*accept/i.test(people), 'People can distinguish accepted work from unresolved decisions and owner acceptance');
+  assert(/current commitment/i.test(people) && /version 1/i.test(people) && /approved/i.test(people) && /review/i.test(people) && /proposed.*does not.*change/i.test(people), 'Human example shows current work under the applicable version, separate from a proposal');
   const agents = normalize(await benefits.nth(1).textContent());
   assert(/permit/i.test(agents) && /agent/i.test(agents) && /would|planned|design/i.test(agents) && /approved/i.test(agents) && /version/i.test(agents) && /sources?/i.test(agents) && /missing|unknown|unanswered/i.test(agents), 'Permitted agent reads are planned, use approved version and source context, and preserve unanswered questions');
+  assert(/version 1/i.test(agents) && /same.*source/i.test(agents) && /Product approval/i.test(text), 'Paired human and agent examples share the same approved version and source');
   const authority = normalize(await benefits.nth(2).textContent());
   assert(/read access.*no.*action.*approval authority/i.test(authority), 'Reading grants neither action nor approval authority');
   assert(/people.*decisions.*approvals/i.test(authority) && /owners.*accept.*work.*dates/i.test(authority), 'Human decisions and required approvals remain distinct from exact owner acceptance');
@@ -124,7 +127,7 @@ async function checkAgreement(page) {
   assert(await detail.evaluate(element => element.open), 'Pointer opens the amendment');
   assert(await detail.locator('dl').isVisible(), 'Expanded amendment content is visible');
   const amendment = normalize(await detail.innerText());
-  assert(/illustrative.*Northstar/i.test(amendment), 'Amendment is explicitly illustrative');
+  assert(/(?:fictional|illustrative).*Northstar/i.test(amendment), 'Amendment is explicitly illustrative');
   assert(/version.*approved/i.test(amendment) && /propos/i.test(amendment) && /does not.*(?:change|replace).*accepted work/i.test(amendment), 'A proposal does not silently replace current approval or accepted work');
   assert(/decision approval.*not.*(?:delivery|owner) acceptance/i.test(amendment), 'Decision approval is distinct from owner delivery acceptance');
   assert(/takes effect/i.test(amendment) && /superseded.*scope/i.test(amendment) && /unchanged.*still apply/i.test(amendment) && /awaiting acceptance.*open/i.test(amendment), 'Effective amendments supersede only their scope and leave missing acceptance open');
@@ -148,6 +151,10 @@ try {
     assert.equal((heroText.match(/AI (?:GTM|go-to-market) program manager/gi) || []).length, 1, 'Category appears once in the hero');
     assert(/50\s*(?:to|[–-])\s*300/i.test(heroText) && /software/i.test(heroText), 'The intended company size and audience appear early');
     assert(/product/i.test(heroText) && /GTM|go-to-market/i.test(heroText));
+    assert(/GTM leads.*product leaders.*founders/i.test(heroText), 'Concrete buyer roles appear early');
+    assert(/so each launch can teach you what drives growth/i.test(heroText), 'Aspirational headline has a nearby learning/outcome qualifier');
+    assert(/fictional.*Northstar/i.test(await page.locator('.hero-card .example-label').innerText()), 'First Northstar example is explicitly fictional');
+    assert(/learning review/i.test(await page.locator('.hero a[data-focus-target]').innerText()), 'Hero review action accurately names its later learning-review target');
     const heroCard = normalize(await page.locator('.hero-card').innerText());
     assert(/commitment/i.test(heroCard) && /owner|Product|GTM|Support/i.test(heroCard), 'Hero example starts with accountable commitments');
     assert(/\b(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun) (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{1,2}\b/.test(heroCard), 'Illustrative commitments have concrete dates with weekdays');
@@ -162,7 +169,7 @@ try {
     assert.equal(await page.locator('form').count(), 0);
     assert.equal(await page.locator('.dependency-map-rows article').count(), 7);
     const scenario = normalize(await page.locator('#moments').innerText());
-    assert(/Northstar/.test(scenario) && /illustrative/i.test(scenario));
+    assert(/Northstar/.test(scenario) && /fictional/i.test(scenario));
     const program = normalize((await page.locator('#moments,#how,#trust').allTextContents()).join(' '));
     assert(/commitment/i.test(scenario) && /\b(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun) (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{1,2}\b/.test(scenario), 'Main example forms dated commitments rather than only handling a feature slip');
     assert(/dependenc/i.test(program) && /gate/i.test(program), 'Program connects commitments to dependencies and launch gates');
