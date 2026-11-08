@@ -1,25 +1,42 @@
-# Wide launch interaction study
+# Continuous launch journey preview
 
-Separate preview only, requested November 8. No production promotion, merge, security change or contact change.
+Separate review experiment, November 8, 2026. No merge or production promotion.
 
-The complete generated shuttle is seen from a wide Cape Canaveral-style ground viewpoint before ascending toward space. Exact website headline: “Let your go-to-market move at the speed of your launch.” The accessible HTML overlay is separate from the video, remaining crisp and responsive rather than baking inaccessible text into pixels.
+Review: https://deploy-preview-5--mellow-lokum-bcedf5.netlify.app/launch-preview
+Draft PR: https://github.com/Ed212/coordinated-website/pull/5
 
-A ten-second muted, inline opening replaces the hero visually, then dissolves into the original merging-galaxy artwork and the current prelaunch content. It uses the same reserved hero space, so the page does not collapse or jump. Header, contact and skip remain usable immediately. Pause/resume and replay are provided. Reduced-motion, Save Data, video failure, blocked autoplay, deep links and no JavaScript lead directly to the original static hero. Background tabs pause.
+## Current direction
 
-The experiment builds only with WIDE_LAUNCH_PREVIEW=local or the isolated codex/wide-shuttle-preview Netlify Deploy Preview. Default/production builds exclude the experiment and media. The original index and b pages are not changed by the experiment. All existing prelaunch and illustrative-example disclosures remain.
+Preserve the approved wide Cape Canaveral-style shuttle launch, its water and ground setting. Continue from its exact orbital ending into a second generated shot: Earth's limb gradually drops away as a restrained starfield and Milky Way-like band emerge. The last portion slows down and settles into the exact decoded ending frame. A 32-second, 0.3% scale drift and a faint 19-second light cycle keep that retained scene gently alive. This is a stabilized living image after the flight, not an endlessly generated or seamless looping flight video.
 
-Footage is a generated cinematic illustration with compressed ascent, not NASA footage or a physically timed mission simulation. Exact asset evidence and visual QA are recorded after generation. No new purchase or account was made.
+The previous abrupt dissolve into enormous galaxy discs is removed from the automatic journey. There is no Moon/Mars montage, which would introduce more scale and camera discontinuities. The original merging-galaxy still remains the explicit Still image and reduced-motion fallback.
 
-## Verified source and checks
+One headline and one CTA stay in place throughout, with the exact requested headline:
 
-Source: 1920 × 1080 H.264, 10.041667 seconds, no audio, 5,966,854 bytes. SHA-256 4325f277ef1aa1c921ac3899c47a61a9704b4452708682cbf1f54500ccee76b1. Real-time playback frames confirm a full shuttle beside the pad, liftoff at about 3 seconds, climbing through blue sky at 6 seconds and a small vehicle above Earth near 9 seconds. Ascent is deliberately compressed; this is not a physically timed documentary. A top-edge vignette suppresses small generated text-like artifacts. The original prior rocket and galaxy video assets are not replaced.
+“Make your go-to-market move at the speed of your product.”
 
-Based on copy revision 34dd49e. Local checks: build/copy/references, 5 contact unit tests, eight baseline browser variants, six responsive widths, and baseline mobile Lighthouse 97 / CLS 0. Isolated 390/1440px checks cover real ended transition, pause/resume, replay/skip, reduced-motion changes, no JavaScript, blocked/error media, Save Data and deep-link fallbacks. Physical iOS/Safari is not tested. The experiment is not a product evaluation or production release.
+The film is a background on desktop and a wide section above the same stationary copy on mobile. The example card sits below the film's visible area rather than hiding the shuttle. All other business copy remains the current growth-learning baseline from 34dd49e. The ordinary homepage retains “Turn product momentum into market growth.”
 
-## Living-galaxy refinement
+## Interaction and constraints
 
-The follow-up keeps the approved wide shuttle clip unchanged. From about 7.8 to 9.95 seconds, the rocket and Earth recede while the existing living-galaxy asset gradually emerges on the exact plane that remains in the hero. The line changes from “Make your go-to-market move at the speed of your launch” to “Make your go-to-market move at the speed of your product.” The final hero uses that product line in this preview only. Normal homepages retain the growth headline.
+- No splash-screen gate. Text, navigation and CTA are usable immediately.
+- Muted inline opening plays once, followed by the anchored continuation. It does not restart automatically.
+- Both clips use the same 16:9 plane, with a short matched-frame handoff. Displayed media frames drive timing where requestVideoFrameCallback is supported; a frame-loop fallback handles older browsers.
+- The final 2.5 media seconds gradually slow to 0.28x before the retained-frame handoff. Total wall-clock journey is roughly 24 seconds, depending on buffering. The source films are each about ten seconds.
+- Pause freezes all video and ambient CSS motion. Replay, Skip journey and Still image remain available. Hidden tabs and offscreen heroes pause motion.
+- Reduced motion, Save Data, deep links and no JavaScript show the original static galaxy without requesting MP4 files. Blocked autoplay or failed media falls back to that still.
+- Built only for explicit local preview or Netlify Deploy Preview on codex/wide-shuttle-preview. Default/production builds exclude this experiment and its media.
 
-The supplied living galaxy is reused, not regenerated: 1920 × 1080, 10.041667 seconds, 3,031,532 bytes, SHA-256 588c3572cc957743052af91149f6bfd44020bcd51cab002d4b18559cf658af2c. Two cached video elements overlap their ends for a soft 720ms loop handoff. The restrained moving light continues while the hero is visible. Pause galaxy, Still image and Replay remain available. Offscreen/hidden-tab motion pauses. Reduced motion, Save Data and no JavaScript show the original still without loading motion. Failed media falls back to the original still.
+## Source and generation evidence
 
-On phones, the same reserved media plane stays above the copy through the transition so the galaxies do not jump to a different part of the page. No extra generation, credits or production change is part of this refinement. Physical iOS/Safari remains untested.
+Approved launch: 1920 × 1080, 10.041667 seconds, no audio, 5,966,854 bytes. SHA-256 4325f277ef1aa1c921ac3899c47a61a9704b4452708682cbf1f54500ccee76b1. Runway task cc4faf72-5f80-4334-beee-e904032156df. The source clip is unchanged. A soft top vignette suppresses its generated text-like artifact.
+
+Continuation: 1280 × 720 actual output, 10.041667 seconds, 2,236,633 bytes. SHA-256 bf0efe9efbc6515434385559c87dbe6877411620e0ae693b238224d5a1935be3. Runway task 4e07153e-67dd-407a-8a53-b53944a0f42d. It was anchored to the approved launch's final decoded frame. One generation used 120 existing credits, leaving 46. No purchase was made. The provider returned 720p despite a 1080p request; the preview does not claim a 1080p continuation.
+
+The ending is the actual frame at media time 10 seconds. It retains a tiny warm point and a sliver of Earth's blue limb, so this is a cinematic departure illustration, not a physically timed solar-system flight or documentary. The stars do not suddenly become nearby giant galaxies.
+
+## Verification
+
+The committed browser script checks real two-shot playback, a fixed headline bounding box, usable CTA, pause/resume across phases, offscreen pause, skip/replay/still, reduced-motion changes, no-JavaScript/Save-Data/deep-link/autoplay/media-error fallbacks, responsive overflow, and unchanged ordinary homepage. CHECK_AMBIENT_CYCLES=1 adds observation of two complete 32-second ambient drift cycles. These are website interaction checks, not product evaluation.
+
+Physical iOS and Safari remain untested. Local and hosted check results are retained in the review workspace. Prior iterations' test passes do not substitute for running these current checks.
