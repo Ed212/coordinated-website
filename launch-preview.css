@@ -6,7 +6,7 @@
 .flight-scene img, .flight-scene video { object-fit: contain; }
 .flight-animation { background: #000; }
 .flight-scene video { transition: opacity 180ms linear; mask-image: linear-gradient(180deg,transparent 0,transparent 12%,#000 18%); }
-#departure-video { opacity: 0; }
+#departure-video { opacity: 0; transition: none; }
 .flight-ambient { opacity: 0; overflow: hidden; mask-image: linear-gradient(180deg,transparent 0,transparent 12%,#000 18%); }
 .flight-ambient img { object-fit: contain; transform-origin: 65% 45%; }
 .flight-settled .flight-ambient img { animation: ambient-drift 32s ease-in-out infinite; }
