@@ -26,6 +26,7 @@ if(local||hosted) {
  await cp(manifest.file,'dist/'+manifest.file);
  await cp(galaxy.file,'dist/'+galaxy.file);
  await cp('assets/video/wide-shuttle-poster.jpg','dist/assets/video/wide-shuttle-poster.jpg');
+ await cp('assets/video/launch-orbit-keyframe.jpg','dist/assets/video/launch-orbit-keyframe.jpg');
  await cp('launch-preview.js','dist/launch-preview.js');await cp('launch-preview.css','dist/launch-preview.css');
  await writeFile('dist/launch-preview-manifest.json',JSON.stringify({...manifest,galaxy,commit:process.env.COMMIT_REF||null}));
  console.log('Built isolated wide-shuttle preview only.');
