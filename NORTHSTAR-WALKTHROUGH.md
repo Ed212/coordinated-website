@@ -31,6 +31,6 @@ Verification:
 - Normal build and non-authorized hosting modes exclude preview routes/assets.
 - Local/draft-branch builds, galaxy verification, copy and reference checks pass.
 - Hero media/controls, contact, link destinations and existing IDs are preserved.
-- No shell Chromium or full browser/performance suite was run for this revision.
-  Supported browser review is coordinated separately; static tests do not
-  substitute for that review.
+- Local browser review passed at desktop and in a 390-pixel iframe, including
+  all four native targets, keyboard focus, disclosure toggles and Back.
+  This is not a physical-device test. Full browser/performance checks run in CI.

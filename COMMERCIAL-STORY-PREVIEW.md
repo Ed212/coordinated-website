@@ -1,7 +1,7 @@
 # Commercial story review preview
 
-November 9, 2026. Local draft for `/galaxy-study` only. No publication, push,
-merge, production promotion, new media generation or purchase is included.
+November 9, 2026. Draft review revision for `/galaxy-study` only. No merge,
+production promotion, new media generation or purchase is included.
 
 ## Direction
 
@@ -79,7 +79,11 @@ The existing hero link opens the work/gate detail when selected.
   Counts strip markup, hide only closed-details contents for default, and retain
   summaries. This is a reading-volume comparison, not a comprehension result.
 
-The final local output is the preview build, ready for supported browser QA.
-No shell Chromium, full Playwright browser suite, Lighthouse or hosted CI was
-run for this revision. Parent-managed CUA review is separate; earlier visual
-checks do not validate this new copy's wrapping or layout.
+Local browser review passed at 1180 pixels and in a 390-pixel iframe: readable
+hero and revised story, no horizontal overflow, native step navigation and
+keyboard focus, working disclosure toggles, browser Back and unchanged email
+destinations. The existing launch and floating-space states were observed.
+This is not a physical-device test or a full accessibility audit.
+
+The full Playwright suite, Lighthouse and hosted verification run separately
+in CI. Their results must be checked for the published revision.

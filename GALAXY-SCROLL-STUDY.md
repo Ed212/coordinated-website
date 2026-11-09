@@ -23,7 +23,7 @@ The galaxy and native-walkthrough CSS and JavaScript total 11,460 uncompressed b
 
 ## Verification
 
-Initial visual verification below predates the commercial copy revision. Current copy and isolation verification is in `COMMERCIAL-STORY-PREVIEW.md`.
+Current copy, isolation and local visual verification is in `COMMERCIAL-STORY-PREVIEW.md`.
 
 Checks retained on the current source:
 
@@ -33,7 +33,7 @@ Checks retained on the current source:
 - Existing `npm test`: 5 contact tests.
 - `npm run check:copy`, `npm run check:references`, and `git diff --check`.
 
-Earlier visual checks, to be repeated against the revised copy:
+Visual checks:
 
 - CUA browser: desktop rendering, actual changing camera transform during scrolling, frozen transform while paused, resume, disclosure expand/collapse, contact URL preservation, no horizontal overflow, image delivery and visible keyboard focus. Browser extension metadata warnings were present; no site error was observed.
 - Responsive visual check in a 390-pixel iframe: one-column reading layout, no content/heading overflow, usable motion control.
@@ -44,4 +44,4 @@ Not run: the full repository Playwright suite and Lighthouse. Narrow iframe veri
 
 Build with `WIDE_LAUNCH_PREVIEW=local npm run build`. The resulting `dist/galaxy-study.html` is the review route. For managed-cloud QA, use the supported Sites preview daemon with a local-only static directory manifest; do not commit that temporary manifest.
 
-Integration adds `galaxy-scroll.css`, `galaxy-scroll.js`, the derived-preview builder and focused tests, plus one import at the end of `scripts/build.mjs`. It does not edit hero-owned source files. The commercial-story transformation runs only on the derived galaxy page. Cherry-pick this study onto the current PR #6 branch after the hero worker's changes. Rebuild and verify the final integrated route before sharing a hosted link.
+Integration adds `galaxy-scroll.css`, `galaxy-scroll.js`, the derived-preview builder and focused tests, plus one import at the end of `scripts/build.mjs`. It does not edit the hero implementation. The commercial-story transformation runs only on the derived galaxy page. Rebuild and verify the final integrated route before sharing a hosted link.
