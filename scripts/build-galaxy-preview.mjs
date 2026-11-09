@@ -23,7 +23,7 @@ if (page) {
     .replace('<section class="trust-ribbon"', `<div class="galaxy-content" data-galaxy-content>${navigator}<section class="trust-ribbon"`)
     .replace('  </main>', '    </div>\n  </main>');
   for (const [id, number, label] of [
-    ['roles', '01', 'Arrival'], ['moments', '02', 'Into the spiral'],
+    ['roles', '01', 'Arrival'], ['moments', '02', 'Toward the merging galaxies'],
     ['how', '03', 'Along the current'], ['trust', '04', 'A shared direction'],
     ['pilot', '05', 'Next horizon']
   ]) {

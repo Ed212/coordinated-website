@@ -7,6 +7,9 @@ assert.equal(galaxy.split(walkthroughNavigation).length,2,'Exactly one known nav
 const content = page => page.slice(page.indexOf('<section class="trust-ribbon"'),page.indexOf('</main>')).replace(walkthroughNavigation,'').replace(/<p class="galaxy-chapter-label"[^>]*>[\s\S]*?<\/p>/g,'').replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();
 assert.equal(content(galaxy),content(solar),'All original post-hero copy is preserved.');
 assert.equal(galaxy.match(/data-galaxy-chapter=/g)?.length,5);
+assert(galaxy.includes('data-galaxy-label="Toward the merging galaxies"'));
+assert(galaxy.includes('<span>02 / 05</span> Toward the merging galaxies</p>'));
+assert(!galaxy.includes('Into the spiral'));
 assert(galaxy.includes('name="robots" content="noindex,nofollow"'));
 assert(galaxy.includes('class="galaxy-navigation" aria-label="Galaxy journey controls" hidden'));
 for(const original of [solar,index,b]) assert(!original.includes('galaxy-scroll')&&!original.includes('galaxy-content')&&!original.includes('northstar-walkthrough'),'Existing routes remain unchanged.');
