@@ -121,6 +121,37 @@ test('shared current versions and accepted commitments preserve human judgment a
   assert(!/approved once|set once|set-and-forget/i.test(text(page)));
 });
 
+test('the fictional market signal leads through capability and intent checks, human choice, accepted work and review', () => {
+  const how = section(page, 'how');
+  const paragraph = how.match(/<h3>Give learning a next step<\/h3><p>([^<]*)<\/p>/)[1];
+  const phrases = [
+    'In the fictional Northstar example, public agency forum questions shared by the team suggest an opportunity.',
+    'Maya checks whether the product could support a sellable offer;',
+    'Leo checks buyer need, strategic fit and Northstar’s presence in search and AI answers.',
+    'Fit remains uncertain, so Dana and GTM choose interviews before changing positioning, scope or spend.',
+    'Leo accepts three buyer interviews by Fri Dec 4;',
+    'Maya accepts a capability summary for the Tue Dec 8 review.',
+    'They compare dated findings from Tue Dec 1 through Fri Dec 4 before deciding whether to develop an offer, adjust positioning or pass.',
+    'The opportunity remains an unproven hypothesis.'
+  ];
+  let previous = -1;
+  for (const phrase of phrases) {
+    const at = paragraph.indexOf(phrase); assert(at > previous, phrase); previous = at;
+  }
+  assert(paragraph.split(/\s+/).length <= 120, 'Keep the opportunity example concise.');
+  assert(!/\b(?:monitors?|tracking|integrates?|automatically|proven demand|ROI|growth result)\b/i.test(paragraph));
+  for (const [date, weekday] of [['2026-12-01', 2], ['2026-12-04', 5], ['2026-12-08', 2]]) {
+    assert.equal(new Date(`${date}T00:00:00Z`).getUTCDay(), weekday, date);
+  }
+  assert(!/\shidden[\s=>]|<script|onclick/.test(how));
+});
+
+test('the market-opportunity addition changes only the existing learning paragraph from reviewed 20d5a4f', () => {
+  const priorParagraph = 'After launch, bring customer observations, market evidence and actual spend to a review. People decide the next action; owners accept the work and its next evidence check.';
+  const restored = page.replace(/(<h3>Give learning a next step<\/h3><p>)[^<]*(<\/p>)/, `$1${priorParagraph}$2`);
+  assert.equal(createHash('sha256').update(restored).digest('hex'), '345445f7bd2af0b797d4658cc2cb957e4beafe3c457ab95e74be48995703d712');
+});
+
 test('structure, classes and IDs match the pre-revision preview; only text and text labels change', () => {
   // Baseline is the transformed page at 0ff9597, before this content-only revision.
   // Ignore text nodes and text-only ARIA/metadata labels, not layout attributes.

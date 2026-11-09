@@ -1,9 +1,49 @@
 # Commercial story review preview
 
-November 9, 2026. Local, unpublished content-only revision of `/galaxy-study`,
-based on `0ff959764c81dd507217a39081aa811b89f72c65`. No push, deployment,
-production change, new asset, integration or purchase is included. The full
-reading-order copy is in `COMMERCIAL-STORY-COPY.md`.
+November 9, 2026. Local, unpublished market-opportunity addendum to the reviewed
+`20d5a4f28962cebe4d238347d8a4052cd25e70a2` version of `/galaxy-study`. The earlier
+commercial-story revision below retains its `0ff959764c81dd507217a39081aa811b89f72c65`
+design baseline. No push, deployment, production change, new asset, integration
+or purchase is included. The full reading-order copy is in
+`COMMERCIAL-STORY-COPY.md`.
+
+## Market-opportunity addendum
+
+Only the existing paragraph under **Give learning a next step** changes. It is
+117 words, replacing 27 words and adding 90 words to both default and expanded
+reading volume. No markup, component, style, hero text, launch/security story,
+runtime behavior or media changes.
+
+One explicitly fictional Northstar opportunity begins with public agency forum
+questions shared by the team. Maya checks whether the product could support a
+sellable offer. Leo checks buyer need, strategic fit and Northstar's presence in
+search and AI answers. Related capability or a public signal does not establish
+buyer demand or make the opportunity an agreed commercial offering.
+
+Dana and GTM choose interviews before changing positioning, scope or spend.
+Leo accepts three buyer interviews by Fri Dec 4; Maya accepts a capability
+summary for the Tue Dec 8 review. Dated findings from Tue Dec 1 through Fri Dec 4
+inform a later human choice: develop an offer, adjust positioning or pass.
+The opportunity remains an unproven hypothesis. No automated web/CRM/ad
+monitoring, integration, autonomous strategy decision, ROI or growth result is
+claimed. The launch wedge and prelaunch boundaries remain unchanged.
+
+Current local checks passed:
+
+- `node --test tests/*.test.mjs`: 67 tests, including 14 commercial-story tests.
+  New coverage checks the signal/check/decision/acceptance/review sequence,
+  exact deliverables and dates, evidence window and 120-word maximum.
+- A new full-page SHA-256 assertion restores the prior learning paragraph and
+  proves that every other byte of the commercial transform matches `20d5a4f`.
+  Existing structural markup and 90-file design/media/runtime invariants pass.
+- `WIDE_LAUNCH_PREVIEW=local npm run build` and
+  `node scripts/verify-galaxy-build.mjs`.
+- `npm run check:copy`, `npm run check:references` and `git diff --check`.
+
+No current browser, full Playwright, Lighthouse, hosted CI or deployment result
+is claimed in these checks. The earlier browser samples and build-mode checks
+below describe the prior commercial-story revision, not a rerun for this
+addendum. Publication requires separate authorization and verification.
 
 ## Exact hero copy
 
@@ -62,8 +102,8 @@ assistant drafting or recall. People retain judgment and approval authority.
 Reading context grants no action authority; permitted agents stay within scope.
 
 There is no claim of a shipped full loop, deployed integration, measured speed
-improvement, growth or ROI. The separate strategic-visibility/sandbox discussion
-is not added to this preview.
+improvement, growth or ROI. The market-opportunity addendum above is the only
+extension; no broader strategic-visibility or sandbox product promise is added.
 
 ## Preserved design and behavior
 
@@ -85,9 +125,10 @@ is not added to this preview.
   contact/email behavior, privacy and terms remain unchanged. PR #5 is untouched.
   Existing detailed-workflow links retain their destinations.
 
-## Verification
+## Earlier commercial-story verification
 
-Passed on the revised source:
+Passed on the earlier commercial-story source, before the market-opportunity
+addendum above:
 
 - `node --test tests/*.test.mjs`: 65 tests, including 12 commercial-story tests.
   Coverage includes exact headline, goal/plan/choice/acceptance chronology,

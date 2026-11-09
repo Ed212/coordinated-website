@@ -140,7 +140,7 @@ A general assistant can help draft a plan or recall a conversation. Coordinated 
 
 3. **Give learning a next step**
 
-   After launch, bring customer observations, market evidence and actual spend to a review. People decide the next action; owners accept the work and its next evidence check.
+   After launch, bring customer observations, market evidence and actual spend to a review. In the fictional Northstar example, public agency forum questions shared by the team suggest an opportunity. Maya checks whether the product could support a sellable offer; Leo checks buyer need, strategic fit and Northstar’s presence in search and AI answers. Fit remains uncertain, so Dana and GTM choose interviews before changing positioning, scope or spend. Leo accepts three buyer interviews by Fri Dec 4; Maya accepts a capability summary for the Tue Dec 8 review. They compare dated findings from Tue Dec 1 through Fri Dec 4 before deciding whether to develop an offer, adjust positioning or pass. The opportunity remains an unproven hypothesis.
 
 How we would test this
 
