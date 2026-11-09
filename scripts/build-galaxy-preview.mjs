@@ -1,4 +1,5 @@
 import { readFile, writeFile, cp } from 'node:fs/promises';
+import { addNorthstarWalkthrough } from './northstar-walkthrough.mjs';
 
 // This derived study exists only when the isolated solar preview was built.
 // Production index, b, templates, and the original solar study stay unchanged.
@@ -30,7 +31,8 @@ if (page) {
     const section = new RegExp(`(<section[^>]*id="${id}"[^>]*>)([\\s\\S]*?)(<div class="ledger-boundary[^>]*>)`);
     page = page.replace(section, `$1$2$3\n<p class="galaxy-chapter-label" aria-hidden="true"><span>${number} / 05</span> ${label}</p>`);
   }
+  page = addNorthstarWalkthrough(page).replace('</head>', '<link rel="stylesheet" href="northstar-walkthrough.css">\n</head>');
   await writeFile('dist/galaxy-study.html', page);
-  for (const file of ['galaxy-scroll.css', 'galaxy-scroll.js']) await cp(file, `dist/${file}`);
+  for (const file of ['galaxy-scroll.css', 'galaxy-scroll.js', 'northstar-walkthrough.css']) await cp(file, `dist/${file}`);
   console.log('Built separate scroll-through-galaxy study.');
 }

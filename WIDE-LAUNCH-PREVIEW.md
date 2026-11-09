@@ -1,3 +1,15 @@
+## Current revision: endless space (November 9, 2026)
+
+The shared hero on `/solar-study`, `/launch-preview` and `/galaxy-study` now plays launch and departure once, then remains in an indefinite composited space passage. There is no Moon/Mars sequence, timed arrival at merging galaxies, or automatic replay. The galaxy-study backdrop still approaches the existing galaxy artwork with native page scrolling. Business copy, headline, CTA and layout are unchanged.
+
+The ambient canvas begins with the existing departure still at its original framing. Gentle overscan enters smoothly, followed by long lateral drift and sparse parallax stars whose opacity reaches zero smoothly at wrap boundaries. This is local composited motion, not new continuous generated footage. No generation spend was incurred. Stage separation is still obscured by glow and remains unresolved.
+
+Pause/Resume preserves passage time; hidden/offscreen/still states cancel animation work. Skip enters space, and only explicit Replay starts the launch again. Reduced-motion, Save-Data, hash navigation, no-JS and failed-media fallbacks remain. The deterministic renderer/controller suite is `node --test tests/endless-space.test.mjs`; browser verification scripts now assert an endless ambient phase instead of a fixed galaxy arrival.
+
+The older study notes below are historical; this revision supersedes any timed Moon/Mars/galaxy-arrival description.
+
+---
+
 # Separate composited motion study
 
 This branch is a clearly labeled alternative study. It does not replace PR #5 or production. Start with /solar-study on this branch's Netlify Deploy Preview.

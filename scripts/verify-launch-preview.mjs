@@ -28,15 +28,16 @@ async function journey(width){
  await phase(p,'ambient');assert.deepEqual(await p.locator('#hero-title').boundingBox(),box);
  assert(await paused(p));assert.equal(await p.locator('.flight-ambient').evaluate(e=>getComputedStyle(e).opacity),'1');
  await p.screenshot({path:`${out}/continuous-settled-${width}.png`});
- await p.locator('[data-flight-pause]').click();assert.equal(await p.locator('.flight-ambient img').evaluate(e=>getComputedStyle(e).animationPlayState),'paused');
- await p.waitForTimeout(100);const a=await p.locator('.flight-ambient img').evaluate(e=>getComputedStyle(e).transform);await p.waitForTimeout(400);assert.equal(await p.locator('.flight-ambient img').evaluate(e=>getComputedStyle(e).transform),a);
- await p.locator('[data-flight-pause]').click();
+ const time=()=>p.locator('.flight-bridge').getAttribute('data-journey-time');
+ await p.locator('[data-flight-pause]').click();const frozen=await time();await p.waitForTimeout(400);assert.equal(await time(),frozen);
+ await p.locator('[data-flight-pause]').click();await p.waitForTimeout(200);assert(+await time()>+frozen);
  await p.locator('#pilot').scrollIntoViewIfNeeded();await p.waitForFunction(()=>document.body.dataset.motionPaused==='true');
+ const offscreen=await time();await p.waitForTimeout(400);assert.equal(await time(),offscreen);
  await p.evaluate(()=>scrollTo(0,0));await p.waitForFunction(()=>document.body.dataset.motionPaused==='false');
  if(width===1440&&process.env.CHECK_AMBIENT_CYCLES==='1'){
-  const start=await p.locator('.flight-ambient img').evaluate(e=>e.getAnimations()[0].currentTime);
-  for(const ms of [16000,16000,16000,16000]){await p.waitForTimeout(ms);assert.equal(await p.locator('.flight-ambient img').evaluate(e=>getComputedStyle(e).animationPlayState),'running');}
-  const end=await p.locator('.flight-ambient img').evaluate(e=>e.getAnimations()[0].currentTime);assert(end-start>=63000);results.push({ambientDurationObserved:end-start,twoCompleteDriftCycles:true});
+  const start=+await time();await p.waitForTimeout(65000);assert(+await time()-start>63);
+  assert.equal(await p.locator('body').getAttribute('data-flight-phase'),'ambient');
+  assert(await paused(p));results.push({endlessPassageObserved:true,noLaunchRestart:true});
  }
  await p.locator('[data-flight-still]').click();await phase(p,'still');await checkStill(p);
  await p.locator('[data-flight-replay]').click();await phase(p,'launch');await p.locator('[data-flight-skip]').click();await phase(p,'ambient');assert(await p.locator('[data-flight-replay]').evaluate(e=>document.activeElement===e));
@@ -48,9 +49,10 @@ async function journey(width){
 }
 try{
  await Promise.all([journey(390),journey(1440)]);
- for(const mode of ['reduced','no-js','launch-failed','autoplay-blocked','hash','save-data','departure-failed']){
+ for(const mode of ['reduced','no-js','launch-failed','autoplay-blocked','hash','save-data','departure-failed','space-failed']){
   const p=await browser.newPage({javaScriptEnabled:mode!=='no-js',reducedMotion:mode==='reduced'?'reduce':'no-preference'}),media=[];
   p.on('request',r=>{if(r.url().endsWith('.mp4'))media.push(r.url())});
+  if(mode==='space-failed')await p.route('**/deep-space-settled.jpg',r=>r.abort());
   if(mode==='launch-failed')await p.route('**/wide-starship-launch.mp4',r=>r.abort());
   if(mode==='departure-failed')await p.route('**/deep-space-continuation.mp4',r=>r.abort());
   if(mode==='autoplay-blocked')await p.addInitScript(()=>HTMLMediaElement.prototype.play=()=>Promise.reject(new DOMException('Blocked','NotAllowedError')));

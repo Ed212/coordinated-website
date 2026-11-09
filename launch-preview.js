@@ -1,12 +1,12 @@
-import { prepareJourney, journeyDuration } from './solar-journey.js';
+import { prepareJourney, advanceSpaceTime } from './solar-journey.js';
 const root=document.querySelector('.launch-preview');
 const layer=document.querySelector('.flight-animation');
 const launch=document.querySelector('#launch-intro-video');
 const departure=document.querySelector('#departure-video');
 const ambient=document.querySelector('.flight-ambient');
 const bridge=document.querySelector('.flight-bridge');
-let journey,preparing,bridgeTime=0,previousFrame=0;
-function prepare(){return preparing??=prepareJourney(bridge).then(value=>{journey=value;ambient.querySelector('img').src=value.ending;return value;});}
+let journey,preparing,bridgeTime=0,previousFrame=null;
+function prepare(){return preparing??=prepareJourney(bridge).then(value=>{journey=value;return value;});}
 const controls=document.querySelector('.flight-controls');
 const replay=document.querySelector('[data-flight-replay]');
 const skip=document.querySelector('[data-flight-skip]');
@@ -20,20 +20,20 @@ const smooth=n=>{n=Math.max(0,Math.min(1,n));return n*n*(3-2*n);};
 let phase='still',run=0,manualPause=false,inView=true,startingDeparture=false,timeout,raf;
 const moving=()=>phase!=='still'&&!manualPause&&!preference.matches&&!document.hidden&&inView;
 function phaseTo(next){phase=next;root.dataset.flightPhase=next;root.dataset.launchState=next;}
-function setPausedState(){root.dataset.motionPaused=String(!moving());pause.textContent=manualPause?'Resume motion':'Pause motion';}
-function pauseAll(){launch.pause();departure.pause();setPausedState();}
+function setPausedState(){root.dataset.motionPaused=String(!moving());pause.textContent=manualPause?'Resume motion':'Pause motion';scheduleFrame();}
 async function syncMotion(){
- previousFrame=0;setPausedState();if(!moving()){launch.pause();departure.pause();return;}
+ previousFrame=null;setPausedState();if(!moving()){launch.pause();departure.pause();return;}
  try{if(phase==='launch'){if(launch.ended)await beginDeparture();else await launch.play();}else if(phase==='departure'){await departure.play();if(departure.currentTime<handoffDuration&&!launch.ended)await launch.play();}}catch{showStill();}
 }
 function load(v){if(!v.src){v.src=v.dataset.src;v.load();}}
 function showStill(){run++;clearTimeout(timeout);phaseTo('still');manualPause=false;launch.pause();departure.pause();layer.hidden=true;root.classList.remove('flight-settled');controls.hidden=preference.matches;skip.hidden=true;replay.hidden=false;pause.hidden=true;still.hidden=true;status.textContent='Still image';setPausedState();}
 function settle(reason='complete',focus=false){
- bridge.style.opacity='0';
- if(!journey)ambient.querySelector('img').src='assets/galaxy/landscape-upscaled-2880x1600.webp';
+ bridgeTime=0;previousFrame=null;bridge.style.opacity=journey?'1':'0';
+ if(journey)journey.render(0);
  clearTimeout(timeout);startingDeparture=false;phaseTo('ambient');launch.pause();departure.pause();
  launch.style.opacity='0';departure.style.opacity='0';ambient.style.opacity='1';layer.hidden=false;root.classList.add('flight-settled');
- skip.hidden=true;replay.hidden=false;pause.hidden=false;still.hidden=false;status.textContent=reason==='skipped'?'Merging galaxies':'A quiet view of merging galaxies';setPausedState();
+ skip.hidden=true;replay.hidden=false;pause.hidden=false;still.hidden=false;status.textContent='Floating through space';setPausedState();
+ const attempt=run;prepare().then(ready=>{if(attempt===run&&phase==='ambient'){ready.render(bridgeTime);bridge.style.opacity='1';scheduleFrame();}}).catch(()=>{if(attempt===run)showStill();});
  if(focus)replay.focus({preventScroll:true});
 }
 async function beginDeparture(){
@@ -41,22 +41,31 @@ async function beginDeparture(){
  load(departure);departure.currentTime=0;departure.playbackRate=1;
  try{
   await departure.play();if(attempt!==run){departure.pause();return;}
-  if(manualPause||document.hidden||!inView){departure.pause();startingDeparture=false;return;}
+  if(!moving()){departure.pause();startingDeparture=false;return;}
   clearTimeout(timeout);phaseTo('departure');departure.style.opacity='1';launch.style.opacity='1';status.textContent='Leaving Earth behind';setPausedState();
  }catch{if(attempt===run)showStill();}
 }
-async function beginBridge(){
- if(phase!=='departure')return;const attempt=run;departure.pause();status.textContent='Continuing through space';
- try{const ready=await prepare();if(attempt!==run||phase!=='departure')return;bridgeTime=0;previousFrame=0;ready.render(0);bridge.style.opacity='1';departure.style.opacity='0';phaseTo('journey');status.textContent='Past the Moon';setPausedState();}catch{if(attempt===run)showStill();}
+function beginBridge(){
+ if(phase==='departure')settle();
+}
+// One scheduler for the canvas and older browsers' video-frame fallback.
+// No animation frames are requested while hidden, offscreen, paused or still.
+function scheduleFrame(){
+ if(!moving()||('requestVideoFrameCallback'in launch&&(phase!=='ambient'||!journey))){if(raf)cancelAnimationFrame(raf);raf=null;previousFrame=null;return;}
+ if(!raf)raf=requestAnimationFrame(animateBridge);
 }
 function animateBridge(now){
- if(phase==='journey'&&moving()&&journey){if(previousFrame)bridgeTime+=Math.min(.1,(now-previousFrame)/1000);journey.render(bridgeTime);const label=bridgeTime<7.2?'Past the Moon':bridgeTime<15?'Past Mars, with the Sun in the distance':'Toward merging galaxies';if(status.textContent!==label)status.textContent=label;if(bridgeTime>=journeyDuration)settle();}
- previousFrame=phase==='journey'&&moving()?now:0;raf=requestAnimationFrame(animateBridge);
+ raf=null;if(!moving()){previousFrame=null;return;}
+ if(phase==='ambient'&&journey){
+  bridgeTime=advanceSpaceTime(bridgeTime,previousFrame,now,true);
+  journey.render(bridgeTime);previousFrame=now;
+ }else previousFrame=null;
+ if(!('requestVideoFrameCallback'in launch)){update(launch,launch.currentTime);update(departure,departure.currentTime);}
+ scheduleFrame();
 }
-raf=requestAnimationFrame(animateBridge);
 async function start(){
  if(preference.matches){showStill();return;}
- const attempt=++run;clearTimeout(timeout);manualPause=false;startingDeparture=false;bridgeTime=0;previousFrame=0;bridge.style.opacity='0';prepare().catch(()=>{});
+ const attempt=++run;clearTimeout(timeout);manualPause=false;startingDeparture=false;bridgeTime=0;previousFrame=null;bridge.style.opacity='0';prepare().catch(()=>{});
  launch.pause();departure.pause();launch.currentTime=0;departure.currentTime=0;departure.playbackRate=1;
  ambient.style.opacity='0';departure.style.opacity='0';launch.style.opacity='1';layer.hidden=false;root.classList.remove('flight-settled');
  controls.hidden=false;replay.hidden=true;skip.hidden=false;pause.hidden=false;still.hidden=false;
@@ -79,7 +88,7 @@ function update(v,t){
 }
 function followFrames(v){if('requestVideoFrameCallback'in v){v.requestVideoFrameCallback(function tick(_,meta){update(v,meta.mediaTime);v.requestVideoFrameCallback(tick);});}}
 followFrames(launch);followFrames(departure);
-if(!('requestVideoFrameCallback'in launch)){const frame=()=>{update(launch,launch.currentTime);update(departure,departure.currentTime);raf=requestAnimationFrame(frame)};raf=requestAnimationFrame(frame);}
+
 launch.addEventListener('ended',()=>{if(phase==='launch'){status.textContent='Continuing into space';beginDeparture();timeout=setTimeout(()=>{if(phase==='launch')showStill();},6000);}});
 departure.addEventListener('ended',()=>{if(phase==='departure')beginBridge();});
 launch.addEventListener('error',()=>{if(phase==='launch')showStill();});
@@ -91,6 +100,6 @@ still.addEventListener('click',()=>{showStill();if(!controls.hidden)replay.focus
 preference.addEventListener('change',()=>{if(preference.matches)showStill();else controls.hidden=false;});
 document.addEventListener('visibilitychange',syncMotion);
 new IntersectionObserver(entries=>{inView=entries[0].isIntersecting;syncMotion();},{threshold:.02}).observe(document.querySelector('.hero'));
-window.addEventListener('pagehide',()=>{launch.pause();departure.pause();previousFrame=0;});
+window.addEventListener('pagehide',()=>{launch.pause();departure.pause();if(raf)cancelAnimationFrame(raf);raf=null;previousFrame=null;});
 window.addEventListener('pageshow',e=>{if(e.persisted)syncMotion();});
 if(preference.matches||navigator.connection?.saveData||location.hash)showStill();else start();

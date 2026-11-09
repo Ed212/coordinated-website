@@ -1,72 +1,36 @@
-/* A deterministic cinematic bridge, not a scale model or new generated footage. */
-export const journeyDuration = 24;
-const clamp = n => Math.max(0, Math.min(1, n));
-const ease = n => { n=clamp(n); return n*n*(3-2*n); };
-const image = async src => { const value=new Image(); value.src=src; await value.decode(); return value; };
-export async function prepareJourney(canvas) {
- const [space,galaxy,moonMap,mars]=await Promise.all([
-  image('assets/video/deep-space-settled.jpg'),image('assets/galaxy/landscape-upscaled-2880x1600.webp'),
-  image('assets/video/solar/moon-color.jpg'),image('assets/video/solar/mars-global.jpg')
- ]);
- const ctx=canvas.getContext('2d'); if(!ctx)throw Error('Canvas unavailable');
+/* Endless composited space, not new generated footage or a scale model. */
+const TAU=Math.PI*2;
+const ease=n=>{n=Math.max(0,Math.min(1,n));return n*n*(3-2*n);};
+const wrap=n=>((n%1)+1)%1;
+// Pure, deterministic samples make wrap continuity testable without a browser.
+// A fixed overscan grows in gently from the exact departure still. There is
+// no forward zoom / arrival and no timer that can restart the launch.
+export function spaceFrame(seconds){
+ const t=Math.max(0,seconds),entry=ease(t/12);
+ return {scale:1+.045*entry,x:9*Math.sin(TAU*t/173)*entry,y:5*Math.sin(TAU*t/227)*entry,stars:entry};
+}
+export function starAt(index,seconds){
+ const seed=n=>wrap(Math.sin(n*127.1+311.7)*43758.5453);
+ const depth=.3+.7*seed(index+19),x=wrap(seed(index+1)-seconds*(.00055+.00065*depth));
+ // Invisible at both edges, with zero derivative: no popping at wrap.
+ const fade=ease(x/.06)*ease((1-x)/.06);
+ return {x,y:seed(index+71),radius:.35+.65*depth,alpha:(.12+.32*depth)*fade};
+}
+export function advanceSpaceTime(time,previous,now,active){
+ return active&&previous!==null?time+Math.max(0,Math.min(.1,(now-previous)/1000)):time;
+}
+export async function prepareJourney(canvas){
+ const space=new Image();space.src='assets/video/deep-space-settled.jpg';await space.decode();
+ const ctx=canvas.getContext('2d');if(!ctx)throw Error('Canvas unavailable');
  canvas.width=1280;canvas.height=720;
- // Project the NASA equirectangular lunar map onto a shaded sphere once.
- const texture=document.createElement('canvas');texture.width=moonMap.width;texture.height=moonMap.height;
- const tx=texture.getContext('2d',{willReadFrequently:true});tx.drawImage(moonMap,0,0);
- const source=tx.getImageData(0,0,texture.width,texture.height).data;
- const moon=document.createElement('canvas');moon.width=moon.height=384;
- const mx=moon.getContext('2d'),pixels=mx.createImageData(384,384);
- for(let y=0;y<384;y++)for(let x=0;x<384;x++){
-  const nx=(x+0.5)/192-1,ny=(y+0.5)/192-1,rr=nx*nx+ny*ny;if(rr>=1)continue;
-  const nz=Math.sqrt(1-rr),u=(.5+Math.atan2(nx,nz)/(Math.PI*2)),v=.5+Math.asin(ny)/Math.PI;
-  const s=(Math.floor(v*(texture.height-1))*texture.width+Math.floor(u*(texture.width-1)))*4,d=(y*384+x)*4;
-  const light=.025+.82*Math.pow(Math.max(0,-nx*.77-ny*.3+nz*.56),.75);
-  for(let c=0;c<3;c++)pixels.data[d+c]=source[s+c]*light;
-  pixels.data[d+3]=Math.round(Math.min(1,(1-Math.sqrt(rr))*192)*255);
- }
- mx.putImageData(pixels,0,0);
- function cover(img,x=0,y=0,w=1280,h=720,target=ctx){const scale=Math.max(w/img.width,h/img.height);target.drawImage(img,x+(w-img.width*scale)/2,y+(h-img.height*scale)/2,img.width*scale,img.height*scale);}
- function framing(){const scale=Math.max(canvas.clientWidth/1280,canvas.clientHeight/720),width=canvas.clientWidth/scale;return{width,left:(1280-width)*(innerWidth<=760?.73:.68),small:innerWidth<=760};}
- function galaxyCover(target=ctx){const view=framing(),offset=view.small?view.left+view.width*.58-1280*.62:0;cover(galaxy,offset,0,1280,720,target);}
- const galaxyLayer=document.createElement('canvas');galaxyLayer.width=1280;galaxyLayer.height=720;
- const galaxyContext=galaxyLayer.getContext('2d');
- function galaxyFrame(arrival){
-  const g=galaxyContext;g.clearRect(0,0,1280,720);g.globalCompositeOperation='source-over';galaxyCover(g);
-  // Feather the distant image into space so no rectangular photo edge moves
-  // across the scene. The mask disappears before the full-frame arrival.
-  const edge=ease((arrival-.8)/.2);
-  if(edge<1){g.globalCompositeOperation='destination-in';
-   const horizontal=g.createLinearGradient(0,0,1280,0);horizontal.addColorStop(0,`rgba(0,0,0,${edge})`);horizontal.addColorStop(.14,'#000');horizontal.addColorStop(.86,'#000');horizontal.addColorStop(1,`rgba(0,0,0,${edge})`);g.fillStyle=horizontal;g.fillRect(0,0,1280,720);
-   const vertical=g.createLinearGradient(0,0,0,720);vertical.addColorStop(0,`rgba(0,0,0,${edge})`);vertical.addColorStop(.2,'#000');vertical.addColorStop(.8,'#000');vertical.addColorStop(1,`rgba(0,0,0,${edge})`);g.fillStyle=vertical;g.fillRect(0,0,1280,720);
-  }
-  g.globalCompositeOperation='source-over';return galaxyLayer;
- }
- function planet(img,time,start,length,y,size){
-  const p=clamp((time-start)/length);if(time<start||p>=1)return;
-  const view=framing(),radius=(.019+size*p*p)*Math.min(720,view.width*1.65),cx=view.left+(.70+.70*p*p)*view.width,cy=view.small?Math.min(620,canvas.clientHeight*.45)/canvas.clientHeight*720:(y+.09*p)*720;
-  ctx.save();ctx.globalAlpha=ease(p/.15);ctx.translate(cx,cy);ctx.rotate(-.12*p);
-  ctx.beginPath();ctx.arc(0,0,radius,0,Math.PI*2);ctx.clip();ctx.drawImage(img,-radius,-radius,radius*2,radius*2);
-  if(img===mars){const shadow=ctx.createLinearGradient(-radius,-radius*.5,radius,radius*.5);shadow.addColorStop(0,'rgba(0,0,0,.1)');shadow.addColorStop(.4,'rgba(0,0,0,.18)');shadow.addColorStop(1,'rgba(0,0,0,.94)');ctx.fillStyle=shadow;ctx.fillRect(-radius,-radius,radius*2,radius*2);}
-  ctx.restore();
- }
  function render(time){
-  const t=Math.max(0,Math.min(journeyDuration,time)),arrival=ease((t-10)/14);
-  ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';ctx.fillStyle='#000';ctx.fillRect(0,0,1280,720);
-  const drift=1+.035*ease(t/journeyDuration);ctx.save();ctx.translate(1280*.68,720*.45);ctx.scale(drift,drift);ctx.translate(-1280*.68,-720*.45);cover(space);ctx.restore();
-  // Darkness accumulates gently; the background never cuts to a black frame.
-  ctx.fillStyle=`rgba(0,0,0,${arrival})`;ctx.fillRect(0,0,1280,720);
-  const sunlight=ease(t/2.5)*(1-ease((t-9)/7));
-  if(sunlight>0){ctx.save();ctx.globalAlpha=sunlight*.8;const view=framing(),gx=view.left+view.width*.84,gy=720*(view.small?.42:.28),glow=ctx.createRadialGradient(gx,gy,0,gx,gy,21);glow.addColorStop(0,'rgba(255,242,212,1)');glow.addColorStop(.07,'rgba(255,224,165,.92)');glow.addColorStop(.28,'rgba(255,201,125,.12)');glow.addColorStop(1,'rgba(255,201,125,0)');ctx.fillStyle=glow;ctx.fillRect(gx-21,gy-21,42,42);ctx.restore();}
-  planet(moon,t,.8,8.5,.43,.21);planet(mars,t,7.2,9,.48,.22);
-  if(arrival>0){
-   // One forward camera move through the original artwork, not two offset
-   // compositions dissolving over one another. The final frame is retained.
-   const scale=.075+1.085*arrival,view=framing(),anchorX=view.left+view.width*.67,anchorY=720*.43;
-   ctx.save();ctx.translate(anchorX*(1-scale),anchorY*(1-scale));ctx.scale(scale,scale);
-   ctx.globalAlpha=ease((t-10)/8);ctx.globalCompositeOperation='screen';ctx.drawImage(galaxyFrame(arrival),0,0);ctx.restore();
-  }
-  canvas.dataset.journeyTime=t.toFixed(3);
+  const frame=spaceFrame(time),w=1280*frame.scale,h=720*frame.scale;
+  ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';
+  ctx.drawImage(space,(1280-w)/2+frame.x,(720-h)/2+frame.y,w,h);
+  // Sparse, slow foreground parallax. No trails, twinkling or pulse effect.
+  ctx.fillStyle='#c9dcf0';
+  for(let i=0;i<100;i++){const s=starAt(i,time);ctx.globalAlpha=s.alpha*frame.stars;ctx.beginPath();ctx.arc(s.x*1280,s.y*720,s.radius,0,TAU);ctx.fill();}
+  ctx.globalAlpha=1;canvas.dataset.journeyTime=Math.max(0,time).toFixed(3);
  }
- render(journeyDuration);const ending=canvas.toDataURL('image/jpeg',.96);render(0);
- return {render,ending};
+ render(0);return {render};
 }

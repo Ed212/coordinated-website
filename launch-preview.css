@@ -9,9 +9,10 @@
 #departure-video,.flight-ambient,.flight-bridge { opacity:0; }
 .flight-ambient { overflow:hidden; }
 .flight-ambient img { transform-origin:65% 45%; }
-.flight-settled .flight-ambient img { animation:ambient-drift 48s ease-in-out infinite; }
+/* Ambient motion lives on the deterministic canvas, not a repeating zoom. */
+.flight-bridge { z-index:1; }
 .flight-glow { position:absolute; pointer-events:none; inset:0; opacity:0; background:radial-gradient(ellipse at 75% 45%,rgba(153,185,224,.055),transparent 37%); mix-blend-mode:screen; }
-.flight-settled .flight-glow { animation:ambient-light 19s ease-in-out infinite; }
+
 /* No black copy panel, full-scene darkening, edge fade or hidden video mask. */
 .launch-preview .hero-copy::before,.flight-scene::after,.launch-preview .hero-scrim { display:none; }
 .launch-preview .hero-layout { z-index:2; }
@@ -27,8 +28,6 @@
 .flight-controls button:focus-visible { outline:3px solid #fff; outline-offset:3px; }
 .flight-status { color:#fff; font-size:11px; width:100%; text-align:right; text-shadow:0 1px 2px #000,0 1px 5px #000; }
 [data-motion-paused="true"] .flight-ambient img,[data-motion-paused="true"] .flight-glow { animation-play-state:paused; }
-@keyframes ambient-drift {0%,100% {transform:scale(1) translate(0,0)}50%{transform:scale(1.025) translate(-.3%,.12%)}}
-@keyframes ambient-light {0%,100%{opacity:0}50%{opacity:.5}}
 @media(max-width:760px) {
  .launch-preview .hero { min-height:0; }
  .launch-preview .hero-layout { display:block; padding-top:112px; }

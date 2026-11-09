@@ -19,5 +19,5 @@ if(local||hosted){
  for(const file of[launch.file,departure.file,departure.poster,launch.poster,'assets/video/launch-orbit-keyframe.jpg'])await cp(file,'dist/'+file);
  for(const file of['launch-preview.js','launch-preview.css','solar-journey.js'])await cp(file,'dist/'+file);
  await writeFile('dist/launch-preview-manifest.json',JSON.stringify({launch,departure,commit:process.env.COMMIT_REF||null}));
- console.log('Built isolated Earth-to-galaxy preview.');
+ console.log('Built isolated launch-to-endless-space preview.');
 }

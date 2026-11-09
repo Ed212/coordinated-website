@@ -1,0 +1,26 @@
+/* Native in-page navigation. Every original example stays readable without JS. */
+.galaxy-preview .northstar-walkthrough { margin:32px 0; padding-block:24px; border-block:1px solid var(--rule); }
+.galaxy-preview .northstar-walkthrough-label { display:flex; flex-wrap:wrap; justify-content:space-between; gap:8px 24px; margin:0 0 18px; color:#edf2f8; font:11px/1.6 var(--mono); }
+.galaxy-preview .northstar-walkthrough-label span { color:var(--muted); }
+.galaxy-preview .northstar-walkthrough ol { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; list-style:none; margin:0; padding:0; }
+.galaxy-preview .northstar-walkthrough a { display:flex; flex-direction:column; gap:10px; min-height:92px; height:100%; padding:16px; border:1px solid #526179; border-radius:3px; background:#101b2b; color:#edf2f8; font-size:13px; line-height:1.5; text-decoration:none; }
+.galaxy-preview .northstar-walkthrough a span { color:#e2b79c; font:11px/1.4 var(--mono); }
+.galaxy-preview .northstar-walkthrough a:hover { background:#1b2b40; border-color:#d2ac92; }
+.galaxy-preview .northstar-stage { scroll-margin-top:100px; }
+.galaxy-preview .northstar-stage:target,
+.galaxy-preview .northstar-stage:focus-visible { outline:2px solid #e2b79c; outline-offset:7px; }
+.galaxy-preview #moments .scenario-trigger { max-width:none; padding:26px; margin:32px 0; border-left:2px solid #d2ac92; background:#101b2b; }
+.galaxy-preview #moments .launch-comparison-grid { grid-template-columns:1fr; gap:24px; }
+.galaxy-preview #moments .launch-comparison-panel { padding:clamp(24px,4vw,40px); }
+.galaxy-preview #moments .launch-comparison-panel ol { max-width:78ch; }
+.galaxy-preview #moments .launch-state { grid-template-columns:repeat(2,minmax(0,1fr)); gap:32px; padding:clamp(24px,4vw,40px); }
+@media(max-width:760px) {
+ .galaxy-preview .northstar-walkthrough ol { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .galaxy-preview .northstar-walkthrough a { min-height:104px; padding:14px 12px; }
+ .galaxy-preview #moments .launch-state { grid-template-columns:1fr; }
+ .galaxy-preview #moments .scenario-trigger { padding:22px; }
+ .galaxy-preview .northstar-stage { scroll-margin-top:110px; }
+}
+@media(prefers-reduced-motion:reduce) {
+ .galaxy-preview { scroll-behavior:auto; }
+}
