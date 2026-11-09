@@ -1,7 +1,9 @@
 # Commercial story review preview
 
-November 9, 2026. Draft review revision for `/galaxy-study` only. No merge,
-production promotion, new media generation or purchase is included.
+November 9, 2026. Local unpublished refinement for `/galaxy-study` only. No upload,
+push, remote metadata change, deployment, merge, new media generation or purchase
+is included. Full locally reviewable editorial copy is in
+`COMMERCIAL-STORY-COPY.md`.
 
 ## Direction
 
@@ -15,27 +17,40 @@ The cinematic headline remains exactly:
 
 Supporting hero copy:
 
-> We’re building an AI GTM program manager to help your team decide what to
-> launch, what to learn and what to do next.
+> We’re building an AI GTM program manager to help teams get decisions answered,
+> avoid work based on old decisions and follow through on what they learn.
 >
-> Prelaunch. Software in development. The workflow below is intended, not shipped.
+> Prelaunch. Software in development. Intended workflow, not shipped capability.
 
 The three benefits are Launch fast, Learn what lands, and Act on that learning.
 Positioning, pricing, budget, launch readiness and market evidence are presented
 as a human-led intended workflow. Decision, commitment, version and permission
 boundaries stay in the concise trust section rather than leading the pitch.
 
-The Northstar illustration keeps guided activation and the first shared report.
-Its release is ready, but prospects misunderstand the value. Campaign clicks
-look promising in the fictional review; activation evidence is incomplete.
-Product and GTM approve a clearer positioning direction, Pricing keeps current
-terms and Finance holds extra spend pending better evidence. Leo, Maya and
-Priya still must accept the changed deliverables and dates. None of these are
-verified campaign results or proof of growth.
+The refinement names three intended speed mechanisms: getting unanswered
+decisions to responsible people, avoiding rework from superseded direction,
+and giving accepted work a defined evidence check. These are labeled “How we
+expect it to help. Not yet measured.” Prospective measures cover ready-build to
+release time, decisions awaiting answers, late changes and whether assumptions
+held. No measured acceleration, ROI or existing integration is claimed.
+
+The fictional Northstar illustration keeps guided activation and the first
+shared report. It runs from incomplete market evidence at the Tue Nov 24 review
+to a human decision, Leo’s accepted message/demo task for Fri Nov 27, and a
+Tue Dec 1 check of delivery, understanding and first use. The fictional task
+explicitly moves from a proposal to Leo’s acceptance. The review keeps
+observations before and after the message change separate, without implying
+a causal comparison. Version 2 changes the test direction; final public wording
+still needs Product and GTM review.
+Pricing stays steady because confusion alone does not justify a price change;
+Finance holds extra spend and the test uses the current campaign budget. The
+company’s claim standard rules out an unsupported speed promise. Leo’s acceptance
+does not change other owners’ work. The example leaves delivery and market
+results open. Decisions and standards remain revisable through human judgment,
+necessary approvals and affected owners’ acceptance.
 
 All four native walkthrough steps stay in reading order and visible without
-JavaScript: Frame the value, Launch with a question, Read the response, Choose
-the next move. Only supporting work/gate and version detail is collapsed.
+JavaScript: Read the evidence, Make the decision, Accept the work, Check again. Only supporting work/gate and version detail is collapsed.
 The existing hero link opens the work/gate detail when selected.
 
 ## Implementation boundaries
@@ -58,9 +73,9 @@ The existing hero link opens the work/gate detail when selected.
 
 ## Checks completed
 
-- `node --test tests/*.test.mjs`: 32 passing tests, including 7 new commercial
-  copy, maturity, fictional-state, permissions, preservation and fail-closed
-  tests. Walkthrough assertions now compare the deliberately revised story,
+- `node --test tests/*.test.mjs`: 34 passing tests, including 9 commercial
+  copy, maturity, fictional-state, permissions, preservation, fail-closed, specific speed-mechanism and dated
+  end-to-end example tests. Walkthrough assertions now compare the deliberately revised story,
   rather than require the obsolete comparison copy.
 - `WIDE_LAUNCH_PREVIEW=local npm run build` and
   `node scripts/verify-galaxy-build.mjs`: passing. Verifies exact headline,
@@ -75,15 +90,18 @@ The existing hero link opens the work/gate detail when selected.
   build includes them. Ordinary page/runtime output hashes match across all
   five modes; comparison HTML hash matches between local and draft modes.
 - Main-content word counts, including preview controls/labels: solar comparison
-  1,293 default / 1,433 expanded; revised galaxy 969 default / 1,129 expanded.
+  1,293 default / 1,433 expanded; refined galaxy 991 default / 1,168 expanded.
+  The previous commercial revision was 969 / 1,129 words.
   Counts strip markup, hide only closed-details contents for default, and retain
   summaries. This is a reading-volume comparison, not a comprehension result.
 
-Local browser review passed at 1180 pixels and in a 390-pixel iframe: readable
-hero and revised story, no horizontal overflow, native step navigation and
-keyboard focus, working disclosure toggles, browser Back and unchanged email
-destinations. The existing launch and floating-space states were observed.
-This is not a physical-device test or a full accessibility audit.
+Historical local browser review of the previous copy was recorded in `fcf0360`:
+at 1180 pixels and in a 390-pixel iframe, the hero and story were readable, with
+no horizontal overflow, working native step navigation, keyboard focus,
+disclosure toggles, browser Back and unchanged email destinations. Launch and
+floating-space states were observed. This was not a physical-device test or a
+full accessibility audit.
 
-The full Playwright suite, Lighthouse and hosted verification run separately
-in CI. Their results must be checked for the published revision.
+That visual result does not validate wrapping or layout of this refinement.
+Fresh supported browser review remains outstanding. No shell Chromium, full
+Playwright suite, Lighthouse or hosted CI was run for this local refinement.

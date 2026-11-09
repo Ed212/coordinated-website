@@ -23,7 +23,7 @@ The galaxy and native-walkthrough CSS and JavaScript total 11,460 uncompressed b
 
 ## Verification
 
-Current copy, isolation and local visual verification is in `COMMERCIAL-STORY-PREVIEW.md`.
+Current copy and isolation verification, plus historical local visual results, are in `COMMERCIAL-STORY-PREVIEW.md`. Fresh visual review is required for the refined copy.
 
 Checks retained on the current source:
 
@@ -33,7 +33,7 @@ Checks retained on the current source:
 - Existing `npm test`: 5 contact tests.
 - `npm run check:copy`, `npm run check:references`, and `git diff --check`.
 
-Visual checks:
+Historical visual checks, before the latest commercial-copy refinement:
 
 - CUA browser: desktop rendering, actual changing camera transform during scrolling, frozen transform while paused, resume, disclosure expand/collapse, contact URL preservation, no horizontal overflow, image delivery and visible keyboard focus. Browser extension metadata warnings were present; no site error was observed.
 - Responsive visual check in a 390-pixel iframe: one-column reading layout, no content/heading overflow, usable motion control.

@@ -5,8 +5,7 @@ is documented in `COMMERCIAL-STORY-PREVIEW.md`. The comparison routes, productio
 pages, hero headline, assets and controls remain unchanged.
 
 Four numbered native links guide readers through the fictional commercial
-example: Frame the value, Launch with a question, Read the response, Choose the
-next move. The links navigate rather than approve, change or simulate product
+example: Read the evidence, Make the decision, Accept the work, Check again. The links navigate rather than approve, change or simulate product
 state. All four stages remain visible in reading order, with no JavaScript
 dependency, hidden panels, timed advancing, pinned section or scroll
 interception. Native fragments support keyboard focus, browser history and
@@ -27,10 +26,12 @@ compares the approved transformed story rather than demand original-copy
 equality with the intentionally unchanged solar comparison.
 
 Verification:
-- `node --test tests/*.test.mjs`: 32 passing.
+- `node --test tests/*.test.mjs`: 34 passing.
 - Normal build and non-authorized hosting modes exclude preview routes/assets.
 - Local/draft-branch builds, galaxy verification, copy and reference checks pass.
 - Hero media/controls, contact, link destinations and existing IDs are preserved.
-- Local browser review passed at desktop and in a 390-pixel iframe, including
-  all four native targets, keyboard focus, disclosure toggles and Back.
-  This is not a physical-device test. Full browser/performance checks run in CI.
+- The preceding copy passed local browser review at desktop and in a
+  390-pixel iframe, including native targets, keyboard focus, disclosures and
+  Back, as recorded in `fcf0360`. This is not a physical-device test, and does
+  not validate the refined copy’s wrapping. Fresh supported browser review and
+  full browser/performance checks remain outstanding for this refinement.

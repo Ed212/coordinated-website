@@ -22,10 +22,11 @@ test('approved commercial positioning leads below the exact cinematic headline',
 });
 
 test('maturity boundaries exclude shipped, connected, calculated ROI and proven-growth claims', () => {
-  assert.match(page, /Prelaunch\. Software in development\. The workflow below is intended, not shipped\./);
+  assert.match(page, /Prelaunch\. Software in development\. Intended workflow, not shipped capability\./);
   assert.match(page, /We’re building an AI GTM program manager/);
-  assert.match(page, /This describes design intent, not an available end-to-end product, connected integrations or an ROI calculation\./);
-  assert.match(page, /This is a fictional illustration of the intended workflow, not deployed software, verified campaign results or evidence of growth\. No lift has been demonstrated\./);
+  assert.match(page, /How we expect it to help\. Not yet measured\./);
+  assert.match(page, /Fictional example of the intended workflow, not a customer result or evidence of growth\./);
+  assert.match(page, /No timing or growth improvement has been measured\./);
   assert.match(page, /This website does not connect to your workspace\./);
   assert(!/\b(?:guaranteed|proven growth|proven ROI|calculates? (?:your )?ROI|integrates? with|automatically (?:publishes|launches|approves)|\d+(?:\.\d+)?% (?:growth|lift|increase))\b/i.test(text(page)));
   assert(!page.includes('your AI GTM program manager in Slack'));
@@ -36,17 +37,18 @@ test('Northstar is explicitly fictional and incomplete evidence leads to bounded
   assert.equal(page.slice(firstNorthstar - 'Fictional example · '.length, firstNorthstar), 'Fictional example · ');
   const story = text(section(page, 'moments'));
   for (const phrase of [
-    'The release is ready, but prospects mistake its value for another dashboard.',
+    'Northstar’s guided activation is ready to launch.',
     'first shared report', 'guided activation',
-    'Campaign clicks look promising in the fictional review',
+    'At the Tue Nov 24 review, campaign clicks look promising',
     'Activation evidence is incomplete.',
-    'The team cannot yet tell whether interest becomes a useful first experience.',
-    'Product and GTM approve the direction',
+    'prospects mistake the first shared report for another dashboard',
+    'Product and GTM approve a clearer explanation.',
     'Pricing keeps current terms',
-    'Finance holds extra spending until the team has better evidence about activation.',
-    'Each owner must accept the exact work and dates before those commitments change.'
+    'Finance holds additional spend; the test must fit the existing campaign budget.',
+    'Leo’s acceptance does not change Maya’s or Priya’s work.',
+    'This illustration leaves delivery and market results open; it does not assume the test worked.'
   ]) assert(story.includes(phrase), phrase);
-  assert(!/lift|improved|increased|validated/.test(story.replace('No lift has been demonstrated.', '')));
+  assert(!/lift|improved|increased|validated/.test(story));
   assert(!page.includes('Follow the full Northstar example'));
   assert.equal(page.split('Read the detailed workflow example →').length, 3);
 });
@@ -54,19 +56,24 @@ test('Northstar is explicitly fictional and incomplete evidence leads to bounded
 test('trust retains separate decision, acceptance, version and permission boundaries', () => {
   const trust = text(section(page, 'trust'));
   for (const phrase of [
-    'People approve decisions', 'Owners accept the work', 'Agents stay within permissions',
-    'positioning, pricing, budget and launch readiness',
+    'People approve and revise decisions', 'Owners accept the work', 'Agents stay within permissions',
+    'People can revise positioning, pricing, budgets and company standards using judgment and necessary approvals.',
     'Required specialist gates remain in place.',
     'A decision approval is not delivery acceptance',
     'Reading context grants no approval or action rights.',
     'Publishing needs separate authorization.',
-    'Version 1 is the approved launch plan. Version 2 proposes the positioning test.',
-    'Current pricing and spend remain in force.',
-    'only the affected decision is labeled superseded',
+    'Version 1 was the launch plan.',
+    'Product and GTM approve version 2’s message-test direction, and Leo accepts his work and date.',
+    'Version 2 replaces the earlier direction for this test; final wording still needs Product and GTM review before publication.',
+    'Pricing, budget and other accepted work stay unchanged.',
+    'Later decisions can revise this direction with the necessary approvals and affected owners’ acceptance.',
     'Evidence keeps its source and observation window',
     'missing or old notes do not prove a result.'
   ]) assert(trust.includes(phrase), phrase);
   assert(!/\b(?:approve|accept)\b/.test(text(section(page, 'roles'))), 'benefits lead with the commercial purpose, not machinery');
+  assert(!/approved once|set once|set-and-forget/i.test(text(page)));
+  assert(!page.includes('Version 2 proposes the positioning test'));
+  assert(!page.includes('awaiting owner acceptance'));
 });
 
 test('all link destinations, contact behavior, privacy, media, controls and existing anchor IDs survive', () => {
@@ -85,9 +92,9 @@ test('all link destinations, contact behavior, privacy, media, controls and exis
 test('commercial content stays readable without JavaScript or disclosure interaction', () => {
   const story = section(page, 'moments');
   assert(!/\shidden[\s=>]|<script|onclick|role="tab/.test(story));
-  assert(story.indexOf('Campaign clicks look promising') < story.indexOf('<details'));
-  assert(story.indexOf('Finance holds extra spending') < story.indexOf('<details'));
-  assert(story.indexOf('Each owner must accept') < story.indexOf('<details'));
+  for (const phrase of ['campaign clicks look promising', 'Finance holds additional spend', 'Leo then accepts the revised message and demo for Fri Nov 27', 'Check again · Tue Dec 1']) {
+    assert(story.indexOf(phrase) >= 0 && story.indexOf(phrase) < story.indexOf('<details'), phrase);
+  }
   assert.match(story, /<details class="dependency-map" id="launch-dependencies">/);
   assert.match(page, /<details class="decision-detail" id="agreement-change">/);
 });
@@ -103,4 +110,46 @@ test('commercial transform fails closed on changed, missing, repeated or previou
     assert.throws(() => addCommercialStory(solar.replace(region, region.replace('</section>', '<p>New upstream fact</p></section>'))), /source changed; review required/);
   }
   assert.throws(() => addCommercialStory(solar.replace('<p class="proof-line">', '<p class="proof-line">Changed. ')), /commercial-story target/);
+});
+
+
+test('speed mechanisms are specific and measurements stay prospective', () => {
+  const how = text(section(page, 'how'));
+  for (const phrase of [
+    'How we expect it to help. Not yet measured.',
+    'Launches stall while people wait for answers, redo work from old decisions or miss follow-up.',
+    'Coordinated is being designed to help in three ways.',
+    'Ask the responsible people about open decisions and launch readiness',
+    'current claims and decisions, so drafts do not repeat superseded direction',
+    'Ask whether accepted work happened and bring dated evidence to the next review.',
+    'Prospective measures', 'A separately agreed pilot would examine:',
+    'Time from a ready build to release', 'Decisions still awaiting answers',
+    'Late changes from superseded direction',
+    'We would also check whether assumptions held after release.',
+    'No timing or growth improvement has been measured.'
+  ]) assert(how.includes(phrase), phrase);
+  assert(!/\b(?:ROI|\d+%|saved \d+|\d+x faster)\b/i.test(how));
+});
+
+test('fictional end-to-end example includes accepted scope and a dated evidence check after the decision', () => {
+  const story = text(section(page, 'moments'));
+  let previous = -1;
+  for (const phrase of ['Market evidence raises a question.', 'Human decision', 'Accepted work', 'Check again · Tue Dec 1']) {
+    const at = story.indexOf(phrase); assert(at > previous, phrase); previous = at;
+  }
+  for (const phrase of [
+    'The task begins as a proposal. Leo then accepts the revised message and demo for Fri Nov 27, within the current budget.',
+    'Product and GTM review the final wording before publication.',
+    'Pricing keeps current terms because confusion alone does not justify a price change.',
+    'The company’s claim standard rules out promising a faster first report without evidence.',
+    'Leo and Maya review dated prospect notes and first-use observations from Mon Nov 23 to Mon Nov 30.',
+    'They keep observations before and after the message change separate; this is not a causal comparison.',
+    'Was the revised message used? Can prospects explain the value? Do new teams reach their first shared report?',
+    'review whether the evidence warrants another message, price or spending change, with the necessary approvals'
+  ]) assert(story.includes(phrase), phrase);
+  for (const [date, weekday] of [['2026-11-23', 1], ['2026-11-24', 2], ['2026-11-27', 5], ['2026-11-30', 1], ['2026-12-01', 2]]) {
+    assert.equal(new Date(`${date}T00:00:00Z`).getUTCDay(), weekday, date);
+  }
+  assert(page.includes('Leo: revised message and demo by Fri Nov 27'));
+  assert(page.includes('Tue Dec 1: understanding and first use'));
 });
