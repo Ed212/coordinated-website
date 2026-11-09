@@ -23,13 +23,13 @@ test('approved commercial positioning leads below the exact cinematic headline',
 
 test('maturity boundaries exclude shipped, connected, calculated ROI and proven-growth claims', () => {
   assert.match(page, /Prelaunch\. Software in development\. Intended workflow, not shipped capability\./);
-  assert.match(page, /We’re building an AI GTM program manager/);
+  assert.match(page, /We’re building Coordinated to help teams get decisions answered/);
   assert.match(page, /How we expect it to help\. Not yet measured\./);
   assert.match(page, /Fictional example of the intended workflow, not a customer result or evidence of growth\./);
   assert.match(page, /No timing or growth improvement has been measured\./);
   assert.match(page, /This website does not connect to your workspace\./);
   assert(!/\b(?:guaranteed|proven growth|proven ROI|calculates? (?:your )?ROI|integrates? with|automatically (?:publishes|launches|approves)|\d+(?:\.\d+)?% (?:growth|lift|increase))\b/i.test(text(page)));
-  assert(!page.includes('your AI GTM program manager in Slack'));
+  assert(!/AI GTM program manager/i.test(page), 'System-first positioning applies to visible copy and metadata.');
 });
 
 test('Northstar is explicitly fictional and incomplete evidence leads to bounded human decisions', () => {

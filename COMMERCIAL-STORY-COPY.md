@@ -29,7 +29,7 @@ For GTM leads, product leaders and founders at 50 to 300-person software compani
 
 Launch fast, learn what lands, and act on that learning.
 
-We’re building an AI GTM program manager to help teams get decisions answered, avoid work based on old decisions and follow through on what they learn.
+We’re building Coordinated to help teams get decisions answered, avoid work based on old decisions and follow through on what they learn.
 
 Prelaunch. Software in development. Intended workflow, not shipped capability.
 

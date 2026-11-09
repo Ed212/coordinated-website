@@ -17,7 +17,7 @@ The cinematic headline remains exactly:
 
 Supporting hero copy:
 
-> We’re building an AI GTM program manager to help teams get decisions answered,
+> We’re building Coordinated to help teams get decisions answered,
 > avoid work based on old decisions and follow through on what they learn.
 >
 > Prelaunch. Software in development. Intended workflow, not shipped capability.

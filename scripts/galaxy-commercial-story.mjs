@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto';
 // Approved commercial-story draft. Apply only to the derived galaxy preview,
 // before chapter decoration and native walkthrough links. No runtime behavior.
 export const commercialPositioning = 'Launch fast, learn what lands, and act on that learning.';
-export const commercialDescription = 'We’re building an AI GTM program manager to help teams launch, learn from market evidence and decide what to do next. Prelaunch software in development.';
+export const commercialDescription = 'We’re building Coordinated to help teams launch, learn from market evidence and decide what to do next. Prelaunch software in development.';
 
 const heroProduct = `<div class="hero-product" aria-label="A fictional follow-through example">
           <article class="slack-card hero-card" data-hero-card>
@@ -139,7 +139,7 @@ export function addCommercialStory(page) {
     page = replaceOne(page, `<meta ${attribute} content="We’re building an AI GTM program manager for launches and learning, with approved decisions and versions for people and permitted agents.">`, `<meta ${attribute} content="${commercialDescription}">`);
   }
   page = replaceOne(page, '<p class="hero-promise">We’re building your AI GTM program manager in Slack to coordinate commitments and feedback, so each launch can teach you what drives growth.</p>', `<p class="hero-promise">${commercialPositioning}</p>`);
-  page = replaceOne(page, '<p class="hero-audience hero-agreement">Conversation history helps recall what was said. We’re building Coordinated to preserve what was agreed and decided.</p>', '<p class="hero-audience hero-agreement">We’re building an AI GTM program manager to help teams get decisions answered, avoid work based on old decisions and follow through on what they learn.</p>');
+  page = replaceOne(page, '<p class="hero-audience hero-agreement">Conversation history helps recall what was said. We’re building Coordinated to preserve what was agreed and decided.</p>', '<p class="hero-audience hero-agreement">We’re building Coordinated to help teams get decisions answered, avoid work based on old decisions and follow through on what they learn.</p>');
   page = replaceOne(page, '<p class="proof-line">Prelaunch. Software in development.</p>', '<p class="proof-line">Prelaunch. Software in development. Intended workflow, not shipped capability.</p>');
   page = replaceOne(page, 'See the launch-to-learning loop <span', 'Explore the fictional launch <span');
   page = replaceRegion(page, /<div class="hero-product"[\s\S]*?<\/article>\s*<\/div>/g, 'heroProduct', heroProduct);
