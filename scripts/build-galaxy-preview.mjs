@@ -1,5 +1,6 @@
 import { readFile, writeFile, cp } from 'node:fs/promises';
 import { addNorthstarWalkthrough } from './northstar-walkthrough.mjs';
+import { addCommercialStory } from './galaxy-commercial-story.mjs';
 
 // This derived study exists only when the isolated solar preview was built.
 // Production index, b, templates, and the original solar study stay unchanged.
@@ -7,6 +8,7 @@ let page;
 try { page = await readFile('dist/solar-study.html', 'utf8'); }
 catch (error) { if (error.code !== 'ENOENT') throw error; }
 if (page) {
+  page = addCommercialStory(page);
   const backdrop = `<div class="galaxy-backdrop" aria-hidden="true">
     <picture class="galaxy-camera"><source media="(max-width: 760px)" srcset="assets/galaxy/landscape-1200.webp"><img src="assets/galaxy/landscape-1600.webp" width="1600" height="889" alt="" loading="lazy" decoding="async"></picture>
     <div class="galaxy-vignette"></div>

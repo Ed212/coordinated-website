@@ -1,13 +1,15 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { addCommercialStory } from '../scripts/galaxy-commercial-story.mjs';
 import { addNorthstarWalkthrough, walkthroughNavigation } from '../scripts/northstar-walkthrough.mjs';
-const original = await readFile(new URL('../index.html',import.meta.url),'utf8');
+const source = await readFile(new URL('../index.html',import.meta.url),'utf8');
+const original = addCommercialStory(source.replace('<h1 id="hero-title">Turn product momentum into market growth.</h1>', '<h1 id="hero-title">Make your <span class="headline-phrase">go-to-market</span> move at the speed of your product.</h1>'));
 const css = await readFile(new URL('../northstar-walkthrough.css',import.meta.url),'utf8');
 const page = addNorthstarWalkthrough(original);
 const text = html => html.replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();
 
-test('preserves every original word in original order, adding only known navigation', () => {
+test('preserves the approved commercial story in reading order, adding only known navigation', () => {
   assert.equal(text(page.replace(walkthroughNavigation,'')),text(original));
 });
 test('four native links each have exactly one focusable destination in reading order', () => {
@@ -28,12 +30,12 @@ test('all content remains available with no JavaScript; no hiding, timers or han
   assert(!/display\s*:\s*none|visibility\s*:\s*hidden|position\s*:\s*(sticky|fixed)|animation\s*:/.test(css));
   assert.match(walkthroughNavigation,/All four steps are shown below/);
 });
-test('original links, details, contact and hero are untouched', () => {
+test('commercial-story links, disclosures, contact and hero are untouched', () => {
   const hrefs = html => [...html.matchAll(/href="([^"]+)"/g)].map(match=>match[1]);
   assert.deepEqual(hrefs(page.replace(walkthroughNavigation,'')),hrefs(original));
   assert.equal(page.slice(0,page.indexOf('<section class="section ledger-section launch-comparison"')),original.slice(0,original.indexOf('<section class="section ledger-section launch-comparison"')));
   assert.equal(page.slice(page.indexOf('<section class="section narrative-section"')),original.slice(original.indexOf('<section class="section narrative-section"')));
-  assert.match(page,/<details class="dependency-map" id="launch-dependencies" open>/);
+  assert.match(page,/<details class="dependency-map" id="launch-dependencies">/);
   assert.match(page,/id="next-decision" tabindex="-1"/);
 });
 test('style is scoped and supports mobile, visible target focus, and reduced motion', () => {

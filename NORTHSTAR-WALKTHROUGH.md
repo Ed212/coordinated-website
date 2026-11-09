@@ -1,26 +1,36 @@
 # Northstar example walkthrough
 
-Preview-only enhancement on `/galaxy-study`. `/solar-study`, production pages,
-hero assets, business copy and example approval/acceptance states are unchanged.
+Preview-only enhancement on `/galaxy-study`. The November 9 commercial revision
+is documented in `COMMERCIAL-STORY-PREVIEW.md`. The comparison routes, production
+pages, hero headline, assets and controls remain unchanged.
 
-Four numbered native links guide readers through the existing direction,
-commitments, coordination and learning content. The links navigate rather than
-approve, change or simulate product state. All four stages remain visible in
-original reading order, with no JavaScript dependency, hidden panels, timed
-advancing, pinned section or scroll interception. Native fragments support
-keyboard focus, browser history and direct links. Target outlines identify the
-selected stage. Existing dependencies, learning-review anchor and contact links
-remain available. Reduced motion uses the existing global static-scroll rule.
+Four numbered native links guide readers through the fictional commercial
+example: Frame the value, Launch with a question, Read the response, Choose the
+next move. The links navigate rather than approve, change or simulate product
+state. All four stages remain visible in reading order, with no JavaScript
+dependency, hidden panels, timed advancing, pinned section or scroll
+interception. Native fragments support keyboard focus, browser history and
+direct links. Target outlines identify the selected stage. Existing work/gate,
+learning-review and contact anchors remain available. Reduced motion uses the
+existing global static-scroll rule.
 
-Implementation: `scripts/northstar-walkthrough.mjs` transforms the derived
-preview only; `northstar-walkthrough.css` adds the scoped layout. The build
-fails if expected insertion targets are missing or duplicated. Copy verification
-removes only the exact known navigation string before comparing every original
-post-hero word with the solar comparison.
+The primary illustration stays visible. Supporting work/gate details are now
+collapsed, like the version detail in the trust section; the existing hero link
+opens the work/gate disclosure when selected. No primary copy sits in a carousel
+or a simulated product interface.
+
+Implementation: `scripts/galaxy-commercial-story.mjs` first applies the approved
+preview-only copy. `scripts/northstar-walkthrough.mjs` adds navigation over that
+story; `northstar-walkthrough.css` retains the existing scoped layout. The
+transforms fail on missing, duplicated or changed expected targets. Verification
+compares the approved transformed story rather than demand original-copy
+equality with the intentionally unchanged solar comparison.
 
 Verification:
-- `node --test tests/contact.test.mjs tests/galaxy-scroll.test.mjs tests/endless-space.test.mjs tests/northstar-walkthrough.test.mjs`: 25 passing.
-- Normal `npm run build`: no galaxy, walkthrough or launch-preview assets/routes.
-- `WIDE_LAUNCH_PREVIEW=local npm run build`, `node scripts/verify-galaxy-build.mjs`, copy and reference checks: passing.
-- Browser visual/keyboard QA and hosted CI are coordinated separately; these
-  static checks do not substitute for browser validation.
+- `node --test tests/*.test.mjs`: 32 passing.
+- Normal build and non-authorized hosting modes exclude preview routes/assets.
+- Local/draft-branch builds, galaxy verification, copy and reference checks pass.
+- Hero media/controls, contact, link destinations and existing IDs are preserved.
+- No shell Chromium or full browser/performance suite was run for this revision.
+  Supported browser review is coordinated separately; static tests do not
+  substitute for that review.
