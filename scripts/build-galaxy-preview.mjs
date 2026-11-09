@@ -18,7 +18,7 @@ if (page) {
   page = page.replace('</head>', '<link rel="stylesheet" href="galaxy-scroll.css">\n<script src="galaxy-scroll.js" type="module"></script>\n</head>')
     .replace('homepage-clarity launch-preview', 'homepage-clarity launch-preview galaxy-preview')
     .replace('<a class="skip-link"', backdrop + '\n<a class="skip-link"')
-    .replace('Composited motion study · Not a newly generated film ·', 'Galaxy scroll study · Preview only ·')
+    .replace('Composited motion study · AI-edited rocket ·', 'Galaxy scroll study · Preview only ·')
     .replace('<section class="trust-ribbon"', `<div class="galaxy-content" data-galaxy-content>${navigator}<section class="trust-ribbon"`)
     .replace('  </main>', '    </div>\n  </main>');
   for (const [id, number, label] of [

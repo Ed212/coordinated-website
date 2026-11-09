@@ -51,7 +51,7 @@ try{
  for(const mode of ['reduced','no-js','launch-failed','autoplay-blocked','hash','save-data','departure-failed']){
   const p=await browser.newPage({javaScriptEnabled:mode!=='no-js',reducedMotion:mode==='reduced'?'reduce':'no-preference'}),media=[];
   p.on('request',r=>{if(r.url().endsWith('.mp4'))media.push(r.url())});
-  if(mode==='launch-failed')await p.route('**/wide-shuttle-launch.mp4',r=>r.abort());
+  if(mode==='launch-failed')await p.route('**/wide-starship-launch.mp4',r=>r.abort());
   if(mode==='departure-failed')await p.route('**/deep-space-continuation.mp4',r=>r.abort());
   if(mode==='autoplay-blocked')await p.addInitScript(()=>HTMLMediaElement.prototype.play=()=>Promise.reject(new DOMException('Blocked','NotAllowedError')));
   if(mode==='save-data')await p.addInitScript(()=>Object.defineProperty(navigator,'connection',{value:{saveData:true}}));

@@ -1,11 +1,12 @@
 {
-  "file": "assets/video/wide-shuttle-launch.mp4",
-  "bytes": 5966854,
-  "sha256": "4325f277ef1aa1c921ac3899c47a61a9704b4452708682cbf1f54500ccee76b1",
+  "file": "assets/video/wide-starship-launch.mp4",
+  "bytes": 5652225,
+  "sha256": "3479c5f3ed9f38856bc1a7ae8987c4359814fa1507b52a6bfafc815cd59242c8",
   "width": 1920,
   "height": 1080,
   "duration": 10.041667,
   "hasAudio": false,
-  "generationTask": "cc4faf72-5f80-4334-beee-e904032156df",
-  "note": "Generated cinematic compressed ascent; not actual launch footage."
+  "generationTask": "ae2408e0-f971-41b9-982f-212d7815bba9",
+  "note": "AI-edited, unbranded Starship-inspired rocket in the existing generated coastal launch. Time-compressed cinematic ascent, not actual launch footage. Stage separation remains a visual limitation: engine glow obscures the two-body event.",
+  "poster": "assets/video/wide-starship-poster.jpg"
 }
