@@ -102,6 +102,12 @@ disclosure toggles, browser Back and unchanged email destinations. Launch and
 floating-space states were observed. This was not a physical-device test or a
 full accessibility audit.
 
-That visual result does not validate wrapping or layout of this refinement.
-Fresh supported browser review remains outstanding. No shell Chromium, full
-Playwright suite, Lighthouse or hosted CI was run for this local refinement.
+Fresh local browser review of the refinement passed at 1180 pixels and in a
+390-pixel iframe. The revised hero, speed explanation, accepted-work story and
+dated follow-up were readable without horizontal overflow. Native target focus,
+keyboard activation, disclosure toggles and browser Back worked. The longer
+follow-up copy remained within the one-column mobile layout. This is not a
+physical-device test or full accessibility audit.
+
+No shell Chromium, full Playwright suite, Lighthouse or hosted CI was run for
+this local refinement. Publication remains pending separate authorization.

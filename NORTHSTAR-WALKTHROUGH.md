@@ -30,8 +30,7 @@ Verification:
 - Normal build and non-authorized hosting modes exclude preview routes/assets.
 - Local/draft-branch builds, galaxy verification, copy and reference checks pass.
 - Hero media/controls, contact, link destinations and existing IDs are preserved.
-- The preceding copy passed local browser review at desktop and in a
-  390-pixel iframe, including native targets, keyboard focus, disclosures and
-  Back, as recorded in `fcf0360`. This is not a physical-device test, and does
-  not validate the refined copy’s wrapping. Fresh supported browser review and
-  full browser/performance checks remain outstanding for this refinement.
+- The refined copy passed local browser review at desktop and in a 390-pixel
+  iframe, including native targets, keyboard focus, disclosures, Back and
+  readable wrapping without overflow. This is not a physical-device test.
+  Full browser/performance checks remain outstanding for this local revision.
