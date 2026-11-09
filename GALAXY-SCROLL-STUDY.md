@@ -4,7 +4,7 @@ Preview-only continuation of the solar journey, requested November 9, 2026.
 
 ## Scope
 
-`/galaxy-study` derives from the current `/solar-study` at build time. The hero film, controls and exact headline remain owned by the solar study. The November 9 commercial revision changes supporting copy only on `/galaxy-study`; see `COMMERCIAL-STORY-PREVIEW.md`. All five subsequent homepage sections, the contact section and the footer share the galaxy palette. The same existing galaxy artwork becomes a fixed camera plane that advances as the page scrolls. This is an artistic traversal, not a scientific model of the Milky Way.
+`/galaxy-study` derives from the current `/solar-study` at build time. The hero film and controls remain owned by the solar study. The current November 9 content revision changes the headline and editorial copy only on `/galaxy-study`, retaining the exact markup and design; see `COMMERCIAL-STORY-PREVIEW.md`. All five subsequent homepage sections, the contact section and the footer share the galaxy palette. The same existing galaxy artwork becomes a fixed camera plane that advances as the page scrolls. This is an artistic traversal, not a scientific model of the Milky Way.
 
 The galaxy-specific changes leave `/solar-study`, `/launch-preview`, `/`, `/b` and supporting pages unchanged. The shared hero's later controls/fallback revision applies across all three preview routes; see `WIDE-LAUNCH-PREVIEW.md`. The new route exists only when the existing isolated solar-study build is enabled. An ordinary production build has neither study. Nothing here changes hosting audience, deploy settings, security, contact behavior, or existing comparison/production copy. No merge or production promotion.
 
@@ -33,7 +33,7 @@ Current copy and isolation verification, plus historical local visual results, a
 Checks retained on the current source:
 
 - Normal build excludes both previews; local preview build includes them.
-- `node scripts/verify-galaxy-build.mjs`: approved preview-only commercial story, unchanged ordinary routes and comparison copy, shared headline/media/contact, exact final-frame hero fallback, no explicit still-image button, five chapters, noindex, default-hidden JS controls, native anchors/scrolling and size guard.
+- `node scripts/verify-galaxy-build.mjs`: approved preview-only commercial story, unchanged ordinary routes and comparison copy, requested isolated headline, shared media/contact, exact final-frame hero fallback, no explicit still-image button, five chapters, noindex, default-hidden JS controls, native anchors/scrolling and size guard.
 - `node --test tests/galaxy-scroll.test.mjs`: 9 tests covering forward/reverse progress, endpoint clamping, pause/resume, reduced motion and save-data, dynamic preference changes, smaller mobile motion, idle/hidden behavior, absent hero still button, pause/fallback page restoration and chapter labels.
 - `node --test tests/*.test.mjs`: 57 tests pass for the native late-flight revision and handoff reliability correction.
 - Existing `npm test`: 5 contact tests.

@@ -1,137 +1,122 @@
-# Galaxy study: full editorial copy
+# Coordinated: content review
 
-Local unpublished review draft, November 9, 2026. This is the page’s editorial
-text in reading order, including expanded disclosures and unchanged contact
-copy. Decorative chapter labels and JavaScript motion controls are omitted.
-Dates, acceptance and review activity in Northstar are explicitly fictional.
-The source is `scripts/galaxy-commercial-story.mjs`; no product result is asserted.
+Local, unpublished revision · November 9, 2026
 
-Skip to content
-
-Coordinated
-
-Example
-
-How it works
-
-How we’ll measure
-
-Walk through your last launch
-
-Galaxy scroll study · Preview only ·
-Imagery and limitations
+Full editorial copy for `/galaxy-study`, in reading order. All disclosures are
+expanded below. Existing navigation, decorative chapter labels, imagery and
+motion controls are omitted from this text-only review. Contact copy is unchanged.
+Northstar, its people, dates, prices, budget, observations and spend are fictional;
+none are customer results or shipped product claims.
 
 FROM LAUNCH TO LEARNING
 
 For GTM leads, product leaders and founders at 50 to 300-person software companies.
 
-## Make your go-to-market move at the speed of your product.
+## Launch fast. Learn what lands. Act on that learning.
 
-Launch fast, learn what lands, and act on that learning.
+Give Coordinated a goal and the people involved. We’re building it to help your team shape a launch plan, agree who owns what and use market evidence to decide the next move.
 
-We’re building Coordinated to help teams get decisions answered, avoid work based on old decisions and follow through on what they learn.
+A shared, versioned plan that keeps decisions and accepted commitments clear. People retain judgment.
 
 Prelaunch. Software in development. Intended workflow, not shipped capability.
 
 Walk through your last launch
 
-Explore the fictional launch
+Explore the fictional launch →
 
 Fictional example · Northstar
 
-Coordinated Illustrative follow-through
+Coordinated Illustrative next decision Tue Nov 24, 9:14 AM
 
-Tue Nov 24, 9:14 AM
+### The launch is out. What comes next?
 
-### A clearer message. Then check again.
+Northstar spent $1,200 of its $3,000 launch budget. Three of five prospects misunderstood the offer. Dana chooses a message test before more spend.
 
-Northstar tests its first-shared-report positioning. Pricing stays steady; extra spend waits for stronger activation evidence.
+**Accepted:** Leo: revised message and demo by Fri Nov 27
 
-Accepted: Leo: revised message and demo by Fri Nov 27
+**Held steady:** $49 per team/month; no extra budget
 
-Standard: Claims must match product evidence
-
-Next check: Tue Dec 1: understanding and first use
+**Next check:** Tue Dec 1: understanding and first use
 
 See work and gates
 
 See the learning review
 
-Leo’s acceptance covers his task, not other owners’ work.
+Fictional observations, not customer results. The next test’s outcome is open.
 
 ### Launch fast
 
-Get open decisions to the people who can answer, before waiting holds up the launch.
+Turn a goal into a plan with owners, commercial choices, dependencies and launch gates.
 
 ### Learn what lands
 
-Compare what prospects understand, what campaigns attract and what customers experience.
+Review what prospects understood, what customers did and what the launch actually cost.
 
 ### Act on that learning
 
-Give the next change an owner, an agreed delivery date and a defined evidence check.
+Choose the next move, agree who will deliver it and set the next evidence check.
 
 Fictional program · Northstar
 
-### The release is ready. Is the market?
+### One goal. A changing plan. A next step.
 
 Explore the fictional example All four steps are shown below
 
-Read the evidence
+1. Set the goal
 
-Make the decision
+2. Make the decision
 
-Accept the work
+3. Accept the work
 
-Check again
+4. Launch and learn
 
-Market evidence raises a question. Northstar’s guided activation is ready to launch. Dana makes the go/no-go call after the required gates pass. At the Tue Nov 24 review, campaign clicks look promising, but prospects mistake the first shared report for another dashboard. Activation evidence is incomplete.
+Start with the goal and the people. Dana wants Northstar’s new teams to reach their first shared report. She names Product, GTM, Support, Security, Pricing and Finance. The intended workflow turns that brief into a launch plan: guided activation on Mon Nov 23, first-report positioning, a $49 per team/month offer and a $3,000 campaign budget.
 
 Human decision
 
-#### Test the message before changing price or spend.
+#### Security needs another week. Choose the scope.
 
-Product and GTM approve a clearer explanation. Pricing keeps current terms because confusion alone does not justify a price change. Finance holds additional spend; the test must fit the existing campaign budget. The company’s claim standard rules out promising a faster first report without evidence.
+Export’s security review is delayed. Dana can move the whole launch to Mon Nov 30 or launch guided activation on Mon Nov 23 without export, once its own gates pass. Product and GTM choose the smaller launch. Pricing and Finance keep the offer and budget unchanged. Export remains blocked pending Security approval.
 
 Accepted work
 
-#### Leo accepts a specific next step.
+#### A revised plan needs each owner’s acceptance.
 
-The task begins as a proposal. Leo then accepts the revised message and demo for Fri Nov 27, within the current budget. Product and GTM review the final wording before publication. Leo’s acceptance does not change Maya’s or Priya’s work.
+Version 2 proposes the smaller launch. Maya accepts core readiness by Thu Nov 19; Leo accepts the page and demo without export claims by Fri Nov 20; Priya accepts matching support guidance by Fri Nov 20. Each accepts their own revised deliverable and date. Dana’s decision alone does not assign their work.
+
+Launch · Mon Nov 23
+
+The owners deliver, required core checks pass and Dana gives the go-ahead. The page, demo and support guidance describe guided activation only. Export stays out.
+
+Read the evidence · Tue Nov 24
+
+Sales notes from five launch-day calls show three prospects mistook the offer for another dashboard. First-use records show two of six new teams shared a report. Finance records $1,200 spent. These small samples leave important questions open.
+
+Choose the next move
+
+Dana and GTM choose a clearer first-report message. Pricing stays at $49; Finance holds extra spend. Leo accepts revised copy and a demo by Fri Nov 27, with Product and GTM reviewing claims before publication.
 
 Check again · Tue Dec 1
 
-Leo and Maya review dated prospect notes and first-use observations from Mon Nov 23 to Mon Nov 30. They keep observations before and after the message change separate; this is not a causal comparison.
+Leo and Maya accept the review: did the revised message run, can prospects explain the value, and are teams sharing a first report? They compare dated notes, first-use records and actual spend, keeping before/after observations separate. The next decision waits for that evidence.
 
-Check delivery and understanding
+**See the work, dependencies and launch gates**
 
-Was the revised message used? Can prospects explain the value? Do new teams reach their first shared report?
+#### Product and Security
 
-Revisit the decision
+Maya owns guided-activation readiness and first-use evidence. Security clears the core release separately; export cannot enter the plan until its review passes.
 
-Product, GTM, Pricing and Finance review whether the evidence warrants another message, price or spending change, with the necessary approvals.
+A gate is not a date
 
-Keep gaps visible
+#### GTM and Support
 
-The review records missing evidence and the next question. This illustration leaves delivery and market results open; it does not assume the test worked.
-
-See the work, dependencies and launch gates
-
-#### Product and GTM
-
-Approve the test and review final claims against product evidence. A later change to the direction or company standard needs the responsible people’s judgment and approvals.
-
-Revisable human decision
-
-#### Leo, Maya and Priya
-
-Leo has accepted only his message and demo task. Any change to Maya’s first-run flow or Priya’s support guidance would need their separate acceptance.
+Leo’s page and demo depend on approved scope and claims. Priya’s support guidance depends on that same version. A new scope change needs their separate acceptance.
 
 Acceptance is specific
 
-#### Release, Pricing and Finance
+#### Pricing, Finance and Dana
 
-Required launch gates still apply. The test stays within current pricing and budget; changes need the appropriate commercial decision.
+Pricing owns the offer; Finance owns the budget and actual-spend review. Dana makes the go/no-go decision after required approvals and readiness evidence.
 
 Authority stays with people
 
@@ -143,19 +128,19 @@ How we expect it to help. Not yet measured.
 
 ### Less waiting. Less rework. A next check.
 
-Launches stall while people wait for answers, redo work from old decisions or miss follow-up. Coordinated is being designed to help in three ways.
+A general assistant can help draft a plan or recall a conversation. Coordinated is being designed around a shared, versioned plan: what people decided, which work each owner accepted and what still needs an answer.
 
-#### Get the unanswered decision to its owner
+1. **Build the plan with the people**
 
-Ask the responsible people about open decisions and launch readiness, rather than leave the team waiting for another round of status relaying.
+   Start with the goal and team. Bring positioning, pricing, content, budget, owners, dependencies and launch gates into one plan. Ask the responsible people to resolve open choices.
 
-#### Work from the current agreed version
+2. **Work from the current agreed version**
 
-Keep people and permitted agents working from current claims and decisions, so drafts do not repeat superseded direction.
+   Keep people and permitted agents working from current decisions and accepted commitments. When scope changes, show what it affects and ask those owners to accept the revised work.
 
-#### Give learning a next step
+3. **Give learning a next step**
 
-Ask whether accepted work happened and bring dated evidence to the next review. People decide what changes; owners accept the next work.
+   After launch, bring customer observations, market evidence and actual spend to a review. People decide the next action; owners accept the work and its next evidence check.
 
 How we would test this
 
@@ -165,11 +150,11 @@ Prospective measures
 
 A separately agreed pilot would examine:
 
-Built to launch: Time from a ready build to release
+**Built to launch:** Time from a ready build to release
 
-Waiting: Decisions still awaiting answers
+**Waiting:** Decisions still awaiting answers
 
-Rework: Late changes from superseded direction
+**Rework:** Late changes from superseded direction
 
 We would also check whether assumptions held after release. No timing or growth improvement has been measured.
 
@@ -179,7 +164,7 @@ Trust behind the next move
 
 ### People stay accountable.
 
-The intended workflow keeps decisions, commitments and versions clear for people and permitted agents.
+Shared decisions and accepted commitments are the intended foundation. People keep judgment, approval and delivery responsibility.
 
 #### People approve and revise decisions
 
@@ -193,13 +178,13 @@ Named owners accept the exact deliverable and date. A decision approval is not d
 
 Agents would use only permitted sources and actions. Reading context grants no approval or action rights. Publishing needs separate authorization.
 
-See what changes and what stays agreed
+**See what changes and what stays agreed**
 
-Fictional Northstar · From version 1 to version 2
+Fictional Northstar · One shared plan, three versions
 
-Version 1 was the launch plan. Product and GTM approve version 2’s message-test direction, and Leo accepts his work and date. Version 2 replaces the earlier direction for this test; final wording still needs Product and GTM review before publication. Pricing, budget and other accepted work stay unchanged.
+Version 1 planned guided activation and export together. Version 2 records the approved core-only launch and Maya’s, Leo’s and Priya’s accepted changes. Version 3 records the post-launch message test, Leo’s accepted task and the Tue Dec 1 review accepted by Leo and Maya. It does not reopen unchanged work or clear export’s security gate.
 
-Later decisions can revise this direction with the necessary approvals and affected owners’ acceptance. Evidence keeps its source and observation window; missing or old notes do not prove a result.
+People and permitted agents would consult the current version, with earlier decisions marked as superseded. Changes still need the right approvals and affected owners’ acceptance. Evidence keeps its source and observation window; missing or old notes do not prove a result.
 
 Any pilot needs agreed sources, permissions and data handling. This website does not connect to your workspace.
 
@@ -214,6 +199,7 @@ We talk it through. You don’t share files or give us access. Any later pilot w
 See how we’ll measure →
 
 ed@coordinatedai.ai
+
 Copy address
 
 Open your email app to request a conversation. A short note is enough; please don’t send documents, credentials or private launch data.
@@ -221,20 +207,3 @@ Open your email app to request a conversation. A short note is enough; please do
 Walk through your last launch
 
 Opening the email link does not send a message or confirm delivery.
-
-Coordinated
-
-Example
-
-How it works
-
-How we’ll measure
-
-Walk through your last launch
-
-Privacy
-
-Terms
-
-ed@coordinatedai.ai
-Copy address

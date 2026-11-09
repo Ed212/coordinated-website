@@ -1,5 +1,5 @@
 import { walkthroughNavigation, addNorthstarWalkthrough } from './northstar-walkthrough.mjs';
-import { addCommercialStory, commercialPositioning } from './galaxy-commercial-story.mjs';
+import { addCommercialStory, commercialPositioning, commercialHeroSupport } from './galaxy-commercial-story.mjs';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {readFile,stat} from 'node:fs/promises';
@@ -11,9 +11,9 @@ const text = page => page.replace(/<p class="galaxy-chapter-label"[^>]*>[\s\S]*?
 const content = page => text(page.slice(page.indexOf('<section class="trust-ribbon"'),page.indexOf('</main>')));
 assert.equal(content(galaxy),content(expected),'Post-hero content is the approved commercial transformation, not the old comparison copy.');
 const hero = page => page.match(/<div class="hero-copy">[\s\S]*?<\/section>/)[0];
-assert.equal(hero(galaxy),hero(expected),'Only approved hero supporting copy changes; headline and CTA markup survive.');
-assert(galaxy.includes(`<p class="hero-promise">${commercialPositioning}</p>`));
-assert.equal(text(galaxy.match(/<h1[^>]*>[\s\S]*?<\/h1>/)[0]),'Make your go-to-market move at the speed of your product.');
+assert.equal(hero(galaxy),hero(expected),'Only review-draft hero text changes; existing structure and CTA markup survive.');
+assert(galaxy.includes(`<p class="hero-promise">${commercialHeroSupport}</p>`));
+assert.equal(text(galaxy.match(/<h1[^>]*>[\s\S]*?<\/h1>/)[0]),commercialPositioning);
 const media = page => page.match(/<div class="flight-scene"[\s\S]*?<div class="ledger-boundary hero-layout">/)[0];
 assert.equal(media(galaxy),media(solar),'The cinematic scene and controls are byte-for-byte unchanged.');
 const fallback=JSON.parse(await readFile('assets/video/deep-space-final-frame.json','utf8'));

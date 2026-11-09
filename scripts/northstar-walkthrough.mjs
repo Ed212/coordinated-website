@@ -2,10 +2,10 @@
 export const walkthroughNavigation = `<nav class="northstar-walkthrough" aria-label="Fictional Northstar example walkthrough">
   <p class="northstar-walkthrough-label">Explore the fictional example <span>All four steps are shown below</span></p>
   <ol>
-    <li><a href="#northstar-direction"><span aria-hidden="true">01</span> Read the evidence</a></li>
+    <li><a href="#northstar-direction"><span aria-hidden="true">01</span> Set the goal</a></li>
     <li><a href="#northstar-acceptance"><span aria-hidden="true">02</span> Make the decision</a></li>
     <li><a href="#northstar-coordinate"><span aria-hidden="true">03</span> Accept the work</a></li>
-    <li><a href="#northstar-learning"><span aria-hidden="true">04</span> Check again</a></li>
+    <li><a href="#northstar-learning"><span aria-hidden="true">04</span> Launch and learn</a></li>
   </ol>
 </nav>`;
 

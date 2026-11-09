@@ -1,113 +1,136 @@
 # Commercial story review preview
 
-November 9, 2026. Local unpublished refinement for `/galaxy-study` only. No upload,
-push, remote metadata change, deployment, merge, new media generation or purchase
-is included. Full locally reviewable editorial copy is in
-`COMMERCIAL-STORY-COPY.md`.
+November 9, 2026. Local, unpublished content-only revision of `/galaxy-study`,
+based on `0ff959764c81dd507217a39081aa811b89f72c65`. No push, deployment,
+production change, new asset, integration or purchase is included. The full
+reading-order copy is in `COMMERCIAL-STORY-COPY.md`.
 
-## Direction
+## Exact hero copy
 
-The approved commercial positioning is:
+**Headline**
 
-> Launch fast, learn what lands, and act on that learning.
+> Launch fast. Learn what lands. Act on that learning.
 
-The cinematic headline remains exactly:
+**Support**
 
-> Make your go-to-market move at the speed of your product.
+> Give Coordinated a goal and the people involved. We’re building it to help
+> your team shape a launch plan, agree who owns what and use market evidence
+> to decide the next move.
 
-Supporting hero copy:
+**Shared-plan distinction**
 
-> We’re building Coordinated to help teams get decisions answered,
-> avoid work based on old decisions and follow through on what they learn.
->
+> A shared, versioned plan that keeps decisions and accepted commitments clear.
+> People retain judgment.
+
+**Maturity disclosure**
+
 > Prelaunch. Software in development. Intended workflow, not shipped capability.
 
-The three benefits are Launch fast, Learn what lands, and Act on that learning.
-Positioning, pricing, budget, launch readiness and market evidence are presented
-as a human-led intended workflow. Decision, commitment, version and permission
-boundaries stay in the concise trust section rather than leading the pitch.
+The headline replaces the earlier cinematic wording only on `/galaxy-study`.
+The existing heading element, inline span, classes, fonts, styling and layout
+rules remain intact. Text naturally changes wrapping and section height; no
+layout, typography or spacing rules are changed to accommodate it.
 
-The refinement names three intended speed mechanisms: getting unanswered
-decisions to responsible people, avoiding rework from superseded direction,
-and giving accepted work a defined evidence check. These are labeled “How we
-expect it to help. Not yet measured.” Prospective measures cover ready-build to
-release time, decisions awaiting answers, late changes and whether assumptions
-held. No measured acceleration, ROI or existing integration is claimed.
+## One end-to-end story
 
-The fictional Northstar illustration keeps guided activation and the first
-shared report. It runs from incomplete market evidence at the Tue Nov 24 review
-to a human decision, Leo’s accepted message/demo task for Fri Nov 27, and a
-Tue Dec 1 check of delivery, understanding and first use. The fictional task
-explicitly moves from a proposal to Leo’s acceptance. The review keeps
-observations before and after the message change separate, without implying
-a causal comparison. Version 2 changes the test direction; final public wording
-still needs Product and GTM review.
-Pricing stays steady because confusion alone does not justify a price change;
-Finance holds extra spend and the test uses the current campaign budget. The
-company’s claim standard rules out an unsupported speed promise. Leo’s acceptance
-does not change other owners’ work. The example leaves delivery and market
-results open. Decisions and standards remain revisable through human judgment,
-necessary approvals and affected owners’ acceptance.
+Northstar is one fictional example throughout the hero card and page:
 
-All four native walkthrough steps stay in reading order and visible without
-JavaScript: Read the evidence, Make the decision, Accept the work, Check again. Only supporting work/gate and version detail is collapsed.
-The existing hero link opens the work/gate detail when selected.
+1. Dana supplies the goal, helping new teams reach their first shared report,
+   and the people involved. The launch plan covers guided activation, positioning,
+   a fictional $49 per team/month offer and a fictional $3,000 campaign budget.
+2. Export’s delayed Security review creates an explicit human choice: move the
+   whole launch to Mon Nov 30 or launch core guided activation on Mon Nov 23,
+   after its own gates pass. Product and GTM choose the smaller scope. Export
+   remains blocked; Pricing and Finance retain the offer and budget.
+3. Maya, Leo and Priya separately accept revised readiness, page/demo and support
+   deliverables with dates. The approved direction is not itself owner acceptance.
+4. Owners deliver, required core checks pass and Dana authorizes the launch.
+5. The Tue Nov 24 review uses launch-day evidence: three of five prospects
+   mistook the offer for another dashboard, two of six new teams shared a report,
+   and Finance records $1,200 actually spent. All observations are fictional,
+   explicitly small and inconclusive, not measured product or customer outcomes.
+6. Dana and GTM choose a message test. Pricing stays steady and Finance holds
+   extra spend. Leo accepts revised copy/demo by Fri Nov 27. Leo and Maya accept
+   the Tue Dec 1 evidence review. Product and GTM review claims before publication.
+   Before/after observations stay separate; no causal effect or successful test
+   outcome is asserted.
 
-## Implementation boundaries
+Three shared versions carry the launch plan, the core-only revision and the
+post-launch test. Current decisions, exact accepted commitments, superseded
+versions and open answers explain the intended distinction from general
+assistant drafting or recall. People retain judgment and approval authority.
+Reading context grants no action authority; permitted agents stay within scope.
 
-- `scripts/galaxy-commercial-story.mjs` contains the full revised copy and a
-  deterministic, preview-only transformation. It runs before chapter decoration
-  and native walkthrough links. Replaced source regions are hash-checked, and
-  individual replacements require exactly one target. Changed, missing,
-  duplicated or previously transformed source fails rather than being ignored.
-- The production template, generated ordinary homepages, supporting pages,
-  `/solar-study` and `/launch-preview` comparison remain unchanged. The older
-  use-case links now say “Read the detailed workflow example” instead of
-  promising that page continues this revised compact story verbatim.
-- Existing media, motion CSS/JavaScript, assets, controls, headline markup,
-  contact section, email destinations, copy-address behavior, privacy and terms
-  are unchanged. No additional runtime code, dependency or asset is added.
-- CI now includes the new focused tests and reruns copy checks after building
-  the previews. The normal build and existing preview-only hosting gate are unchanged.
-  Local inspection of the hosted gate is a build test, not a deployment.
+There is no claim of a shipped full loop, deployed integration, measured speed
+improvement, growth or ROI. The separate strategic-visibility/sandbox discussion
+is not added to this preview.
 
-## Checks completed
+## Preserved design and behavior
 
-- `node --test tests/*.test.mjs`: 34 passing tests, including 9 commercial
-  copy, maturity, fictional-state, permissions, preservation, fail-closed, specific speed-mechanism and dated
-  end-to-end example tests. Walkthrough assertions now compare the deliberately revised story,
-  rather than require the obsolete comparison copy.
-- `WIDE_LAUNCH_PREVIEW=local npm run build` and
-  `node scripts/verify-galaxy-build.mjs`: passing. Verifies exact headline,
-  approved transformed copy, byte-identical cinematic scene/controls,
-  preserved contact/link destinations, unique native anchors, comparison
-  isolation and all existing motion/no-JS static safeguards.
-- `npm run check:copy`, `npm run check:references`, `git diff --check`: passing.
-  Calculator SHA-256 remains
-  `a289412212e78d7b1bdf20d1063077ed0ca991be56fd5f300d6da42c3a45adde`.
-- Ordinary, Netlify production, wrong-branch deploy-preview and Vercel-mode
-  builds exclude study routes and assets. The authorized Netlify draft-branch
-  build includes them. Ordinary page/runtime output hashes match across all
-  five modes; comparison HTML hash matches between local and draft modes.
-- Main-content word counts, including preview controls/labels: solar comparison
-  1,293 default / 1,433 expanded; refined galaxy 991 default / 1,168 expanded.
-  The previous commercial revision was 969 / 1,129 words.
-  Counts strip markup, hide only closed-details contents for default, and retain
-  summaries. This is a reading-volume comparison, not a comprehension result.
+- `scripts/galaxy-commercial-story.mjs` changes preview-only text and its text
+  labels. `scripts/northstar-walkthrough.mjs` changes only two navigation labels:
+  Set the goal; Launch and learn. The other two remain Make the decision and
+  Accept the work. All four stages stay visible without JavaScript.
+- No element structure, class, ID, link destination, control or disclosure
+  behavior changes. The headline retains the existing inline span. Content
+  regions still fail closed when the upstream source differs.
+- A checked-in test fixture compares structural markup before and after the
+  commercial and walkthrough transforms with the pre-revision `0ff9597` output.
+  Only text nodes and text-only ARIA/metadata labels are excluded from this hash.
+- A second invariant covers the bytes of 90 design, media, runtime, production,
+  template and supporting files. All CSS, runtime JavaScript, Arc launch and
+  native-loop footage, exact fallback image, accessibility behavior and controls
+  match that same baseline.
+- Production `/` and `/b`, supporting pages, `/solar-study`, `/launch-preview`,
+  contact/email behavior, privacy and terms remain unchanged. PR #5 is untouched.
+  Existing detailed-workflow links retain their destinations.
 
-Historical local browser review of the previous copy was recorded in `fcf0360`:
-at 1180 pixels and in a 390-pixel iframe, the hero and story were readable, with
-no horizontal overflow, working native step navigation, keyboard focus,
-disclosure toggles, browser Back and unchanged email destinations. Launch and
-floating-space states were observed. This was not a physical-device test or a
-full accessibility audit.
+## Verification
 
-Fresh local browser review of the refinement passed at 1180 pixels and in a
-390-pixel iframe. The revised hero, speed explanation, accepted-work story and
-dated follow-up were readable without horizontal overflow. Native target focus,
-keyboard activation, disclosure toggles and browser Back worked. The longer
-follow-up copy remained within the one-column mobile layout. This is not a
-physical-device test or full accessibility audit.
+Passed on the revised source:
 
-No shell Chromium, full Playwright suite, Lighthouse or hosted CI was run for
-this local refinement. Publication remains pending separate authorization.
+- `node --test tests/*.test.mjs`: 65 tests, including 12 commercial-story tests.
+  Coverage includes exact headline, goal/plan/choice/acceptance chronology,
+  fictional evidence and spend, dates, version/authority boundaries, no-JS
+  content, fail-closed transforms, structural hashes and unchanged-file hashes.
+- `WIDE_LAUNCH_PREVIEW=local npm run build`.
+- `node scripts/verify-galaxy-build.mjs`.
+- `npm run check:copy`, `npm run check:references`, `git diff --check`.
+- Six build modes checked in a separate temporary source copy, leaving the
+  review build stable. Ordinary, Netlify production, wrong-branch deploy-preview
+  and Vercel modes exclude preview routes/assets. Local and correct draft-branch
+  modes include them. Ordinary output hashes match across all six modes; both
+  comparison and revised-preview hashes match across the two preview modes.
+  These are local build tests, not a deployment or hosted CI result.
+
+Reading volume versus `0ff9597`, with the same counting method on both versions:
+
+- Editorial main content: 930 → 1,070 default; 1,107 → 1,266 expanded.
+- Including decorative labels and motion-control text: 985 → 1,125 default;
+  1,162 → 1,321 expanded.
+- Default excludes closed-disclosure bodies but retains their summaries.
+  Expanded includes both disclosures. Editorial counts exclude the preview
+  banner, decorative chapter labels and motion controls. The additional 140
+  default words cover the earlier goal, plan, security choice and launch stages.
+  Counts describe reading volume, not comprehension or conversion.
+
+Managed-preview CUA review passed at 1,180 pixels and in a 390-pixel iframe:
+
+- New hero and support text readable, existing visual treatment/components
+  retained, and no horizontal overflow at either width.
+- Desktop native Example navigation, keyboard Launch and learn navigation
+  focusing `northstar-learning`, and disclosure expansion verified.
+- Mobile keyboard Accept the work navigation focused `northstar-coordinate`;
+  the complete acceptance card was readable without clipping.
+- Static deep-link fallback and media wrappers remained unchanged.
+
+These are sampled responsive checks, not a physical-device test or full
+accessibility audit. Shell Chromium could not start because of environment
+socket permissions; no browser result is claimed from that route. No full
+Playwright suite, Lighthouse or hosted CI run is claimed for this local copy
+revision. The unchanged long motion suite was not rerun in a browser; existing
+runtime unit coverage and byte-preservation assertions pass.
+
+Publication remains pending separate approval. Do not present the existing
+public preview as containing this new copy until the revised commit is
+explicitly published and verified.
