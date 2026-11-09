@@ -51,8 +51,5 @@ reduced.addEventListener('change', resize);
 compact.addEventListener('change', resize);
 connection?.addEventListener('change', resize);
 new ResizeObserver(resize).observe(content);
-// Keep the hero's explicit still-image choice consistent across the page.
-// Offscreen hero pausing is automatic and does not disable scroll traversal.
-document.querySelector('[data-flight-still]')?.addEventListener('click', () => { manualPause = true; schedule(); });
 controls.hidden = false;
 resize();

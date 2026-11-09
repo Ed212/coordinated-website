@@ -11,7 +11,6 @@ const controls=document.querySelector('.flight-controls');
 const replay=document.querySelector('[data-flight-replay]');
 const skip=document.querySelector('[data-flight-skip]');
 const pause=document.querySelector('[data-flight-pause]');
-const still=document.querySelector('[data-flight-still]');
 const status=document.querySelector('.flight-status');
 const preference=matchMedia('(prefers-reduced-motion: reduce)');
 const settleAt=Number(departure.dataset.settleAt);
@@ -26,13 +25,13 @@ async function syncMotion(){
  try{if(phase==='launch'){if(launch.ended)await beginDeparture();else await launch.play();}else if(phase==='departure'){await departure.play();if(departure.currentTime<handoffDuration&&!launch.ended)await launch.play();}}catch{showStill();}
 }
 function load(v){if(!v.src){v.src=v.dataset.src;v.load();}}
-function showStill(){run++;clearTimeout(timeout);phaseTo('still');manualPause=false;launch.pause();departure.pause();layer.hidden=true;root.classList.remove('flight-settled');controls.hidden=preference.matches;skip.hidden=true;replay.hidden=false;pause.hidden=true;still.hidden=true;status.textContent='Still image';setPausedState();}
+function showStill(){run++;clearTimeout(timeout);phaseTo('still');manualPause=false;launch.pause();departure.pause();layer.hidden=true;root.classList.remove('flight-settled');controls.hidden=preference.matches;skip.hidden=true;replay.hidden=false;pause.hidden=true;status.textContent='Still image';setPausedState();}
 function settle(reason='complete',focus=false){
  bridgeTime=0;previousFrame=null;bridge.style.opacity=journey?'1':'0';
  if(journey)journey.render(0);
  clearTimeout(timeout);startingDeparture=false;phaseTo('ambient');launch.pause();departure.pause();
  launch.style.opacity='0';departure.style.opacity='0';ambient.style.opacity='1';layer.hidden=false;root.classList.add('flight-settled');
- skip.hidden=true;replay.hidden=false;pause.hidden=false;still.hidden=false;status.textContent='Floating through space';setPausedState();
+ skip.hidden=true;replay.hidden=false;pause.hidden=false;status.textContent='Floating through space';setPausedState();
  const attempt=run;prepare().then(ready=>{if(attempt===run&&phase==='ambient'){ready.render(bridgeTime);bridge.style.opacity='1';scheduleFrame();}}).catch(()=>{if(attempt===run)showStill();});
  if(focus)replay.focus({preventScroll:true});
 }
@@ -68,7 +67,7 @@ async function start(){
  const attempt=++run;clearTimeout(timeout);manualPause=false;startingDeparture=false;bridgeTime=0;previousFrame=null;bridge.style.opacity='0';prepare().catch(()=>{});
  launch.pause();departure.pause();launch.currentTime=0;departure.currentTime=0;departure.playbackRate=1;
  ambient.style.opacity='0';departure.style.opacity='0';launch.style.opacity='1';layer.hidden=false;root.classList.remove('flight-settled');
- controls.hidden=false;replay.hidden=true;skip.hidden=false;pause.hidden=false;still.hidden=false;
+ controls.hidden=false;replay.hidden=true;skip.hidden=false;pause.hidden=false;
  phaseTo('launch');status.textContent='Launch';setPausedState();load(launch);
  timeout=setTimeout(()=>{if(attempt===run&&launch.paused)showStill();},5000);
  try{await launch.play();if(attempt!==run){launch.pause();return;}clearTimeout(timeout);load(departure);if(!moving())launch.pause();}catch{if(attempt===run)showStill();}
@@ -96,7 +95,6 @@ departure.addEventListener('error',()=>{if(phase==='departure')showStill();});
 pause.addEventListener('click',()=>{manualPause=!manualPause;syncMotion();});
 skip.addEventListener('click',()=>{run++;manualPause=false;settle('skipped',true);});
 replay.addEventListener('click',()=>{start();skip.focus({preventScroll:true});});
-still.addEventListener('click',()=>{showStill();if(!controls.hidden)replay.focus({preventScroll:true});});
 preference.addEventListener('change',()=>{if(preference.matches)showStill();else controls.hidden=false;});
 document.addEventListener('visibilitychange',syncMotion);
 new IntersectionObserver(entries=>{inView=entries[0].isIntersecting;syncMotion();},{threshold:.02}).observe(document.querySelector('.hero'));
