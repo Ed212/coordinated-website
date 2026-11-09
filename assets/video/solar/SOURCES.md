@@ -1,6 +1,6 @@
 # Current Arc and native late-flight preview
 
-The current local-only preview preserves the deployed coastal launch and Earth-departure flight path, with an appearance-only Arc craft edit in the launch. The selected launch retains the source duration, camera movement, coastal setting and late glow. It is AI-edited illustrative footage, not an actual launch or an exact engineering simulation. Stage separation remains obscured by the source glow and is not resolved by this edit.
+The current isolated review preview preserves the deployed coastal launch and Earth-departure flight path, with an appearance-only Arc craft edit in the launch. The selected launch retains the source duration, camera movement, coastal setting and late glow. It is AI-edited illustrative footage, not an actual launch or an exact engineering simulation. Stage separation remains obscured by the source glow and is not resolved by this edit.
 
 After the unchanged 800 ms launch-to-departure overlap, the original departure continues at normal speed. It enters a native video loop at source frame 164 (6.833333 seconds). The 77-frame loop is made only from the original late source segment, 6.0–10.041667 seconds. Its 20-frame internal wrap dissolve retains the late Milky Way, distant orange exhaust and faint Earth edge; it does not bring back the large early Earth limb. This is an edited repeating passage, not newly generated continuous flight. No additional planets or timed galaxy arrival are shown.
 

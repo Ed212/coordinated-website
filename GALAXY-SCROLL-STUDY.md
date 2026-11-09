@@ -24,7 +24,7 @@ The galaxy and native-walkthrough CSS and JavaScript total 11,190 uncompressed b
 
 ## Current shared-hero revision
 
-The local-only Arc appearance edit and native late-flight loop are shared across the three preview routes. The hero preserves the original launch/departure sequence and 800 ms overlap, then loops late footage at normal speed with no canvas drift or automatic launch replay. The commercial copy, scroll camera and galaxy controls are unchanged. See `WIDE-LAUNCH-PREVIEW.md` for source-frame timing, fallback behavior, asset provenance and current limits. No upload, push or deployment is included. Desktop CUA verified the natural sequence, sampled repeated native wraps, pause/resume, offscreen navigation and Back, explicit Replay/Skip, absent canvas/Still image button and no horizontal overflow. Responsive 390 px iframe CUA verified the exact hash-navigation fallback without media loading, readable copy/CTA, keyboard Replay/Skip/Pause/Resume and no horizontal overflow. These sampled desktop/iframe checks do not establish a perfect seam across browsers, physical-device support or native reduced-motion preference emulation.
+The isolated review preview’s Arc appearance edit and native late-flight loop are shared across the three preview routes. The hero preserves the original launch/departure sequence and 800 ms overlap, then loops late footage at normal speed with no canvas drift or automatic launch replay. The commercial copy, scroll camera and galaxy controls are unchanged. See `WIDE-LAUNCH-PREVIEW.md` for source-frame timing, fallback behavior, asset provenance and current limits. Publication and CI status must be verified separately; no merge or production promotion is established. Desktop CUA verified the natural sequence, sampled repeated native wraps, pause/resume, offscreen navigation and Back, explicit Replay/Skip, absent canvas/Still image button and no horizontal overflow. Responsive 390 px iframe CUA verified the exact hash-navigation fallback without media loading, readable copy/CTA, keyboard Replay/Skip/Pause/Resume and no horizontal overflow. These sampled desktop/iframe checks do not establish a perfect seam across browsers, physical-device support or native reduced-motion preference emulation.
 
 ## Verification
 
@@ -35,7 +35,7 @@ Checks retained on the current source:
 - Normal build excludes both previews; local preview build includes them.
 - `node scripts/verify-galaxy-build.mjs`: approved preview-only commercial story, unchanged ordinary routes and comparison copy, shared headline/media/contact, exact final-frame hero fallback, no explicit still-image button, five chapters, noindex, default-hidden JS controls, native anchors/scrolling and size guard.
 - `node --test tests/galaxy-scroll.test.mjs`: 9 tests covering forward/reverse progress, endpoint clamping, pause/resume, reduced motion and save-data, dynamic preference changes, smaller mobile motion, idle/hidden behavior, absent hero still button, pause/fallback page restoration and chapter labels.
-- `node --test tests/*.test.mjs`: 49 tests pass for the native late-flight revision.
+- `node --test tests/*.test.mjs`: 57 tests pass for the native late-flight revision and handoff reliability correction.
 - Existing `npm test`: 5 contact tests.
 - `npm run check:copy`, `npm run check:references`, and `git diff --check`.
 

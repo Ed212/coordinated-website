@@ -6,11 +6,11 @@ const LAUNCH='#launch-intro-video', DEPARTURE='#departure-video', FLIGHT='#dista
 const PAUSE='[data-flight-pause]', SKIP='[data-flight-skip]', REPLAY='[data-flight-replay]';
 const ENTRY=164/24;
 async function controller(options={}) {
- const nodes=new Map(),frames=new Map(),timers=new Map(),blocked=new Set(options.blocked||[]),pending=new Map();let frameId=0,timerId=0,observer;
+ const nodes=new Map(),frames=new Map(),timers=new Map(),blocked=new Set(options.blocked||[]),pending=new Map();let frameId=0,timerId=0,frameClock=0,observer;
  const node=selector=>{
   if(selector==='[data-flight-still]')return null;
   if(!nodes.has(selector)){
-   const n={dataset:{src:selector+'.mp4',sourceEntry:ENTRY,sourceMatchUntil:221/24,fps:24},style:{},hidden:false,paused:true,currentTime:0,duration:241/24,readyState:4,ended:false,seeking:false,textContent:'',playCalls:0,loadCalls:0,events:{},callbacks:new Map(),
+   const n={dataset:{src:selector+'.mp4',sourceEntry:ENTRY,sourceMatchUntil:221/24,fps:24},style:{},hidden:false,paused:true,_currentTime:0,seekCalls:0,get currentTime(){return this._currentTime;},set currentTime(value){this._currentTime=value;this.seekCalls++;},duration:241/24,readyState:4,ended:false,seeking:false,textContent:'',playCalls:0,loadCalls:0,events:{},callbacks:new Map(),
     addEventListener(type,fn){this.events[type]=fn;},pause(){this.paused=true;},
     play(){this.playCalls++;if(blocked.has(selector))return Promise.reject(Error('Autoplay blocked'));this.paused=false;if(pending.has(selector))return pending.get(selector);return Promise.resolve();},
     load(){this.loadCalls++;},focus(){document.activeElement=this;}};
@@ -28,7 +28,7 @@ async function controller(options={}) {
  const flush=async()=>{for(let i=0;i<10;i++)await Promise.resolve();};await flush();
  const c={node,document,window,preference,connection,frames,timers,blocked,pending,flush,phase:()=>node('.launch-preview').dataset.flightPhase,
   click:async s=>{node(s).events.click();await flush();},
-  frame:async(s,t)=>{const n=node(s);n.currentTime=t;const batch=[...n.callbacks.values()];n.callbacks.clear();for(const fn of batch)fn(t*1000,{mediaTime:t});await flush();},
+  frame:async(s,t,clock={})=>{const n=node(s);n._currentTime=clock.playhead??t;const now=clock.now??(frameClock+=16);const batch=[...n.callbacks.values()];n.callbacks.clear();for(const fn of batch)fn(now,{mediaTime:t,expectedDisplayTime:clock.displayAt??now});await flush();},
   raf:async()=>{const batch=[...frames.values()];frames.clear();for(const fn of batch)fn(0);await flush();},
   view:async visible=>{observer([{isIntersecting:visible}]);await flush();},
   event:async(s,event)=>{node(s).events[event]();await flush();},
@@ -58,7 +58,7 @@ test('pause/resume freezes all three players in launch, overlap, departure, hand
  const c=await controller();
  for(const stage of ['launch','overlap','departure','handoff','loop']){
   if(stage==='overlap')await c.depart();if(stage==='departure')await c.frame(DEPARTURE,1);if(stage==='handoff')await c.frame(DEPARTURE,ENTRY);
-  if(stage==='loop'){await c.frame(FLIGHT,0);await c.frame(DEPARTURE,ENTRY+.13);}
+  if(stage==='loop'){await c.frame(DEPARTURE,ENTRY);await c.frame(FLIGHT,0);await c.frame(DEPARTURE,ENTRY+.13);}
   await c.click(PAUSE);allPaused(c);noCallbacks(c);assert.equal(c.node(PAUSE).textContent,'Resume motion');
   await c.click(PAUSE);assert.equal(c.node('.launch-preview').dataset.motionPaused,'false');
  }
@@ -127,4 +127,54 @@ test('loading watchdog re-arms after hiding instead of leaving a pending Skip or
  const c=await controller();c.pending.set(FLIGHT,new Promise(()=>{}));await c.click(SKIP);await c.view(false);await c.timeout();assert.equal(c.phase(),'loading-loop');
  await c.view(true);await c.timeout();still(c);
  const d=await controller();d.node(LAUNCH).readyState=1;await d.event(LAUNCH,'waiting');await d.timeout();still(d);
+});
+test('natural handoff seeks with playback clocks and accepts matching decoded frames despite callback latency',async()=>{
+ const c=await controller();await c.depart();
+ await c.frame(DEPARTURE,ENTRY,{playhead:ENTRY+.125,now:1000});
+ assert.equal(c.node(FLIGHT).currentTime,.125,'Initial seek follows the live departure clock, not delayed metadata');
+ const seeks=c.node(FLIGHT).seekCalls;
+ await c.frame(DEPARTURE,ENTRY+1/24,{playhead:ENTRY+1/24+.125,now:1020});
+ await c.frame(FLIGHT,1/24,{playhead:1/24+.125,now:1020});
+ assert.equal(c.node(FLIGHT).seekCalls,seeks,'Matching clock and decoded-frame pairs do not trigger a false seek');
+ assert.equal(c.node(FLIGHT).style.opacity,'1');
+ await c.frame(DEPARTURE,ENTRY+1/24+.13,{now:1050});assert.equal(c.phase(),'loop');
+});
+test('captured Mac 132ms startup lag is corrected without user input or accepting a stale pre-seek frame',async()=>{
+ const c=await controller();await c.depart();await c.frame(DEPARTURE,ENTRY,{now:980});
+ await c.frame(DEPARTURE,167/24,{playhead:6.9827,now:1000});
+ const seeks=c.node(FLIGHT).seekCalls;
+ await c.frame(FLIGHT,1/24,{playhead:.017,now:1000});
+ assert.equal(c.node(FLIGHT).seekCalls,seeks+1);
+ assert(Math.abs(c.node(FLIGHT).currentTime-(6.9827-ENTRY))<1e-9);
+ assert.equal(c.node(FLIGHT).style.opacity,'0','The seek itself cannot expose an undecoded frame');
+ await c.frame(DEPARTURE,7,{playhead:7.025,now:1033});
+ await c.frame(FLIGHT,1/24,{playhead:7.025-ENTRY,now:1033});
+ assert.equal(c.node(FLIGHT).style.opacity,'0','Old metadata cannot pass after seek just because clocks align');
+ await c.frame(FLIGHT,4/24,{playhead:7.025-ENTRY,now:1050});
+ assert.equal(c.node(FLIGHT).style.opacity,'1');
+ await c.frame(DEPARTURE,7.13,{now:1070});assert.equal(c.phase(),'loop');
+});
+test('widely separated or stale presentation samples never prove decoded-frame alignment',async()=>{
+ const c=await controller();await c.depart();await c.frame(DEPARTURE,ENTRY,{now:1000});
+ await c.frame(FLIGHT,0,{now:1200});assert.equal(c.node(FLIGHT).style.opacity,'0');
+ await c.frame(DEPARTURE,ENTRY,{now:1200,displayAt:1000});assert.equal(c.node(FLIGHT).style.opacity,'0');
+ await c.frame(DEPARTURE,ENTRY,{now:1210});assert.equal(c.node(FLIGHT).style.opacity,'1');
+ await c.frame(DEPARTURE,ENTRY+.13,{now:1240});assert.equal(c.phase(),'loop');
+});
+test('pause invalidates decoded samples and resume waits for a fresh loop frame',async()=>{
+ const c=await controller();await c.depart();await c.frame(DEPARTURE,ENTRY,{now:1000});
+ await c.frame(FLIGHT,0,{now:1200});assert.equal(c.node(FLIGHT).style.opacity,'0');
+ await c.click(PAUSE);await c.click(PAUSE);
+ await c.frame(DEPARTURE,ENTRY,{now:1210});assert.equal(c.node(FLIGHT).style.opacity,'0');
+ await c.frame(FLIGHT,0,{now:1220});assert.equal(c.node(FLIGHT).style.opacity,'1');
+});
+test('metadata-free scheduler corrects the 125ms gap and waits for a ready non-seeking frame',async()=>{
+ const c=await controller({legacy:true});c.node(LAUNCH).currentTime=10;await c.raf();
+ c.node(DEPARTURE).currentTime=ENTRY;await c.raf();
+ c.node(DEPARTURE).currentTime=ENTRY+.125;c.node(FLIGHT).currentTime=0;
+ c.node(FLIGHT).seeking=true;await c.raf();assert.equal(c.node(FLIGHT).style.opacity,'0');
+ c.node(FLIGHT).seeking=false;c.node(FLIGHT).readyState=1;await c.raf();assert.equal(c.node(FLIGHT).style.opacity,'0');
+ c.node(FLIGHT).readyState=4;await c.raf();assert.equal(c.node(FLIGHT).currentTime,.125);
+ assert.equal(c.node(FLIGHT).style.opacity,'1');
+ c.node(DEPARTURE).currentTime=ENTRY+.26;c.node(FLIGHT).currentTime=.26;await c.raf();assert.equal(c.phase(),'loop');
 });

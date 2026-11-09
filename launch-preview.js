@@ -22,10 +22,12 @@ const smooth = n => { n = Math.max(0, Math.min(1, n)); return n * n * (3 - 2 * n
 let phase = 'still', run = 0, manualPause = false, inView = true, pageActive = true;
 let startingDeparture = false, loopAttempt = null, loopFailed = false, timeout, raf;
 const callbacks = new Map();
+const presented = new Map();
+const nativeFrames = 'requestVideoFrameCallback' in launch;
 const moving = () => phase !== 'still' && !manualPause && !preference.matches && !document.hidden && inView && pageActive;
 const wanted = video => moving() && (video === launch && (phase === 'launch' || phase === 'departure' && departure.currentTime < handoffDuration && !launch.ended) || video === departure && phase === 'departure' || video === flight && (phase === 'loop' || Boolean(loopAttempt)));
 function phaseTo(next) { phase = next; root.dataset.flightPhase = next; root.dataset.launchState = next; }
-function stopMedia() { for (const video of videos) video.pause(); }
+function stopMedia() { for (const video of videos) video.pause(); presented.clear(); }
 function load(video) { if (!video.src) { video.src = video.dataset.src; video.load(); } else if (video.error) video.load(); }
 function setPausedState() {
  root.dataset.motionPaused = String(!moving());
@@ -50,12 +52,12 @@ function scheduleFrames() {
   const shouldWatch = watch && wanted(video);
   if (!shouldWatch && callbacks.has(video)) { video.cancelVideoFrameCallback(callbacks.get(video)); callbacks.delete(video); }
   if (shouldWatch && 'requestVideoFrameCallback' in video && !callbacks.has(video)) {
-   callbacks.set(video, video.requestVideoFrameCallback((_, meta) => {
-    callbacks.delete(video); update(video, meta.mediaTime); scheduleFrames();
+   callbacks.set(video, video.requestVideoFrameCallback((now, meta) => {
+    callbacks.delete(video); update(video, meta.mediaTime, { time: meta.mediaTime, displayAt: meta.expectedDisplayTime ?? now, observedAt: now }); scheduleFrames();
    }));
   }
  }
- if (!watch || 'requestVideoFrameCallback' in launch) { if (raf) cancelAnimationFrame(raf); raf = null; }
+ if (!watch || nativeFrames) { if (raf) cancelAnimationFrame(raf); raf = null; }
  else if (!raf) raf = requestAnimationFrame(() => { raf = null; for (const video of videos) if (wanted(video)) update(video, video.currentTime); scheduleFrames(); });
 }
 function showStill() {
@@ -65,10 +67,10 @@ function showStill() {
  status.textContent = 'Still image'; setPausedState();
 }
 function abandonLoop() {
- loopAttempt = null; loopFailed = true; flight.pause(); flight.style.opacity = '0'; departure.style.opacity = '1'; scheduleFrames();
+ loopAttempt = null; loopFailed = true; presented.delete(flight); flight.pause(); flight.style.opacity = '0'; departure.style.opacity = '1'; scheduleFrames();
 }
 function enterLoop(focus = false) {
- clearTimeout(timeout); loopAttempt = null; phaseTo('loop'); launch.pause(); departure.pause();
+ clearTimeout(timeout); loopAttempt = null; presented.clear(); phaseTo('loop'); launch.pause(); departure.pause();
  launch.style.opacity = '0'; departure.style.opacity = '0'; flight.style.opacity = '1'; layer.hidden = false;
  skip.hidden = true; replay.hidden = false; pause.hidden = false;
  status.textContent = 'Flying through distant space'; setPausedState();
@@ -108,11 +110,14 @@ async function beginDeparture() {
  } catch { if (attempt === run) showStill(); }
 }
 async function beginLoop(time, direct = false) {
- if (loopAttempt || loopFailed || !moving() || (!direct && (phase !== 'departure' || time < entry || time >= matchUntil - loopDissolve - tolerance))) return;
+ const sourceTime = direct ? entry : departure.currentTime;
+ if (loopAttempt || loopFailed || !moving() || (!direct && (phase !== 'departure' || time < entry || sourceTime < entry || sourceTime >= matchUntil - loopDissolve - tolerance))) return;
  load(flight);
  if (!direct && flight.readyState < 2) return;
  const attempt = loopAttempt = { run, direct, playing: false, dissolveAt: null, retries: 0 };
- flight.currentTime = direct ? 0 : Math.max(0, time - entry);
+ // Seek with paired playback clocks, not a possibly delayed frame callback time.
+ presented.delete(flight);
+ flight.currentTime = direct ? 0 : Math.max(0, sourceTime - entry);
  flight.playbackRate = 1; flight.loop = true;
  try {
   await flight.play();
@@ -141,8 +146,9 @@ async function start() {
   clearTimeout(timeout); load(departure); load(flight);
  } catch { if (attempt === run) showStill(); }
 }
-function update(video, time) {
+function update(video, time, frame) {
  if (!moving()) return;
+ if (frame && (video === departure || video === flight)) presented.set(video, frame);
  if (video === launch && phase === 'launch' && time >= launch.duration - handoffDuration && departure.readyState >= 2) beginDeparture();
  if (video === departure && phase === 'departure') {
   launch.style.opacity = String(1 - smooth(time / handoffDuration));
@@ -154,22 +160,41 @@ function update(video, time) {
   } else if (time >= matchUntil - loopDissolve - tolerance && loopAttempt) abandonLoop();
   else beginLoop(time);
  }
- if (video === flight && loopAttempt?.playing && !flight.seeking && flight.readyState >= 2) {
-  if (loopAttempt.direct) { enterLoop(true); return; }
-  const sourceTime = entry + time;
-  const safeEnd = loopAttempt.dissolveAt === null ? matchUntil - loopDissolve : matchUntil;
-  if (sourceTime >= safeEnd || departure.currentTime >= safeEnd) { abandonLoop(); return; }
-  const delta = sourceTime - departure.currentTime;
-  if (Math.abs(delta) <= tolerance) {
-   // Both layers are decoded and describe the same source frame, never a black placeholder.
-   flight.style.opacity = '1';
-   loopAttempt.dissolveAt ??= departure.currentTime;
-  } else if (Math.abs(delta) > tolerance * 2 && loopAttempt.dissolveAt === null) {
-   if (++loopAttempt.retries > 2) abandonLoop();
-   else flight.currentTime = Math.max(0, departure.currentTime - entry);
-  }
+ if (video === departure || video === flight) alignLoop(video, frame?.observedAt);
+}
+function alignLoop(video, now) {
+ if (!loopAttempt?.playing || flight.seeking || flight.readyState < 2) return;
+ const loopFrame = presented.get(flight), departureFrame = presented.get(departure);
+ // The legacy scheduler samples both playback clocks in one animation frame.
+ // With rVFC, require a newly decoded loop frame before seeking or revealing it.
+ if (nativeFrames && !loopFrame) return;
+ if (loopAttempt.direct) { if (video === flight) enterLoop(true); return; }
+ const sourceClock = entry + flight.currentTime, departureClock = departure.currentTime;
+ const safeEnd = loopAttempt.dissolveAt === null ? matchUntil - loopDissolve : matchUntil;
+ if (sourceClock >= safeEnd || departureClock >= safeEnd) { abandonLoop(); return; }
+ const clockDelta = sourceClock - departureClock;
+ if (loopAttempt.dissolveAt === null && Math.abs(clockDelta) > tolerance + 1e-6) {
+  // Correct every true clock mismatch outside the existing two-frame tolerance.
+  // Invalidate decoded samples and wait for fresh frames after the bounded seek.
+  if (++loopAttempt.retries > 2) abandonLoop();
+  else { presented.delete(flight); flight.currentTime = Math.max(0, departureClock - entry); }
+  return;
+ }
+ let departureTime = departureClock, loopTime = flight.currentTime;
+ if (nativeFrames) {
+  if (!departureFrame || now === undefined) return;
+  // Compare decoded frames that were presented together, never a frame timestamp
+  // from one player against the other player's later playback clock.
+  const frameMillis = 1000 / fps;
+  if (Math.abs(loopFrame.displayAt - departureFrame.displayAt) > frameMillis + 1 || now - Math.min(loopFrame.displayAt, departureFrame.displayAt) > frameMillis * 2) return;
+  departureTime = departureFrame.time; loopTime = loopFrame.time;
+ }
+ if (Math.abs(entry + loopTime - departureTime) <= tolerance + 1e-6) {
+  flight.style.opacity = '1';
+  loopAttempt.dissolveAt ??= departureTime;
  }
 }
+
 launch.addEventListener('ended', () => {
  if (phase !== 'launch') return;
  status.textContent = 'Continuing into space'; beginDeparture(); const attempt = run;
