@@ -1,0 +1,71 @@
+/* A shared galaxy beyond the hero. Preview-only, scoped to /galaxy-study. */
+.galaxy-preview { background:#020408; color:#eef2f7; isolation:isolate; }
+.galaxy-preview [hidden] { display:none !important; }
+.galaxy-preview main,.galaxy-preview .site-footer { position:relative; z-index:1; }
+.galaxy-preview .site-header { position:relative; z-index:2; color:#eef2f7; }
+.galaxy-preview .nav-contact { border-color:#7d899b; }
+.galaxy-preview .study-banner { background:#0a101a; border-block:1px solid #263242; }
+.galaxy-preview .hero { z-index:1; }
+.galaxy-backdrop { position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; background:#020408; }
+.galaxy-camera,.galaxy-camera img { display:block; position:absolute; inset:0; width:100%; height:100%; }
+.galaxy-camera { transform:scale(1.06); transform-origin:66% 45%; }
+.galaxy-camera img { object-fit:cover; object-position:68% 50%; }
+.galaxy-vignette { position:absolute; inset:0; background:linear-gradient(90deg,rgba(2,4,8,.28),transparent 65%),linear-gradient(180deg,rgba(2,4,8,.15),transparent 50%,rgba(2,4,8,.25)); }
+.galaxy-content { --ink:#eef2f7; --paper:#0c1421; --paper-deep:#121e2e; --muted:#b8c5d6; --rule:#445165; --rule-soft:#344053; --changed:#f4bfa3; --white:#111c2b; color:var(--ink); padding-top:1px; }
+.galaxy-content .section,.galaxy-content .trust-ribbon { position:relative; overflow:visible; background:transparent; border:0; padding-block:clamp(60px,9vw,130px); }
+.galaxy-content .trust-ribbon { padding-top:88px; }
+.galaxy-content .ribbon-starfield-picture { display:none; }
+.galaxy-content [data-galaxy-chapter] > .ledger-boundary { position:relative; padding:clamp(24px,4vw,54px); border:1px solid #455060; border-radius:4px; background:rgba(4,10,19,.93); box-shadow:0 24px 80px rgba(0,0,0,.24); }
+.galaxy-content .galaxy-chapter-label { display:flex; align-items:center; gap:16px; margin:0 0 32px; padding:0 0 20px; border-bottom:1px solid var(--rule); color:#d7c1b1; font:10px/1.5 var(--mono); letter-spacing:.12em; text-transform:uppercase; }
+.galaxy-chapter-label span { color:#a9b8cb; }
+.galaxy-content .role-benefits { gap:32px; }
+.galaxy-content .role-benefits .galaxy-chapter-label { grid-column:1/-1; margin-bottom:0; }
+.galaxy-content .role-benefits article { padding-top:2px; }
+.galaxy-content .role-benefits h2 { color:#f5f3ee; }
+.galaxy-content .role-benefits p { color:var(--muted); }
+.galaxy-content .launch-comparison-panel { background:rgba(17,28,43,.96); border-color:var(--rule); }
+.galaxy-content .proposed-panel { border-top-color:#dca98b; }
+.galaxy-content .shared-outcome { border-color:#78899d; background:#101c2b; }
+.galaxy-content .launch-state { background:#142234; border:1px solid #4b617b; color:#eef2f7; }
+.galaxy-content .launch-state span { color:#c8d3e1; }
+.galaxy-content .blocked-tag { color:#ffd0b7; }
+.galaxy-content .narrative-layout { grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:32px 64px; }
+.galaxy-content .narrative-layout > .galaxy-chapter-label { grid-column:1/-1; margin-bottom:0; }
+.galaxy-content .narrative-section { color:#eef2f7; }
+.galaxy-content .narrative-section .section-number { color:#b8c5d6; }
+.galaxy-content .narrative-visual { top:90px; }
+.galaxy-content .journey-list p { color:#c4d0df; }
+.galaxy-content .slack-card { color:#edf1f6; background:#142234; border-color:#4b617b; }
+.galaxy-content .reached-list { border-color:#44566e; }
+.galaxy-content .reached-list dd { color:#c7d2e1; }
+.galaxy-content .trust-grid article { border-color:var(--rule); }
+.galaxy-content .button-dark { color:#08111d; background:#edf2f8; }
+.galaxy-content .button-dark:hover { background:#d5e2f2; }
+.galaxy-content .text-link-dark { color:#edf2f8; }
+.galaxy-content .contact-route button { color:#edf2f8; min-height:44px; border-color:#91a3ba; }
+.galaxy-content :is(a,button,summary):focus-visible { outline:3px solid #f6c9ad; outline-offset:5px; }
+.galaxy-navigation { position:sticky; top:0; z-index:6; display:flex; align-items:center; gap:20px; width:100%; min-height:60px; padding:9px var(--page-pad); background:#080f1d; border-block:1px solid #47566e; color:#e4eaf3; }
+.galaxy-location { font:10px/1.5 var(--mono); letter-spacing:.04em; width:220px; }
+.galaxy-progress { display:block; flex:1; height:1px; background:#485568; }
+.galaxy-progress i { display:block; width:100%; height:1px; background:#e1b192; transform:scaleX(0); transform-origin:left; }
+.galaxy-navigation button { min-height:40px; padding:7px 12px; border:1px solid #8393a9; border-radius:2px; background:#152237; color:#edf2f8; font:11px/1.5 var(--mono); cursor:pointer; }
+.galaxy-navigation button:hover { background:#24364e; }
+.galaxy-preview .site-footer { color:#d1dbe7; background:rgba(4,10,19,.96); border-top:1px solid #526077; }
+.galaxy-preview .site-footer .contact-route button { color:#d1dbe7; }
+@media(max-width:760px) {
+ .galaxy-camera { transform-origin:66% 45%; }
+ .galaxy-camera img { object-position:68% 50%; }
+ .galaxy-content .section,.galaxy-content .trust-ribbon { padding-block:58px; }
+ .galaxy-content [data-galaxy-chapter] > .ledger-boundary { width:calc(100% - 24px); padding:26px 22px; }
+ .galaxy-content .narrative-layout { grid-template-columns:1fr; gap:24px; }
+ .galaxy-content .narrative-visual { position:relative; top:auto; }
+ .galaxy-content .role-benefits { gap:24px; }
+ .galaxy-content .galaxy-chapter-label { margin-bottom:28px; font-size:9px; }
+ .galaxy-navigation { gap:10px; padding-inline:12px; }
+ .galaxy-location { flex:1; width:auto; font-size:9px; }
+ .galaxy-progress { display:none; }
+ .galaxy-navigation button { max-width:142px; font-size:10px; }
+}
+@media(prefers-reduced-motion:reduce) {
+ .galaxy-camera { transform:scale(1.06) !important; }
+}

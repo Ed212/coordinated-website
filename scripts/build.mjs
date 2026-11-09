@@ -26,3 +26,4 @@ await import('./check-copy.mjs');
 console.log('Built both headline pages; archived calculator source remains unchanged.');
 
 await import("./build-launch-preview.mjs");
+await import("./build-galaxy-preview.mjs");
