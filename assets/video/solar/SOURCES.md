@@ -1,3 +1,15 @@
+# Current Arc and native late-flight preview
+
+The current local-only preview preserves the deployed coastal launch and Earth-departure flight path, with an appearance-only Arc craft edit in the launch. The selected launch retains the source duration, camera movement, coastal setting and late glow. It is AI-edited illustrative footage, not an actual launch or an exact engineering simulation. Stage separation remains obscured by the source glow and is not resolved by this edit.
+
+After the unchanged 800 ms launch-to-departure overlap, the original departure continues at normal speed. It enters a native video loop at source frame 164 (6.833333 seconds). The 77-frame loop is made only from the original late source segment, 6.0–10.041667 seconds. Its 20-frame internal wrap dissolve retains the late Milky Way, distant orange exhaust and faint Earth edge; it does not bring back the large early Earth limb. This is an edited repeating passage, not newly generated continuous flight. No additional planets or timed galaxy arrival are shown.
+
+The exact last original departure frame is the static fallback for reduced motion, Save-Data, no-JavaScript, initial deep links and playback failures. Pause/Resume suspends all active video, and only explicit Replay starts launch again. The separate scroll-driven background retains the original galaxy artwork. The launch, departure, fallback and loop provenance and hashes are recorded in the corresponding asset manifests.
+
+The archived canvas and NASA-based study below is not part of the current runtime. Its old behavior and imagery descriptions are historical. No NASA or SpaceX endorsement is implied.
+
+---
+
 # Endless-space preview and archived solar-study sources
 
 The current preview plays the existing generated launch and Earth-departure shots once, then composites an indefinite, gently drifting starfield from deep-space-settled.jpg, the existing departure ending. A small deterministic layer of slowly passing stars is drawn locally. The original galaxies approach only in the separate scroll-driven page backdrop, not on a hero timer.

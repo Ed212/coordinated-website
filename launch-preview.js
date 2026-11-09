@@ -1,103 +1,198 @@
-import { prepareJourney, advanceSpaceTime } from './solar-journey.js';
-const root=document.querySelector('.launch-preview');
-const layer=document.querySelector('.flight-animation');
-const launch=document.querySelector('#launch-intro-video');
-const departure=document.querySelector('#departure-video');
-const ambient=document.querySelector('.flight-ambient');
-const bridge=document.querySelector('.flight-bridge');
-let journey,preparing,bridgeTime=0,previousFrame=null;
-function prepare(){return preparing??=prepareJourney(bridge).then(value=>{journey=value;return value;});}
-const controls=document.querySelector('.flight-controls');
-const replay=document.querySelector('[data-flight-replay]');
-const skip=document.querySelector('[data-flight-skip]');
-const pause=document.querySelector('[data-flight-pause]');
-const status=document.querySelector('.flight-status');
-const preference=matchMedia('(prefers-reduced-motion: reduce)');
-const settleAt=Number(departure.dataset.settleAt);
-const handoffDuration=.8;
-const smooth=n=>{n=Math.max(0,Math.min(1,n));return n*n*(3-2*n);};
-let phase='still',run=0,manualPause=false,inView=true,startingDeparture=false,timeout,raf;
-const moving=()=>phase!=='still'&&!manualPause&&!preference.matches&&!document.hidden&&inView;
-function phaseTo(next){phase=next;root.dataset.flightPhase=next;root.dataset.launchState=next;}
-function setPausedState(){root.dataset.motionPaused=String(!moving());pause.textContent=manualPause?'Resume motion':'Pause motion';scheduleFrame();}
-async function syncMotion(){
- previousFrame=null;setPausedState();if(!moving()){launch.pause();departure.pause();return;}
- try{if(phase==='launch'){if(launch.ended)await beginDeparture();else await launch.play();}else if(phase==='departure'){await departure.play();if(departure.currentTime<handoffDuration&&!launch.ended)await launch.play();}}catch{showStill();}
+// The deployed flight path, with an appearance-only launch edit and native late-flight loop.
+const root = document.querySelector('.launch-preview');
+const layer = document.querySelector('.flight-animation');
+const launch = document.querySelector('#launch-intro-video');
+const departure = document.querySelector('#departure-video');
+const flight = document.querySelector('#distant-flight-video');
+const videos = [launch, departure, flight];
+const controls = document.querySelector('.flight-controls');
+const replay = document.querySelector('[data-flight-replay]');
+const skip = document.querySelector('[data-flight-skip]');
+const pause = document.querySelector('[data-flight-pause]');
+const status = document.querySelector('.flight-status');
+const preference = matchMedia('(prefers-reduced-motion: reduce)');
+const connection = navigator.connection;
+const entry = Number(flight.dataset.sourceEntry);
+const matchUntil = Number(flight.dataset.sourceMatchUntil);
+const fps = Number(flight.dataset.fps);
+const handoffDuration = .8;
+const loopDissolve = .125;
+const tolerance = 2 / fps;
+const smooth = n => { n = Math.max(0, Math.min(1, n)); return n * n * (3 - 2 * n); };
+let phase = 'still', run = 0, manualPause = false, inView = true, pageActive = true;
+let startingDeparture = false, loopAttempt = null, loopFailed = false, timeout, raf;
+const callbacks = new Map();
+const moving = () => phase !== 'still' && !manualPause && !preference.matches && !document.hidden && inView && pageActive;
+const wanted = video => moving() && (video === launch && (phase === 'launch' || phase === 'departure' && departure.currentTime < handoffDuration && !launch.ended) || video === departure && phase === 'departure' || video === flight && (phase === 'loop' || Boolean(loopAttempt)));
+function phaseTo(next) { phase = next; root.dataset.flightPhase = next; root.dataset.launchState = next; }
+function stopMedia() { for (const video of videos) video.pause(); }
+function load(video) { if (!video.src) { video.src = video.dataset.src; video.load(); } else if (video.error) video.load(); }
+function setPausedState() {
+ root.dataset.motionPaused = String(!moving());
+ pause.textContent = manualPause ? 'Resume motion' : 'Pause motion';
+ if (!moving()) clearTimeout(timeout);
+ scheduleFrames();
 }
-function load(v){if(!v.src){v.src=v.dataset.src;v.load();}}
-function showStill(){run++;clearTimeout(timeout);phaseTo('still');manualPause=false;launch.pause();departure.pause();layer.hidden=true;root.classList.remove('flight-settled');controls.hidden=preference.matches;skip.hidden=true;replay.hidden=false;pause.hidden=true;status.textContent='Still image';setPausedState();}
-function settle(reason='complete',focus=false){
- bridgeTime=0;previousFrame=null;bridge.style.opacity=journey?'1':'0';
- if(journey)journey.render(0);
- clearTimeout(timeout);startingDeparture=false;phaseTo('ambient');launch.pause();departure.pause();
- launch.style.opacity='0';departure.style.opacity='0';ambient.style.opacity='1';layer.hidden=false;root.classList.add('flight-settled');
- skip.hidden=true;replay.hidden=false;pause.hidden=false;status.textContent='Floating through space';setPausedState();
- const attempt=run;prepare().then(ready=>{if(attempt===run&&phase==='ambient'){ready.render(bridgeTime);bridge.style.opacity='1';scheduleFrame();}}).catch(()=>{if(attempt===run)showStill();});
- if(focus)replay.focus({preventScroll:true});
+// Bounded loading recovery, re-armed after a hidden/offscreen loading interruption.
+function watchLoading() {
+ clearTimeout(timeout);
+ if (!moving()) return;
+ const attempt = run;
+ timeout = setTimeout(() => {
+  if (attempt !== run || !moving()) return;
+  if (phase === 'loading-loop' || startingDeparture || videos.some(video => wanted(video) && video.readyState < 2)) showStill();
+ }, 6000);
 }
-async function beginDeparture(){
- if(startingDeparture||phase!=='launch')return;startingDeparture=true;const attempt=run;
- load(departure);departure.currentTime=0;departure.playbackRate=1;
- try{
-  await departure.play();if(attempt!==run){departure.pause();return;}
-  if(!moving()){departure.pause();startingDeparture=false;return;}
-  clearTimeout(timeout);phaseTo('departure');departure.style.opacity='1';launch.style.opacity='1';status.textContent='Leaving Earth behind';setPausedState();
- }catch{if(attempt===run)showStill();}
+// Only watch frames while a handoff is pending. Native looping needs no canvas or timer.
+function scheduleFrames() {
+ const watch = moving() && phase !== 'loop';
+ for (const video of videos) {
+  const shouldWatch = watch && wanted(video);
+  if (!shouldWatch && callbacks.has(video)) { video.cancelVideoFrameCallback(callbacks.get(video)); callbacks.delete(video); }
+  if (shouldWatch && 'requestVideoFrameCallback' in video && !callbacks.has(video)) {
+   callbacks.set(video, video.requestVideoFrameCallback((_, meta) => {
+    callbacks.delete(video); update(video, meta.mediaTime); scheduleFrames();
+   }));
+  }
+ }
+ if (!watch || 'requestVideoFrameCallback' in launch) { if (raf) cancelAnimationFrame(raf); raf = null; }
+ else if (!raf) raf = requestAnimationFrame(() => { raf = null; for (const video of videos) if (wanted(video)) update(video, video.currentTime); scheduleFrames(); });
 }
-function beginBridge(){
- if(phase==='departure')settle();
+function showStill() {
+ ++run; clearTimeout(timeout); startingDeparture = false; loopAttempt = null;
+ phaseTo('still'); manualPause = false; stopMedia(); layer.hidden = true;
+ controls.hidden = preference.matches; skip.hidden = true; replay.hidden = false; pause.hidden = true;
+ status.textContent = 'Still image'; setPausedState();
 }
-// One scheduler for the canvas and older browsers' video-frame fallback.
-// No animation frames are requested while hidden, offscreen, paused or still.
-function scheduleFrame(){
- if(!moving()||('requestVideoFrameCallback'in launch&&(phase!=='ambient'||!journey))){if(raf)cancelAnimationFrame(raf);raf=null;previousFrame=null;return;}
- if(!raf)raf=requestAnimationFrame(animateBridge);
+function abandonLoop() {
+ loopAttempt = null; loopFailed = true; flight.pause(); flight.style.opacity = '0'; departure.style.opacity = '1'; scheduleFrames();
 }
-function animateBridge(now){
- raf=null;if(!moving()){previousFrame=null;return;}
- if(phase==='ambient'&&journey){
-  bridgeTime=advanceSpaceTime(bridgeTime,previousFrame,now,true);
-  journey.render(bridgeTime);previousFrame=now;
- }else previousFrame=null;
- if(!('requestVideoFrameCallback'in launch)){update(launch,launch.currentTime);update(departure,departure.currentTime);}
- scheduleFrame();
+function enterLoop(focus = false) {
+ clearTimeout(timeout); loopAttempt = null; phaseTo('loop'); launch.pause(); departure.pause();
+ launch.style.opacity = '0'; departure.style.opacity = '0'; flight.style.opacity = '1'; layer.hidden = false;
+ skip.hidden = true; replay.hidden = false; pause.hidden = false;
+ status.textContent = 'Flying through distant space'; setPausedState();
+ if (focus) replay.focus({ preventScroll: true });
 }
-async function start(){
- if(preference.matches){showStill();return;}
- const attempt=++run;clearTimeout(timeout);manualPause=false;startingDeparture=false;bridgeTime=0;previousFrame=null;bridge.style.opacity='0';prepare().catch(()=>{});
- launch.pause();departure.pause();launch.currentTime=0;departure.currentTime=0;departure.playbackRate=1;
- ambient.style.opacity='0';departure.style.opacity='0';launch.style.opacity='1';layer.hidden=false;root.classList.remove('flight-settled');
- controls.hidden=false;replay.hidden=true;skip.hidden=false;pause.hidden=false;
- phaseTo('launch');status.textContent='Launch';setPausedState();load(launch);
- timeout=setTimeout(()=>{if(attempt===run&&launch.paused)showStill();},5000);
- try{await launch.play();if(attempt!==run){launch.pause();return;}clearTimeout(timeout);load(departure);if(!moving())launch.pause();}catch{if(attempt===run)showStill();}
+async function play(video, attempt = run) {
+ await video.play();
+ // A stale promise must not pause playback started by a more recent Replay.
+ if (!wanted(video)) video.pause();
+ return attempt === run;
 }
-function update(v,t){
- if(!moving())return;
- if(v===launch&&phase==='launch'&&t>=launch.duration-handoffDuration&&departure.readyState>=2)beginDeparture();
- if(v===departure&&phase==='departure'){
-  // Dissolve matched frames while both clips move; never cut through black.
-  launch.style.opacity=String(1-smooth(t/handoffDuration));
-  if(t>=handoffDuration)launch.pause();
-  // Decelerate the actual camera motion, then retain its exact final composition.
-  const startSlow=Math.max(0,settleAt-1),p=Math.max(0,Math.min(1,(t-startSlow)/(settleAt-startSlow)));
-  departure.playbackRate=1-.25*(p*p*(3-2*p));
-  if(t>=settleAt-.001)beginBridge();
+async function syncMotion() {
+ setPausedState();
+ if (!moving()) { stopMedia(); return; }
+ const attempt = run;
+ if (phase === 'loading-loop' || startingDeparture || videos.some(video => wanted(video) && video.readyState < 2)) watchLoading();
+ try {
+  if (phase === 'launch' && launch.ended) { await beginDeparture(); return; }
+  for (const video of videos) if (wanted(video)) await play(video, attempt);
+  if (attempt === run && phase === 'departure') update(departure, departure.currentTime);
+ } catch {
+  if (attempt === run) showStill();
  }
 }
-function followFrames(v){if('requestVideoFrameCallback'in v){v.requestVideoFrameCallback(function tick(_,meta){update(v,meta.mediaTime);v.requestVideoFrameCallback(tick);});}}
-followFrames(launch);followFrames(departure);
-
-launch.addEventListener('ended',()=>{if(phase==='launch'){status.textContent='Continuing into space';beginDeparture();timeout=setTimeout(()=>{if(phase==='launch')showStill();},6000);}});
-departure.addEventListener('ended',()=>{if(phase==='departure')beginBridge();});
-launch.addEventListener('error',()=>{if(phase==='launch')showStill();});
-departure.addEventListener('error',()=>{if(phase==='departure')showStill();});
-pause.addEventListener('click',()=>{manualPause=!manualPause;syncMotion();});
-skip.addEventListener('click',()=>{run++;manualPause=false;settle('skipped',true);});
-replay.addEventListener('click',()=>{start();skip.focus({preventScroll:true});});
-preference.addEventListener('change',()=>{if(preference.matches)showStill();else controls.hidden=false;});
-document.addEventListener('visibilitychange',syncMotion);
-new IntersectionObserver(entries=>{inView=entries[0].isIntersecting;syncMotion();},{threshold:.02}).observe(document.querySelector('.hero'));
-window.addEventListener('pagehide',()=>{launch.pause();departure.pause();if(raf)cancelAnimationFrame(raf);raf=null;previousFrame=null;});
-window.addEventListener('pageshow',e=>{if(e.persisted)syncMotion();});
-if(preference.matches||navigator.connection?.saveData||location.hash)showStill();else start();
+async function beginDeparture() {
+ if (startingDeparture || phase !== 'launch' || !moving()) return;
+ startingDeparture = true; const attempt = run; watchLoading();
+ load(departure); departure.currentTime = 0; departure.playbackRate = 1;
+ try {
+  // During preparation the launch remains visible until a decoded departure is ready.
+  await departure.play();
+  if (attempt !== run) { if (!wanted(departure)) departure.pause(); return; }
+  startingDeparture = false;
+  if (!moving()) { departure.pause(); return; }
+  clearTimeout(timeout); phaseTo('departure'); departure.style.opacity = '1'; launch.style.opacity = '1';
+  status.textContent = 'Leaving Earth behind'; setPausedState();
+ } catch { if (attempt === run) showStill(); }
+}
+async function beginLoop(time, direct = false) {
+ if (loopAttempt || loopFailed || !moving() || (!direct && (phase !== 'departure' || time < entry || time >= matchUntil - loopDissolve - tolerance))) return;
+ load(flight);
+ if (!direct && flight.readyState < 2) return;
+ const attempt = loopAttempt = { run, direct, playing: false, dissolveAt: null, retries: 0 };
+ flight.currentTime = direct ? 0 : Math.max(0, time - entry);
+ flight.playbackRate = 1; flight.loop = true;
+ try {
+  await flight.play();
+  if (attempt !== loopAttempt || attempt.run !== run) { if (!wanted(flight)) flight.pause(); return; }
+  attempt.playing = true;
+  if (!moving()) flight.pause();
+  scheduleFrames();
+ } catch {
+  if (attempt === loopAttempt && attempt.run === run) {
+   if (direct) showStill(); else abandonLoop();
+  }
+ }
+}
+async function start() {
+ if (preference.matches) { showStill(); return; }
+ const attempt = ++run; clearTimeout(timeout); loopAttempt = null; loopFailed = false; startingDeparture = false; manualPause = false;
+ stopMedia();
+ for (const video of videos) { video.currentTime = 0; video.playbackRate = 1; }
+ flight.style.opacity = '0'; departure.style.opacity = '0'; launch.style.opacity = '1'; layer.hidden = false;
+ controls.hidden = false; replay.hidden = true; skip.hidden = false; pause.hidden = false;
+ phaseTo('launch'); status.textContent = 'Launch'; setPausedState(); load(launch);
+ watchLoading();
+ try {
+  await play(launch, attempt);
+  if (attempt !== run) return;
+  clearTimeout(timeout); load(departure); load(flight);
+ } catch { if (attempt === run) showStill(); }
+}
+function update(video, time) {
+ if (!moving()) return;
+ if (video === launch && phase === 'launch' && time >= launch.duration - handoffDuration && departure.readyState >= 2) beginDeparture();
+ if (video === departure && phase === 'departure') {
+  launch.style.opacity = String(1 - smooth(time / handoffDuration));
+  if (time >= handoffDuration) launch.pause();
+  if (loopAttempt?.dissolveAt !== null && loopAttempt?.dissolveAt !== undefined) {
+   const progress = (time - loopAttempt.dissolveAt) / loopDissolve;
+   departure.style.opacity = String(1 - smooth(progress));
+   if (progress >= 1) enterLoop();
+  } else if (time >= matchUntil - loopDissolve - tolerance && loopAttempt) abandonLoop();
+  else beginLoop(time);
+ }
+ if (video === flight && loopAttempt?.playing && !flight.seeking && flight.readyState >= 2) {
+  if (loopAttempt.direct) { enterLoop(true); return; }
+  const sourceTime = entry + time;
+  const safeEnd = loopAttempt.dissolveAt === null ? matchUntil - loopDissolve : matchUntil;
+  if (sourceTime >= safeEnd || departure.currentTime >= safeEnd) { abandonLoop(); return; }
+  const delta = sourceTime - departure.currentTime;
+  if (Math.abs(delta) <= tolerance) {
+   // Both layers are decoded and describe the same source frame, never a black placeholder.
+   flight.style.opacity = '1';
+   loopAttempt.dissolveAt ??= departure.currentTime;
+  } else if (Math.abs(delta) > tolerance * 2 && loopAttempt.dissolveAt === null) {
+   if (++loopAttempt.retries > 2) abandonLoop();
+   else flight.currentTime = Math.max(0, departure.currentTime - entry);
+  }
+ }
+}
+launch.addEventListener('ended', () => {
+ if (phase !== 'launch') return;
+ status.textContent = 'Continuing into space'; beginDeparture(); const attempt = run;
+ clearTimeout(timeout); timeout = setTimeout(() => { if (attempt === run && phase === 'launch' && moving()) showStill(); }, 6000);
+});
+departure.addEventListener('ended', () => { if (phase === 'departure') showStill(); });
+for (const video of videos) for (const event of ['waiting', 'stalled']) video.addEventListener(event, () => { if (wanted(video)) watchLoading(); });
+for (const video of videos) video.addEventListener('error', () => {
+ if (video === flight && phase === 'departure') abandonLoop();
+ else if (video === launch && phase === 'launch' || video === departure && (phase === 'launch' || phase === 'departure') || video === flight && (phase === 'loop' || phase === 'loading-loop')) showStill();
+});
+pause.addEventListener('click', () => { manualPause = !manualPause; syncMotion(); });
+skip.addEventListener('click', () => {
+ ++run; clearTimeout(timeout); loopAttempt = null; loopFailed = false; manualPause = false; startingDeparture = false; stopMedia();
+ phaseTo('loading-loop'); status.textContent = 'Continuing into space'; setPausedState();
+ const attempt = run; beginLoop(0, true);
+ timeout = setTimeout(() => { if (attempt === run && phase === 'loading-loop' && moving()) { showStill(); replay.focus({ preventScroll: true }); } }, 5000);
+});
+replay.addEventListener('click', () => { start(); skip.focus({ preventScroll: true }); });
+preference.addEventListener('change', () => { if (preference.matches) showStill(); else controls.hidden = false; });
+connection?.addEventListener?.('change', () => { if (connection.saveData) showStill(); });
+document.addEventListener('visibilitychange', syncMotion);
+new IntersectionObserver(entries => { inView = entries[0].isIntersecting; syncMotion(); }, { threshold: .02 }).observe(document.querySelector('.hero'));
+window.addEventListener('pagehide', () => { pageActive = false; syncMotion(); });
+window.addEventListener('pageshow', event => { if (event.persisted) { pageActive = true; syncMotion(); } });
+if (preference.matches || connection?.saveData || location.hash) showStill(); else start();

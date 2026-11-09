@@ -30,6 +30,8 @@ for(const page of [solar,galaxy,await read('launch-preview.html')]){
  assert(!media(page).includes('assets/galaxy/')&&!media(page).includes('hero-galaxy'),'The preview hero has no merging-galaxy fallback.');
  assert(page.includes(`<link rel="preload" as="image" href="${fallback.file}" fetchpriority="high">`));
  assert(!/<link rel="preload" as="image" href="assets\/galaxy\//.test(page),'The old hero is not preloaded.');
+ assert(page.includes('id="distant-flight-video" muted playsinline loop'));
+ assert(!page.includes('<canvas')&&!page.includes('flight-ambient')&&!page.includes('solar-journey.js'),'Archived synthetic drift is not loaded');
  assert(!page.includes('data-flight-still'),'No explicit still-image button.');
  assert(page.includes('class="flight-animation" hidden')&&page.includes('aria-label="Hero motion controls" hidden'),'No-JS leaves the static frame visible and controls hidden.');
  for(const control of ['pause','skip','replay'])assert.equal(page.split(`data-flight-${control}`).length,2);
@@ -57,7 +59,7 @@ for(const original of [solar,index,b]) {
   assert(original.includes('Conversation history helps recall what was said.'),'Comparison copy remains intact.');
 }
 assert.equal(solar,await read('launch-preview.html'),'The original comparison and alias are unchanged.');
-for (const file of ['index.html','b.html','use-cases.html','pilot-evidence.html','privacy.html','terms.html','site.js','launch-preview.css','launch-preview.js','solar-journey.js']) assert.equal(await read(file),await readFile(file,'utf8'),`${file} is copied without preview changes.`);
+for (const file of ['index.html','b.html','use-cases.html','pilot-evidence.html','privacy.html','terms.html','site.js','launch-preview.css','launch-preview.js']) assert.equal(await read(file),await readFile(file,'utf8'),`${file} is copied without preview changes.`);
 assert(css.includes('@media(prefers-reduced-motion:reduce)'));
 assert(!script.includes('setInterval')&&!script.includes('setTimeout'),'No timer-driven animation.');
 assert(!script.includes('preventDefault'),'Native scrolling is not intercepted.');
