@@ -14,6 +14,11 @@ jobs:
       - run: npm test
       - run: npx playwright install --with-deps chromium
       - run: TEST_MAIL_SINK=1 npm run preview > /tmp/site-preview.log 2>&1 &
+      # Fail early on the real release performance gate, without skipping coverage.
+      - run: COORDINATED_RELEASE=local npm run build
+      - run: node scripts/verify-release-build.mjs
+      - run: VERIFY_PREFIX=release- npm run test:performance
+      - run: npm run build
       - run: npm run test:browser
       - run: npm run test:performance
       - run: npm run check:references
@@ -28,7 +33,6 @@ jobs:
       - run: BASE_URL=http://127.0.0.1:4174 node scripts/verify-release-browser.mjs
       - run: BASE_URL=http://127.0.0.1:4174 TEST_PAGE=/ TEST_RELEASE=1 VERIFY_OUTPUT=preview-review/release-motion node scripts/verify-launch-preview.mjs
       - run: BASE_URL=http://127.0.0.1:4174 TEST_PAGE=/ VERIFY_OUTPUT=preview-review/release-flight node scripts/verify-solar-bridge.mjs
-      - run: VERIFY_PREFIX=release- npm run test:performance
       - uses: actions/upload-artifact@v4
         if: always()
         with:

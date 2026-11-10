@@ -2,6 +2,7 @@ import {chromium} from 'playwright';
 import assert from 'node:assert/strict';
 import {mkdir,writeFile} from 'node:fs/promises';
 import {commercialPositioning} from './galaxy-commercial-story.mjs';
+import {fallbackDelivery} from './release-loading.mjs';
 const base = process.env.BASE_URL || 'http://127.0.0.1:4174';
 const out = 'preview-review/release';
 await mkdir(out,{recursive:true});
@@ -56,5 +57,36 @@ try {
   assert(await page.locator('a[href^="mailto:"]').first().isVisible());
   results.push({rootNoJavaScript:true,nativeDetails:true,contactAvailable:true});
   await context.close();
+  // Compare the complete decoded images in the browser that renders the release.
+  // The canvas is detached and never changes the page or its LCP measurement.
+  const pixelsContext = await browser.newContext({reducedMotion:'reduce'});
+  const pixelsPage = await pixelsContext.newPage();
+  await pixelsPage.goto(base + '/');
+  const identity = await pixelsPage.evaluate(async asset => {
+    async function pixels(src) {
+      const image = new Image(); image.src = src; await image.decode();
+      const {naturalWidth:width,naturalHeight:height} = image;
+      if (width !== asset.width || height !== asset.height) throw Error('Fallback dimensions changed');
+      const canvas = document.createElement('canvas'); canvas.width = width; canvas.height = height;
+      const context = canvas.getContext('2d', {willReadFrequently:true});
+      context.drawImage(image,0,0);
+      return context.getImageData(0,0,width,height).data;
+    }
+    const [original,delivered] = await Promise.all([pixels(asset.source.file),pixels(asset.file)]);
+    let differentBytes = 0;
+    for (let index=0;index<original.length;index++) if (original[index] !== delivered[index]) differentBytes++;
+    const decodedRgbaSha256 = [...new Uint8Array(await crypto.subtle.digest('SHA-256', delivered))].map(byte=>byte.toString(16).padStart(2,'0')).join('');
+    return {differentBytes,comparedBytes:original.length,decodedRgbaSha256,currentSrc:document.querySelector('.flight-fallback img').currentSrc};
+  }, fallbackDelivery);
+  assert.equal(identity.differentBytes,0,'Every decoded RGBA byte equals the exact original final frame');
+  assert.equal(identity.comparedBytes,1280*720*4);
+  assert.equal(identity.decodedRgbaSha256,fallbackDelivery.decodedRgbaSha256);
+  assert(identity.currentSrc.endsWith('/'+fallbackDelivery.file),'Release uses the verified lossless delivery');
+  await pixelsPage.locator('.flight-fallback source').evaluate(source=>source.type='image/not-supported');
+  const pngFallback = await pixelsPage.locator('.flight-fallback img').evaluate(async image=>{await image.decode();return {src:image.currentSrc,width:image.naturalWidth,height:image.naturalHeight};});
+  assert(pngFallback.src.endsWith('/'+fallbackDelivery.source.file),'Unsupported WebP uses the original PNG');
+  assert.equal(pngFallback.width,1280); assert.equal(pngFallback.height,720);
+  results.push({losslessFallback:identity,pngCompatibilityFallback:pngFallback});
+  await pixelsContext.close();
   await writeFile(`${out}/checks.json`,JSON.stringify(results,null,2));console.log(JSON.stringify(results,null,2));
 } finally {await browser.close();}

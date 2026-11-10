@@ -3,6 +3,7 @@ import {readFile, stat} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {resolve, extname} from 'node:path';
 import {releaseHomepage, canonicalPage} from './release-page.mjs';
+import {fallbackDelivery, releaseLoadingPage, releaseStyleBundle, releaseStylesheet, verifyFallbackDelivery} from './release-loading.mjs';
 import {alignNorthstarCopy} from './preview-northstar-copy.mjs';
 import {commercialPositioning, commercialDescription} from './galaxy-commercial-story.mjs';
 const read = file => readFile(`dist/${file}`, 'utf8');
@@ -12,8 +13,12 @@ const [root, b, galaxy, solar, cases, release, media] = await Promise.all([
   read('release-manifest.json').then(JSON.parse), read('launch-preview-manifest.json').then(JSON.parse)
 ]);
 assert(['local','review','production'].includes(release.mode));
-assert.equal(root, releaseHomepage(galaxy, {indexable:release.mode !== 'review'}), 'Root is exactly the approved galaxy with only release metadata/banner differences');
+assert.equal(root, releaseLoadingPage(releaseHomepage(galaxy, {indexable:release.mode !== 'review'})), 'Root is exactly the approved galaxy with only release metadata/banner and verified delivery differences');
 assert.equal(b, root, '/b is a coherent canonical alias');
+await verifyFallbackDelivery(file => readFile(`dist/${file}`));
+assert.equal(await read(releaseStylesheet), await releaseStyleBundle(), 'Every CSS byte and cascade order is preserved in the release bundle');
+assert(root.includes(`<source type="image/webp" srcset="${fallbackDelivery.file}">`));
+assert.equal(root.match(/<link rel="stylesheet"/g)?.length, 1, 'One blocking stylesheet, with unchanged rules');
 assert.equal(cases, canonicalPage(alignNorthstarCopy(await readFile('use-cases.html','utf8'),'useCases'), '/use-cases'), 'Linked story receives only approved consistency changes and canonical metadata');
 assert.equal(solar, await read('launch-preview.html'), 'Solar comparison and launch alias remain identical');
 for (const page of [galaxy, solar, await read('launch-preview.html')]) assert(page.includes('name="robots" content="noindex,nofollow"'));
@@ -37,7 +42,7 @@ for (const file of ['site.js','launch-preview.js','launch-preview.css','galaxy-s
 for (const [name,page] of [['index.html',root],['b.html',b],['use-cases.html',cases]]) {
   const ids = [...page.matchAll(/\bid="([^"]+)"/g)].map(match=>match[1]);
   assert.equal(new Set(ids).size,ids.length,`${name}: unique IDs`);
-  for (const [,url] of page.matchAll(/\b(?:href|src|data-src)="([^"]+)"/g)) {
+  for (const [,url] of page.matchAll(/\b(?:href|src|srcset|data-src)="([^"]+)"/g)) {
     if (/^(?:[a-z]+:|\/\/)/i.test(url)) continue;
     const [path,fragment] = url.split('#');
     let target = path ? path.split('?')[0] : name;

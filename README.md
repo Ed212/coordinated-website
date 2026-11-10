@@ -10,7 +10,7 @@ Build modes are explicit and tested:
 - Vercel production: only `VERCEL=1`, `VERCEL_ENV=production`, and `VERCEL_GIT_COMMIT_REF=main` promote the galaxy root.
 - Same-tree review: only the `codex/solar-bridge-study` branch in Netlify deploy-preview or Vercel preview promotes the candidate root. It stays noindex, with production canonical/OG URLs. Other hosted branches and Netlify production stay ordinary.
 
-Release changes remove the study-only banner at `/` and `/b`, preserve all product-maturity and fictional-example disclosures, and add canonical metadata. There is no second release template and no new asset, CTA, form, permission or hosting-dashboard change. See `RELEASE-GALAXY.md` for the validation commands and deployment handoff. Production publication remains a separate authorized step after exact-candidate checks.
+Release changes remove the study-only banner at `/` and `/b`, preserve all product-maturity and fictional-example disclosures, and add canonical metadata. There is no second release template, new creative asset, CTA, form, permission or hosting-dashboard change. Release roots use a full-size, pixel-identical lossless WebP delivery of the final-frame PNG (which remains the unchanged fallback), with earlier preload discovery and an exact concatenation of the existing CSS in cascade order. Comparison pages and all motion/runtime sources remain unchanged. See `RELEASE-GALAXY.md` for the validation commands and deployment handoff. Production publication remains a separate authorized step after exact-candidate checks.
 
 ## November 10 draft cross-page consistency correction
 

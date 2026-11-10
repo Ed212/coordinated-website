@@ -1,11 +1,15 @@
-import {readFile, writeFile} from 'node:fs/promises';
+import {readFile, writeFile, cp} from 'node:fs/promises';
 import {buildMode, isReleaseReview} from './build-mode.mjs';
 import {canonicalPage, releaseHomepage} from './release-page.mjs';
+import {fallbackDelivery, releaseLoadingPage, releaseStyleBundle, releaseStylesheet, verifyFallbackDelivery} from './release-loading.mjs';
 if (buildMode() === 'release') {
   // Promote the exact derived galaxy artifact after linked-page consistency.
-  // No duplicate template, media selection, CSS or runtime implementation.
+  // Delivery-only additions preserve source pixels, CSS rules and runtime.
   const mode = isReleaseReview() ? 'review' : process.env.COORDINATED_RELEASE === 'local' ? 'local' : 'production';
-  const page = releaseHomepage(await readFile('dist/galaxy-study.html', 'utf8'), {indexable: mode !== 'review'});
+  await verifyFallbackDelivery();
+  await cp(fallbackDelivery.file, 'dist/' + fallbackDelivery.file);
+  await writeFile('dist/' + releaseStylesheet, await releaseStyleBundle());
+  const page = releaseLoadingPage(releaseHomepage(await readFile('dist/galaxy-study.html', 'utf8'), {indexable: mode !== 'review'}));
   for (const file of ['index.html', 'b.html']) await writeFile(`dist/${file}`, page);
   const cases = await readFile('dist/use-cases.html', 'utf8');
   await writeFile('dist/use-cases.html', canonicalPage(cases, '/use-cases'));

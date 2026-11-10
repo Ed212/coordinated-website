@@ -7,6 +7,7 @@ import { basename, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import {releaseHomepage, canonicalPage} from '../scripts/release-page.mjs';
+import {releaseLoadingPage} from '../scripts/release-loading.mjs';
 import { alignNorthstarCopy } from '../scripts/preview-northstar-copy.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
@@ -116,7 +117,7 @@ test('ten real build modes isolate draft changes and keep canonical galaxy/compa
         const galaxy = await readFile(join(directory, 'galaxy-study.html'), 'utf8');
         for (const [file, kind] of [['index.html','home'],['use-cases.html','useCases']]) {
           const html = await readFile(join(directory, file), 'utf8');
-          const expected = !release ? aligned[kind] : kind === 'home' ? releaseHomepage(galaxy,{indexable:release!=='review'}) : canonicalPage(aligned[kind],'/use-cases');
+          const expected = !release ? aligned[kind] : kind === 'home' ? releaseLoadingPage(releaseHomepage(galaxy,{indexable:release!=='review'})) : canonicalPage(aligned[kind],'/use-cases');
           assert.equal(html, expected, `${name}: exact ${file} amendment`);
           assertCurrentStory(html, `${name}/${file}`);
         }

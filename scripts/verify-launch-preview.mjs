@@ -2,6 +2,7 @@ import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { mkdir,writeFile } from 'node:fs/promises';
 import {emulateSaveData, emulateBlockedAutoplay} from './browser-fixtures.mjs';
+import {fallbackDelivery} from './release-loading.mjs';
 const base=process.env.BASE_URL||'http://127.0.0.1:4197';
 const browser=await chromium.launch({headless:true,...(process.env.CHROME_PATH?{executablePath:process.env.CHROME_PATH}:{})});
 const results=[];
@@ -13,7 +14,7 @@ await mkdir(out,{recursive:true});
 const phase=(p,v,timeout=40000)=>p.waitForFunction(v=>document.body.dataset.flightPhase===v,v,{timeout});
 const paused=p=>p.locator('.flight-scene video').evaluateAll(v=>v.every(e=>e.paused));
 async function checkControls(p){assert.equal(await p.locator('[data-flight-still]').count(),0);assert.equal(await p.locator('.flight-controls button').count(),3);assert.equal(await p.locator('.flight-status').evaluate(e=>e.tagName),'SPAN');}
-async function checkStill(p){await checkControls(p);assert(await p.locator('.hero-copy').isVisible());assert.equal(await p.locator('#hero-title').innerText(),title);assert(await p.locator('.flight-animation').isHidden());assert(await paused(p));const image=p.locator('.flight-fallback img');assert(await image.isVisible());assert.equal(await image.getAttribute('src'),'assets/video/deep-space-final-frame.png');assert(await image.evaluate(e=>e.complete&&e.naturalWidth===1280&&e.naturalHeight===720));assert.equal(await p.locator('.flight-scene .hero-galaxy,.flight-fallback source').count(),0);}
+async function checkStill(p){await checkControls(p);assert(await p.locator('.hero-copy').isVisible());assert.equal(await p.locator('#hero-title').innerText(),title);assert(await p.locator('.flight-animation').isHidden());assert(await paused(p));const image=p.locator('.flight-fallback img');assert(await image.isVisible());assert.equal(await image.getAttribute('src'),'assets/video/deep-space-final-frame.png');assert(await image.evaluate(e=>e.complete&&e.naturalWidth===1280&&e.naturalHeight===720));assert.equal(await p.locator('.flight-scene .hero-galaxy').count(),0);const sources=p.locator('.flight-fallback source');assert.equal(await sources.count(),release?1:0);if(release){assert.equal(await sources.getAttribute('type'),'image/webp');assert.equal(await sources.getAttribute('srcset'),fallbackDelivery.file);assert((await image.evaluate(e=>e.currentSrc)).endsWith('/'+fallbackDelivery.file));}}
 async function journey(width){
  const p=await browser.newPage({viewport:{width,height:1000}}),errors=[];p.on('pageerror',e=>errors.push(e.message));
  await p.addInitScript(()=>{window.__cls=0;new PerformanceObserver(l=>l.getEntries().forEach(e=>{if(!e.hadRecentInput)window.__cls+=e.value})).observe({type:'layout-shift',buffered:true});});
