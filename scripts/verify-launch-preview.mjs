@@ -1,6 +1,7 @@
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { mkdir,writeFile } from 'node:fs/promises';
+import {emulateSaveData, emulateBlockedAutoplay} from './browser-fixtures.mjs';
 const base=process.env.BASE_URL||'http://127.0.0.1:4197';
 const browser=await chromium.launch({headless:true,...(process.env.CHROME_PATH?{executablePath:process.env.CHROME_PATH}:{})});
 const results=[];
@@ -61,8 +62,8 @@ try{
   if(mode==='loop-failed')await p.route('**/deployed-late-flight-loop-v2.mp4',r=>r.abort());
   if(mode==='launch-failed')await p.route('**/arc-appearance-edit-v2.mp4',r=>r.abort());
   if(mode==='departure-failed')await p.route('**/deep-space-continuation.mp4',r=>r.abort());
-  if(mode==='autoplay-blocked')await p.addInitScript(()=>HTMLMediaElement.prototype.play=()=>Promise.reject(new DOMException('Blocked','NotAllowedError')));
-  if(mode==='save-data')await p.addInitScript(()=>Object.defineProperty(navigator,'connection',{value:{saveData:true}}));
+  if(mode==='autoplay-blocked')await p.addInitScript(emulateBlockedAutoplay);
+  if(mode==='save-data')await p.addInitScript(emulateSaveData);
   await p.goto(base+path+(mode==='hash'?'#moments':''));
   if(mode!=='no-js')await phase(p,'still');await checkStill(p);
   if(['reduced','no-js'].includes(mode))assert(await p.locator('.flight-controls').isHidden());
