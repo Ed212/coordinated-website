@@ -29,3 +29,10 @@ test('CI verifies release root artifacts and actual root flight rather than only
   for (const required of ['COORDINATED_RELEASE=local npm run build', 'node scripts/verify-release-build.mjs', 'node scripts/verify-release-browser.mjs', 'TEST_PAGE=/ TEST_RELEASE=1', 'TEST_PAGE=/ VERIFY_OUTPUT=preview-review/release-flight']) assert(ci.includes(required), required);
   for (const script of ['verify-launch-preview.mjs', 'verify-solar-bridge.mjs']) assert((await read(`scripts/${script}`)).includes('process.env.TEST_PAGE'), script);
 });
+
+test('release browser motion controls exclude the body motion-state attribute', async () => {
+  const verifier = await read('scripts/verify-release-browser.mjs');
+  const selectors = [...verifier.matchAll(/\.locator\(['"]([^'"]*\[data-galaxy-motion\][^'"]*)['"]\)/g)].map(match => match[1]);
+  assert.equal(selectors.length, 2, 'Both scroll and text checks target the motion control');
+  assert.deepEqual(selectors, ['button[data-galaxy-motion]', 'button[data-galaxy-motion]'], 'The runtime also sets body[data-galaxy-motion], so an attribute-only locator is ambiguous');
+});

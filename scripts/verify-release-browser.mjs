@@ -30,8 +30,8 @@ try {
         assert(await page.locator('#launch-dependencies').evaluate(node=>node.open));
         assert.equal(new URL(page.url()).hash,'#launch-dependencies');
         await page.goBack();
-        await page.locator('[data-galaxy-motion]').scrollIntoViewIfNeeded();
-        assert.equal(await page.locator('[data-galaxy-motion]').innerText(),'Still view enabled');
+        await page.locator('button[data-galaxy-motion]').scrollIntoViewIfNeeded();
+        assert.equal(await page.locator('button[data-galaxy-motion]').innerText(),'Still view enabled');
       } else {
         const text=await page.locator('main').innerText();
         for (const value of ['$49','$3,000','$1,200','Fri Nov 27','Tue Dec 1','Version 3']) assert(text.includes(value),value);
