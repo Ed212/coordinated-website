@@ -3,14 +3,15 @@ import assert from 'node:assert/strict';
 import {writeFile,mkdir} from 'node:fs/promises';
 import {measureHeroContrast} from './hero-contrast.mjs';
 const base=process.env.BASE_URL||'http://127.0.0.1:4198';
-const out='preview-review/solar-bridge';await mkdir(out,{recursive:true});
+const path=process.env.TEST_PAGE||'/launch-preview';
+const out=process.env.VERIFY_OUTPUT||'preview-review/solar-bridge';await mkdir(out,{recursive:true});
 const b=await chromium.launch({headless:true,...(process.env.CHROME_PATH?{executablePath:process.env.CHROME_PATH}:{})});
 const results=[];
 const waitForPhase=(page,phase,timeout=25000)=>page.waitForFunction(value=>document.body.dataset.flightPhase===value,phase,{timeout});
 const mediaTimes=page=>page.locator('.flight-scene video').evaluateAll(videos=>videos.map(video=>({id:video.id,time:video.currentTime,paused:video.paused})));
 const headlineBox=page=>page.locator('#hero-title').evaluate(element=>{const r=element.getBoundingClientRect();return{x:r.x,y:r.y+scrollY,width:r.width,height:r.height};});
 try{for(const width of [390,1440]){
- const p=await b.newPage({viewport:{width,height:1000}});await p.goto(base+'/launch-preview');
+ const p=await b.newPage({viewport:{width,height:1000}});await p.goto(base+path);
  await p.evaluate(()=>document.fonts.ready);
  const box=await headlineBox(p);
  await waitForPhase(p,'departure',20000);

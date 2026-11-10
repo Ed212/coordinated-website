@@ -1,3 +1,21 @@
+## Latest galaxy release
+
+The latest deployment request supersedes the historical preview-only directions below for this marketing website. The approved galaxy page is the release source, with its current Northstar story, exact cinematic media/runtime, prelaunch disclosures and existing contact behavior. The root and `/b` are the same canonical homepage; `/use-cases` uses the aligned chronology. `/galaxy-study`, `/solar-study` and `/launch-preview` remain available and noindex, with their comparison content intact.
+
+Build modes are explicit and tested:
+
+- `npm run build`: archival ordinary output outside the release gates below.
+- `WIDE_LAUNCH_PREVIEW=local npm run build`: isolated local comparison studies and aligned linked pages, without promoting the root.
+- `COORDINATED_RELEASE=local npm run build`: exact indexable release-root candidate for local verification and CI. This override fails on hosted builds.
+- Vercel production: only `VERCEL=1`, `VERCEL_ENV=production`, and `VERCEL_GIT_COMMIT_REF=main` promote the galaxy root.
+- Same-tree review: only the `codex/solar-bridge-study` branch in Netlify deploy-preview or Vercel preview promotes the candidate root. It stays noindex, with production canonical/OG URLs. Other hosted branches and Netlify production stay ordinary.
+
+Release changes remove the study-only banner at `/` and `/b`, preserve all product-maturity and fictional-example disclosures, and add canonical metadata. There is no second release template and no new asset, CTA, form, permission or hosting-dashboard change. See `RELEASE-GALAXY.md` for the validation commands and deployment handoff. Production publication remains a separate authorized step after exact-candidate checks.
+
+## November 10 draft cross-page consistency correction
+
+The existing `/galaxy-study` story now also governs the isolated draft root and linked `/use-cases` example. Their dates, separate owner acceptances, three plan versions, fictional launch-day evidence and next review agree. A final copy-only draft build step preserves the production templates, canonical galaxy story, solar comparison and all design/media/runtime behavior. See `NORTHSTAR-CONSISTENCY-PREVIEW.md` for exact scope and six-mode isolation checks. This correction alone does not enable production output or publish anything.
+
 ## Opus follow-up on November 8
 
 The corrections to reviewed head 7f84ddd keep PR #4 draft and preview-only. Northstar’s first mention is explicitly fictional; the hero names GTM leads, product leaders and founders, and frames growth as something each launch can teach us about. A short conversation-history/agreement distinction now appears in the hero. A paired Leo/agent example consults the same approved version 1 and scope source, without action authority. Repeated loop narration is trimmed; the hero action accurately says See the learning review. The proven Inter hyphen-width issue is fixed by removing global tabular numeric features, without replacing fonts or ordinary hyphens. See CONTENT-OPUS-FOLLOWUP-2026-11-08.md for scope and review handoff. No ready transition, merge or production promotion.

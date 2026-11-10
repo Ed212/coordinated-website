@@ -27,3 +27,9 @@ console.log('Built both headline pages; archived calculator source remains uncha
 
 await import("./build-launch-preview.mjs");
 await import("./build-galaxy-preview.mjs");
+
+await import("./build-northstar-preview.mjs");
+
+await import("./build-release.mjs");
+// Run again after every derived page and release transformation.
+await (await import("./check-copy.mjs")).checkBuild();

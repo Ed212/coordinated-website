@@ -4,8 +4,10 @@ import { mkdir,writeFile } from 'node:fs/promises';
 const base=process.env.BASE_URL||'http://127.0.0.1:4197';
 const browser=await chromium.launch({headless:true,...(process.env.CHROME_PATH?{executablePath:process.env.CHROME_PATH}:{})});
 const results=[];
-const out='preview-review/wide-launch';
-const title='Make your go-to-market move at the speed of your product.';
+const release=process.env.TEST_RELEASE==='1';
+const path=process.env.TEST_PAGE||'/launch-preview.html';
+const out=process.env.VERIFY_OUTPUT||'preview-review/wide-launch';
+const title=release?'Launch fast. Learn what lands. Act on that learning.':'Make your go-to-market move at the speed of your product.';
 await mkdir(out,{recursive:true});
 const phase=(p,v,timeout=40000)=>p.waitForFunction(v=>document.body.dataset.flightPhase===v,v,{timeout});
 const paused=p=>p.locator('.flight-scene video').evaluateAll(v=>v.every(e=>e.paused));
@@ -14,7 +16,7 @@ async function checkStill(p){await checkControls(p);assert(await p.locator('.her
 async function journey(width){
  const p=await browser.newPage({viewport:{width,height:1000}}),errors=[];p.on('pageerror',e=>errors.push(e.message));
  await p.addInitScript(()=>{window.__cls=0;new PerformanceObserver(l=>l.getEntries().forEach(e=>{if(!e.hadRecentInput)window.__cls+=e.value})).observe({type:'layout-shift',buffered:true});});
- await p.goto(base+'/launch-preview.html');await phase(p,'launch');
+ await p.goto(base+path);await phase(p,'launch');
  await checkControls(p);
  const box=await p.locator('#hero-title').boundingBox();
  assert.equal(await p.locator('#hero-title').innerText(),title);assert.equal(await p.locator('.hero-copy').evaluate(e=>e.inert),false);
@@ -61,19 +63,19 @@ try{
   if(mode==='departure-failed')await p.route('**/deep-space-continuation.mp4',r=>r.abort());
   if(mode==='autoplay-blocked')await p.addInitScript(()=>HTMLMediaElement.prototype.play=()=>Promise.reject(new DOMException('Blocked','NotAllowedError')));
   if(mode==='save-data')await p.addInitScript(()=>Object.defineProperty(navigator,'connection',{value:{saveData:true}}));
-  await p.goto(base+'/launch-preview.html'+(mode==='hash'?'#moments':''));
+  await p.goto(base+path+(mode==='hash'?'#moments':''));
   if(mode!=='no-js')await phase(p,'still');await checkStill(p);
   if(['reduced','no-js'].includes(mode))assert(await p.locator('.flight-controls').isHidden());
   if(['reduced','no-js','hash','save-data'].includes(mode))assert.equal(media.length,0,`Unexpected media ${mode}`);
   assert.deepEqual(errors,[]);results.push({mode,staticFallback:true,exactFinalFrame:true,noStillImageButton:true,mediaRequests:media.length,errors});await p.close();
  }
  for(const width of [320,375,768,1024,1920]){
-  const p=await browser.newPage({viewport:{width,height:1000}});await p.goto(base+'/launch-preview.html');await phase(p,'launch');
+  const p=await browser.newPage({viewport:{width,height:1000}});await p.goto(base+path);await phase(p,'launch');
   assert(await p.locator('body').evaluate(e=>e.scrollWidth<=innerWidth+1),`Overflow ${width}`);
   assert(await p.locator('.flight-controls').evaluate(e=>{let r=e.getBoundingClientRect();return r.left>=0&&r.right<=innerWidth}));
   await p.locator('[data-flight-skip]').click();await phase(p,'loop');assert(await p.locator('#hero-title').isVisible());
   results.push({width,responsive:true});await p.close();
  }
- const p=await browser.newPage();await p.goto(base+'/');assert.equal(await p.locator('.flight-scene').count(),0);assert.equal(await p.locator('#hero-title').innerText(),'Turn product momentum into market growth.');results.push({ordinaryHomepageUnchanged:true});
+ if(!release){const p=await browser.newPage();await p.goto(base+'/');assert.equal(await p.locator('.flight-scene').count(),0);assert.equal(await p.locator('#hero-title').innerText(),'Turn product momentum into market growth.');results.push({ordinaryHomepageUnchanged:true});await p.close();}
  await writeFile(`${out}/continuous-checks.json`,JSON.stringify(results,null,2));console.log(JSON.stringify(results,null,2));
 }finally{await browser.close();}

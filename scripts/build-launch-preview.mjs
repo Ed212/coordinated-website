@@ -1,8 +1,7 @@
 import {readFile,writeFile,mkdir,cp} from 'node:fs/promises';
 import {validateFlightAssets} from './flight-assets.mjs';
-const local=process.env.WIDE_LAUNCH_PREVIEW==='local'&&!process.env.NETLIFY&&!process.env.VERCEL;
-const hosted=process.env.NETLIFY==='true'&&process.env.CONTEXT==='deploy-preview'&&process.env.HEAD==='codex/solar-bridge-study';
-if(local||hosted){
+import {buildMode} from './build-mode.mjs';
+if(buildMode() !== 'legacy'){
  const launch=JSON.parse(await readFile('assets/video/arc-launch.json','utf8'));
  const departure=JSON.parse(await readFile('assets/video/deep-space.json','utf8'));
  const flight=JSON.parse(await readFile('assets/video/distant-flight-loop.json','utf8'));

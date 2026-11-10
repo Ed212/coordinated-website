@@ -1,3 +1,4 @@
+import { alignNorthstarCopy } from './preview-northstar-copy.mjs';
 import { walkthroughNavigation, addNorthstarWalkthrough } from './northstar-walkthrough.mjs';
 import { addCommercialStory, commercialPositioning, commercialHeroSupport } from './galaxy-commercial-story.mjs';
 import assert from 'node:assert/strict';
@@ -59,7 +60,8 @@ for(const original of [solar,index,b]) {
   assert(original.includes('Conversation history helps recall what was said.'),'Comparison copy remains intact.');
 }
 assert.equal(solar,await read('launch-preview.html'),'The original comparison and alias are unchanged.');
-for (const file of ['index.html','b.html','use-cases.html','pilot-evidence.html','privacy.html','terms.html','site.js','launch-preview.css','launch-preview.js']) assert.equal(await read(file),await readFile(file,'utf8'),`${file} is copied without preview changes.`);
+for (const [file, kind] of [['index.html', 'home'], ['use-cases.html', 'useCases']]) assert.equal(await read(file), alignNorthstarCopy(await readFile(file, 'utf8'), kind), `${file} has only the reviewed draft-copy alignment.`);
+for (const file of ['b.html','pilot-evidence.html','privacy.html','terms.html','site.js','launch-preview.css','launch-preview.js']) assert.equal(await read(file),await readFile(file,'utf8'),`${file} is copied without preview changes.`);
 assert(css.includes('@media(prefers-reduced-motion:reduce)'));
 assert(!script.includes('setInterval')&&!script.includes('setTimeout'),'No timer-driven animation.');
 assert(!script.includes('preventDefault'),'Native scrolling is not intercepted.');
@@ -67,4 +69,4 @@ assert(script.includes("window.addEventListener('scroll', schedule, { passive: t
 assert(galaxy.includes('href="northstar-walkthrough.css"'));
 const addedBytes=(await stat('dist/galaxy-scroll.css')).size+(await stat('dist/galaxy-scroll.js')).size+(await stat('dist/northstar-walkthrough.css')).size;
 assert(addedBytes<15000,`Styles and script remain lightweight: ${addedBytes}`);
-console.log(`PASS isolated commercial story, shared preview media/controls, unchanged ordinary routes/contact, exact final-frame fallback, no still button, five chapters, still/no-JS defaults, native anchors and scrolling, ${addedBytes} bytes CSS + JS.`);
+console.log(`PASS isolated commercial story, shared preview media/controls, aligned draft root/detail copy, unchanged comparison/contact, exact final-frame fallback, no still button, five chapters, still/no-JS defaults, native anchors and scrolling, ${addedBytes} bytes CSS + JS.`);
