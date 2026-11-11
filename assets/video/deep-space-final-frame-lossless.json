@@ -1,0 +1,14 @@
+{
+  "file": "assets/video/deep-space-final-frame-lossless.webp",
+  "bytes": 247256,
+  "sha256": "b4b9e2f68aec765625d3c3a40589fc1ef51a7d2244707c7c0e8f6690f17b30ec",
+  "width": 1280,
+  "height": 720,
+  "encoding": "WebP lossless (VP8L), full size, no crop or color conversion",
+  "decodedRgbaSha256": "e2ebbb379c5fa19fb98d7ee8288cf1c4dc65b28dad4e1cf08616760eca5d4eda",
+  "source": {
+    "file": "assets/video/deep-space-final-frame.png",
+    "sha256": "a650aa31ccc5c07130714404aec4d69beec56f1aa275274c9ae4e3fb096338ee"
+  },
+  "note": "Release-only delivery variant of the exact approved final frame. All 1280 x 720 decoded RGB pixels equal the original PNG. The original remains the img fallback and unchanged source."
+}

@@ -6,7 +6,7 @@ import { measureHeroContrast } from './hero-contrast.mjs';
 
 const prefix = process.env.VERIFY_PREFIX || '';
 const base = new URL(process.env.BASE_URL || 'http://127.0.0.1:4174');
-const headline = 'Let your go-to-market move at the speed of your product.';
+const headline = 'Turn product momentum into market growth.';
 const walkthrough = 'Walk through your last launch';
 const email = 'mailto:ed@coordinatedai.ai?subject=30-minute%20launch%20walkthrough';
 const documents = new Map(), contrastLog = [], log = [];
@@ -96,6 +96,49 @@ async function checkHeadings(page) {
   }), 'Hero copy and example do not overlap');
 }
 
+async function checkAgreement(page) {
+  const agreement = page.locator('#trust');
+  const text = normalize(await agreement.textContent());
+  const earlyAgreement = normalize(await page.locator('.hero-agreement').textContent());
+  assert(/conversation history.*said/i.test(earlyAgreement) && /building.*agreed and decided/i.test(earlyAgreement), 'Conversation versus agreement distinction is early and framed as intended capability');
+  const introduction = normalize(await agreement.locator('#start').textContent());
+  assert(/design/i.test(introduction) && /approved version/i.test(introduction) && /sources/i.test(introduction), 'Agreement context is a proposed approved-version/source view');
+  for (const scope of ['positioning', 'pricing', 'budget', 'dependencies', 'launch gates']) assert(text.toLowerCase().includes(scope), `Shared direction includes ${scope}`);
+  assert(/affected commitments/i.test(text) && /people.*answer/i.test(text), 'Shared direction identifies affected work and questions for people');
+  const benefits = agreement.locator('.trust-grid article');
+  assert.equal(await benefits.count(), 3);
+  const people = normalize(await benefits.nth(0).textContent());
+  assert(/current commitment/i.test(people) && /version 1/i.test(people) && /approved/i.test(people) && /review/i.test(people) && /proposed.*does not.*change/i.test(people), 'Human example shows current work under the applicable version, separate from a proposal');
+  const agents = normalize(await benefits.nth(1).textContent());
+  assert(/permit/i.test(agents) && /agent/i.test(agents) && /would|planned|design/i.test(agents) && /approved/i.test(agents) && /version/i.test(agents) && /sources?/i.test(agents) && /missing|unknown|unanswered/i.test(agents), 'Permitted agent reads are planned, use approved version and source context, and preserve unanswered questions');
+  assert(/version 1/i.test(agents) && /same.*source/i.test(agents) && /Product approval/i.test(text), 'Paired human and agent examples share the same approved version and source');
+  const authority = normalize(await benefits.nth(2).textContent());
+  assert(/read access.*no.*action.*approval authority/i.test(authority), 'Reading grants neither action nor approval authority');
+  assert(/people.*decisions.*approvals/i.test(authority) && /owners.*accept.*work.*dates/i.test(authority), 'Human decisions and required approvals remain distinct from exact owner acceptance');
+  const maturity = normalize(await agreement.locator('.scope-line').last().textContent());
+  assert(/agent/i.test(maturity) && /design|intended|planned|building/i.test(maturity) && /sources/i.test(maturity) && /permissions/i.test(maturity), 'Agent consultation is design intent subject to agreed pilot sources and permissions');
+
+  const detail = page.locator('#agreement-change');
+  assert(await detail.evaluate(element => element instanceof HTMLDetailsElement), 'Amendment uses a native disclosure');
+  assert.equal(await detail.evaluate(element => element.open), false, 'Amendment starts collapsed');
+  const summary = detail.locator('summary');
+  assert(await detail.locator('dl').isHidden(), 'Collapsed amendment content is hidden');
+  await summary.click();
+  assert(await detail.evaluate(element => element.open), 'Pointer opens the amendment');
+  assert(await detail.locator('dl').isVisible(), 'Expanded amendment content is visible');
+  const amendment = normalize(await detail.innerText());
+  assert(/(?:fictional|illustrative).*Northstar/i.test(amendment), 'Amendment is explicitly illustrative');
+  assert(/version.*approved/i.test(amendment) && /propos/i.test(amendment) && /does not.*(?:change|replace).*accepted work/i.test(amendment), 'A proposal does not silently replace current approval or accepted work');
+  assert(/decision approval.*not.*(?:delivery|owner) acceptance/i.test(amendment), 'Decision approval is distinct from owner delivery acceptance');
+  assert(/takes effect/i.test(amendment) && /superseded.*scope/i.test(amendment) && /unchanged.*still apply/i.test(amendment) && /awaiting acceptance.*open/i.test(amendment), 'Effective amendments supersede only their scope and leave missing acceptance open');
+  assert(/source/i.test(amendment) && /observation window/i.test(amendment) && /stale.*missing.*not proof/i.test(amendment), 'Old or absent evidence is not counted as a successful result');
+  assert(await detail.locator('summary,dt,dd').evaluateAll(elements => elements.every(element => element.scrollWidth <= element.clientWidth + 1)), 'Expanded amendment text is not horizontally clipped');
+  await summary.focus();
+  await summary.press('Enter');
+  assert.equal(await detail.evaluate(element => element.open), false, 'Keyboard closes the native amendment');
+  assert(await detail.locator('dl').isHidden(), 'Closing the amendment hides its content again');
+}
+
 try {
   for (const file of ['index.html', 'b.html']) for (const width of [400, 1100]) for (const colorScheme of ['light', 'dark']) {
     const page = await browser.newPage({ viewport: { width, height: 900 }, colorScheme, reducedMotion: 'reduce' });
@@ -105,9 +148,20 @@ try {
     await page.locator('.hero-galaxy').evaluate(image => image.decode());
     assert.equal(await page.locator('h1').textContent(), headline);
     const heroText = normalize(await page.locator('.hero').innerText());
-    assert.equal((heroText.match(/AI go-to-market program manager for launches/gi) || []).length, 1, 'Category appears once in the hero');
+    assert.equal((heroText.match(/AI (?:GTM|go-to-market) program manager/gi) || []).length, 1, 'Category appears once in the hero');
     assert(/50\s*(?:to|[–-])\s*300/i.test(heroText) && /software/i.test(heroText), 'The intended company size and audience appear early');
-    assert(/ship|product/i.test(heroText) && /GTM|go-to-market/i.test(heroText));
+    assert(/product/i.test(heroText) && /GTM|go-to-market/i.test(heroText));
+    assert(/GTM leads.*product leaders.*founders/i.test(heroText), 'Concrete buyer roles appear early');
+    assert(/so each launch can teach you what drives growth/i.test(heroText), 'Aspirational headline has a nearby learning/outcome qualifier');
+    assert(/fictional.*Northstar/i.test(await page.locator('.hero-card .example-label').innerText()), 'First Northstar example is explicitly fictional');
+    assert(/learning review/i.test(await page.locator('.hero a[data-focus-target]').innerText()), 'Hero review action accurately names its later learning-review target');
+    const heroCard = normalize(await page.locator('.hero-card').innerText());
+    assert(/commitment/i.test(heroCard) && /owner|Product|GTM|Support/i.test(heroCard), 'Hero example starts with accountable commitments');
+    assert(/\b(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun) (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{1,2}\b/.test(heroCard), 'Illustrative commitments have concrete dates with weekdays');
+    assert(/gate/i.test(heroCard) && /missing|pending|open|unanswered|unconfirmed|not yet|awaiting/i.test(heroCard), 'Hero makes the unanswered gate or acceptance visible');
+    assert(/accept|confirm/i.test(heroCard), 'Draft work is distinguished from owner acceptance');
+    const earlyBenefits = normalize(await page.locator('#roles').innerText());
+    assert(/people/i.test(earlyBenefits) && /permitted agents/i.test(earlyBenefits) && /would/i.test(earlyBenefits), 'People and permitted-agent benefits appear early as intended capabilities');
     const bodyText = await page.locator('body').innerText();
     assert.equal((bodyText.match(/prelaunch/gi) || []).length, 1, 'One clear homepage Prelaunch disclosure');
     assert.equal(await page.locator('.legacy-model,#reader-receipt,#attention-model,#cmp,video,.hero-film-stage').count(), 0, 'Removed simulator, receipt and video are absent');
@@ -115,10 +169,16 @@ try {
     assert.equal(await page.locator('form').count(), 0);
     assert.equal(await page.locator('.dependency-map-rows article').count(), 7);
     const scenario = normalize(await page.locator('#moments').innerText());
-    assert(/Northstar/.test(scenario) && /illustrative/i.test(scenario));
-    assert(/See what can move and what must wait/i.test(scenario));
-    assert(/Product/.test(scenario) && /Pricing/.test(scenario) && /confirm/i.test(scenario) && /release owner/i.test(scenario) && /go\/no.go|go or no.go|go.ahead/i.test(scenario), 'Scenario ends with human decisions, owner confirmation and release authority');
-    assert(/export/i.test(scenario) && /Security/.test(scenario) && /held|blocked|clearance/i.test(scenario), 'Export retains its Security gate');
+    assert(/Northstar/.test(scenario) && /fictional/i.test(scenario));
+    const program = normalize((await page.locator('#moments,#how,#trust').allTextContents()).join(' '));
+    assert(/commitment/i.test(scenario) && /\b(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun) (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{1,2}\b/.test(scenario), 'Main example forms dated commitments rather than only handling a feature slip');
+    assert(/dependenc/i.test(program) && /gate/i.test(program), 'Program connects commitments to dependencies and launch gates');
+    assert(/check.in/i.test(program) && /owner/i.test(program), 'Program includes targeted owner check-ins');
+    assert(/market|customer/i.test(program) && /evidence|notes|responses|feedback/i.test(program) && /assumption|hypothesis|\bbet\b/i.test(program), 'Learning considers market evidence against the original assumption');
+    assert(/human|people|Product/i.test(program) && /decid|judgment|taste/i.test(program), 'People retain judgment and decision authority');
+    assert(/accept|confirm/i.test(program) && /next|follow.through|revised/i.test(program), 'The next decision leads to owner-confirmed follow-through');
+    assert(/release owner/i.test(program) && /go\/no.go|go or no.go|go.ahead/i.test(program), 'Launch release authority remains explicit');
+    assert(/export/i.test(scenario) && /Security/.test(scenario) && /held|blocked|clearance/i.test(scenario), 'Supporting export detail retains its Security gate');
     await checkHeadings(page);
     await checkNavigation(page);
     await checkCTA(page, true);
@@ -145,6 +205,7 @@ try {
     const contact = normalize(await page.locator('#pilot').innerText());
     assert(/no (?:prep|preparation).*documents? needed/i.test(contact));
     assert(/does not send a message or confirm delivery/i.test(contact));
+    await checkAgreement(page);
     await checkImages(page);
     assert.deepEqual(checkCopy(await page.locator('body').innerText(), `${file} rendered`), []);
     await checkLinks(page);
@@ -156,7 +217,7 @@ try {
     await page.evaluate(() => scrollTo(0, 0));
     await page.screenshot({ path: `docs/site-v5/screenshots/${prefix}${file === 'index.html' ? 'a' : 'b'}-${width}-${colorScheme}.png`, fullPage: true });
     assert.deepEqual(errors, [], 'Browser console/runtime errors');
-    log.push(`PASS ${file} ${width}px ${colorScheme}: audience/category/prelaunch, illustrative human approvals and owner confirmation, protected hero photo, visible CTA, working hero anchors, navigation, copy address, images/links/focus and no forms, simulator, receipt or video.`);
+    log.push(`PASS ${file} ${width}px ${colorScheme}: audience/category/prelaunch, illustrative dated commitments, launch-to-learning loop, human and permitted-agent agreement/version context, separate read/decision/acceptance authority, native amendment open/close, protected hero photo, visible CTA, working hero anchors, navigation, copy address, images/links/focus and no forms, simulator, receipt or video.`);
     await page.close();
   }
 
@@ -168,6 +229,7 @@ try {
     await checkHeadings(page);
     await checkNavigation(page);
     await checkCTA(page);
+    if (file === 'index.html') await checkAgreement(page);
     assert.equal(await page.locator('form').count(), 0);
     if (file !== 'index.html') {
       const text = await page.locator('main').innerText();
@@ -181,7 +243,7 @@ try {
     assert.deepEqual(errors, [], 'Responsive page errors');
     await page.close();
   }
-  log.push('PASS 320/375/768/1024/1440/1920px sweep on home, Launch example and How we’ll measure: overflow, headings/nav, CTA, images and links/anchors.');
+  log.push('PASS 320/375/768/1024/1440/1920px sweep on home, Launch example and How we’ll measure: overflow, headings/nav, CTA, images and links/anchors, plus readable native agreement disclosure on home.');
 
   const noJS = await browser.newPage({ javaScriptEnabled: false, viewport: { width: 400, height: 900 } });
   await noJS.goto(base.href);

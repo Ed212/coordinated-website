@@ -1,3 +1,15 @@
+## November 8: bounded Opus corrections
+
+Clarify fictional examples and buyer roles, place agreement-versus-conversation value near the hero, show one paired approved-version example, trim repetition and accurately name the later learning-review action. Remove the proven global tabular-feature cause of widened prose hyphens. Original galaxy hero/photo/layout retained. Draft PR #4 preview only; focused review still required. Scope: CONTENT-OPUS-FOLLOWUP-2026-11-08.md.
+
+## November 8, 2026: people and permitted agents review revision
+
+Preserve the growth-led launch-to-learning story. Add intended shared agreement/version context for humans and permitted agents, with concrete change effects and clear separation of approval, delivery acceptance, read permission and action authority. Update the example, measurement and metadata. Prior preview6e89b2b is superseded for review. Draft PR #4 preview only; required Opus review remains pending. Current scope: CONTENT-POSITIONING-2026-11-08.md.
+
+## November 7, 2026: growth-led review preview
+
+Lead with Turn product momentum into market growth and an AI GTM program manager in development. Northstar now illustrates forming dated commitments, targeted owner check-ins, required gates, owner-supplied market evidence and human decisions carried into accepted next work. Growth remains an ambition. Preserve the November 4 live hero, static stack, privacy/contact behavior and deferred video. Update current metadata, example, measurement questions and copy checks. Review preview only from baseline5e5c870; no production promotion. Current scope: CONTENT-POSITIONING-2026-11-07.md. Older entries below are history.
+
 > Current authority: October 30 local decision-to-action revision below.
 > Older dated rows and their reasoning remain decision history, not current copy
 > or publication authority. This candidate is local and unpublished.

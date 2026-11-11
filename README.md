@@ -1,3 +1,39 @@
+## Latest galaxy release
+
+The latest deployment request supersedes the historical preview-only directions below for this marketing website. The approved galaxy page is the release source, with its current Northstar story, exact cinematic media/runtime, prelaunch disclosures and existing contact behavior. The root and `/b` are the same canonical homepage; `/use-cases` uses the aligned chronology. `/galaxy-study`, `/solar-study` and `/launch-preview` remain available and noindex, with their comparison content intact.
+
+Build modes are explicit and tested:
+
+- `npm run build`: archival ordinary output outside the release gates below.
+- `WIDE_LAUNCH_PREVIEW=local npm run build`: isolated local comparison studies and aligned linked pages, without promoting the root.
+- `COORDINATED_RELEASE=local npm run build`: exact indexable release-root candidate for local verification and CI. This override fails on hosted builds.
+- Vercel production: only `VERCEL=1`, `VERCEL_ENV=production`, and `VERCEL_GIT_COMMIT_REF=main` promote the galaxy root.
+- Same-tree review: only the `codex/solar-bridge-study` branch in Netlify deploy-preview or Vercel preview promotes the candidate root. It stays noindex, with production canonical/OG URLs. Other hosted branches and Netlify production stay ordinary.
+
+Release changes remove the study-only banner at `/` and `/b`, preserve all product-maturity and fictional-example disclosures, and add canonical metadata. There is no second release template, new creative asset, CTA, form, permission or hosting-dashboard change. Release roots use a full-size, pixel-identical lossless WebP delivery of the final-frame PNG (which remains the unchanged fallback), with earlier preload discovery and an exact concatenation of the existing CSS in cascade order. Comparison pages and all motion/runtime sources remain unchanged. See `RELEASE-GALAXY.md` for the validation commands and deployment handoff. Production publication remains a separate authorized step after exact-candidate checks.
+
+## November 10 draft cross-page consistency correction
+
+The existing `/galaxy-study` story now also governs the isolated draft root and linked `/use-cases` example. Their dates, separate owner acceptances, three plan versions, fictional launch-day evidence and next review agree. A final copy-only draft build step preserves the production templates, canonical galaxy story, solar comparison and all design/media/runtime behavior. See `NORTHSTAR-CONSISTENCY-PREVIEW.md` for exact scope and six-mode isolation checks. This correction alone does not enable production output or publish anything.
+
+## Opus follow-up on November 8
+
+The corrections to reviewed head 7f84ddd keep PR #4 draft and preview-only. Northstar’s first mention is explicitly fictional; the hero names GTM leads, product leaders and founders, and frames growth as something each launch can teach us about. A short conversation-history/agreement distinction now appears in the hero. A paired Leo/agent example consults the same approved version 1 and scope source, without action authority. Repeated loop narration is trimmed; the hero action accurately says See the learning review. The proven Inter hyphen-width issue is fixed by removing global tabular numeric features, without replacing fonts or ordinary hyphens. See CONTENT-OPUS-FOLLOWUP-2026-11-08.md for scope and review handoff. No ready transition, merge or production promotion.
+
+## November 8 review revision: shared agreement for people and agents
+
+Continue draft PR #4 on codex/growth-learning-preview. The previous 6e89b2b preview is superseded for review by the current copy; neither prior checks nor this amendment authorize production. Keep the growth headline, active program-manager/learning loop, three benefits and original galaxy hero. Explain that conversation history helps recall what was said, while Coordinated is being built to preserve what was agreed/decided, which version applies and what still needs an answer.
+
+Make the intended benefits concrete for people and permitted agents across positioning, pricing, budgets, dependencies and launch gates. Show proposed versus approved changes, superseded decisions, source/evidence freshness and missing delivery acceptance. A changed decision requires the appropriate human authority and separate owner acceptance; reading context grants no action/approval rights. Agent consultation is design intent, not deployed capability or an integration claim. Preserve prelaunch/illustrative/no demonstrated growth labels and existing contact/privacy/runtime/assets. No categorical claims about other memory tools. Current scope and review-sensitive promises are in CONTENT-POSITIONING-2026-11-08.md. Required Opus review is pending in the existing opportunity thread; keep PR #4 draft, with no merge or production promotion.
+
+## November 7 growth-led review preview
+
+The current preview starts from published commit `5e5c8707268f9257554045c7f248a411209df6ad`, whose tree matches the approved November 4 source. Lead with “Turn product momentum into market growth.” Coordinated is an AI GTM program manager in development: form concrete dated owner commitments, map dependencies and launch gates, run targeted owner check-ins, gather market evidence against assumptions and help people carry decisions into coordinated follow-through. Launch is a milestone, not the end. Growth is an outcome ambition, not a demonstrated lift.
+
+Use the illustrative Northstar guided-activation program to show both forming commitments and learning after launch. Keep the export/Security delay as a supporting dependency, not the entire job. Distinguish proposed work, exact owner acceptance, human judgment/approval, specialist gates and action authority. Named people and selected Slack sources may support a separately permitted first pilot; do not imply CRM/product-analytics integrations, automatic prioritization, setup-time evidence, launched software or customer results.
+
+Preserve the original galaxy assets and hero geometry, static stack, existing email/copy fallback, privacy and terms behavior. Video stays deferred on its separate branch. This iteration authorizes an isolated GitHub/Netlify review preview only; no merge, production promotion, security/DNS/environment changes or outreach. This latest direction supersedes the narrower launch-only positioning and earlier publication status notes below. See `CONTENT-POSITIONING-2026-11-07.md` for current scope and verification.
+
 ## November 4 content follow-up: preserve the live hero
 
 This content-only preview keeps the exact live hero photo, responsive image sources, hero-specific styles and desktop photo/card geometry from live commit a9db33408f81ffaefa8f54ef206a6622950e7bf4. The mobile order stays copy, photo, card. New text changes wrapping and moves the mobile photo/card down 31.484px; header height and image framing match live. The mobile header CTA is now visible and unclipped. Video work stays deferred on its separate branch and preview.

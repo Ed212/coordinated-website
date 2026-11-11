@@ -1,0 +1,15 @@
+{
+  "file": "assets/video/deep-space-final-frame.png",
+  "bytes": 454965,
+  "sha256": "a650aa31ccc5c07130714404aec4d69beec56f1aa275274c9ae4e3fb096338ee",
+  "width": 1280,
+  "height": 720,
+  "source": {
+    "file": "assets/video/deep-space-continuation.mp4",
+    "sha256": "bf0efe9efbc6515434385559c87dbe6877411620e0ae693b238224d5a1935be3",
+    "frameIndex": 240,
+    "frameCount": 241,
+    "framesPerSecond": 24,
+    "decodedRgbSha256": "39944ffcdbf31fef8ead4f2579487b24e1987bfcc9862adc7c33fb988c251b23"
+  }
+}

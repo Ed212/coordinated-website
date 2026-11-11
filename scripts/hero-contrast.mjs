@@ -2,7 +2,8 @@
 // each hero text line. A text-transparent screenshot retains image, scrim and
 // button surfaces; browser compositing also handles partially transparent type.
 export async function measureHeroContrast(page) {
-  await page.locator('.hero-galaxy').evaluate(image=>image.decode());
+  // Ordinary pages use the galaxy image; motion previews retain the exact-frame fallback.
+  await page.locator('.hero-galaxy, .flight-fallback img').evaluate(image=>image.decode());
   const lines=await page.evaluate(()=>{
     const hero=document.querySelector('.hero').getBoundingClientRect();
     const walker=document.createTreeWalker(document.querySelector('.hero-copy'),NodeFilter.SHOW_TEXT);
@@ -16,7 +17,7 @@ export async function measureHeroContrast(page) {
     }
     return lines;
   });
-  const hide=await page.addStyleTag({content:'.hero-copy, .hero-copy * { color: transparent !important; text-shadow: none !important; }'});
+  const hide=await page.addStyleTag({content:'.hero-copy, .hero-copy * { color: transparent !important; text-shadow: none !important; -webkit-text-stroke: 0 transparent !important; }'});
   let pixels;
   try {pixels=await page.locator('.hero').screenshot({animations:'disabled'});}finally{await hide.evaluate(style=>style.remove());}
   return page.evaluate(async({lines,encoded})=>{

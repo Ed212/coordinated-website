@@ -1,0 +1,11 @@
+{
+  "file": "assets/video/deep-space-continuation.mp4",
+  "bytes": 2236633,
+  "sha256": "bf0efe9efbc6515434385559c87dbe6877411620e0ae693b238224d5a1935be3",
+  "poster": "assets/video/deep-space-settled.jpg",
+  "width": 1280,
+  "height": 720,
+  "duration": 10.041667,
+  "settleAt": 10,
+  "generationTask": "4e07153e-67dd-407a-8a53-b53944a0f42d"
+}

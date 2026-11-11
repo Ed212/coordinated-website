@@ -1,0 +1,22 @@
+{
+  "bytes": 1194360,
+  "sha256": "99b635d4da196ad8a4e5f85dad4d4be06d83ed3e67b2f9152a21ea26d0287c06",
+  "width": 1280,
+  "height": 720,
+  "duration": 3.208333,
+  "fps": 24,
+  "frames": 77,
+  "hasAudio": false,
+  "source": {
+    "file": "assets/video/deep-space-continuation.mp4",
+    "sha256": "bf0efe9efbc6515434385559c87dbe6877411620e0ae693b238224d5a1935be3"
+  },
+  "sourceEntrySeconds": 6.833333333333,
+  "sourceWrapBlendStartSeconds": 9.208333333333,
+  "wrapBlendDuration": 0.833333333333,
+  "playbackRate": 1,
+  "nativeLoop": true,
+  "note": "Forward-only final four seconds of the exact deployed continuation. Last 20 frames blend original tail into source 6.0\u20136.833333 so native repeat continues at source 6.833333. Retains the Milky Way, distant orange exhaust and faint Earth edge without restoring the large early Earth limb. No generated motion.",
+  "sourceSegmentStartSeconds": 6.0,
+  "file": "assets/video/deployed-late-flight-loop-v2.mp4"
+}

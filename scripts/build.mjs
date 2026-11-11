@@ -13,7 +13,7 @@ for(const [marker,value] of Object.entries({
  '{{PILOT_PRICE}}':escape(process.env.PILOT_PRICE?.trim() || 'Ask us for the number')
 })) template=template.replaceAll(marker,()=>value);
 template=template.replace(/[ \t]+$/gm,'');
-for (const [file,headline] of [['index.html','Let your go-to-market move at the speed of your product.'],['b.html','Let your go-to-market move at the speed of your product.']]) await writeFile(file,template.replace('{{HEADLINE}}',headline.replace('go-to-market','<span class="headline-phrase">go<span class="word-hyphen">-</span>to<span class="word-hyphen">-</span>market</span>')));
+for (const [file,headline] of [['index.html','Turn product momentum into market growth.'],['b.html','Turn product momentum into market growth.']]) await writeFile(file,template.replace('{{HEADLINE}}',headline));
 await rm('dist',{recursive:true,force:true}); await mkdir('dist',{recursive:true});
 for (const file of ['index.html','b.html','use-cases.html','pilot-evidence.html','privacy.html','terms.html','og.html','fonts.css','styles.css','hero-live.css','site.js']) await cp(file,`dist/${file}`);
 await cp('assets/fonts','dist/assets/fonts',{recursive:true});
@@ -24,3 +24,12 @@ await writeFile('docs/site-v5/logs/calc-sha256.log',`${digest}  docs/site-v5/cal
 console.log('calc.js SHA-256:',digest);
 await import('./check-copy.mjs');
 console.log('Built both headline pages; archived calculator source remains unchanged.');
+
+await import("./build-launch-preview.mjs");
+await import("./build-galaxy-preview.mjs");
+
+await import("./build-northstar-preview.mjs");
+
+await import("./build-release.mjs");
+// Run again after every derived page and release transformation.
+await (await import("./check-copy.mjs")).checkBuild();

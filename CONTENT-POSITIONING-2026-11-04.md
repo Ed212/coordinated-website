@@ -1,3 +1,5 @@
+Historical November 4 publication record. The current growth-led review is documented in [CONTENT-POSITIONING-2026-11-07.md](CONTENT-POSITIONING-2026-11-07.md).
+
 # Content preview with the live hero preserved
 
 The page now leads with the AI go-to-market program manager for launches and names 50 to 300-person software companies shipping faster than their go-to-market. It describes active launch coordination, people’s decisions and owner confirmation, with one clear prelaunch disclosure. Northstar runs from export’s Security delay through affected work, a core-only decision, confirmed owners and a human release go-ahead while export remains held.

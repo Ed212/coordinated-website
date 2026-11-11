@@ -1,0 +1,22 @@
+{
+  "poster": "assets/video/arc-launch-poster-v2.jpg",
+  "bytes": 5813701,
+  "sha256": "a513a9c72b7c0cdafa6869e731e826ef1e6da7803f94c3414027e303195a2bdb",
+  "width": 1920,
+  "height": 1080,
+  "duration": 10.041667,
+  "fps": 24,
+  "frames": 241,
+  "hasAudio": false,
+  "generationTask": "9a54ed7b-7aa4-4b82-85fa-912389c5f0ba",
+  "note": "Appearance-only Arc replacement of the exact hash-verified deployed source. No new motion or staging instructions. Existing staging remains obscured by engine glow.",
+  "file": "assets/video/arc-appearance-edit-v2.mp4",
+  "posterIntegrity": {
+    "bytes": 72717,
+    "sha256": "3d8e7f8b49cf3c07160ebd046cee8039f372ea3f87c3e5a3f1413d4b99b6c72b"
+  },
+  "source": {
+    "file": "assets/video/wide-starship-launch.mp4",
+    "sha256": "3479c5f3ed9f38856bc1a7ae8987c4359814fa1507b52a6bfafc815cd59242c8"
+  }
+}
