@@ -160,12 +160,18 @@ test('structure, classes and IDs match the pre-revision preview; only text and t
   assert.equal(createHash('sha256').update(structure(addNorthstarWalkthrough(page))).digest('hex'), boundaries.walkthroughMarkupSha256);
 });
 
-test('design, media, runtime, production templates and supporting pages remain byte-identical', async () => {
+test('design, media and supporting pages retain the archival boundary; the approved runtime has an exact identity', async () => {
   const digest = createHash('sha256');
   for (const file of boundaries.immutableFiles) {
     let bytes = await readFile(new URL(`../${file}`, import.meta.url));
-    // Normalize only the exact reviewed build hooks/gate. The original 90-file
-    // archival digest still protects every remaining source byte.
+    // The approved handoff fix has its own exact identity. Its old fixture is
+    // never executed or deployed; it preserves the original 90-file archival
+    // digest rather than blessing unrelated media, CSS or content changes.
+    if (file === boundaries.approvedRuntimeRevision.file) {
+      assert.equal(createHash('sha256').update(bytes).digest('hex'), boundaries.approvedRuntimeRevision.sha256);
+      bytes = await readFile(new URL(`../${boundaries.approvedRuntimeRevision.baselineFixture}`, import.meta.url));
+    }
+    // Normalize only the exact reviewed build hooks/gate.
     if (file === 'scripts/build.mjs') {
       for (const hook of ['\nawait import("./build-northstar-preview.mjs");\n', '\nawait import("./build-release.mjs");\n// Run again after every derived page and release transformation.\nawait (await import("./check-copy.mjs")).checkBuild();\n']) {
         assert.equal(bytes.toString().split(hook).length, 2);

@@ -6,11 +6,11 @@ const LAUNCH='#launch-intro-video', DEPARTURE='#departure-video', FLIGHT='#dista
 const PAUSE='[data-flight-pause]', SKIP='[data-flight-skip]', REPLAY='[data-flight-replay]';
 const ENTRY=164/24;
 async function controller(options={}) {
- const nodes=new Map(),frames=new Map(),timers=new Map(),blocked=new Set(options.blocked||[]),pending=new Map();let frameId=0,timerId=0,frameClock=0,observer;
+ const nodes=new Map(),frames=new Map(),timers=new Map(),blocked=new Set(options.blocked||[]),pending=new Map(options.pending||[]);let frameId=0,timerId=0,frameClock=0,observer;
  const node=selector=>{
   if(selector==='[data-flight-still]')return null;
   if(!nodes.has(selector)){
-   const n={dataset:{src:selector+'.mp4',sourceEntry:ENTRY,sourceMatchUntil:221/24,fps:24},style:{},hidden:false,paused:true,_currentTime:0,seekCalls:0,get currentTime(){return this._currentTime;},set currentTime(value){this._currentTime=value;this.seekCalls++;},duration:241/24,readyState:4,ended:false,seeking:false,textContent:'',playCalls:0,loadCalls:0,events:{},callbacks:new Map(),
+   const n={dataset:{src:selector+'.mp4',sourceEntry:ENTRY,sourceMatchUntil:221/24,fps:24},style:{},preload:'none',hidden:false,paused:true,_currentTime:0,seekCalls:0,get currentTime(){return this._currentTime;},set currentTime(value){this._currentTime=value;this.seekCalls++;},duration:241/24,readyState:4,ended:false,seeking:false,textContent:'',playCalls:0,loadCalls:0,events:{},callbacks:new Map(),
     addEventListener(type,fn){this.events[type]=fn;},pause(){this.paused=true;},
     play(){this.playCalls++;if(blocked.has(selector))return Promise.reject(Error('Autoplay blocked'));this.paused=false;if(pending.has(selector))return pending.get(selector);return Promise.resolve();},
     load(){this.loadCalls++;},focus(){document.activeElement=this;}};
@@ -34,7 +34,7 @@ async function controller(options={}) {
   event:async(s,event)=>{node(s).events[event]();await flush();},
   timeout:async()=>{const batch=[...timers.values()];timers.clear();batch.forEach(fn=>fn());await flush();}
  };
- c.depart=async()=>{await c.frame(LAUNCH,241/24-.8);assert.equal(c.phase(),'departure');};
+ c.depart=async()=>{await c.frame(LAUNCH,241/24-.8);await c.frame(DEPARTURE,0);assert.equal(c.phase(),'departure');};
  c.loop=async()=>{await c.depart();await c.frame(DEPARTURE,ENTRY);await c.frame(FLIGHT,0);await c.frame(DEPARTURE,ENTRY+.13);assert.equal(c.phase(),'loop');};
  return c;
 }
@@ -120,7 +120,7 @@ test('legacy frame scheduler matches entry and stops once native looping begins 
  await c.click(PAUSE);allPaused(c);noCallbacks(c);
 });
 test('a delayed departure after launch ends never restarts launch during pause/resume',async()=>{
- const c=await controller();c.node(LAUNCH).ended=true;c.node(LAUNCH).paused=true;await c.event(LAUNCH,'ended');assert.equal(c.phase(),'departure');
+ const c=await controller();c.node(LAUNCH).ended=true;c.node(LAUNCH).paused=true;await c.event(LAUNCH,'ended');assert.equal(c.phase(),'launch');await c.frame(DEPARTURE,0);assert.equal(c.phase(),'departure');
  const calls=c.node(LAUNCH).playCalls;await c.click(PAUSE);await c.click(PAUSE);assert.equal(c.node(LAUNCH).playCalls,calls);assert.equal(c.node(LAUNCH).paused,true);
 });
 test('loading watchdog re-arms after hiding instead of leaving a pending Skip or stalled launch forever',async()=>{
@@ -177,4 +177,94 @@ test('metadata-free scheduler corrects the 125ms gap and waits for a ready non-s
  c.node(FLIGHT).readyState=4;await c.raf();assert.equal(c.node(FLIGHT).currentTime,.125);
  assert.equal(c.node(FLIGHT).style.opacity,'1');
  c.node(DEPARTURE).currentTime=ENTRY+.26;c.node(FLIGHT).currentTime=.26;await c.raf();assert.equal(c.phase(),'loop');
+});
+
+test('successors explicitly buffer after successful launch without preroll or requests on static visits',async()=>{
+ let release;const c=await controller({pending:[[LAUNCH,new Promise(resolve=>release=resolve)]]});
+ for(const s of [DEPARTURE,FLIGHT]){assert.equal(c.node(s).loadCalls,0);assert.equal(c.node(s).preload,'none');assert.equal(c.node(s).playCalls,0);}
+ release();await c.flush();
+ for(const s of [DEPARTURE,FLIGHT]){assert.equal(c.node(s).preload,'auto');assert.equal(c.node(s).loadCalls,1);assert.equal(c.node(s).playCalls,0);assert.equal(c.node(s).currentTime,0);}
+ for(const options of [{reduced:true},{saveData:true},{hash:'#pilot'},{blocked:[LAUNCH]}]){
+  const d=await controller(options);
+  for(const s of [DEPARTURE,FLIGHT]){assert.equal(d.node(s).loadCalls,0);assert.equal(d.node(s).preload,'none');assert.equal(d.node(s).src,undefined);}
+ }
+});
+test('departure play resolution cannot reveal an undecoded or still-seeking frame',async()=>{
+ const c=await controller();await c.frame(LAUNCH,241/24-.8);
+ assert.equal(c.phase(),'launch');assert.equal(c.node(DEPARTURE).playCalls,1);assert.equal(c.node(DEPARTURE).style.opacity,'0');assert.equal(c.node(LAUNCH).style.opacity,'1');
+ c.node(DEPARTURE).seeking=true;await c.frame(DEPARTURE,0);assert.equal(c.phase(),'launch');
+ c.node(DEPARTURE).seeking=false;c.node(DEPARTURE).readyState=1;await c.frame(DEPARTURE,0);assert.equal(c.phase(),'launch');
+ c.node(DEPARTURE).readyState=4;await c.frame(DEPARTURE,.1);assert.equal(c.phase(),'departure');
+ assert.equal(+c.node(LAUNCH).style.opacity,1-(.125*.125*(3-2*.125)),'Dissolve uses the decoded source time, not a new wall-clock timer');
+ await c.frame(DEPARTURE,.4);assert.equal(+c.node(LAUNCH).style.opacity,.5);
+ await c.frame(DEPARTURE,.8);assert.equal(+c.node(LAUNCH).style.opacity,0);assert.equal(c.node(LAUNCH).paused,true);
+});
+test('a decoded departure waits for pending play to settle before beginning the unchanged dissolve',async()=>{
+ const c=await controller();let release;c.pending.set(DEPARTURE,new Promise(resolve=>release=resolve));
+ await c.frame(LAUNCH,241/24-.8);await c.frame(DEPARTURE,1/24);
+ assert.equal(c.phase(),'launch');assert.equal(c.node(DEPARTURE).style.opacity,'0');
+ release();await c.flush();assert.equal(c.phase(),'departure');assert.equal(c.node(DEPARTURE).currentTime,1/24);
+ const progress=(1/24)/.8;assert.equal(+c.node(LAUNCH).style.opacity,1-progress*progress*(3-2*progress));
+});
+test('pending departure frames and play promises cannot reveal an old Replay attempt',async()=>{
+ const c=await controller();let release;c.pending.set(DEPARTURE,new Promise(resolve=>release=resolve));
+ await c.frame(LAUNCH,241/24-.8);const staleFrames=[...c.node(DEPARTURE).callbacks.values()];
+ await c.click(REPLAY);c.pending.clear();await c.frame(LAUNCH,241/24-.8);
+ const callbacks=c.node(DEPARTURE).callbacks.size;
+ release();await c.flush();for(const fn of staleFrames)fn(1000,{mediaTime:.7,expectedDisplayTime:1000});await c.flush();
+ assert.equal(c.phase(),'launch');assert.equal(c.node(DEPARTURE).style.opacity,'0');assert.equal(c.node(DEPARTURE).callbacks.size,callbacks,'Old callback cannot consume the new frame subscription');
+ await c.frame(DEPARTURE,0);assert.equal(c.phase(),'departure');assert.equal(c.node(LAUNCH).style.opacity,'1');
+ const d=await controller();let finish;d.pending.set(DEPARTURE,new Promise(resolve=>finish=resolve));await d.frame(LAUNCH,241/24-.8);const cancelled=[...d.node(DEPARTURE).callbacks.values()];
+ await d.click(SKIP);await d.frame(FLIGHT,0);assert.equal(d.phase(),'loop');finish();await d.flush();for(const fn of cancelled)fn(2000,{mediaTime:.4});await d.flush();
+ assert.equal(d.phase(),'loop');assert.equal(d.node(DEPARTURE).paused,true);assert.equal(d.node(DEPARTURE).style.opacity,'0');
+});
+test('pending departure honors pause, offscreen, hidden and bfcache and resumes only on a new frame',async()=>{
+ for(const lifecycle of ['manual','offscreen','hidden','bfcache']){
+  const c=await controller();await c.frame(LAUNCH,241/24-.8);c.node(DEPARTURE)._currentTime=.1;
+  const staleFrames=[...c.node(DEPARTURE).callbacks.values()];
+  if(lifecycle==='manual')await c.click(PAUSE);
+  if(lifecycle==='offscreen')await c.view(false);
+  if(lifecycle==='hidden'){c.document.hidden=true;await c.document.events.visibilitychange();}
+  if(lifecycle==='bfcache'){c.window.events.pagehide();await c.flush();}
+  allPaused(c);noCallbacks(c);await c.timeout();assert.equal(c.phase(),'launch');
+  if(lifecycle==='manual')await c.click(PAUSE);
+  if(lifecycle==='offscreen')await c.view(true);
+  if(lifecycle==='hidden'){c.document.hidden=false;await c.document.events.visibilitychange();}
+  if(lifecycle==='bfcache'){await c.window.events.pageshow({persisted:true});}
+  for(const fn of staleFrames)fn(1000,{mediaTime:.1});await c.flush();
+  assert.equal(c.phase(),'launch');assert.equal(c.node(DEPARTURE).currentTime,.1);assert.equal(c.node(DEPARTURE).paused,false);
+  await c.frame(DEPARTURE,.125);assert.equal(c.phase(),'departure');
+ }
+});
+test('an interrupted departure play rejection preserves the pending handoff for Resume',async()=>{
+ const c=await controller();let reject;c.pending.set(DEPARTURE,new Promise((resolve,r)=>reject=r));
+ await c.frame(LAUNCH,241/24-.8);await c.click(PAUSE);reject(Error('AbortError: play interrupted by pause'));await c.flush();
+ assert.equal(c.phase(),'launch');allPaused(c);c.pending.clear();await c.click(PAUSE);assert.equal(c.phase(),'launch');
+ await c.frame(DEPARTURE,0);assert.equal(c.phase(),'departure');
+});
+test('missing departure frames fall back after the bounded watchdog, including after lifecycle resume',async()=>{
+ for(const interrupted of [false,true]){
+  const c=await controller();await c.frame(LAUNCH,241/24-.8);
+  if(interrupted){await c.view(false);await c.timeout();assert.equal(c.phase(),'launch');await c.view(true);}
+  await c.timeout();still(c);
+ }
+ const c=await controller();let release;c.pending.set(DEPARTURE,new Promise(resolve=>release=resolve));await c.frame(LAUNCH,241/24-.8);
+ await c.timeout();still(c);release();await c.flush();still(c);
+});
+test('delayed native loop play still needs fresh matching decoded frames after its bounded correction',async()=>{
+ const c=await controller();await c.depart();let release;c.pending.set(FLIGHT,new Promise(resolve=>release=resolve));
+ await c.frame(DEPARTURE,ENTRY,{now:1000});await c.frame(FLIGHT,0,{now:1000});
+ await c.frame(DEPARTURE,ENTRY+.125,{now:1125});assert.equal(c.node(FLIGHT).style.opacity,'0');
+ release();await c.flush();assert.equal(c.node(FLIGHT).style.opacity,'0');
+ await c.frame(DEPARTURE,ENTRY+.125,{now:1125});assert.equal(c.node(FLIGHT).currentTime,.125);assert.equal(c.node(FLIGHT).style.opacity,'0');
+ await c.frame(FLIGHT,0,{now:1125,playhead:.125});assert.equal(c.node(FLIGHT).style.opacity,'0','A stale pre-seek frame cannot pass merely because the clocks now match');
+ await c.frame(FLIGHT,.125,{now:1140});assert.equal(c.node(FLIGHT).style.opacity,'1');
+ await c.frame(DEPARTURE,ENTRY+.255,{now:1270});assert.equal(c.phase(),'loop');
+});
+test('Resume after launch ends resumes its pending departure without restarting launch or seeking',async()=>{
+ const c=await controller();await c.frame(LAUNCH,241/24-.8);c.node(LAUNCH).ended=true;c.node(LAUNCH).paused=true;await c.event(LAUNCH,'ended');
+ c.node(DEPARTURE)._currentTime=.1;const seeks=c.node(DEPARTURE).seekCalls,calls=c.node(LAUNCH).playCalls;
+ await c.click(PAUSE);await c.click(PAUSE);
+ assert.equal(c.node(LAUNCH).playCalls,calls);assert.equal(c.node(LAUNCH).paused,true);assert.equal(c.node(DEPARTURE).paused,false);assert.equal(c.node(DEPARTURE).seekCalls,seeks);
+ await c.frame(DEPARTURE,.125);assert.equal(c.phase(),'departure');
 });

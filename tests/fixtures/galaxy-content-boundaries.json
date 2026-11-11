@@ -94,5 +94,10 @@
     "templates/home.html",
     "terms.html",
     "use-cases.html"
-  ]
+  ],
+  "approvedRuntimeRevision": {
+    "file": "launch-preview.js",
+    "sha256": "0e40dee0d19eef289aed4718b06989691f50c33c13ed65593d713a05941057de",
+    "baselineFixture": "tests/fixtures/launch-preview-before-buffering.js.txt"
+  }
 }

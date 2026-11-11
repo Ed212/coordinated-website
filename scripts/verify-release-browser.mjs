@@ -2,7 +2,8 @@ import {chromium} from 'playwright';
 import assert from 'node:assert/strict';
 import {mkdir,writeFile} from 'node:fs/promises';
 import {commercialPositioning} from './galaxy-commercial-story.mjs';
-import {fallbackDelivery} from './release-loading.mjs';
+import {fallbackDelivery, launchPoster} from './release-loading.mjs';
+import {emulateSaveData} from './browser-fixtures.mjs';
 const base = process.env.BASE_URL || 'http://127.0.0.1:4174';
 const out = 'preview-review/release';
 await mkdir(out,{recursive:true});
@@ -88,5 +89,37 @@ try {
   assert.equal(pngFallback.width,1280); assert.equal(pngFallback.height,720);
   results.push({losslessFallback:identity,pngCompatibilityFallback:pngFallback});
   await pixelsContext.close();
+  for (const mode of ['motion','reduced','no-js','save-data','hash','launch-failed']) {
+    const context = await browser.newContext({viewport:{width:390,height:1000},javaScriptEnabled:mode!=='no-js',reducedMotion:mode==='reduced'?'reduce':'no-preference'});
+    const page = await context.newPage(), requests=[];
+    page.on('request',request=>requests.push(request.url()));
+    if (mode==='save-data') await page.addInitScript(emulateSaveData);
+    if (mode==='launch-failed') await page.route('**/arc-appearance-edit-v2.mp4',route=>route.abort());
+    await page.goto(base+'/' +(mode==='hash'?'#main':''));
+    const image=page.locator('.flight-fallback img');
+    if(mode==='motion') {
+      await page.waitForFunction(()=>document.body.dataset.flightPhase==='launch' && document.querySelector('#launch-intro-video').readyState>=2);
+      assert(await image.isHidden(),'The exact fallback is covered by the opaque active animation');
+      assert.equal(await image.getAttribute('fetchpriority'),'low');
+      assert.equal(await page.locator(`link[rel="preload"][href="${launchPoster}"]`).count(),1);
+      await page.locator('[data-flight-pause]').click(); await page.evaluate(()=>document.fonts.ready);
+      const covered=await page.screenshot();
+      const originalVisibility=await page.addStyleTag({content:'.flight-fallback { visibility:visible !important; }'});
+      const unchanged=await page.screenshot();
+      assert(covered.equals(unchanged),'Hiding only the already-covered fallback changes no visible screenshot pixel');
+      await originalVisibility.evaluate(style=>style.remove());
+    } else {
+      if(mode!=='no-js') await page.waitForFunction(()=>document.body.dataset.flightPhase==='still');
+      await image.evaluate(element=>element.decode());
+      assert(await image.isVisible(),'Every actual still state displays the complete decoded original frame');
+      if(mode!=='no-js') assert.equal(await image.getAttribute('fetchpriority'),'high');
+      assert.equal(await page.locator(`link[rel="preload"][href="${fallbackDelivery.file}"]`).count(),1);
+      assert(await page.locator('.flight-animation').isHidden());
+    }
+    assert.equal(requests.filter(url=>url.endsWith('/'+fallbackDelivery.file)).length,1,'Load the full-size frame once, with no forced reload on priority upgrade');
+    assert.equal(requests.filter(url=>url.endsWith('/'+fallbackDelivery.source.file)).length,0,'No duplicate PNG transfer in a WebP-capable browser');
+    results.push({loadingMode:mode,correctVisibleImage:true,oneFallbackRequest:true,noDuplicatePng:true});
+    await context.close();
+  }
   await writeFile(`${out}/checks.json`,JSON.stringify(results,null,2));console.log(JSON.stringify(results,null,2));
 } finally {await browser.close();}

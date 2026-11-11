@@ -20,15 +20,24 @@ const loopDissolve = .125;
 const tolerance = 2 / fps;
 const smooth = n => { n = Math.max(0, Math.min(1, n)); return n * n * (3 - 2 * n); };
 let phase = 'still', run = 0, manualPause = false, inView = true, pageActive = true;
-let startingDeparture = false, loopAttempt = null, loopFailed = false, timeout, raf;
+let startingDeparture = null, loopAttempt = null, loopFailed = false, timeout, raf;
 const callbacks = new Map();
 const presented = new Map();
 const nativeFrames = 'requestVideoFrameCallback' in launch;
 const moving = () => phase !== 'still' && !manualPause && !preference.matches && !document.hidden && inView && pageActive;
-const wanted = video => moving() && (video === launch && (phase === 'launch' || phase === 'departure' && departure.currentTime < handoffDuration && !launch.ended) || video === departure && phase === 'departure' || video === flight && (phase === 'loop' || Boolean(loopAttempt)));
+const wanted = video => moving() && (video === launch && !launch.ended && (phase === 'launch' || phase === 'departure' && departure.currentTime < handoffDuration) || video === departure && (phase === 'departure' || Boolean(startingDeparture)) || video === flight && (phase === 'loop' || Boolean(loopAttempt)));
 function phaseTo(next) { phase = next; root.dataset.flightPhase = next; root.dataset.launchState = next; }
-function stopMedia() { for (const video of videos) video.pause(); presented.clear(); }
-function load(video) { if (!video.src) { video.src = video.dataset.src; video.load(); } else if (video.error) video.load(); }
+function stopMedia() {
+ for (const video of videos) {
+  video.pause();
+  if (callbacks.has(video)) video.cancelVideoFrameCallback(callbacks.get(video));
+ }
+ callbacks.clear(); presented.clear();
+ if (raf) cancelAnimationFrame(raf); raf = null;
+}
+// preload=none is retained in markup for static/data-saving visits. Once motion
+// is allowed, explicitly buffer successors; load() alone still honors 'none'.
+function load(video) { if (!video.src) { video.preload = 'auto'; video.src = video.dataset.src; video.load(); } else if (video.error) video.load(); }
 function setPausedState() {
  root.dataset.motionPaused = String(!moving());
  pause.textContent = manualPause ? 'Resume motion' : 'Pause motion';
@@ -52,16 +61,19 @@ function scheduleFrames() {
   const shouldWatch = watch && wanted(video);
   if (!shouldWatch && callbacks.has(video)) { video.cancelVideoFrameCallback(callbacks.get(video)); callbacks.delete(video); }
   if (shouldWatch && 'requestVideoFrameCallback' in video && !callbacks.has(video)) {
-   callbacks.set(video, video.requestVideoFrameCallback((now, meta) => {
+   const attempt = run;
+   const id = video.requestVideoFrameCallback((now, meta) => {
+    if (attempt !== run || callbacks.get(video) !== id) return;
     callbacks.delete(video); update(video, meta.mediaTime, { time: meta.mediaTime, displayAt: meta.expectedDisplayTime ?? now, observedAt: now }); scheduleFrames();
-   }));
+   });
+   callbacks.set(video, id);
   }
  }
  if (!watch || nativeFrames) { if (raf) cancelAnimationFrame(raf); raf = null; }
  else if (!raf) raf = requestAnimationFrame(() => { raf = null; for (const video of videos) if (wanted(video)) update(video, video.currentTime); scheduleFrames(); });
 }
 function showStill() {
- ++run; clearTimeout(timeout); startingDeparture = false; loopAttempt = null;
+ ++run; clearTimeout(timeout); startingDeparture = null; loopAttempt = null;
  phaseTo('still'); manualPause = false; stopMedia(); layer.hidden = true;
  controls.hidden = preference.matches; skip.hidden = true; replay.hidden = false; pause.hidden = true;
  status.textContent = 'Still image'; setPausedState();
@@ -80,6 +92,9 @@ async function play(video, attempt = run) {
  await video.play();
  // A stale promise must not pause playback started by a more recent Replay.
  if (!wanted(video)) video.pause();
+ if (attempt === run && video === departure && startingDeparture) {
+  startingDeparture.playing = true; update(departure, presented.get(departure)?.time ?? departure.currentTime);
+ }
  return attempt === run;
 }
 async function syncMotion() {
@@ -88,26 +103,35 @@ async function syncMotion() {
  const attempt = run;
  if (phase === 'loading-loop' || startingDeparture || videos.some(video => wanted(video) && video.readyState < 2)) watchLoading();
  try {
-  if (phase === 'launch' && launch.ended) { await beginDeparture(); return; }
+  if (phase === 'launch' && launch.ended && !startingDeparture) { await beginDeparture(); return; }
   for (const video of videos) if (wanted(video)) await play(video, attempt);
   if (attempt === run && phase === 'departure') update(departure, departure.currentTime);
  } catch {
-  if (attempt === run) showStill();
+  if (attempt === run && moving()) showStill();
  }
+}
+function revealDeparture() {
+ if (!startingDeparture?.playing || phase !== 'launch' || !moving() || departure.seeking || departure.readyState < 2) return;
+ // play() can settle before the compositor has presented the next player.
+ // A buffered first frame is useful for preparation, but only a fresh frame
+ // from this playback attempt can begin the unchanged 800 ms moving dissolve.
+ if (nativeFrames && !presented.has(departure)) return;
+ startingDeparture = null; clearTimeout(timeout); phaseTo('departure');
+ departure.style.opacity = '1'; launch.style.opacity = '1';
+ status.textContent = 'Leaving Earth behind'; setPausedState();
 }
 async function beginDeparture() {
  if (startingDeparture || phase !== 'launch' || !moving()) return;
- startingDeparture = true; const attempt = run; watchLoading();
- load(departure); departure.currentTime = 0; departure.playbackRate = 1;
+ const attempt = startingDeparture = { run, playing: false }; watchLoading();
+ load(departure); presented.delete(departure); departure.currentTime = 0; departure.playbackRate = 1;
+ scheduleFrames();
  try {
-  // During preparation the launch remains visible until a decoded departure is ready.
-  await departure.play();
-  if (attempt !== run) { if (!wanted(departure)) departure.pause(); return; }
-  startingDeparture = false;
-  if (!moving()) { departure.pause(); return; }
-  clearTimeout(timeout); phaseTo('departure'); departure.style.opacity = '1'; launch.style.opacity = '1';
-  status.textContent = 'Leaving Earth behind'; setPausedState();
- } catch { if (attempt === run) showStill(); }
+  await play(departure, attempt.run);
+ } catch {
+  // A lifecycle pause may abort a pending play. Keep the attempt so Resume
+  // restarts the same media time and waits for a new decoded frame.
+  if (attempt === startingDeparture && attempt.run === run && moving()) showStill();
+ }
 }
 async function beginLoop(time, direct = false) {
  const sourceTime = direct ? entry : departure.currentTime;
@@ -133,7 +157,7 @@ async function beginLoop(time, direct = false) {
 }
 async function start() {
  if (preference.matches) { showStill(); return; }
- const attempt = ++run; clearTimeout(timeout); loopAttempt = null; loopFailed = false; startingDeparture = false; manualPause = false;
+ const attempt = ++run; clearTimeout(timeout); loopAttempt = null; loopFailed = false; startingDeparture = null; manualPause = false;
  stopMedia();
  for (const video of videos) { video.currentTime = 0; video.playbackRate = 1; }
  flight.style.opacity = '0'; departure.style.opacity = '0'; launch.style.opacity = '1'; layer.hidden = false;
@@ -150,6 +174,7 @@ function update(video, time, frame) {
  if (!moving()) return;
  if (frame && (video === departure || video === flight)) presented.set(video, frame);
  if (video === launch && phase === 'launch' && time >= launch.duration - handoffDuration && departure.readyState >= 2) beginDeparture();
+ if (video === departure && phase === 'launch' && startingDeparture) revealDeparture();
  if (video === departure && phase === 'departure') {
   launch.style.opacity = String(1 - smooth(time / handoffDuration));
   if (time >= handoffDuration) launch.pause();
@@ -208,7 +233,7 @@ for (const video of videos) video.addEventListener('error', () => {
 });
 pause.addEventListener('click', () => { manualPause = !manualPause; syncMotion(); });
 skip.addEventListener('click', () => {
- ++run; clearTimeout(timeout); loopAttempt = null; loopFailed = false; manualPause = false; startingDeparture = false; stopMedia();
+ ++run; clearTimeout(timeout); loopAttempt = null; loopFailed = false; manualPause = false; startingDeparture = null; stopMedia();
  phaseTo('loading-loop'); status.textContent = 'Continuing into space'; setPausedState();
  const attempt = run; beginLoop(0, true);
  timeout = setTimeout(() => { if (attempt === run && phase === 'loading-loop' && moving()) { showStill(); replay.focus({ preventScroll: true }); } }, 5000);
