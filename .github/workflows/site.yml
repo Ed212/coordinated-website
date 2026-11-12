@@ -18,6 +18,8 @@ jobs:
       - run: COORDINATED_RELEASE=local npm run build
       - run: node scripts/verify-release-build.mjs
       - run: VERIFY_PREFIX=release- npm run test:performance
+      - run: BASE_URL=http://127.0.0.1:4174 node scripts/verify-hero-composition.mjs
+      - run: BASE_URL=http://127.0.0.1:4174 node scripts/verify-release-browser.mjs
       - run: npm run build
       - run: npm run test:browser
       - run: npm run test:performance
@@ -30,7 +32,6 @@ jobs:
       - run: BASE_URL=http://127.0.0.1:4174 node scripts/verify-solar-bridge.mjs
       - run: COORDINATED_RELEASE=local npm run build
       - run: node scripts/verify-release-build.mjs
-      - run: BASE_URL=http://127.0.0.1:4174 node scripts/verify-release-browser.mjs
       - run: BASE_URL=http://127.0.0.1:4174 TEST_PAGE=/ TEST_RELEASE=1 VERIFY_OUTPUT=preview-review/release-motion node scripts/verify-launch-preview.mjs
       - run: BASE_URL=http://127.0.0.1:4174 TEST_PAGE=/ VERIFY_OUTPUT=preview-review/release-flight node scripts/verify-solar-bridge.mjs
       - uses: actions/upload-artifact@v4
@@ -45,3 +46,4 @@ jobs:
             preview-review/release/
             preview-review/release-motion/
             preview-review/release-flight/
+            preview-review/hero-composition/

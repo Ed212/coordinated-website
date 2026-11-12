@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import vm from 'node:vm';
+import {blueGalaxyStyles} from '../scripts/blue-galaxy-release.mjs';
 import {fallbackDelivery, releaseLoadingPage, releaseStyleBundle, releaseStyles, releaseStylesheet, verifyFallbackDelivery, initializeReleaseLoading, launchPoster, motionFallbackVisibility} from '../scripts/release-loading.mjs';
 const read = file => readFile(new URL('../' + file, import.meta.url), 'utf8');
 const picture = `<picture class="flight-fallback"><img src="${fallbackDelivery.source.file}" width="1280" height="720" alt="" fetchpriority="high" decoding="async"></picture>`;
@@ -23,7 +24,7 @@ test('release delivery changes only the stylesheet requests and lossless image s
 });
 test('release bundling preserves all original CSS bytes in exact cascade order', async () => {
   const css = await releaseStyleBundle();
-  assert.equal(css, (await Promise.all(releaseStyles.map(read))).join('\n') + '\n' + motionFallbackVisibility + '\n');
+  assert.equal(css, (await Promise.all(releaseStyles.map(read))).join('\n') + '\n' + motionFallbackVisibility + '\n' + (await Promise.all(blueGalaxyStyles.map(read))).join('\n') + '\n');
   assert(!css.includes('@import') && !css.includes('@charset'), 'No order-sensitive imports or charset directives need rewriting');
 });
 test('delivery transform rejects changed stylesheet order, missing source and repeat application', () => {

@@ -7,6 +7,7 @@ import { basename, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import {releaseHomepage, canonicalPage} from '../scripts/release-page.mjs';
+import {blueGalaxyRelease} from '../scripts/blue-galaxy-release.mjs';
 import {releaseLoadingPage} from '../scripts/release-loading.mjs';
 import { alignNorthstarCopy } from '../scripts/preview-northstar-copy.mjs';
 
@@ -78,7 +79,7 @@ test('copy transformations fail closed on upstream changes and cannot be applied
   assert.throws(() => alignNorthstarCopy(originals.home, 'other'), /Unknown Northstar page/);
 });
 
-test('ten real build modes isolate draft changes and keep canonical galaxy/comparison bytes intact', { timeout: 120000 }, async () => {
+test('eleven real build modes isolate draft changes and keep canonical galaxy/comparison bytes intact', { timeout: 120000 }, async () => {
   const temporary = await mkdtemp(join(tmpdir(), 'coordinated-northstar-'));
   try {
     await cp(root, temporary, { recursive: true, filter: path => !['.git','node_modules','dist','.openai','preview-review'].includes(basename(path)) });
@@ -94,6 +95,7 @@ test('ten real build modes isolate draft changes and keep canonical galaxy/compa
       ['local-release', { COORDINATED_RELEASE: 'local' }, true, 'local'],
       ['vercel-production', { VERCEL:'1', VERCEL_ENV:'production', VERCEL_GIT_COMMIT_REF:'main' }, true, 'production'],
       ['vercel-review', { VERCEL:'1', VERCEL_ENV:'preview', VERCEL_GIT_COMMIT_REF:'codex/solar-bridge-study' }, true, 'review'],
+      ['blue-review', { VERCEL:'1', VERCEL_ENV:'preview', VERCEL_GIT_COMMIT_REF:'codex/blue-galaxy-release-20261112' }, true, 'review'],
       ['wrong-production-branch', { VERCEL:'1', VERCEL_ENV:'production', VERCEL_GIT_COMMIT_REF:'other' }, false]
     ];
     let ordinary;
@@ -117,7 +119,7 @@ test('ten real build modes isolate draft changes and keep canonical galaxy/compa
         const galaxy = await readFile(join(directory, 'galaxy-study.html'), 'utf8');
         for (const [file, kind] of [['index.html','home'],['use-cases.html','useCases']]) {
           const html = await readFile(join(directory, file), 'utf8');
-          const expected = !release ? aligned[kind] : kind === 'home' ? releaseLoadingPage(releaseHomepage(galaxy,{indexable:release!=='review'})) : canonicalPage(aligned[kind],'/use-cases');
+          const expected = !release ? aligned[kind] : kind === 'home' ? blueGalaxyRelease(releaseLoadingPage(releaseHomepage(galaxy,{indexable:release!=='review'}))) : canonicalPage(aligned[kind],'/use-cases');
           assert.equal(html, expected, `${name}: exact ${file} amendment`);
           assertCurrentStory(html, `${name}/${file}`);
         }

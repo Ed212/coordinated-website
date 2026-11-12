@@ -1,3 +1,11 @@
+## Approved blue galaxy hero release
+
+The November 12 approved composition is integrated only into the existing release build. The exact source is private review commit `03275e42fed674249237b046cc01532ed9a5cec6`. The source image and presentation styles/controller remain byte-identical. The decorative backdrop uses low fetch priority so it does not delay the visible launch poster on slow mobile connections. `scripts/blue-galaxy-release.mjs` adds the blue backdrop, viewport-safe layout and product reveal after actual distant flight (or static/failure/scroll escape), while preserving every on-page word, link, media byte and playback control. The original playback controller is unchanged. Mobile retains full-width 16:9 film above copy/card; desktop fills the viewport edge to edge.
+
+Release CSS appends the two scoped approved sheets in cascade order without changing their bytes. Production canonical/indexability, `/b`, linked pages and contact flow remain intact. The named `codex/blue-galaxy-release-20261112` Vercel/Netlify review branch now builds this same root with noindex; production still requires Vercel main. All comparison pages retain their original files. `scripts/verify-hero-composition.mjs` adds viewport, inert-card, Replay, scroll-escape and static-state checks to CI. The existing mobile Lighthouse >=90 and exact-zero CLS gates are unchanged.
+
+Rollback baseline: `0b39ede42e1f1d71360771f298ebd14e4ba18cb6` (tree `7ad192f4c8713f3c98f2e316aef5698332084b7f`). Chromium CI is required before merge. Safari remains unverified; no additional access or media work is included.
+
 ## Latest galaxy release
 
 The latest deployment request supersedes the historical preview-only directions below for this marketing website. The approved galaxy page is the release source, with its current Northstar story, exact cinematic media/runtime, prelaunch disclosures and existing contact behavior. The root and `/b` are the same canonical homepage; `/use-cases` uses the aligned chronology. `/galaxy-study`, `/solar-study` and `/launch-preview` remain available and noindex, with their comparison content intact.

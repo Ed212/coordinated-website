@@ -8,7 +8,7 @@ const read = file => readFile(new URL('../' + file, import.meta.url), 'utf8');
 test('release gate allows only explicit unhosted verification, named review branch, or Vercel main production', () => {
   for (const env of [{}, {WIDE_LAUNCH_PREVIEW:'yes'}, {VERCEL:'1',VERCEL_ENV:'production',VERCEL_GIT_COMMIT_REF:'other'}, {VERCEL:'1',VERCEL_ENV:'preview',VERCEL_GIT_COMMIT_REF:'main'}, {NETLIFY:'true',CONTEXT:'production',HEAD:'main'}, {NETLIFY:'true',CONTEXT:'deploy-preview',HEAD:'other'}, {WIDE_LAUNCH_PREVIEW:'local',VERCEL:'1'}]) assert.equal(buildMode(env), 'legacy', JSON.stringify(env));
   assert.equal(buildMode({WIDE_LAUNCH_PREVIEW:'local'}), 'study');
-  for (const env of [{COORDINATED_RELEASE:'local'}, {VERCEL:'1',VERCEL_ENV:'production',VERCEL_GIT_COMMIT_REF:'main'}, {VERCEL:'1',VERCEL_ENV:'preview',VERCEL_GIT_COMMIT_REF:'codex/solar-bridge-study'}, {NETLIFY:'true',CONTEXT:'deploy-preview',HEAD:'codex/solar-bridge-study'}]) assert.equal(buildMode(env), 'release', JSON.stringify(env));
+  for (const env of [{VERCEL:'1',VERCEL_ENV:'preview',VERCEL_GIT_COMMIT_REF:'codex/blue-galaxy-release-20261112'}, {COORDINATED_RELEASE:'local'}, {VERCEL:'1',VERCEL_ENV:'production',VERCEL_GIT_COMMIT_REF:'main'}, {VERCEL:'1',VERCEL_ENV:'preview',VERCEL_GIT_COMMIT_REF:'codex/solar-bridge-study'}, {NETLIFY:'true',CONTEXT:'deploy-preview',HEAD:'codex/solar-bridge-study'}]) assert.equal(buildMode(env), 'release', JSON.stringify(env));
   for (const env of [{COORDINATED_RELEASE:'yes'}, {COORDINATED_RELEASE:'local',VERCEL:'1'}, {COORDINATED_RELEASE:'local',NETLIFY:'true'}]) assert.throws(() => buildMode(env));
 });
 test('release promotion removes only study metadata/banner and adds production canonical metadata', () => {

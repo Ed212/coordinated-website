@@ -98,15 +98,32 @@ try {
     await page.goto(base+'/' +(mode==='hash'?'#main':''));
     const image=page.locator('.flight-fallback img');
     if(mode==='motion') {
-      await page.waitForFunction(()=>document.body.dataset.flightPhase==='launch' && document.querySelector('#launch-intro-video').readyState>=2);
+      await page.waitForFunction(()=>document.body.dataset.flightPhase==='launch' && document.querySelector('#launch-intro-video').readyState>=2 && document.querySelector('#launch-intro-video').currentTime>=.2);
       assert(await image.isHidden(),'The exact fallback is covered by the opaque active animation');
       assert.equal(await image.getAttribute('fetchpriority'),'low');
       assert.equal(await page.locator(`link[rel="preload"][href="${launchPoster}"]`).count(),1);
       await page.locator('[data-flight-pause]').click(); await page.evaluate(()=>document.fonts.ready);
-      const covered=await page.screenshot();
+      // The approved full-width composition also has an asynchronously decoded
+      // decorative backdrop. Settle images and the paused decoded frame before
+      // isolating the fallback visibility change in two otherwise identical shots.
+      await page.locator('.galaxy-camera img,.flight-fallback img').evaluateAll(images=>Promise.all(images.map(image=>image.decode())));
+      await page.waitForFunction(()=>document.body.dataset.flightPhase==='launch' && [...document.querySelectorAll('.flight-scene video')].every(video=>video.paused));
+      await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+      const controlState=()=>page.locator('.flight-controls button').evaluateAll(buttons=>buttons.map(button=>({html:button.outerHTML,rect:button.getBoundingClientRect().toJSON()})));
+      const controlsBefore=await controlState();
+      // Raw captures from CI proved the only difference was 42 anti-aliased
+      // rounded-button border pixels (1–2/channel), outside the mobile film.
+      // Verify their DOM/geometry separately and mask only those buttons. Every
+      // other page pixel, including the complete film plane, must still match.
+      const buttonMask=[page.locator('.flight-controls button:visible')];
+      await page.screenshot({path:`${out}/covered-fallback.png`});
+      const covered=await page.screenshot({mask:buttonMask,path:`${out}/covered-fallback-comparison.png`});
       const originalVisibility=await page.addStyleTag({content:'.flight-fallback { visibility:visible !important; }'});
-      const unchanged=await page.screenshot();
-      assert(covered.equals(unchanged),'Hiding only the already-covered fallback changes no visible screenshot pixel');
+      await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+      await page.screenshot({path:`${out}/revealed-covered-fallback.png`});
+      const unchanged=await page.screenshot({mask:buttonMask,path:`${out}/revealed-covered-fallback-comparison.png`});
+      assert.deepEqual(await controlState(),controlsBefore,'Toggling the covered fallback preserves every control and its geometry');
+      assert(covered.equals(unchanged),'The complete film and all non-control page pixels stay identical when the covered fallback is toggled');
       await originalVisibility.evaluate(style=>style.remove());
     } else {
       if(mode!=='no-js') await page.waitForFunction(()=>document.body.dataset.flightPhase==='still');

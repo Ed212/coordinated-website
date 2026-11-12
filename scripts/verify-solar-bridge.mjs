@@ -20,8 +20,9 @@ try{for(const width of [390,1440]){
  assert.equal(await p.locator('canvas,.flight-bridge,.flight-ambient').count(),0,'No archived renderer is mounted');
  const natural=await p.evaluate(()=>{const style=(selector,pseudo)=>getComputedStyle(document.querySelector(selector),pseudo);return{copyPanel:style('.hero-copy','::before').display,sceneShade:style('.flight-scene','::after').display,copyBackground:style('.hero-copy').backgroundColor,videoMasks:[...document.querySelectorAll('.flight-scene video')].map(video=>getComputedStyle(video).maskImage)};});
  assert.deepEqual(natural,{copyPanel:'none',sceneShade:'none',copyBackground:'rgba(0, 0, 0, 0)',videoMasks:['none','none','none']});
+ const mobileComposition=width<=900 && await p.locator('body.hero-composition').count()>0;
  const textEdges=await p.locator('.hero-copy h1,.hero-copy p,.hero-copy .text-link').evaluateAll(nodes=>nodes.map(node=>{const s=getComputedStyle(node);return{text:node.textContent.trim(),color:s.color,stroke:s.webkitTextStrokeColor,width:parseFloat(s.webkitTextStrokeWidth),shadow:s.textShadow,paintOrder:s.paintOrder};}));
- for(const edge of textEdges){assert.equal(edge.color,'rgb(255, 255, 255)');assert(edge.width>=.65);assert.notEqual(edge.shadow,'none');assert.equal(edge.paintOrder,'stroke');}
+ for(const edge of textEdges){assert.equal(edge.color,'rgb(255, 255, 255)');assert(mobileComposition ? edge.width===0 : edge.width>=.65);assert.notEqual(edge.shadow,'none');assert.equal(edge.paintOrder,'stroke');}
  results.push({width,naturalBackground:true,glyphEdgeProtection:textEdges});
  await p.locator('#distant-flight-video').evaluate(video=>{
   const probe=window.__flightVerification={elapsed:0,wraps:0,last:video.currentTime};
@@ -59,7 +60,8 @@ try{for(const width of [390,1440]){
  }
  await waitForPhase(p,'loop');
  const fill=await p.evaluate(()=>{const hero=document.querySelector('.hero').getBoundingClientRect(),scene=document.querySelector('.flight-scene').getBoundingClientRect();return{heroHeight:hero.height,sceneHeight:scene.height,heroWidth:hero.width,sceneWidth:scene.width};});
- assert.equal(fill.heroHeight,fill.sceneHeight);assert.equal(fill.heroWidth,fill.sceneWidth);results.push({width,fullHero:true,...fill});
+ if(mobileComposition) assert(Math.abs(fill.sceneHeight-fill.sceneWidth*9/16)<1,'Mobile composition keeps a full-width 16:9 film above the copy');
+ else assert.equal(fill.heroHeight,fill.sceneHeight);assert.equal(fill.heroWidth,fill.sceneWidth);results.push({width,fullHero:true,...fill});
  assert.equal(await p.locator('.flight-status').innerText(),'Flying through distant space');
  // Wait for actual state changes, rather than assuming a loading duration.
  await p.locator('[data-flight-replay]').click();await waitForPhase(p,'launch');
