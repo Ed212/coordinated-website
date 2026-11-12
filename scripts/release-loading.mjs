@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
+import {blueGalaxyStyles} from './blue-galaxy-release.mjs';
 export const releaseStyles = ['launch-preview.css','fonts.css','styles.css','hero-live.css','galaxy-scroll.css','northstar-walkthrough.css'];
 export const releaseStylesheet = 'release-styles.css';
 export const motionFallbackVisibility = '.launch-preview:is([data-flight-phase="launch"],[data-flight-phase="departure"],[data-flight-phase="loop"],[data-flight-phase="loading-loop"]) .flight-fallback { visibility:hidden; }';
@@ -10,7 +11,7 @@ const digest = bytes => createHash('sha256').update(bytes).digest('hex');
 
 // No minification or CSS rewriting: keep the original bytes in their cascade order.
 export async function releaseStyleBundle(read = readFile) {
-  return (await Promise.all(releaseStyles.map(file => read(file, 'utf8')))).join('\n') + '\n' + motionFallbackVisibility + '\n';
+  return (await Promise.all(releaseStyles.map(file => read(file, 'utf8')))).join('\n') + '\n' + motionFallbackVisibility + '\n' + (await Promise.all(blueGalaxyStyles.map(file => read(file, 'utf8')))).join('\n') + '\n';
 }
 export async function verifyFallbackDelivery(read = readFile) {
   const bytes = await read(fallbackDelivery.file);

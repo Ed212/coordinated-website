@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import {readFile, stat} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {resolve, extname} from 'node:path';
+import {blueGalaxyRelease, blueGalaxyStyles} from './blue-galaxy-release.mjs';
 import {releaseHomepage, canonicalPage} from './release-page.mjs';
 import {fallbackDelivery, releaseLoadingPage, releaseStyleBundle, releaseStylesheet, verifyFallbackDelivery} from './release-loading.mjs';
 import {alignNorthstarCopy} from './preview-northstar-copy.mjs';
@@ -13,7 +14,7 @@ const [root, b, galaxy, solar, cases, release, media] = await Promise.all([
   read('release-manifest.json').then(JSON.parse), read('launch-preview-manifest.json').then(JSON.parse)
 ]);
 assert(['local','review','production'].includes(release.mode));
-assert.equal(root, releaseLoadingPage(releaseHomepage(galaxy, {indexable:release.mode !== 'review'})), 'Root is exactly the approved galaxy with only release metadata/banner and verified delivery differences');
+assert.equal(root, blueGalaxyRelease(releaseLoadingPage(releaseHomepage(galaxy, {indexable:release.mode !== 'review'}))), 'Root is exactly the approved blue composition with production metadata and verified delivery differences');
 assert.equal(b, root, '/b is a coherent canonical alias');
 await verifyFallbackDelivery(file => readFile(`dist/${file}`));
 assert.equal(await read(releaseStylesheet), await releaseStyleBundle(), 'Every CSS byte and cascade order is preserved in the release bundle');
@@ -38,7 +39,7 @@ for (const asset of [media.launch,media.departure,media.flight,media.fallback,{f
   assert.equal(hash(bytes),asset.sha256,`Exact selected bytes: ${asset.file}`);
   if(asset.bytes !== undefined) assert.equal(bytes.length,asset.bytes);
 }
-for (const file of ['site.js','launch-preview.js','launch-preview.css','galaxy-scroll.js','galaxy-scroll.css','northstar-walkthrough.css','hero-live.css','styles.css','fonts.css']) assert.equal(hash(await readFile(`dist/${file}`)),hash(await readFile(file)),`Runtime and styles unchanged: ${file}`);
+for (const file of [...blueGalaxyStyles,'hero-composition.js','site.js','launch-preview.js','launch-preview.css','galaxy-scroll.js','galaxy-scroll.css','northstar-walkthrough.css','hero-live.css','styles.css','fonts.css']) assert.equal(hash(await readFile(`dist/${file}`)),hash(await readFile(file)),`Runtime and styles unchanged: ${file}`);
 for (const [name,page] of [['index.html',root],['b.html',b],['use-cases.html',cases]]) {
   const ids = [...page.matchAll(/\bid="([^"]+)"/g)].map(match=>match[1]);
   assert.equal(new Set(ids).size,ids.length,`${name}: unique IDs`);

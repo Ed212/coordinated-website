@@ -1,0 +1,20 @@
+/* Isolated blue galaxy review. Image and palette only.
+   Existing type, layout, content, footage, runtime and controls are untouched. */
+.blue-galaxy-study { background:#020d17; }
+.blue-galaxy-study .galaxy-backdrop { background:#020d17; }
+.blue-galaxy-study .galaxy-content {
+ --paper:#081b2a; --paper-deep:#0c2232; --white:#0c2030;
+ --muted:#c0d0de; --rule:#456177; --rule-soft:#30495e;
+}
+.blue-galaxy-study .galaxy-content [data-galaxy-chapter] > .ledger-boundary {
+ background:rgba(4,19,32,.93); border-color:#3c576e;
+}
+.blue-galaxy-study .galaxy-navigation { background:#071725; border-color:#415c73; }
+.blue-galaxy-study .galaxy-navigation button { background:#10283b; border-color:#809bb0; }
+.blue-galaxy-study .galaxy-navigation button:hover { background:#1b3a51; }
+.blue-galaxy-study .galaxy-content .launch-comparison-panel { background:rgba(12,33,49,.96); }
+.blue-galaxy-study .galaxy-content .shared-outcome { background:#0b2233; }
+.blue-galaxy-study .galaxy-content .launch-state,
+.blue-galaxy-study .galaxy-content .slack-card { background:#102a3d; border-color:#45657e; }
+.blue-galaxy-study .site-footer { background:rgba(4,19,32,.96); border-color:#456177; }
+/* Deliberately no filter, blend mode, scrim, mask or overlay on the hero video. */
