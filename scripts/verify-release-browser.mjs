@@ -98,14 +98,30 @@ try {
     await page.goto(base+'/' +(mode==='hash'?'#main':''));
     const image=page.locator('.flight-fallback img');
     if(mode==='motion') {
-      await page.waitForFunction(()=>document.body.dataset.flightPhase==='launch' && document.querySelector('#launch-intro-video').readyState>=2);
+      await page.waitForFunction(()=>document.body.dataset.flightPhase==='launch' && document.querySelector('#launch-intro-video').readyState>=2 && document.querySelector('#launch-intro-video').currentTime>=.2);
       assert(await image.isHidden(),'The exact fallback is covered by the opaque active animation');
       assert.equal(await image.getAttribute('fetchpriority'),'low');
       assert.equal(await page.locator(`link[rel="preload"][href="${launchPoster}"]`).count(),1);
       await page.locator('[data-flight-pause]').click(); await page.evaluate(()=>document.fonts.ready);
-      const covered=await page.screenshot();
+      // The approved full-width composition also has an asynchronously decoded
+      // decorative backdrop. Settle images and the paused decoded frame before
+      // isolating the fallback visibility change in two otherwise identical shots.
+      await page.locator('.galaxy-camera img,.flight-fallback img').evaluateAll(images=>Promise.all(images.map(image=>image.decode())));
+      await page.waitForFunction(()=>document.body.dataset.flightPhase==='launch' && [...document.querySelectorAll('.flight-scene video')].every(video=>video.paused));
+      await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+      const covered=await page.screenshot({path:`${out}/covered-fallback.png`});
       const originalVisibility=await page.addStyleTag({content:'.flight-fallback { visibility:visible !important; }'});
-      const unchanged=await page.screenshot();
+      await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+      const unchanged=await page.screenshot({path:`${out}/revealed-covered-fallback.png`});
+      if(!covered.equals(unchanged)) {
+        const difference=await page.evaluate(async ([a,b])=>{
+          const pixels=async src=>{const image=new Image();image.src=src;await image.decode();const canvas=document.createElement('canvas');canvas.width=image.width;canvas.height=image.height;const ctx=canvas.getContext('2d');ctx.drawImage(image,0,0);return {data:ctx.getImageData(0,0,image.width,image.height).data,width:image.width,height:image.height};};
+          const left=await pixels(a),right=await pixels(b);let count=0,minX=left.width,minY=left.height,maxX=-1,maxY=-1;
+          for(let i=0;i<left.data.length;i+=4)if(left.data.slice(i,i+4).some((value,k)=>value!==right.data[i+k])){count++;const x=i/4%left.width,y=Math.floor(i/4/left.width);minX=Math.min(minX,x);maxX=Math.max(maxX,x);minY=Math.min(minY,y);maxY=Math.max(maxY,y);}
+          return {count,bounds:{minX,minY,maxX,maxY},phase:document.body.dataset.flightPhase,scene:document.querySelector('.flight-scene').getBoundingClientRect().toJSON(),launchTime:document.querySelector('#launch-intro-video').currentTime};
+        },[covered,unchanged].map(bytes=>'data:image/png;base64,'+bytes.toString('base64')));
+        console.log('Fallback visibility screenshot difference:',JSON.stringify(difference));
+      }
       assert(covered.equals(unchanged),'Hiding only the already-covered fallback changes no visible screenshot pixel');
       await originalVisibility.evaluate(style=>style.remove());
     } else {
