@@ -1,0 +1,120 @@
+/* A presentation layer over the verified blue-galaxy release.
+   Copy, source media, motion controllers and semantic order stay intact. */
+@font-face {
+ font-family:'Bricolage Grotesque'; font-style:normal; font-weight:600;
+ font-display:optional; src:url('assets/fonts/bricolage-grotesque-latin.ttf') format('truetype');
+}
+.visual-refinement { --display:'Bricolage Grotesque','Arial',sans-serif; }
+.visual-refinement :is(.eyebrow,.section-number,.moment-kicker,.example-label,.dependency-tag,.galaxy-chapter-label,.northstar-walkthrough-label,.galaxy-location) {
+ font-family:var(--sans); font-size:13px; line-height:1.5; letter-spacing:.02em; text-transform:none;
+}
+.visual-refinement .eyebrow { font-weight:600; letter-spacing:.06em; }
+.visual-refinement .hero-copy h1 {
+ font-family:var(--display); font-weight:600; font-size:clamp(40px,4vw,62px);
+ line-height:1.08; letter-spacing:-.045em; margin-bottom:28px;
+}
+.visual-refinement .display-line { display:block; white-space:nowrap; }
+.visual-refinement .hero-copy .hero-promise { font-size:17px; line-height:1.65; max-width:48ch; }
+.visual-refinement .hero-copy .hero-audience { font-size:14px; line-height:1.6; }
+.visual-refinement .hero-copy .proof-line { font:13px/1.55 var(--sans); letter-spacing:0; }
+.visual-refinement :is(.button,.nav-contact,.flight-controls button,.galaxy-navigation button,.contact-route button) { border-radius:7px; }
+.visual-refinement .hero-card { border:0; border-radius:18px; box-shadow:0 18px 55px rgba(0,0,0,.2); padding:clamp(24px,2.4vw,34px); }
+.visual-refinement .hero-card .example-label { color:#586471; }
+.visual-refinement .hero-card .card-reason { font-family:var(--sans); font-size:13px; line-height:1.6; }
+.visual-refinement .slack-card-header div > span { font:11px/1.4 var(--sans); letter-spacing:0; }
+.visual-refinement .reached-list { padding-block:18px; }
+.visual-refinement .reached-list div { gap:14px; margin-bottom:10px; }
+.visual-refinement .reached-list dt { font-size:13px; line-height:1.6; }
+.visual-refinement .reached-list dd { font-size:14px; line-height:1.6; }
+.visual-refinement .card-actions a { border-radius:6px; font-size:13px; line-height:1.5; min-height:44px; display:inline-flex; align-items:center; }
+/* The galaxy becomes a setting, with a calm reading plane over it. */
+.visual-refinement .galaxy-content { background:rgba(2,13,23,.84); --muted:#c4d1dd; --rule:rgba(171,195,214,.28); }
+.visual-refinement .galaxy-content .section { padding-block:clamp(72px,8vw,116px); }
+.visual-refinement .galaxy-content [data-galaxy-chapter] > .ledger-boundary {
+ border:0; border-radius:0; background:transparent; box-shadow:none; padding:0;
+}
+.visual-refinement .galaxy-content .galaxy-chapter-label { color:#a9c5d8; border:0; padding:0; margin:0 0 24px; }
+.visual-refinement .galaxy-chapter-label span { display:none; }
+.visual-refinement .galaxy-navigation { background:rgba(3,17,29,.96); border-color:rgba(171,195,214,.2); min-height:58px; }
+.visual-refinement .galaxy-location { width:250px; }
+.visual-refinement .galaxy-navigation button { font:13px/1.4 var(--sans); border-color:#7897ad; background:transparent; }
+.visual-refinement .galaxy-progress { background:#385061; }
+.visual-refinement .galaxy-content :is(.section-intro h2,#moments-title) {
+ font-family:var(--display); font-weight:600; font-size:clamp(32px,3.6vw,48px); line-height:1.12; letter-spacing:-.035em;
+}
+.visual-refinement .galaxy-content .role-benefits { padding-block:24px 12px; gap:48px; }
+.visual-refinement .galaxy-content .role-benefits h2 { font-family:var(--display); font-size:26px; font-weight:600; line-height:1.2; margin-bottom:14px; }
+.visual-refinement .galaxy-content .role-benefits p { font-size:16px; line-height:1.7; }
+.visual-refinement .galaxy-content .scope-line { font-size:17px; line-height:1.7; max-width:76ch; }
+/* One Northstar story, using spacing and rules instead of nested cards. */
+.visual-refinement .galaxy-content #moments > .ledger-boundary {
+ padding:clamp(26px,4.5vw,60px); background:rgba(7,27,41,.96); border-radius:22px;
+}
+.visual-refinement #moments .scenario-trigger { background:transparent; border:0; padding:0; margin:28px 0 36px; font-size:18px; line-height:1.75; max-width:80ch; }
+.visual-refinement #moments .scenario-trigger strong { display:block; font-weight:600; margin-bottom:10px; }
+.visual-refinement .northstar-walkthrough { border:0; padding:0; margin:30px 0 36px; }
+.visual-refinement .northstar-walkthrough-label { font-size:14px; line-height:1.6; margin-bottom:14px; }
+.visual-refinement .northstar-walkthrough ol { gap:24px; }
+.visual-refinement .northstar-walkthrough a { min-height:44px; padding:9px 0; background:none; border:0; border-bottom:1px solid #607d91; border-radius:0; font-size:15px; line-height:1.5; font-weight:500; }
+.visual-refinement .northstar-walkthrough a span { display:none; }
+.visual-refinement .northstar-walkthrough a:hover { background:transparent; border-color:#efd0b9; color:#efd0b9; }
+.visual-refinement #moments .launch-comparison-grid { gap:0; }
+.visual-refinement #moments .launch-comparison-panel { background:transparent; border:0; border-top:1px solid var(--rule); padding:34px 0; }
+.visual-refinement #moments .launch-comparison-panel h3 { font-family:var(--sans); font-size:26px; line-height:1.25; font-weight:600; max-width:38ch; margin-bottom:18px; }
+.visual-refinement #moments .launch-comparison-panel > p:last-child { font-size:17px; line-height:1.75; max-width:84ch; margin-bottom:0; }
+.visual-refinement #moments .launch-state { background:transparent; border:0; border-top:1px solid var(--rule); padding:36px 0 8px; gap:36px 48px; }
+.visual-refinement #moments .launch-state span { font-family:var(--sans); font-size:14px; line-height:1.5; letter-spacing:0; text-transform:none; color:#ebc8ac; font-weight:600; }
+.visual-refinement #moments .launch-state p { font-size:16px; line-height:1.75; }
+.visual-refinement .dependency-map { border-color:var(--rule); }
+.visual-refinement .dependency-map-rows article { padding-block:22px; }
+.visual-refinement .dependency-tag { font-size:13px; }
+.visual-refinement .scenario-disclosure { font-size:14px; line-height:1.6; color:#c4d1dd; }
+/* Keep useful list order without repeating ornamental chapter numbers. */
+.visual-refinement .journey-list { list-style:none; padding:0; margin-top:36px; }
+.visual-refinement .journey-list li { padding:0 0 28px; margin:0 0 28px; border-bottom:1px solid var(--rule); }
+.visual-refinement .journey-list li:last-child { border-bottom:0; margin-bottom:0; }
+.visual-refinement .journey-list h3 { font-size:23px; font-weight:600; line-height:1.3; margin-bottom:12px; }
+.visual-refinement .journey-list p { font-size:16px; line-height:1.75; }
+.visual-refinement .galaxy-content .narrative-layout { grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr); gap:52px 72px; }
+.visual-refinement .galaxy-content .slack-card { border:0; border-radius:16px; background:rgba(18,43,61,.86); box-shadow:none; padding:30px; }
+.visual-refinement .galaxy-content .narrative-visual .section-number { font-size:14px; }
+.visual-refinement .trust-grid { gap:32px; }
+.visual-refinement .trust-grid article { border:0; border-top:1px solid var(--rule); padding:24px 0 0; }
+.visual-refinement .trust-grid h3 { font-size:21px; line-height:1.3; margin-bottom:14px; }
+.visual-refinement .trust-grid p { font-size:16px; line-height:1.75; }
+.visual-refinement .decision-detail { margin-top:42px; }
+.visual-refinement .decision-detail summary { font-size:16px; }
+.visual-refinement .decision-detail p { font-size:16px; line-height:1.75; }
+.visual-refinement .contact-limit { font-size:14px; }
+@media(max-width:900px) {
+ .visual-refinement .hero-copy h1 { font-size:clamp(29px,7.8vw,52px); line-height:1.1; }
+ .visual-refinement .hero-copy .hero-promise { font-size:17px; }
+ .visual-refinement .galaxy-content .narrative-layout { grid-template-columns:1fr; gap:32px; }
+ .visual-refinement .galaxy-content .narrative-visual { position:relative; top:auto; }
+}
+@media(max-width:760px) {
+ .visual-refinement .galaxy-content [data-galaxy-chapter] > .ledger-boundary { width:calc(100% - 40px); }
+ .visual-refinement .galaxy-content #moments > .ledger-boundary { width:calc(100% - 24px); padding:28px 22px; border-radius:16px; }
+ .visual-refinement .galaxy-content .section { padding-block:66px; }
+ .visual-refinement .galaxy-content .role-benefits { gap:30px; }
+ .visual-refinement .northstar-walkthrough ol { gap:8px 20px; }
+ .visual-refinement .northstar-walkthrough a { min-height:48px; }
+ .visual-refinement #moments .scenario-trigger { font-size:17px; }
+ .visual-refinement #moments .launch-comparison-panel h3 { font-size:24px; }
+ .visual-refinement #moments .launch-state { grid-template-columns:1fr; gap:30px; }
+ .visual-refinement .galaxy-location { width:auto; font-size:12px; }
+ .visual-refinement .galaxy-navigation button { font-size:12px; max-width:150px; }
+ .visual-refinement .hero-card { padding:25px; }
+}
+/* Secondary metadata and motion controls remain comfortably readable. */
+.visual-refinement :is(.button,.text-link,.contact-route button) { font-family:var(--sans); font-size:14px; line-height:1.5; letter-spacing:0; }
+.visual-refinement .nav-contact { font-family:var(--sans); font-size:13px; letter-spacing:0; }
+.visual-refinement .slack-card-header div { flex-wrap:wrap; }
+.visual-refinement .slack-card-header div > span { font-size:12px; }
+.visual-refinement .slack-card-header time { font-size:12px; line-height:1.5; }
+.visual-refinement .flight-controls button { font-family:var(--sans); font-size:13px; line-height:1.5; min-height:44px; letter-spacing:0; }
+@media(max-width:760px) {
+ .visual-refinement .primary-nav .nav-contact { font-size:12px; }
+ .visual-refinement .slack-card-header { grid-template-columns:32px minmax(0,1fr); }
+ .visual-refinement .slack-card-header time { grid-column:2; justify-self:start; }
+}

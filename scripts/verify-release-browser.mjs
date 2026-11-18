@@ -21,7 +21,7 @@ try {
       assert(await page.locator('body').evaluate(body=>body.scrollWidth<=innerWidth+1), `${route}: no horizontal overflow at ${width}`);
       assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'),'https://coordinatedai.ai'+(route==='/use-cases'?route:'/'));
       if (route !== '/use-cases') {
-        assert.equal(await page.locator('#hero-title').innerText(),commercialPositioning);
+        assert.equal((await page.locator('#hero-title').innerText()).replace(/\s+/g,' ').trim(),commercialPositioning);
         assert.equal(await page.locator('.study-banner').count(),0);
         assert(await page.locator('.flight-fallback img').isVisible());
         assert(await page.locator('.flight-animation').isHidden());
@@ -46,7 +46,7 @@ try {
   }
   const context=await browser.newContext({javaScriptEnabled:false,viewport:{width:390,height:1000}});
   const page=await context.newPage();await page.goto(base+'/');
-  assert.equal(await page.locator('#hero-title').innerText(),commercialPositioning);
+  assert.equal((await page.locator('#hero-title').innerText()).replace(/\s+/g,' ').trim(),commercialPositioning);
   assert(await page.locator('.flight-fallback img').isVisible());
   assert(await page.locator('.flight-controls').isHidden());
   const details=page.locator('#launch-dependencies');

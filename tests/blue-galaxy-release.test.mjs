@@ -35,3 +35,17 @@ test('approved reveal follows media, preserves an inert reserved slot, permits r
 test('presentation transformation fails closed for missing or duplicate release markup',()=>{
  assert.throws(()=>blueGalaxyRelease('not a release page'),/Expected unique approved/);
 });
+test('visual refinement preserves headline copy and controls while adding local display-font presentation',()=>{
+ const headline='<h1 id="hero-title">Launch fast. Learn <span class="headline-phrase">what lands.</span> Act on that learning.</h1>';
+ const camera='<picture class="galaxy-camera"><source media="(max-width: 760px)" srcset="assets/galaxy/landscape-1200.webp"><img src="assets/galaxy/landscape-1600.webp" width="1600" height="889" alt="" loading="lazy" decoding="async"></picture>';
+ const controls='<button data-flight-pause>Pause motion</button><a href="mailto:ed@coordinatedai.ai">Walk through your last launch</a>';
+ const source=`<head></head><body class="homepage-clarity launch-preview galaxy-preview">${camera}${headline}<div class="hero-product">Fictional example · Northstar</div>${controls}</body>`;
+ const refined=blueGalaxyRelease(source);
+ const text=html=>html.replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();
+ assert.equal(text(refined),text(source),'No marketing or control text changes');
+ assert.equal(refined.match(/class="display-line"/g)?.length,3,'The three existing phrases receive deliberate line treatment');
+ assert(refined.includes('hero-composition visual-refinement"'));
+ assert(refined.includes(controls),'Controls and contact href remain exact');
+ assert.equal(refined.split('href="assets/fonts/bricolage-grotesque-latin.ttf" type="font/ttf" crossorigin').length,2,'One self-hosted font preload uses its actual format');
+ assert.throws(()=>blueGalaxyRelease(source.replace('Act on that learning.','Act on it.')),/Expected unique approved/,'Unexpected source-copy drift fails closed');
+});
