@@ -11,6 +11,7 @@ if (buildMode() === 'release') {
   await cp(fallbackDelivery.file, 'dist/' + fallbackDelivery.file);
   await writeFile('dist/' + releaseStylesheet, await releaseStyleBundle());
   for (const file of [...blueGalaxyStyles, blueGalaxyAsset, 'hero-composition.js']) await cp(file, 'dist/' + file);
+  for (const file of ['bricolage-grotesque-latin.ttf', 'bricolage-OFL.txt']) await cp('assets/fonts/' + file, 'dist/assets/fonts/' + file);
   const page = blueGalaxyRelease(releaseLoadingPage(releaseHomepage(await readFile('dist/galaxy-study.html', 'utf8'), {indexable: mode !== 'review'})));
   for (const file of ['index.html', 'b.html']) await writeFile(`dist/${file}`, page);
   const cases = await readFile('dist/use-cases.html', 'utf8');

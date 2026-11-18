@@ -1,3 +1,7 @@
+## November 18 visual refinement review — preview only
+
+Current live main `962edee` is the baseline, verified against the built HTML, CSS and behavior scripts. The isolated `codex/visual-refinement-20261118` review adds a distinctive local display face, deliberate headline lines, readable labels and simpler Northstar hierarchy. All copy, media, motion/controller behavior, contact flow and truth labels are preserved. The new branch is allowed only through existing deploy-preview/Vercel-preview release gates; production gates remain unchanged. No merge, production or DNS action is authorized. See VISUAL-REFINEMENT-2026-11-18.md and design-qa.md. Older release instructions below describe history, not permission to publish this refinement.
+
 ## Approved blue galaxy hero release
 
 The November 12 approved composition is integrated only into the existing release build. The exact source is private review commit `03275e42fed674249237b046cc01532ed9a5cec6`. The source image and presentation styles/controller remain byte-identical. The decorative backdrop uses low fetch priority so it does not delay the visible launch poster on slow mobile connections. `scripts/blue-galaxy-release.mjs` adds the blue backdrop, viewport-safe layout and product reveal after actual distant flight (or static/failure/scroll escape), while preserving every on-page word, link, media byte and playback control. The original playback controller is unchanged. Mobile retains full-width 16:9 film above copy/card; desktop fills the viewport edge to edge.

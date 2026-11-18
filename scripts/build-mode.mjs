@@ -2,7 +2,7 @@
 // An ordinary local/branch build stays archival. Existing study commands remain
 // available for comparison without silently turning them into a release.
 export function isReleaseReview(env = process.env) {
-  const branches = ['codex/solar-bridge-study', 'codex/blue-galaxy-release-20261112'];
+  const branches = ['codex/solar-bridge-study', 'codex/blue-galaxy-release-20261112', 'codex/visual-refinement-20261118'];
   return (env.NETLIFY === 'true' && env.CONTEXT === 'deploy-preview' && branches.includes(env.HEAD))
     || (env.VERCEL === '1' && env.VERCEL_ENV === 'preview' && branches.includes(env.VERCEL_GIT_COMMIT_REF));
 }
